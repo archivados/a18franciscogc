@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='xestionsat_equipos_action' model='ir.actions.act_window'>
+        <field name="name">XestionSAT Equipos</field>
+        <field name="res_model">xestionsat.equipos</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="XestionSAT" id="xestionsat_base_menu" />
+    <menuitem name="Equipos" id="xestionsat_equipos_menu" parent="xestionsat_base_menu" action="xestionsat_equipos_action"/>
+
+    <!-- Form View -->
+    <record id="xestionsat_equipos_view_form" model="ir.ui.view">
+        <field name="name">XestionSAT Equipo Formulario</field>
+        <field name="model">xestionsat.equipos</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="make_operativo" string="Cambiar a Operativo" type="object"/>
+                    <button name="make_reparandose"  string="Crear Inicidencia" type="object"/>
+                    <button name="make_baixa"  string="Dar de Baixa" type="object"/>
+                    <field name="estado" widget="statusbar"/>
+                </header>
+                <group>
+                    <group>
+                        <field name="descricion"/>
+                        <field name="observacions"/>
+                        <field name="data_alta"/>
+                        <field name="data_baixa"/>
+                    </group>
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="sede_id"/>
+                        <field name="ubicacion"/>
+                        <field name="usuarios_ids" widget="many2many_tags"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree(list) View -->
+    <record id="xestionsat_equipos_view_tree" model="ir.ui.view">
+        <field name="name">XestionSAT Equipos Lista</field>
+        <field name="model">xestionsat.equipos</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id"/>
+                <field name="descricion"/>
+                <field name="data_alta"/>
+                <field name="sede_id"/>
+                <field name="ubicacion"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
