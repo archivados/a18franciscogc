@@ -1,3 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 acl_xestionsat_equipos,xestionsat.equipos_default,model_xestionsat_equipos,,1,1,1,1
 acl_xestionsat_componhentesequipo,xestionsat.componhentesequipo_default,model_xestionsat_componhentesequipo,,1,1,1,1
+
+acl_xestionsat_incidencias,xestionsat.incidencias,model_xestionsat_incidencias,,1,1,1,1
+acl_xestionsat_estadosincidencia,xestionsat.estadosincidencia,model_xestionsat_estadosincidencia,,1,1,1,1
+acl_xestionsat_actuacionsincidencia,xestionsat.actuacionsincidencia,model_xestionsat_actuacionsincidencia,,1,1,1,1

@@ -20,7 +20,7 @@
                     <group>
                         <field name="template_id"/>
                         <field name="equipo_id"/>
-                        <field name="nome"/>
+                        <field name="serial"/>
                         <field name="observacions"/>
                     </group>
                 </group>
@@ -36,7 +36,7 @@
             <tree>
                 <field name="template_id"/>
                 <field name="equipo_id"/>
-                <field name="nome"/>
+                <field name="serial"/>
                 <field name="observacions"/>
             </tree>
         </field>
