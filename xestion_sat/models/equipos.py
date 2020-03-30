@@ -11,11 +11,7 @@ class Equipos(models.Model):
     
     ### Campos relacionados
     cliente_id = fields.Many2one('res.partner', string='Cliente', ondelete='cascade', required=True)
-    sede_id = fields.Many2one('res.partner', 
-        string='Dirección sede', 
-        #domain=[('parent_id', '=', 'cliente_id')],
-        ondelete='restrict', 
-        required=True)
+    sede_id = fields.Many2one('res.partner', string='Dirección sede', ondelete='restrict', required=True)
         
     usuarios_ids = fields.Many2many('res.partner', string='Usuarios')
 

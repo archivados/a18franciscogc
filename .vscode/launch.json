@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Adjuntar",
+            "name": "Python: Remoto",
             "type": "python",
             "request": "attach",
             "port": 5678,

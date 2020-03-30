@@ -31,25 +31,26 @@
                     </group>
                     <group>
                         <field name="cliente_id"/>
-                        <field name="sede_id" domain="[('parent_id', '=', cliente_id)]" />
+                        <field name="sede_id"
+                            options="{'no_create_edit': True}" 
+                            domain="[('parent_id', '=', cliente_id)]" />
                         <!--
-
                         <field name="sede_id"/>
-
-                    <filter name="my_courses" string="My Courses"
-                            domain="[('responsible_id', '=', uid)]"/>
                         -->
                         <field name="ubicacion"/>
                         <field name="usuarios_ids" widget="many2many_tags"/>
                     </group>
                     <group>
-                        <field name="componhentesequipo_ids">
-                            <tree>
-                                <field name="template_id"/>
-                                <field name="equipo_id"/>
-                                <field name="serial"/>
-                                <field name="observacions"/>
-                            </tree>
+                        <field name="componhentesequipo_ids" string=" Compoñentes">
+                            <form>
+                                <group>
+                                    <group>
+                                        <field name="template_id"/>
+                                        <field name="serial"/>
+                                        <field name="observacions"/>
+                                    </group>
+                                </group>
+                            </form>
                         </field>
                     </group>
                 </group>
