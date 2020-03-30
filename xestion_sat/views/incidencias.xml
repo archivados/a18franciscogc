@@ -2,7 +2,7 @@
 <odoo>
 
     <record id='xestionsat_incidencias_action' model='ir.actions.act_window'>
-        <field name="name">XestionSAT Incidencia</field>
+        <field name="name">XestionSAT Incidencias</field>
         <field name="res_model">xestionsat.incidencias</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
@@ -75,10 +75,14 @@
 
     <!-- MENÚS -->
     <menuitem 
+        name="XestionSAT" 
+        id="xestionsat_base_menu" />
+
+    <menuitem 
         name="Incidencias" 
         id="xestionsat_incidencias_menu" 
         parent="xestionsat_base_menu" 
-        sequence="20" 
+        sequence="10" 
         action="xestionsat_incidencias_action"/>
 
     <menuitem 

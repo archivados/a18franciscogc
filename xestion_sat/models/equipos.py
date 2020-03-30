@@ -12,12 +12,7 @@ class Equipos(models.Model):
     ### Campos relacionados
     partner_id = fields.Many2one('res.partner', string='Cliente', ondelete='cascade', required=True)
     #sede_id = fields.Many2one('res.partner', relation='child_ids', domain='', string='Dirección sede', required=True)
-    sede_id = fields.Many2many(
-        'res.partner', 
-        #related='partner_id',
-        #domain=[('instructor', 'child_of', True)],
-        string='Dirección sede',
-        ondelete='restrict')
+    sede_id = fields.Many2one('res.partner', string='Dirección sede', ondelete='restrict', required=True)
     usuarios_ids = fields.Many2many('res.partner', string='Usuarios')
 
     componhentesequipo_ids = fields.One2many('xestionsat.componhentesequipo', inverse_name='equipo_id')

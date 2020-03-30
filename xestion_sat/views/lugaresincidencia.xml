@@ -2,7 +2,7 @@
 <odoo>
 
     <record id='xestionsat_lugaresincidencia_action' model='ir.actions.act_window'>
-        <field name="name">XestionSAT Estados Incidencia</field>
+        <field name="name">XestionSAT Lugares Incidencia</field>
         <field name="res_model">xestionsat.lugaresincidencia</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>

@@ -67,14 +67,10 @@
 
     <!-- MENÚS -->
     <menuitem 
-        name="XestionSAT" 
-        id="xestionsat_base_menu" />
-
-    <menuitem 
         name="Equipos" 
         id="xestionsat_equipos_menu" 
         parent="xestionsat_base_menu"
-        sequence="10" />
+        sequence="20" />
 
     <menuitem 
         name="Equipos" 
