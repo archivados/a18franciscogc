@@ -10,9 +10,9 @@ class Incidencias(models.Model):
     _order = 'data_ini desc'
     
     ### Campos relacionados
-    partner_id = fields.Many2one('res.partner', string='Cliente', ondelete='restrict')
-    equipos_ids = fields.Many2many('xestionsat.equipos', string='Equipos')
-    creado_id = fields.Many2one('res.partner', string='Creado por', ondelete='restrict')
+    partner_id = fields.Many2one('res.partner', string='Cliente', ondelete='restrict', required=True)
+    equipos_ids = fields.Many2many('xestionsat.equipos', string='Equipos', required=True)
+    creado_id = fields.Many2one('res.partner', string='Creado por', ondelete='restrict', required=True)
 
     actuacionsincidencia_ids = fields.One2many('xestionsat.actuacionsincidencia', inverse_name='incidencias_id')
 
@@ -65,7 +65,7 @@ class ActuacionsIncidencia(models.Model):
     _order = 'data_ini desc'
 
     ### Campos relacionados
-    executado_id = fields.Many2one('res.partner', string='Executada por', ondelete='restrict')
+    executado_id = fields.Many2one('res.partner', string='Executada por', ondelete='restrict', required=True)
 
     incidencias_id = fields.Many2one('xestionsat.incidencias', ondelete='cascade')
     template_id = fields.Many2one('product.template', ondelete='cascade')
