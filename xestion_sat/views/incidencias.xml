@@ -44,8 +44,8 @@
                     <group>
                         <field name="equipos_ids">
                             <tree>
+                                <field name="cliente_id"/>
                                 <field name="nome"/>
-                                <field name="partner_id"/>
                                 <field name="descricion"/>
                                 <field name="data_alta"/>
                                 <field name="sede_id"/>
@@ -74,10 +74,6 @@
     </record>
 
     <!-- MENÚS -->
-    <menuitem 
-        name="XestionSAT" 
-        id="xestionsat_base_menu" />
-
     <menuitem 
         name="Incidencias" 
         id="xestionsat_incidencias_menu" 

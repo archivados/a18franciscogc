@@ -15,9 +15,10 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <button name="make_almacenado" string="Almacenar" type="object"/>
                     <button name="make_operativo" string="Cambiar a Operativo" type="object"/>
-                    <button name="make_reparandose"  string="Crear Inicidencia" type="object"/>
                     <button name="make_baixa"  string="Dar de Baixa" type="object"/>
+                    <button name="make_reparandose"  string="Crear Inicidencia" type="object"/>
                     <field name="estado" widget="statusbar"/>
                 </header>
                 <group>
@@ -29,8 +30,15 @@
                         <field name="data_baixa"/>
                     </group>
                     <group>
-                        <field name="partner_id"/>
+                        <field name="cliente_id"/>
+                        <field name="sede_id" domain="[('parent_id', '=', cliente_id)]" />
+                        <!--
+
                         <field name="sede_id"/>
+
+                    <filter name="my_courses" string="My Courses"
+                            domain="[('responsible_id', '=', uid)]"/>
+                        -->
                         <field name="ubicacion"/>
                         <field name="usuarios_ids" widget="many2many_tags"/>
                     </group>
@@ -55,7 +63,7 @@
         <field name="model">xestionsat.equipos</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="partner_id"/>
+                <field name="cliente_id"/>
                 <field name="nome"/>
                 <field name="descricion"/>
                 <field name="data_alta"/>
@@ -67,10 +75,14 @@
 
     <!-- MENÚS -->
     <menuitem 
+        name="XestionSAT" 
+        id="xestionsat_base_menu" />
+
+    <menuitem 
         name="Equipos" 
         id="xestionsat_equipos_menu" 
         parent="xestionsat_base_menu"
-        sequence="20" />
+        sequence="02" />
 
     <menuitem 
         name="Equipos" 

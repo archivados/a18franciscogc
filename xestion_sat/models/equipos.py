@@ -7,12 +7,16 @@ class Equipos(models.Model):
     ### Campos modelo
     _name = 'xestionsat.equipos'
     _description = 'XestionSAT Equipos'
-    _order = 'partner_id, nome'
+    _order = 'cliente_id, nome'
     
     ### Campos relacionados
-    partner_id = fields.Many2one('res.partner', string='Cliente', ondelete='cascade', required=True)
-    #sede_id = fields.Many2one('res.partner', relation='child_ids', domain='', string='Dirección sede', required=True)
-    sede_id = fields.Many2one('res.partner', string='Dirección sede', ondelete='restrict', required=True)
+    cliente_id = fields.Many2one('res.partner', string='Cliente', ondelete='cascade', required=True)
+    sede_id = fields.Many2one('res.partner', 
+        string='Dirección sede', 
+        #domain=[('parent_id', '=', 'cliente_id')],
+        ondelete='restrict', 
+        required=True)
+        
     usuarios_ids = fields.Many2many('res.partner', string='Usuarios')
 
     componhentesequipo_ids = fields.One2many('xestionsat.componhentesequipo', inverse_name='equipo_id')
@@ -32,6 +36,8 @@ class Equipos(models.Model):
     ubicacion = fields.Char('Ubicación')
     descricion = fields.Char('Descrición')
     observacions = fields.Char('Observacións')
+
+    ### Restriccións
 
 class ComponhentesEquipo(models.Model):
     ### Campos modelo
