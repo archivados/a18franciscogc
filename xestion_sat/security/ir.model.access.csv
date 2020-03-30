@@ -4,4 +4,5 @@ acl_xestionsat_componhentesequipo,xestionsat.componhentesequipo_default,model_xe
 
 acl_xestionsat_incidencias,xestionsat.incidencias,model_xestionsat_incidencias,,1,1,1,1
 acl_xestionsat_estadosincidencia,xestionsat.estadosincidencia,model_xestionsat_estadosincidencia,,1,1,1,1
+acl_xestionsat_lugaresincidencia,xestionsat.lugaresincidencia,model_xestionsat_lugaresincidencia,,1,1,1,1
 acl_xestionsat_actuacionsincidencia,xestionsat.actuacionsincidencia,model_xestionsat_actuacionsincidencia,,1,1,1,1

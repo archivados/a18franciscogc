@@ -17,13 +17,9 @@ class XestionsatIncidencias(models.Model):
     data_ini = fields.Date('Data de Incio', default=lambda *a:datetime.now().strftime('%Y-%m-%d'))
     data_fin = fields.Date('Data de Finalización')
 
-    estado = fields.Many2many('xestionsat.estadosincidencia', 'estadosincidencia', string='Estados')
+    estado = fields.Many2one('xestionsat.estadosincidencia', string='Estado')
 
-    lugar = fields.Selection([
-        ('taller', 'Taller'),
-        ('insitu', 'In Situ Cliente (sede)'),
-        ('desprazado', 'In Situ Cliente (desprazado)')],
-        'Lugar asistencia', default="taller")
+    lugar = fields.Many2one('xestionsat.lugaresincidencia', string='Lugar de asistencia')
 
     titulo = fields.Char('Título', required=True)
     descricion = fields.Char('Descrición do cliente', required=True)
@@ -34,7 +30,7 @@ class XestionsatEstadosIncidencia(models.Model):
     _description = 'XestionSAT Estados Incidencia'
 
     estado = fields.Char('Estado', required=True)
-    descricion = fields.Char('Descrición do cliente', required=True)
+    descricion = fields.Char('Descrición do etado')
 
     '''
     Posibles estados:
@@ -42,11 +38,18 @@ class XestionsatEstadosIncidencia(models.Model):
         Iniciada
         En espera
         Enviado a SAT externo
-        Recibido
+        Retornado
         Finalizada
         Cancelada
-        Irreparable
+        Irresoluble
     '''
+
+class XestionsatLugaresIncidencia(models.Model):
+    _name = 'xestionsat.lugaresincidencia'
+    _description = 'XestionSAT Lugares Incidencia'
+
+    lugar = fields.Char('Lugar', required=True)
+    descricion = fields.Char('Descrición')
 
 class XestionsatActuacionsIncidencia(models.Model):
     _name = 'xestionsat.actuacionsincidencia'

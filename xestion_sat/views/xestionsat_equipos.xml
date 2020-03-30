@@ -8,9 +8,22 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem name="XestionSAT" id="xestionsat_base_menu" />
-    <menuitem name="Equipos" id="xestionsat_equipos_menu" parent="xestionsat_base_menu"/>
-    <menuitem name="Equipos" id="xestionsat_equipos_sub_menu" parent="xestionsat_equipos_menu" sequence="10" action="xestionsat_equipos_action"/>
+    <menuitem 
+        name="XestionSAT" 
+        id="xestionsat_base_menu" />
+
+    <menuitem 
+        name="Equipos" 
+        id="xestionsat_equipos_menu" 
+        parent="xestionsat_base_menu"
+        sequence="10" />
+
+    <menuitem 
+        name="Equipos" 
+        id="xestionsat_equipos_sub_menu" 
+        parent="xestionsat_equipos_menu" 
+        sequence="10" 
+        action="xestionsat_equipos_action"/>
 
     <!-- Form View -->
     <record id="xestionsat_equipos_view_form" model="ir.ui.view">
@@ -26,6 +39,7 @@
                 </header>
                 <group>
                     <group>
+                        <field name="nome"/>
                         <field name="descricion"/>
                         <field name="observacions"/>
                         <field name="data_alta"/>
@@ -59,6 +73,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="partner_id"/>
+                <field name="nome"/>
                 <field name="descricion"/>
                 <field name="data_alta"/>
                 <field name="sede_id"/>

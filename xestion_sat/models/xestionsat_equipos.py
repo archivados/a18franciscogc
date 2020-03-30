@@ -24,6 +24,7 @@ class XestionsatEquipos(models.Model):
         ('baixa', 'Baixa')],
         'Estado', default="operativo")
 
+    nome = fields.Char('Nome')
     ubicacion = fields.Char('Ubicación')
     descricion = fields.Char('Descrición')
     observacions = fields.Char('Observacións')

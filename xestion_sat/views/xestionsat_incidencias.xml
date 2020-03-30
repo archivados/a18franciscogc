@@ -8,8 +8,19 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem name="Incidencias" id="xestionsat_incidencias_menu" parent="xestionsat_base_menu" action="xestionsat_incidencias_action"/>
-    <menuitem name="Incidencias" id="xestionsat_incidencias_sub_menu" parent="xestionsat_incidencias_menu" sequence="10" action="xestionsat_incidencias_action"/>
+    <menuitem 
+        name="Incidencias" 
+        id="xestionsat_incidencias_menu" 
+        parent="xestionsat_base_menu" 
+        sequence="20" 
+        action="xestionsat_incidencias_action"/>
+
+    <menuitem 
+        name="Incidencias" 
+        id="xestionsat_incidencias_sub_menu" 
+        parent="xestionsat_incidencias_menu" 
+        sequence="10" 
+        action="xestionsat_incidencias_action"/>
 
     <!-- Form View -->
     <record id="xestionsat_incidencias_view_form" model="ir.ui.view">
@@ -31,6 +42,8 @@
                         <field name="estado"/>
                         <field name="lugar"/>
                     </group>
+                </group>
+                <group>
                     <group>
                         <field name="actuacionsincidencia_ids">
                             <tree>
@@ -45,6 +58,7 @@
                     <group>
                         <field name="equipos_ids">
                             <tree>
+                                <field name="nome"/>
                                 <field name="partner_id"/>
                                 <field name="descricion"/>
                                 <field name="data_alta"/>

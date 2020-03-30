@@ -1,49 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- 
     <record id='xestionsat_actuacionsincidencia_action' model='ir.actions.act_window'>
-        <field name="name">XestionSAT Equipos</field>
-        <field name="res_model">xestionsat.equipos</field>
+        <field name="name">XestionSAT Actuacions Incidencia</field>
+        <field name="res_model">xestionsat.actuacionsincidencia</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem name="Actuacións Incidencia" id="xestionsat_actuacionsincidencia_menu" parent="xestionsat_inicencia_menu" action="xestionsat_actuacionsincidencia_action"/>
+    <menuitem 
+        name="Actuacións Incidencias" 
+        id="xestionsat_actuacionsincidencia_sub_menu" 
+        parent="xestionsat_incidencias_menu" 
+        sequence="40" 
+        action="xestionsat_actuacionsincidencia_action"/>
 
-    -->
-    <!-- Form View ->
+    <!-- Form View -->
     <record id="xestionsat_actuacionsincidencia_view_form" model="ir.ui.view">
-        <field name="name">XestionSAT Equipo Formulario</field>
-        <field name="model">xestionsat.equipos</field>
+        <field name="name">XestionSAT Actuacions Incidencia Formulario</field>
+        <field name="model">xestionsat.actuacionsincidencia</field>
         <field name="arch" type="xml">
             <form>
-                <header>
-                    <button name="make_operativo" string="Cambiar a Operativo" type="object"/>
-                    <button name="make_reparandose"  string="Crear Inicidencia" type="object"/>
-                    <button name="make_baixa"  string="Dar de Baixa" type="object"/>
-                    <field name="estado" widget="statusbar"/>
-                </header>
+                <group>
+                    <field name="executado_id"/>
+                    <field name="data_ini"/>
+                    <field name="data_fin"/>
+                    <field name="observacions"/>
+                    <field name="template_id" widget="many2many_tags"/>
+                </group>
                 <group>
                     <group>
-                        <field name="descricion"/>
-                        <field name="observacions"/>
-                        <field name="data_alta"/>
-                        <field name="data_baixa"/>
-                    </group>
-                    <group>
-                        <field name="partner_id"/>
-                        <field name="sede_id"/>
-                        <field name="ubicacion"/>
-                        <field name="usuarios_ids" widget="many2many_tags"/>
-                    </group>
-                    <group>
-                        <field name="componhentesequipo_ids">
+                        <field name="incidencias_id">
                             <tree>
-                                <field name="template_id"/>
-                                <field name="equipo_id"/>
-                                <field name="serial"/>
-                                <field name="observacions"/>
+                                <field name="creado_id"/>
+                                <field name="titulo"/>
+                                <field name="descricion"/>
+                                <field name="estado"/>
+                                <field name="lugar"/>
                             </tree>
                         </field>
                     </group>
@@ -51,20 +44,18 @@
             </form>
         </field>
     </record>
-    -->
-    <!-- Tree(list) View ->
+
+    <!-- Tree(list) View -->
     <record id="xestionsat_actuacionsincidencia_view_tree" model="ir.ui.view">
-        <field name="name">XestionSAT Equipos Lista</field>
-        <field name="model">xestionsat.equipos</field>
+        <field name="name">XestionSAT Actuacions Incidencias Lista</field>
+        <field name="model">xestionsat.actuacionsincidencia</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="partner_id"/>
-                <field name="descricion"/>
-                <field name="data_alta"/>
-                <field name="sede_id"/>
-                <field name="ubicacion"/>
+                <field name="executado_id"/>
+                <field name="data_ini"/>
+                <field name="data_fin"/>
+                <field name="observacions"/>
             </tree>
         </field>
     </record>
-    -->
 </odoo>
