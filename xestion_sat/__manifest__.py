@@ -35,6 +35,9 @@
         'security/ir.model.access.csv',
         'views/xestionsat_equipos.xml',
         'views/xestionsat_componhentesequipo.xml',
+        'views/xestionsat_incidencias.xml',
+        'views/xestionsat_estadosincidencia.xml',
+        'views/xestionsat_actuacionsincidencia.xml',
     ],
     # only loaded in demonstration mode
     #'demo': [

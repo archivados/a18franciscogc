@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='xestionsat_incidencias_action' model='ir.actions.act_window'>
+        <field name="name">XestionSAT Incidencia</field>
+        <field name="res_model">xestionsat.incidencias</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Incidencias" id="xestionsat_incidencias_menu" parent="xestionsat_base_menu" action="xestionsat_incidencias_action"/>
+    <menuitem name="Incidencias" id="xestionsat_incidencias_sub_menu" parent="xestionsat_incidencias_menu" sequence="10" action="xestionsat_incidencias_action"/>
+
+    <!-- Form View -->
+    <record id="xestionsat_incidencias_view_form" model="ir.ui.view">
+        <field name="name">XestionSAT Incidencia Formulario</field>
+        <field name="model">xestionsat.incidencias</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="titulo"/>
+                        <field name="descricion"/>
+                        <field name="observacions"/>
+                        <field name="creado_id"/>
+                    </group>
+                    <group>
+                        <field name="data_ini"/>
+                        <field name="data_fin"/>
+                        <field name="estado"/>
+                        <field name="lugar"/>
+                    </group>
+                    <group>
+                        <field name="actuacionsincidencia_ids">
+                            <tree>
+                                <field name="executado_id"/>
+                                <field name="data_ini"/>
+                                <field name="data_fin"/>
+                                <field name="template_id"/>
+                                <field name="observacions"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group>
+                        <field name="equipos_ids">
+                            <tree>
+                                <field name="partner_id"/>
+                                <field name="descricion"/>
+                                <field name="data_alta"/>
+                                <field name="sede_id"/>
+                                <field name="ubicacion"/>
+                            </tree>
+                        </field>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree(list) View -->
+    <record id="xestionsat_incidencias_view_tree" model="ir.ui.view">
+        <field name="name">XestionSAT Incidencias Lista</field>
+        <field name="model">xestionsat.incidencias</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="creado_id"/>
+                <field name="titulo"/>
+                <field name="descricion"/>
+                <field name="estado"/>
+                <field name="lugar"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- 
     <record id='xestionsat_equipos_action' model='ir.actions.act_window'>
         <field name="name">XestionSAT Equipos</field>
         <field name="res_model">xestionsat.equipos</field>
@@ -9,10 +10,10 @@
     </record>
 
     <menuitem name="XestionSAT" id="xestionsat_base_menu" />
-    <menuitem name="Equipos" id="xestionsat_equipos_menu" parent="xestionsat_base_menu"/>
-    <menuitem name="Equipos" id="xestionsat_equipos_sub_menu" parent="xestionsat_equipos_menu" sequence="10" action="xestionsat_equipos_action"/>
+    <menuitem name="Equipos" id="xestionsat_equipos_menu" parent="xestionsat_base_menu" action="xestionsat_equipos_action"/>
 
-    <!-- Form View -->
+    -->
+    <!-- Form View ->
     <record id="xestionsat_equipos_view_form" model="ir.ui.view">
         <field name="name">XestionSAT Equipo Formulario</field>
         <field name="model">xestionsat.equipos</field>
@@ -51,8 +52,9 @@
             </form>
         </field>
     </record>
+    -->
 
-    <!-- Tree(list) View -->
+    <!-- Tree(list) View ->
     <record id="xestionsat_equipos_view_tree" model="ir.ui.view">
         <field name="name">XestionSAT Equipos Lista</field>
         <field name="model">xestionsat.equipos</field>
@@ -66,4 +68,5 @@
             </tree>
         </field>
     </record>
+    -->
 </odoo>

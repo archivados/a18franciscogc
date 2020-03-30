@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id='xestionsat_equipos_action' model='ir.actions.act_window'>
+    <!-- 
+    <record id='xestionsat_actuacionsincidencia_action' model='ir.actions.act_window'>
         <field name="name">XestionSAT Equipos</field>
         <field name="res_model">xestionsat.equipos</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem name="XestionSAT" id="xestionsat_base_menu" />
-    <menuitem name="Equipos" id="xestionsat_equipos_menu" parent="xestionsat_base_menu"/>
-    <menuitem name="Equipos" id="xestionsat_equipos_sub_menu" parent="xestionsat_equipos_menu" sequence="10" action="xestionsat_equipos_action"/>
+    <menuitem name="Actuacións Incidencia" id="xestionsat_actuacionsincidencia_menu" parent="xestionsat_inicencia_menu" action="xestionsat_actuacionsincidencia_action"/>
 
-    <!-- Form View -->
-    <record id="xestionsat_equipos_view_form" model="ir.ui.view">
+    -->
+    <!-- Form View ->
+    <record id="xestionsat_actuacionsincidencia_view_form" model="ir.ui.view">
         <field name="name">XestionSAT Equipo Formulario</field>
         <field name="model">xestionsat.equipos</field>
         <field name="arch" type="xml">
@@ -51,9 +51,9 @@
             </form>
         </field>
     </record>
-
-    <!-- Tree(list) View -->
-    <record id="xestionsat_equipos_view_tree" model="ir.ui.view">
+    -->
+    <!-- Tree(list) View ->
+    <record id="xestionsat_actuacionsincidencia_view_tree" model="ir.ui.view">
         <field name="name">XestionSAT Equipos Lista</field>
         <field name="model">xestionsat.equipos</field>
         <field name="arch" type="xml">
@@ -66,4 +66,5 @@
             </tree>
         </field>
     </record>
+    -->
 </odoo>

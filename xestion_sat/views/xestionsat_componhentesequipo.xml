@@ -8,7 +8,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem name="Compoñentes Equipo" id="xestionsat_componhentesequipo_menu" parent="xestionsat_base_menu" action="xestionsat_componhentesequipo_action"/>
+    <menuitem name="Compoñentes Equipo" id="xestionsat_componhentesequipo_menu" parent="xestionsat_equipos_menu" sequence="20" action="xestionsat_componhentesequipo_action"/>
 
     <!-- Form View -->
     <record id="xestionsat_componhentesequipo_view_form" model="ir.ui.view">
