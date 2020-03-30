@@ -8,12 +8,6 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem name="Lugares Incidencias" 
-        id="xestionsat_lugaresincidencia_menu" 
-        parent="xestionsat_incidencias_menu" 
-        sequence="30" 
-        action="xestionsat_lugaresincidencia_action"/>
-
     <!-- Form View -->
     <record id="xestionsat_lugaresincidencia_view_form" model="ir.ui.view">
         <field name="name">XestionSAT Lugar Incidencia Formulario</field>
@@ -39,4 +33,12 @@
             </tree>
         </field>
     </record>
+
+    <!-- MENÚS -->
+    <menuitem name="Lugares Incidencias" 
+        id="xestionsat_lugaresincidencia_menu" 
+        parent="xestionsat_incidencias_menu" 
+        sequence="30" 
+        action="xestionsat_lugaresincidencia_action"/>
+    
 </odoo>

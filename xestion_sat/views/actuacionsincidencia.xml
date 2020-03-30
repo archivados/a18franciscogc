@@ -8,13 +8,6 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem 
-        name="Actuacións Incidencias" 
-        id="xestionsat_actuacionsincidencia_sub_menu" 
-        parent="xestionsat_incidencias_menu" 
-        sequence="40" 
-        action="xestionsat_actuacionsincidencia_action"/>
-
     <!-- Form View -->
     <record id="xestionsat_actuacionsincidencia_view_form" model="ir.ui.view">
         <field name="name">XestionSAT Actuacions Incidencia Formulario</field>
@@ -58,4 +51,13 @@
             </tree>
         </field>
     </record>
+
+    <!-- MENÚS -->
+    <menuitem 
+        name="Actuacións Incidencias" 
+        id="xestionsat_actuacionsincidencia_sub_menu" 
+        parent="xestionsat_incidencias_menu" 
+        sequence="40" 
+        action="xestionsat_actuacionsincidencia_action"/>
+    
 </odoo>

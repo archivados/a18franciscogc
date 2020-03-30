@@ -33,12 +33,13 @@
     # always loaded
     'data': [
         'security/ir.model.access.csv',
-        'views/xestionsat_equipos.xml',
-        'views/xestionsat_componhentesequipo.xml',
-        'views/xestionsat_incidencias.xml',
-        'views/xestionsat_estadosincidencia.xml',
-        'views/xestionsat_lugaresincidencia.xml',
-        'views/xestionsat_actuacionsincidencia.xml',
+        'views/equipos.xml',
+        'views/clientes.xml',
+        'views/componhentesequipo.xml',
+        'views/incidencias.xml',
+        'views/estadosincidencia.xml',
+        'views/lugaresincidencia.xml',
+        'views/actuacionsincidencia.xml',
     ],
     # only loaded in demonstration mode
     #'demo': [
