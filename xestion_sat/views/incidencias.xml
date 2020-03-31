@@ -30,32 +30,30 @@
                     </group>
                 </group>
                 <group>
-                    <group>
-                        <field name="actuacionsincidencia_ids">
-                            <tree>
-                                <field name="executado_por_id"/>
-                                <field name="data_ini"/>
-                                <field name="data_fin"/>
-                                <field name="template_id"/>
-                                <field name="observacions"/>
-                            </tree>
-                        </field>
-                    </group>
-                    <group>
-                        <field name="equipos_ids"
-                            domain="[('propietario_id', '=', cliente_id)]"
-                            >
-                            <tree>
-                                <field name="propietario_id"/>
-                                <field name="nome"/>
-                                <field name="descricion"/>
-                                <field name="data_alta"/>
-                                <field name="sede_id"/>
-                                <field name="ubicacion"/>
-                            </tree>
-                        </field>
-                    </group>
+                    <field name="equipos_ids"
+                        domain="[('propietario_id', '=', cliente_id)]"
+                        >
+                        <tree>
+                            <field name="propietario_id"/>
+                            <field name="nome"/>
+                            <field name="descricion"/>
+                            <field name="data_alta"/>
+                            <field name="sede_id"/>
+                            <field name="ubicacion"/>
+                        </tree>
+                    </field>
                 </group>
+
+                <label for="actuacionsincidencia_ids" string="Actuacións" />
+                <field name="actuacionsincidencia_ids">
+                    <tree>
+                        <field name="executado_por_id"/>
+                        <field name="data_ini"/>
+                        <field name="data_fin"/>
+                        <field name="template_id"/>
+                        <field name="observacions"/>
+                    </tree>
+                </field>
             </form>
         </field>
     </record>

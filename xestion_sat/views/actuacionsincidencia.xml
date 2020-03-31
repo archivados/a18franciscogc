@@ -5,37 +5,7 @@
         <field name="name">Actuacions Incidencias</field>
         <field name="res_model">xestionsat.actuacionsincidencia</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
-    <!-- Form View -->
-    <record id="xestionsat_actuacionsincidencia_view_form" model="ir.ui.view">
-        <field name="name">Actuacions Incidencia</field>
-        <field name="model">xestionsat.actuacionsincidencia</field>
-        <field name="arch" type="xml">
-            <form>
-                <group>
-                    <field name="executado_por_id"/>
-                    <field name="data_ini"/>
-                    <field name="data_fin"/>
-                    <field name="observacions"/>
-                    <field name="template_id" widget="many2many_tags"/>
-                </group>
-                <group>
-                    <group>
-                        <field name="incidencias_id">
-                            <tree>
-                                <field name="creado_por_id"/>
-                                <field name="titulo"/>
-                                <field name="descricion"/>
-                                <field name="estado"/>
-                                <field name="lugar"/>
-                            </tree>
-                        </field>
-                    </group>
-                </group>
-            </form>
-        </field>
+        <field name="view_mode">tree</field>
     </record>
 
     <!-- Tree(list) View -->
@@ -51,13 +21,5 @@
             </tree>
         </field>
     </record>
-
-    <!-- MENÚS -->
-    <menuitem 
-        name="Actuacións Incidencias" 
-        id="xestionsat_actuacionsincidencia_sub_menu" 
-        parent="xestionsat_incidencias_menu" 
-        sequence="40" 
-        action="xestionsat_actuacionsincidencia_action"/>
     
 </odoo>
