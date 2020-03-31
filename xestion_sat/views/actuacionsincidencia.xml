@@ -15,9 +15,11 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="executado_por_id"/>
+                <field name="template_id"/>
+                <field name="observacions"/>
+                <field name="list_price"/>
                 <field name="data_ini"/>
                 <field name="data_fin"/>
-                <field name="observacions"/>
             </tree>
         </field>
     </record>

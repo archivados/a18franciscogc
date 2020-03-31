@@ -8,35 +8,12 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <!-- Form View -->
-    <record id="xestionsat_componhentesequipo_view_form" model="ir.ui.view">
-        <field name="name">Compoñente Equipo</field>
-        <field name="model">xestionsat.componhentesequipo</field>
-        <field name="arch" type="xml">
-            <form>
-                <group>
-                    <group>
-                        <field name="template_id"/>
-                        <field name="equipo_id"
-                            options="{'no_create_edit': True}" 
-                        />
-                        <field name="serial"/>
-                        <field name="observacions"/>
-                    </group>
-                </group>
-            </form>
-        </field>
-    </record>
-
     <!-- Tree(list) View -->
     <record id="xestionsat_componhentesequipo_view_tree" model="ir.ui.view">
         <field name="name">Compoñentes de Equipos</field>
         <field name="model">xestionsat.componhentesequipo</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="equipo_id">
-                    <field name="nome"/>
-                </field>
                 <field name="template_id"/>
                 <field name="serial"/>
                 <field name="observacions"/>
@@ -44,12 +21,12 @@
         </field>
     </record>
 
-    <!-- MENÚS -->
+    <!-- MENÚS ->
     <menuitem 
         name="Compoñentes Equipo" 
         id="xestionsat_componhentesequipo_menu" 
         parent="xestionsat_equipos_menu" 
         sequence="20"
         action="xestionsat_componhentesequipo_action"/>
-    
+    -->
 </odoo>

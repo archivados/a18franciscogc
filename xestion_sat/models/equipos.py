@@ -6,10 +6,13 @@ from odoo import models, fields, api
 class Equipos(models.Model):
     ### Campos modelo
     _name = 'xestionsat.equipos'
+    _rec_name = 'nome'
     _description = 'XestionSAT Equipos'
     _order = 'propietario_id, codigo_interno, nome'
     
     ### Campos relacionados
+    creado_por_id = fields.Many2one('res.users', string='Creado por', ondelete='restrict', default=lambda self: self.env.user, required=True)
+
     propietario_id = fields.Many2one('res.partner', string='Cliente', ondelete='cascade', required=True)
     sede_id = fields.Many2one('res.partner', string='Dirección sede', ondelete='restrict', required=True)
         
@@ -49,6 +52,11 @@ class Equipos(models.Model):
             if  equipo.codigo_interno and self.env['xestionsat.equipos'].search([('codigo_interno', '=', self.codigo_interno), ('id', '!=', self.id)]):
                 raise ValueError('O código xa existe')
 
+    @api.constrains ('creado_por_id')
+    def _comprobar_creador(self):
+        for equipo in self:
+            if equipo.creado_por_id and equipo.creado_por_id != self.env.user:
+                raise models.ValidationError('Un usuario non pode crear Equipos no nome de outro')
 
 class ComponhentesEquipo(models.Model):
     ### Campos modelo

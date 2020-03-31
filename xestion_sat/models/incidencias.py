@@ -12,7 +12,7 @@ class Incidencias(models.Model):
     ### Campos relacionados
     cliente_id = fields.Many2one('res.partner', string='Cliente', ondelete='restrict', required=True)
     equipos_ids = fields.Many2many('xestionsat.equipos', string='Equipos', required=True)
-    creado_por_id = fields.Many2one('res.partner', string='Creado por', ondelete='restrict', required=True)
+    creado_por_id = fields.Many2one('res.users', string='Creado por', ondelete='restrict', default=lambda self: self.env.user, required=True)
 
     actuacionsincidencia_ids = fields.One2many('xestionsat.actuacionsincidencia', inverse_name='incidencias_id')
 
@@ -35,10 +35,16 @@ class Incidencias(models.Model):
             if incidencia.equipos_ids and incidencia.equipos_ids.propietario_id != incidencia.cliente_id:
                 raise models.ValidationError('O Equipo debe pertencer ó cliente especificado')
 
+    @api.constrains ('creado_por_id')
+    def _comprobar_creador(self):
+        for incidencia in self:
+            if incidencia.creado_por_id and incidencia.creado_por_id != self.env.user:
+                raise models.ValidationError('Un usuario non pode crear Incidencias no nome de outro')
 
 class EstadosIncidencia(models.Model):
     ### Campos modelo
     _name = 'xestionsat.estadosincidencia'
+    _rec_name = 'estado'
     _description = 'XestionSAT Estados Incidencia'
 
     ### Campos propios
@@ -60,6 +66,7 @@ class EstadosIncidencia(models.Model):
 class LugaresIncidencia(models.Model):
     ### Campos modelo
     _name = 'xestionsat.lugaresincidencia'
+    _rec_name = 'lugar'
     _description = 'XestionSAT Lugares Incidencia'
 
     ### Campos propios
@@ -69,20 +76,28 @@ class LugaresIncidencia(models.Model):
 class ActuacionsIncidencia(models.Model):
     ### Campos modelo
     _name = 'xestionsat.actuacionsincidencia'
+    _inherits = {'product.template': 'template_id'}
     _description = 'XestionSAT Actuacións Incidencia'
     _order = 'data_ini desc'
 
     ### Campos relacionados
-    executado_por_id = fields.Many2one('res.partner', string='Executada por', ondelete='restrict', required=True)
+    executado_por_id = fields.Many2one('res.users', string='Executada por', ondelete='restrict', default=lambda self: self.env.user, required=True)
 
     incidencias_id = fields.Many2one('xestionsat.incidencias', ondelete='cascade')
-    template_id = fields.Many2one('product.template', ondelete='cascade')
+    template_id = fields.Many2one('product.template', string='Acción', ondelete='cascade')
 
     ### Campos propios
     data_ini = fields.Date('Data de Incio', default=lambda *a:datetime.now().strftime('%Y-%m-%d'))
     data_fin = fields.Date('Data de Finalización')
 
     observacions = fields.Char('Observacións')
+
+    ### Restriccións
+    @api.constrains ('executado_por_id')
+    def _comprobar_creador(self):
+        for actuacion in self:
+            if actuacion.executado_por_id and actuacion.executado_por_id != self.env.user:
+                raise models.ValidationError('Un usuario non pode crear Acccións no nome de outro')
 
 #class Accions(models.Model):
 #    ### Campos modelo

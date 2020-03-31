@@ -32,6 +32,7 @@
 
     # always loaded
     'data': [
+        'security/groups.xml',
         'security/ir.model.access.csv',
         'views/equipos.xml',
         'views/clientes.xml',
