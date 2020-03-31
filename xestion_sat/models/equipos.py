@@ -7,10 +7,10 @@ class Equipos(models.Model):
     ### Campos modelo
     _name = 'xestionsat.equipos'
     _description = 'XestionSAT Equipos'
-    _order = 'cliente_id, nome'
+    _order = 'propietario_id, codigo_interno, nome'
     
     ### Campos relacionados
-    cliente_id = fields.Many2one('res.partner', string='Cliente', ondelete='cascade', required=True)
+    propietario_id = fields.Many2one('res.partner', string='Cliente', ondelete='cascade', required=True)
     sede_id = fields.Many2one('res.partner', string='Dirección sede', ondelete='restrict', required=True)
         
     usuarios_ids = fields.Many2many('res.partner', string='Usuarios')
@@ -18,6 +18,12 @@ class Equipos(models.Model):
     componhentesequipo_ids = fields.One2many('xestionsat.componhentesequipo', inverse_name='equipo_id')
 
     ### Campos propios
+    nome = fields.Char('Nome', required=True)
+    codigo_interno = fields.Char('Código Interno')
+    ubicacion = fields.Char('Ubicación')
+    descricion = fields.Char('Descrición')
+    observacions = fields.Char('Observacións')
+
     data_alta = fields.Date('Data de Alta', default=lambda *a:datetime.now().strftime('%Y-%m-%d'))
     data_baixa = fields.Date('Data de Baixa')
 
@@ -28,12 +34,21 @@ class Equipos(models.Model):
         ('baixa', 'Baixa')],
         'Estado', default="operativo", required=True)
 
-    nome = fields.Char('Nome', required=True)
-    ubicacion = fields.Char('Ubicación')
-    descricion = fields.Char('Descrición')
-    observacions = fields.Char('Observacións')
-
     ### Restriccións
+    @api.constrains ('sede_id','usuarios_ids')
+    def _comprobar_pai(self):
+        for equipo in self:
+            if equipo.usuarios_ids and equipo.usuarios_ids.parent_id != equipo.propietario_id:
+                raise models.ValidationError('O usuario debe pertencer ó cliente especificado')
+            if equipo.sede_id and equipo.sede_id.parent_id != equipo.propietario_id:
+                raise models.ValidationError('A sede debe pertencer ó cliente especificado')
+
+    @api.constrains ('codigo_interno')
+    def _comprobar_pai(self):
+        for equipo in self:
+            if  equipo.codigo_interno and self.env['xestionsat.equipos'].search([('codigo_interno', '=', self.codigo_interno), ('id', '!=', self.id)]):
+                raise ValueError('O código xa existe')
+
 
 class ComponhentesEquipo(models.Model):
     ### Campos modelo

@@ -2,7 +2,7 @@
 <odoo>
 
     <record id='xestionsat_actuacionsincidencia_action' model='ir.actions.act_window'>
-        <field name="name">XestionSAT Actuacions Incidencia</field>
+        <field name="name">Actuacions Incidencias</field>
         <field name="res_model">xestionsat.actuacionsincidencia</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
@@ -10,12 +10,12 @@
 
     <!-- Form View -->
     <record id="xestionsat_actuacionsincidencia_view_form" model="ir.ui.view">
-        <field name="name">XestionSAT Actuacions Incidencia Formulario</field>
+        <field name="name">Actuacions Incidencia</field>
         <field name="model">xestionsat.actuacionsincidencia</field>
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="executado_id"/>
+                    <field name="executado_por_id"/>
                     <field name="data_ini"/>
                     <field name="data_fin"/>
                     <field name="observacions"/>
@@ -25,7 +25,7 @@
                     <group>
                         <field name="incidencias_id">
                             <tree>
-                                <field name="creado_id"/>
+                                <field name="creado_por_id"/>
                                 <field name="titulo"/>
                                 <field name="descricion"/>
                                 <field name="estado"/>
@@ -40,11 +40,11 @@
 
     <!-- Tree(list) View -->
     <record id="xestionsat_actuacionsincidencia_view_tree" model="ir.ui.view">
-        <field name="name">XestionSAT Actuacions Incidencias Lista</field>
+        <field name="name">Lista Actuacions Incidencias</field>
         <field name="model">xestionsat.actuacionsincidencia</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="executado_id"/>
+                <field name="executado_por_id"/>
                 <field name="data_ini"/>
                 <field name="data_fin"/>
                 <field name="observacions"/>
