@@ -81,13 +81,6 @@
     <!-- MENÚS -->
     <menuitem 
         name="Incidencias" 
-        id="xestionsat_incidencias_menu" 
-        parent="xestionsat_base_menu" 
-        sequence="10" 
-        action="xestionsat_incidencias_action"/>
-
-    <menuitem 
-        name="Incidencias" 
         id="xestionsat_incidencias_sub_menu" 
         parent="xestionsat_incidencias_menu" 
         sequence="10" 

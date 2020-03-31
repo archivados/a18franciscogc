@@ -20,13 +20,4 @@
             </tree>
         </field>
     </record>
-
-    <!-- MENÚS ->
-    <menuitem 
-        name="Compoñentes Equipo" 
-        id="xestionsat_componhentesequipo_menu" 
-        parent="xestionsat_equipos_menu" 
-        sequence="20"
-        action="xestionsat_componhentesequipo_action"/>
-    -->
 </odoo>

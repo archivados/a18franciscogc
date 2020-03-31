@@ -99,11 +99,12 @@ class ActuacionsIncidencia(models.Model):
             if actuacion.executado_por_id and actuacion.executado_por_id != self.env.user:
                 raise models.ValidationError('Un usuario non pode crear Acccións no nome de outro')
 
-#class Accions(models.Model):
-#    ### Campos modelo
-#    _name = 'xestionsat.actuacions'
-#    _inherits = {'product.template': 'template_id'}
-#    _description = 'XestionSAT Accións Incidencia'
+class ProductTemplate(models.Model):
+    ### Campos modelo
+    _inherit = 'product.template'
 
-#    template_id = fields.Many2one('product.template', ondelete='cascade')
-#    nome = fields.Char('Nome descriptivo', required=True)
+    type = fields.Selection([
+        ('consu', 'Consumable'),
+        ('service', 'Service'),
+        ('sat', 'Acción de SAT')],
+        'Type', default="consu")

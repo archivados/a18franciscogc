@@ -34,8 +34,8 @@
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
+        'views/menu_principal.xml',
         'views/equipos.xml',
-        'views/clientes.xml',
         'views/componhentesequipo.xml',
         'views/incidencias.xml',
         'views/estadosincidencia.xml',
