@@ -3,7 +3,7 @@
     'name': "xestionSAT",
 
     'summary': """
-        Módulo para manexar a xestión dun Servizo Técnico de Asistencia""",
+        Módulo para manexar a xestión dun Servizo de Asistencia Técnica""",
 
     'description': """
         Preténdese modelar un módulo que facilite o rexistro das intervencións técnicas sobre un ou varios Equipos relacionados cuns clientes (Partners) e a consulta do histórico das mesmas.

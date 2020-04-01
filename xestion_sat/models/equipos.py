@@ -92,12 +92,29 @@ class Equipos(models.Model):
         self.cambiar_estado('almacenado')
 
     def ponher_operativo(self):
-        self.cambiar_estado('operativo')
+        if not self.comprobar_incidencias():
+            self.cambiar_estado('operativo')
 
     @api.multi
     def crear_incidencia(self):
-        self.cambiar_estado('reparandose')
+        self.cambiar_estado('reparandose')        
+
+        return self.crear_incidencia_nova()
+
+    '''
+    @api.multi
+    def comprobar_incidencias(self):
+        ten_incidencias = False
+
+        for inicidencia in self.env['xestionsat.incidencias'].search([]):
+            domain = ['&',('equipos.id', 'in', inicidencia.equipos_ids), ('estado', '=', 'reparandose')]
+            ten_incidencias = self.env['xestionsat.incidencias'].search(domain, count=True) > 0
         
+        return ten_incidencias
+    '''
+     
+    @api.multi
+    def crear_incidencia_nova(self):
         incidencia_form = self.env.ref('xestionsat.incidencias', False)
 
         incidencia_nova_contexto = {
