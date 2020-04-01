@@ -27,6 +27,7 @@ class Incidencias(models.Model):
     titulo = fields.Char('Título', required=True)
     descricion = fields.Char('Descrición do cliente', required=True)
     observacions = fields.Char('Observacións')
+    bloquear = fields.Boolean(default=False, readonly=True)
 
     ### Restriccións
     @api.constrains ('equipos_ids')

@@ -58,6 +58,73 @@ class Equipos(models.Model):
             if equipo.creado_por_id and equipo.creado_por_id != self.env.user:
                 raise models.ValidationError('Un usuario non pode crear Equipos no nome de outro')
 
+    ### Cambios de Estado
+    @api.model
+    def cambios_estado_permitidos(self, estado_actual, estado_novo):
+        allowed = [('almacenado', 'operativo'),
+                   ('almacenado', 'reparandose'),
+                   ('almacenado', 'baixa'),
+
+                   ('operativo', 'almacenado'),
+                   ('operativo', 'reparandose'),
+                   ('operativo', 'baixa'),
+                   
+                   ('reparandose', 'almacenado'),
+                   ('reparandose', 'operativo'),
+                   ('reparandose', 'baixa'),
+
+                   ('baixa', 'almacenado'),
+                   ('baixa', 'operativo'),
+                   ('baixa', 'reparandose')]
+        return (estado_actual, estado_novo) in allowed
+
+    @api.multi
+    def cambiar_estado(self, estado_novo):
+        for equipo in self:
+            if equipo.estado != estado_novo:
+                if equipo.cambios_estado_permitidos(equipo.estado, estado_novo):
+                    equipo.estado = estado_novo
+                else:
+                    mensaxe = ('Non se pode cambiar de <%s> a <%s>') % (equipo.estado, estado_novo)
+                    raise models.UserError(mensaxe)
+
+    def almacenar(self):
+        self.cambiar_estado('almacenado')
+
+    def ponher_operativo(self):
+        self.cambiar_estado('operativo')
+
+    @api.multi
+    def crear_incidencia(self):
+        self.cambiar_estado('reparandose')
+        
+        incidencia_form = self.env.ref('xestionsat.incidencias', False)
+
+        incidencia_nova_contexto = {
+            'default_bloquear': True,
+            'default_cliente_id': self.propietario_id.id,
+            'default_equipos_ids': [ self.id ]
+        }
+
+        incidencia_nova = {
+            'name': 'Nova Incidencia',
+            'type': 'ir.actions.act_window',
+            'res_model': 'xestionsat.incidencias',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'context': incidencia_nova_contexto,
+            'target': 'new',
+            'views': [(incidencia_form, 'form')],
+            'view_id': incidencia_form,
+            'flags': {'action_buttons': True}
+        }
+
+        #record = self.env['xestionsat.incidencias'].create(incidencia_nova)
+        return incidencia_nova
+
+    def dar_baixa(self):
+        self.cambiar_estado('baixa')
+
 class ComponhentesEquipo(models.Model):
     ### Campos modelo
     _name = 'xestionsat.componhentesequipo'
