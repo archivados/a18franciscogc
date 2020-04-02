@@ -6,6 +6,7 @@ from odoo import models, fields, api
 class Incidencias(models.Model):
     ### Campos modelo
     _name = 'xestionsat.incidencias'
+    _rec_name = 'titulo'
     _description = 'XestionSAT Incidencias'
     _order = 'data_ini desc'
     
