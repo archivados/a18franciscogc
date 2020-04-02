@@ -92,8 +92,7 @@ class Equipos(models.Model):
         self.cambiar_estado('almacenado')
 
     def ponher_operativo(self):
-        if not self.comprobar_incidencias():
-            self.cambiar_estado('operativo')
+        self.cambiar_estado('operativo')
 
     @api.multi
     def crear_incidencia(self):
