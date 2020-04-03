@@ -12,7 +12,6 @@ a18franciscogc@iessanclemente.net
 
 <https://github.com/a18franciscogc/xestionSAT.git>
 
-
 ## 1. Plantexamento
    
 ### 1.1. Propósito
@@ -32,14 +31,16 @@ Preténdese modelar un módulo que facilite o rexistro das intervencións técni
 
 #### 3.1 Táboas modificadas
 
-* Produtos (Incluír os compoñentes dun Equipo e as Actuacións sobre cada Incidencia)
+* ProductTemplate (Incluír tipo de produto `Acción de SAT`)
 
 #### 3.2. Táboas creadas
 
 * Equipos
-* CompoñesEquipos
+* ComponhentesEquipo
 * Incidencias
-* Actuacións (sobre as incidencias, serán produtos asociados)
+* EstadosIncidencia
+* LugaresIncidencia
+* ActuacionsIncidencia (sobre as incidencias, serán produtos asociados)
  
 ## 2. Estratexia de ramificación e etiquetaxe
 
@@ -66,3 +67,20 @@ v1.0.0-modulo_odoo
 |:-         |:-
 | a         | Versión en probas (alfa) aínda sen test completo
 | v         | Versión estable (release branch) para implementar en produción
+
+
+## 3. Chagelog
+
+[changelog]
+
+[//]: # (Listado dos links empregados)
+
+   [changelog]: <doc/changelog.md>
+
+   <!-- Cógigo fonte -->
+
+   [Buffer.java]: <../../src/main/java/psp/ejercicio01/Buffer.java>
+
+   [Consumidor.java]: <../../src/main/java/psp/ejercicio01/Consumidor.java>
+
+   [Productor.java]: <../../src/main/java/psp/ejercicio01/Productor.java>
