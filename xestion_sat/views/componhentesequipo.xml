@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='xestionsat_componhentesequipo_action' model='ir.actions.act_window'>
+        <field name="name">Compoñentes de Equipos</field>
+        <field name="res_model">xestionsat.componhentesequipo</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Tree(list) View -->
+    <record id="xestionsat_componhentesequipo_view_tree" model="ir.ui.view">
+        <field name="name">Compoñentes de Equipos</field>
+        <field name="model">xestionsat.componhentesequipo</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="template_id"/>
+                <field name="serial"/>
+                <field name="observacions"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

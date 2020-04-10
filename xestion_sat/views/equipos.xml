@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='xestionsat_equipos_action' model='ir.actions.act_window'>
+        <field name="name">Equipos</field>
+        <field name="res_model">xestionsat.equipos</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Form View -->
+    <record id="xestionsat_equipos_view_form" model="ir.ui.view">
+        <field name="name">Equipo</field>
+        <field name="model">xestionsat.equipos</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="almacenar" string="Almacenar" type="object"/>
+                    <button name="ponher_operativo" string="Cambiar a Operativo" type="object"/>
+                    <button name="crear_incidencia"  string="Crear Inicidencia" type="object"/>
+                    <button name="dar_baixa"  string="Dar de Baixa" type="object"/>
+                    <field name="estado" widget="statusbar"/>
+                </header>
+                <group>
+                    <group>
+                        <field name="nome"/>
+                        <field name="codigo_interno"/>
+                        <field name="creado_por_id"
+                            domain="[('id', '=', uid)]"/>
+                        
+                        <field name="descricion"/>
+                        <field name="observacions"/>
+                        <field name="data_alta"/>
+                        <field name="data_baixa"/>
+                    </group>
+                    <group>
+                        <field name="propietario_id"/>
+                        <field name="sede_id"
+                            options="{'no_create_edit': True}" 
+                            domain="[('parent_id', '=', propietario_id)]" />
+                        <!--
+                        <field name="sede_id"/>
+                        -->
+                        <field name="ubicacion"/>
+                        <field name="usuarios_ids" 
+                            domain="[('parent_id', '=', propietario_id)]" 
+                            widget="many2many_tags"/>
+                    </group>
+                </group>
+                <label for="componhentesequipo_ids" string="Compoñentes" />
+                <field name="componhentesequipo_ids">
+                    <form>
+                        <group>
+                            <group>
+                                <field name="template_id"/>
+                                <field name="serial"/>
+                                <field name="observacions"/>
+                            </group>
+                        </group>
+                    </form>
+                </field>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree(list) View -->
+    <record id="xestionsat_equipos_view_tree" model="ir.ui.view">
+        <field name="name">Lista de Equipos</field>
+        <field name="model">xestionsat.equipos</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="propietario_id"/>
+                <field name="nome"/>
+                <field name="codigo_interno"/>
+                <field name="descricion"/>
+                <field name="data_alta"/>
+                <field name="sede_id"/>
+                <field name="ubicacion"/>
+                <field name="creado_por_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- MENÚS -->
+    <menuitem 
+        name="Equipos" 
+        id="xestionsat_equipos_sub_menu" 
+        parent="xestionsat_equipos_menu" 
+        sequence="10" 
+        action="xestionsat_equipos_action"/>
+    
+</odoo>
