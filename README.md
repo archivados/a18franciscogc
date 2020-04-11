@@ -1,3 +1,5 @@
+[![logo]][repositorio deste proxecto]
+
 # Proxecto fin de ciclo: **Xestión SAT**
 
 ## Descrición
@@ -125,7 +127,9 @@ Este software licensase baixo as condicións descritos no ficheiro [LICENSE.md] 
 
    [changelog]: <CHANGELOG.md>
 
-   <!-- Cógigo fonte -->
+   <!-- Enlaces proxecto -->
+
+   [logo]: <doc/img/logo/xestionSAT_200x200.png>
 
    [repositorio deste proxecto]: <https://gitlab.iessanclemente.net/damo/a18franciscogc.git>
 
