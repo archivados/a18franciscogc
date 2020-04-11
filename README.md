@@ -1,4 +1,4 @@
-# Proxecto fin de ciclo: Xestión SAT
+# Proxecto fin de ciclo: **Xestión SAT**
 
 ## Descrición
 
@@ -15,12 +15,22 @@ Este módulo para a plataforma de software ERP [Odoo] pretende extender as funci
 
 ## Instalación / Posta en marcha
 
-> *TODO*: En este apartado describe con toda precisión y a poder ser con la mayor simplicidad/facilidad posible, cómo poner en marcha tu aplicación para probarla (en un ambiente local). Se valorará muy positivamente que este proceso sea lo más fácil posible, con una simple instrucción (p. e. un script de instalación).
-> Si tu proyecto es documental, realiza una especificación de cómo va a ser este proceso. En otras palabras, realiza este apartado independientemente que no haya implementación.
+Para a posta en marcha deste módulo precisase instalar a plataforma de software [Odoo], recomendo a versión base da [OCA] (Odoo Community Association) dispoñible no seguinte enlace: [OCB]
+
+Podese instalar todo o necesario por un dos seguintes métodos:
+
+**1. Instalación automatizada:** Para facilitar a súa instalación ofrezo un [repositorio despregue de Odoo] cun script para a automatización da descarga, instalación e parametrización do servizo de Odoo para un entorno GNU/Linux. Unha vez descargado o contido do repositorio é recomendable modificar o seu contido para unha parametrización máis adecuada a cada escenario de emprego.
+
+**2. Instalación manual:** Se non se quixese facer uso destes repositorios de GIT para a posta a punto dos requisitos recomendo que sigan as instrucións da fonte oficial para a [instalación de Odoo]. Despois do cal será necesario descargar o contido do [repositorio deste proxecto] nun direcctorio de addons accesible dende a instancia de Odoo configurada.
+
+**Opcional:** Se se quixese empregar Odoo como un servizo en liña ou na intranet da empresa podese facer uso do seguinte [repositorio drepregue nginx] para facilitar a súa configuración. Do mesmo xeito que co [repositorio despregue de Odoo] é interesante a parametrización personalizada dos ficheiros descargados para unha mellor adaptación á causística partitular de despregue.
+
+Despois de poñer en marcha [Odoo] por calquera dos xeitos anteriormente descritos hai que ir á sección de aplicacións e buscar o módulo de nome `xestionSAT` na lista e instalalo dende ahí para (é necesario quitar calquera filtro preconfigurado por Odoo).
 
 ## Emprego
 
 > *TODO*: Es este apartado describe brevemente cómo se usará el software que proyectas. Si tiene una interfaz de terminal, describe aquí su sintaxis. Si tiene una interfaz gráfica de usuario, describe aquí **sólo el uso** (a modo de sumario) **de los aspectos más relevantes de su funcionamiento** (máxima brevedad, como si fuese un anuncio reclamo o comercial).
+> 
 > Si tu proyecto es documental, realiza una especificación de cómo planteas estas interfaces, con ejemplos incluso o esquemas de diseño. En otras palabras, realiza este apartado independientemente que no haya implementación.
 
 ## Sobre o autor
@@ -40,8 +50,9 @@ Despois de algo máis de 15 anos de experiencia na administrción e mantemento d
 
 ## Licenza
 
-> *TODO*: Es requisito INDISPENSABLE el licenciar explícitamente el proyecto software. Se recomienda licenciar con *GNU Free Documentation License Version 1.3*. Crear un fichero `LICENSE` en la raiz del repo, con tu fichero de licencia. Recuerda que si empleas una licencia de software libre estás autorizando la derivación de tu obra bajo la misma licencia que elijas, pudiendo dar continuidad, p. e. otro alumno, para continuar tu proyecto en otro curso.
-> Si tu proyecto es documental, recomendamos los términos de *GNU Free Documentation License Version 1.3*, crea igualmente el fichero `LICENSE`. Será especialmente valorado en este caso, la claridad de la especificación para que el proyecto pueda ser ejecutado partiendo de lo proyectado.
+> Este licenzamento non é definitivo, teño que estudialo en profundidade polo cal de momento non é a licencia aplicable.
+
+Este software licensase baixo as condicións descritos no ficheiro [LICENSE.md] que se incormpora na raíz desde repoisitorio. Dito ficheiro describe unha licenza [GNU-AGPL] da [FSF] (Free Software Foundation).
 
 
 ## Índice
@@ -52,7 +63,8 @@ Despois de algo máis de 15 anos de experiencia na administrción e mantemento d
 4. [Deseño]
 5. [Planificación]
 6. [Implantación]
-7. [Changelog]
+7. [Estratexia de versionado]
+8. [Changelog]
 
 
 ## Guía de contribución
@@ -61,13 +73,39 @@ Despois de algo máis de 15 anos de experiencia na administrción e mantemento d
 
 ## Links
 
-> *TODO*: Enlaces externos y descipciones de estos enlaces que creas conveniente indicar aquí. Generalmente ya van a estar integrados con tu documentación, pero si requieres realizar un listado de ellos, este es el lugar.
+| ENLACE                            | DESTINO
+|:-                                 |:-
+| [FSF]                             | Free Software Foundation
+| [GNU-AGPL]                        | Licenza GNU-AGPL
+| [Odoo]                            | Software ERP Odoo
+| [Instalación de Odoo]             | Documentación oficial de instalación de Odoo
+| [OCA]                             | Odoo Community Association
+| [OCB]                             | Repositorio do software de Odoo Community Base
+| [Repositorio deste proxecto]      | Repositorio deste proxecto
+| [Repositorio despregue de Odoo]   | Repositorio con script e ficheiros de configuración para a automatización do despregue da [OCB]
+| [Repositorio drepregue nginx]     | Repositorio con script e ficheiros de configuración para o despregue dunha intranet con [nginx]
 
 [//]: # (Listado dos links empregados)
 
-   <!-- Índice -->
+   <!-- Licencia -->
+
+   [LICENSE.md]: <LICENSE.md>
+
+   <!-- Enlaces a terceiros -->
+
+   [FSF]: <https://www.fsf.org/es>
+
+   [GNU-AGPL]: <https://www.gnu.org/licenses/agpl-3.0.html>
 
    [Odoo]: <https://www.odoo.com/es_ES/>
+
+   [Instalación de Odoo]: <https://www.odoo.com/documentation/12.0/setup/install.html>
+
+   [OCA]: <https://odoo-community.org/>
+
+   [OCB]: <https://github.com/OCA/OCB>
+
+   [nginx]: <https://www.nginx.com/>
 
    <!-- Índice -->
 
@@ -83,12 +121,14 @@ Despois de algo máis de 15 anos de experiencia na administrción e mantemento d
    
    [Implantación]: <doc/templates/6_implantacion.md>
 
+   [Estratexia de versionado]: <doc/templates/7_versionado.md>
+
    [changelog]: <CHANGELOG.md>
 
    <!-- Cógigo fonte -->
 
-   [repo proxecto]: <https://gitlab.iessanclemente.net/damo/a18franciscogc.git>
+   [repositorio deste proxecto]: <https://gitlab.iessanclemente.net/damo/a18franciscogc.git>
 
-   [repo despregue de Odoo]: <https://gitlab.iessanclemente.net/a18franciscogc/odoo.git>
+   [repositorio despregue de Odoo]: <https://gitlab.iessanclemente.net/a18franciscogc/odoo.git>
 
-   [repo drepregue nginx]: <https://gitlab.iessanclemente.net/a18franciscogc/nginx.git>
+   [repositorio drepregue nginx]: <https://gitlab.iessanclemente.net/a18franciscogc/nginx.git>
