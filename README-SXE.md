@@ -78,9 +78,3 @@ v1.0.0-modulo_odoo
    [changelog]: <doc/changelog.md>
 
    <!-- Cógigo fonte -->
-
-   [Buffer.java]: <../../src/main/java/psp/ejercicio01/Buffer.java>
-
-   [Consumidor.java]: <../../src/main/java/psp/ejercicio01/Consumidor.java>
-
-   [Productor.java]: <../../src/main/java/psp/ejercicio01/Productor.java>
