@@ -52,6 +52,9 @@ Despois de algo máis de 15 anos de experiencia na administrción e mantemento d
 
 Este software licensase baixo as condicións descritos no ficheiro [LICENSE.md] que se incormpora na raíz desde repoisitorio. Dito ficheiro describe unha licenza [GNU-AGPL] da [FSF] (Free Software Foundation).
 
+## Limitación de responsabilidades
+
+Os autores de **xestiónSAT** non se fan responsables, baixo ningunha circunstacia, de posibles danos nin indemnizacións, moral ou patrimonial; directos ou indirectos; polo uso deste software ou pola perdida, parcial ou total, da información introducida polo mencionado software. O anterior inclúe os gastos asociados á fallas de comunicación e/ou de funcionamento de equipos informáticos vinculados co depregamento preciso para o seu emprego.
 
 ## Índice
 
@@ -63,11 +66,6 @@ Este software licensase baixo as condicións descritos no ficheiro [LICENSE.md] 
 6. [Implantación]
 7. [Estratexia de versionado]
 8. [Changelog]
-
-
-## Limitación de responsabilidades
-
-Os autores de **xestiónSAT** non se fan responsables, baixo ningunha circunstacia, de posibles danos nin indemnizacións, moral ou patrimonial; directos ou indirectos; polo uso deste software ou pola perdida, parcial ou total, da información introducida polo mencionado software. O anterior inclúe os gastos asociados á fallas de comunicación e/ou de funcionamento de equipos informáticos vinculados co depregamento preciso para o seu emprego.
 
 ## Guía de contribución
 
