@@ -1,6 +1,6 @@
 [![logo]][repositorio deste proxecto]
 
-# Proxecto fin de ciclo: **Xestión SAT**
+# Proxecto fin de ciclo: **xestiónSAT**
 
 ## Descrición
 
@@ -65,9 +65,13 @@ Este software licensase baixo as condicións descritos no ficheiro [LICENSE.md] 
 8. [Changelog]
 
 
+## Limitación de responsabilidades
+
+Os autores de **xestiónSAT** non se fan responsables, baixo ningunha circunstacia, de posibles danos nin indemnizacións, moral ou patrimonial; directos ou indirectos; polo uso deste software ou pola perdida, parcial ou total, da información introducida polo mencionado software. O anterior inclúe os gastos asociados á fallas de comunicación e/ou de funcionamento de equipos informáticos vinculados co depregamento preciso para o seu emprego.
+
 ## Guía de contribución
 
-Antes de nada quero agradecerche se estás interesado en contribuír a este pequeno proxecto, no seguinte documento [CONTRIBUTING] están as redactadas as formas nas que poderías axudar.
+Antes de nada quero agradecerche se estás interesado en contribuír a este pequeno proxecto, no seguinte documento [CONTRIBUTING] están as redactadas os xeitos nos que poderías axudar, gracias.
 
 ## Links
 
