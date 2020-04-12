@@ -14,6 +14,7 @@ Se probaches **xestiónSAT** e ves que lle falta alugnha utilidade importante ou
 
 ## Cómo contribuir
 
+### Usuarios e Usuarias
 Se non eres unha persoa que se proveña do mundo da informática podes colaborar con desenvolvemento de **xestiónSAT** dos seguintes xeitos:
 
 * Notificando erros na súa execución
@@ -23,6 +24,8 @@ Se non eres unha persoa que se proveña do mundo da informática podes colaborar
 * Traducindo o proxecto
 * Colaborando cá edición da documentación de emprego
 
+### Programadores e Programadras
+
 Se tes experiencia programando podes contribuir:
 
 * Facendo as melloras que consideres oportunas para darlle un valor engadido
@@ -30,7 +33,25 @@ Se tes experiencia programando podes contribuir:
 * Mellorando a interface de usuario
 * Mellorando ou engadindo informes
 * Colaborando cá edición da documentación técnica
-  
+
+### Notificando unha incidencia
+
+Se queres crear unha incidencia emprega un dos seguintes enlaces:
+
+| ENLACE                                    | FUNCIÓN
+|:-                                         |:-
+| [Erro no programa][ErroPrograma]          | Notificar un erro ó empregar o programa
+| [Erro na documentación][ErroDoc]          | Notificar un erro na documentación
+|                                           |
+| [Nova funcionalidade][NovaFunionalidade]  | Propoñer unha nova funcionalidade para mellorar o alcance do programa
+| [Mellora da interface][MelloraInterface]  | Propoñer un cambio na interface, ben para corrixir un erro ou ben para facela máis manexable
+|                                           |
+| [Nova incidencia][NovaIncidencia]         | Crear calquera outra incidencia
+
+
+
+### Creando código
+
 Se modificaches de algún dos xeitos anteriores o contido deste respositorio sería de agradecer que axudases a integrar esos cambios a **xestiónSAT**. A maneria de facelo é a seguinte:
 
 1. Fai un fork do repositorio
@@ -42,7 +63,7 @@ Se as túas propostas finalmente non se integran neste repositorio, por favor, n
 
 Tamén podes colaborar de calquera outro xeito que se che ocurra a ti e non estea aquí contemplado, agradecerase toda a axuda posible.
 
-#### Atribucións
+## Atribucións
 Todas as incorporacións que se realicen ó proxecto serán incluídas no ficheiro [README].
 
 ## Código de conducta
@@ -53,3 +74,13 @@ Este proxecto ten un [Código de Conduta] ó cal desexo que tódalas persoas int
 
    [README]: <README.md>
    [Código de Conduta]: <CODE_OF_CONDUCT_GL.md>
+
+   <!-- Issues -->
+   
+   [ErroPrograma]: <https://gitlab.iessanclemente.net/damo/a18franciscogc/issues/new>
+   [ErroDoc]: <https://gitlab.iessanclemente.net/damo/a18franciscogc/issues/new>
+
+   [NovaFunionalidade]: <https://gitlab.iessanclemente.net/damo/a18franciscogc/issues/new>
+   [MelloraInterface]: <https://gitlab.iessanclemente.net/damo/a18franciscogc/issues/new>
+
+   [NovaIncidencia]: <https://gitlab.iessanclemente.net/damo/a18franciscogc/issues/new>
