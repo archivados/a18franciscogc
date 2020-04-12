@@ -4,16 +4,8 @@
 
 ## Descrición
 
-Este módulo para a plataforma de software ERP [Odoo] pretende extender as funcionalidades deste para adaptarser a unha empresa que dispoña dun Servizo de Atención Técnica (SAT) e facilitar o rexistro das súas intervencións sobre un ou varios Equipos relacionados cos seus Clientes e a consulta do histórico das mesmas.
+Este módulo para a plataforma de software ERP [Odoo] pretende extender as funcionalidades deste para adaptarser a unha empresa que dispoña dun **Servizo de Atención Técnica** (**SAT**) e facilitar o rexistro das súas intervencións sobre un ou varios **Equipos** relacionados cos seus **Clientes** e a consulta do histórico das mesmas.
 
-### Funcionalidades
-
- * Dar de alta unha Incidencia
- * Rexistrar unha Actuación sobre unha Incidencia dada
- * Crear novas Accións para poder asignar a unha Actuación
- * Crear Actuacións sen ser unha Acción rexistrada
- * Dar de alta un Equipo
- * Rexistrar/Editar/Borrar un Compoñente dun Equipo
 
 ## Instalación / Posta en marcha
 
@@ -31,9 +23,15 @@ Despois de poñer en marcha [Odoo] por calquera dos xeitos anteriormente descrit
 
 ## Emprego
 
-> *TODO*: Es este apartado describe brevemente cómo se usará el software que proyectas. Si tiene una interfaz de terminal, describe aquí su sintaxis. Si tiene una interfaz gráfica de usuario, describe aquí **sólo el uso** (a modo de sumario) **de los aspectos más relevantes de su funcionamiento** (máxima brevedad, como si fuese un anuncio reclamo o comercial).
-> 
-> Si tu proyecto es documental, realiza una especificación de cómo planteas estas interfaces, con ejemplos incluso o esquemas de diseño. En otras palabras, realiza este apartado independientemente que no haya implementación.
+Con este software poderas ampliar o funcionamento do ERP [Odoo] para incluír as seguintes funcionalidades para o manexo do teu SAT:
+
+ * Dar de alta unha nova Incidencia
+ * Rexistrar unha Actuación sobre unha Incidencia dada
+ * Crear novas Accións para poder asignar a unha Actuación
+ * Crear Actuacións sen ser unha Acción rexistrada
+ * Dar de alta un Equipo novo
+ * Rexistrar/Editar/Borrar un Compoñente dun Equipo
+ * Cambiar o estado operacional dun Equipo rexitrado (está funcionando, reparandose, de baixa...)
 
 ## Sobre o autor
 
@@ -69,7 +67,7 @@ Este software licensase baixo as condicións descritos no ficheiro [LICENSE.md] 
 
 ## Guía de contribución
 
-> *TODO*: Tratándose de un proyecto de software libre, es muy importante que expongas cómo se puede contribuir con tu proyecto. Algunos ejemplos de esto son realizar nuevas funcionalidades, corrección y/u optimización del código, realización de tests automatizados, nuevas interfaces de integración, desarrollo de plugins, etc. etc. Sé lo más conciso que puedas.
+Antes de nada quero agradecerche se estás interesado en contribuír a este pequeno proxecto, no seguinte documento [CONTRIBUTING] están as redactadas as formas nas que poderías axudar.
 
 ## Links
 
@@ -90,6 +88,10 @@ Este software licensase baixo as condicións descritos no ficheiro [LICENSE.md] 
    <!-- Licencia -->
 
    [LICENSE.md]: <LICENSE.md>
+
+   <!-- Guía de contribución -->
+
+   [CONTRIBUTING]: <CONTRIBUTING.md>
 
    <!-- Enlaces a terceiros -->
 
