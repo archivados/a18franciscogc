@@ -139,8 +139,4 @@ Antes de nada quero agradecerche se estás interesado en contribuír a este pequ
 
    [repositorio despregue de Odoo]: <https://gitlab.iessanclemente.net/a18franciscogc/odoo.git>
 
-<<<<<<< HEAD
-> *TODO*: Enlaces externos y descipciones de estos enlaces que creas conveniente indicar aquí. Generalmente ya van a estar integrados con tu documentación, pero si requieres realizar un listado de ellos, este es el lugar.
-=======
    [repositorio drepregue nginx]: <https://gitlab.iessanclemente.net/a18franciscogc/nginx.git>
->>>>>>> documentacion
