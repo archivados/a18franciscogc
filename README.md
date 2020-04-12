@@ -52,8 +52,6 @@ Despois de algo máis de 15 anos de experiencia na administrción e mantemento d
 
 ## Licenza
 
-> Este licenzamento non é definitivo, teño que estudialo en profundidade polo cal de momento non é a licencia aplicable.
-
 Este software licensase baixo as condicións descritos no ficheiro [LICENSE.md] que se incormpora na raíz desde repoisitorio. Dito ficheiro describe unha licenza [GNU-AGPL] da [FSF] (Free Software Foundation).
 
 
