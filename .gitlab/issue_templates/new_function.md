@@ -14,6 +14,7 @@
 
 > Se tes unha idea de como implementar a túa idea por favor indica aquí cal sería o teu xeito de proceder
 
-<!-- Non modificar esta parte, serve para automatizar o proceso de asignación de tarefas -->
+***Non modificar a seguinte parte, serve para automatizar o proceso de asignación de tarefas***
+
 /label ~Nova funcionalidade
 /assign @a18franciscogc

@@ -24,7 +24,7 @@ Se non eres unha persoa que se proveña do mundo da informática podes colaborar
 * Traducindo o proxecto
 * Colaborando cá edición da documentación de emprego
 
-### Programadores e Programadras
+### Programadores e Programadoras
 
 Se tes experiencia programando podes contribuir:
 
