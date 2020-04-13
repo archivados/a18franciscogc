@@ -6,7 +6,7 @@
 
 Este módulo para a plataforma de software ERP [Odoo] pretende extender as funcionalidades deste para adaptarser a unha empresa que dispoña dun **Servizo de Atención Técnica** (**SAT**) e facilitar o rexistro das súas intervencións sobre un ou varios **Equipos** relacionados cos seus **Clientes** e a consulta do histórico das mesmas.
 
-[proba](CONTRIBUTING.md#Notificando-unha-incidencia)
+[proba](CONTRIBUTING.md#notificando-unha-incidencia)
 
 ## Instalación / Posta en marcha
 
