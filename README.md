@@ -4,7 +4,7 @@
 
 ## Descrición
 
-Este módulo para a plataforma de software ERP [Odoo] pretende extender as funcionalidades deste para adaptarser a unha empresa que dispoña dun **Servizo de Atención Técnica** (**SAT**) e facilitar o rexistro das súas intervencións sobre un ou varios **Equipos** relacionados cos seus **Clientes** e a consulta do histórico das mesmas.
+Este módulo para a plataforma de software ERP [Odoo] pretende extender as funcionalidades deste para adaptarse a unha empresa que dispoña dun **Servizo de Atención Técnica** (**SAT**) e facilitar o rexistro das súas intervencións sobre un ou varios **Equipos** relacionados cos seus **Clientes** e a consulta do histórico das mesmas.
 
 ## Instalación / Posta en marcha
 
@@ -22,7 +22,7 @@ Despois de poñer en marcha [Odoo] por calquera dos xeitos anteriormente descrit
 
 ## Emprego
 
-Con este software poderas ampliar o funcionamento do ERP [Odoo] para incluír as seguintes funcionalidades para o manexo do teu SAT:
+Con este software poderase ampliar o funcionamento do ERP [Odoo] para incluír as seguintes funcionalidades para o manexo do SAT dunha empresa:
 
 * Dar de alta unha nova Incidencia
 * Rexistrar unha Actuación sobre unha Incidencia dada
@@ -36,16 +36,16 @@ Con este software poderas ampliar o funcionamento do ERP [Odoo] para incluír as
 
 **Contacto:** a18franciscogc@iessanclemente.net
 
-O meu nome é **Fco. Javier González Campos** e son técnico superior en ASI (Administración de Sistemas Informáticos) e DAM (Desenvolvemento de Aplicacións Multiplataforma) `(espero que en breve)`.
+O meu nome é **Fco. Javier González Campos** e son técnico superior en **ASI** (Administración de Sistemas Informáticos) e **DAM** (Desenvolvemento de Aplicacións Multiplataforma) `(espero que en breve)`, tamén son membro de **Inestable** (a Asociación de Usuarios de GNU/Linux de Ordes) aínda que actualmente estamos sen actividade pública.
 
 Algunhas das tecnoloxías que domino son:
 
-* Sistemas GNU/Linux e Windows
+* Sistemas Operativos GNU/Linux e Windows (estacións de traballo e servidores)
 * Administración de redes
 * Linguaxes de programacións: `Java, Python, VB.NET, C#, C/C++ e Pascal`
 * Sistemas Xestores de BD: `MySQL, MS SQL Server, MongoDB, PostgreSQL e Oracle`
 
-Despois de algo máis de 15 anos de experiencia na administrción e mantemento de equipos informáticos non atopei ningún software, alo menos libre, que se adaptase ó 100% ás necesidades que tiña para a documentación e o seguimento das actividades profesionais realizadas. Por ese motivo decidín iniciar este proxecto e así tentar cubrir esas demandas intentando xeneralizar o proxecto todo o posible para cubrir tódolos sectores posibles.
+Despois de algo máis de 15 anos de experiencia na administrción e mantemento de equipos informáticos non atopei ningún software, alo menos libre, que se adaptase ó 100% ás necesidades que tiña para a documentación e o seguimento das actividades profesionais realizadas. Por ese motivo decidín iniciar este proxecto e así tentar cubrir esas demandas intentando xeneralizar o proxecto todo o posible para abarcar o mair número de sectores e calquera outro con requisitos parecidos.
 
 ## Licenza
 
