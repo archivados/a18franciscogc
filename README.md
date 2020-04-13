@@ -6,6 +6,7 @@
 
 Este módulo para a plataforma de software ERP [Odoo] pretende extender as funcionalidades deste para adaptarser a unha empresa que dispoña dun **Servizo de Atención Técnica** (**SAT**) e facilitar o rexistro das súas intervencións sobre un ou varios **Equipos** relacionados cos seus **Clientes** e a consulta do histórico das mesmas.
 
+[proba](README.md#links)
 
 ## Instalación / Posta en marcha
 
@@ -25,13 +26,13 @@ Despois de poñer en marcha [Odoo] por calquera dos xeitos anteriormente descrit
 
 Con este software poderas ampliar o funcionamento do ERP [Odoo] para incluír as seguintes funcionalidades para o manexo do teu SAT:
 
- * Dar de alta unha nova Incidencia
- * Rexistrar unha Actuación sobre unha Incidencia dada
- * Crear novas Accións para poder asignar a unha Actuación
- * Crear Actuacións sen ser unha Acción rexistrada
- * Dar de alta un Equipo novo
- * Rexistrar/Editar/Borrar un Compoñente dun Equipo
- * Cambiar o estado operacional dun Equipo rexitrado (está funcionando, reparandose, de baixa...)
+* Dar de alta unha nova Incidencia
+* Rexistrar unha Actuación sobre unha Incidencia dada
+* Crear novas Accións para poder asignar a unha Actuación
+* Crear Actuacións sen ser unha Acción rexistrada
+* Dar de alta un Equipo novo
+* Rexistrar/Editar/Borrar un Compoñente dun Equipo
+* Cambiar o estado operacional dun Equipo rexitrado (está funcionando, reparandose, de baixa...)
 
 ## Sobre o autor
 
