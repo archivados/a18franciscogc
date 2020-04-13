@@ -12,5 +12,6 @@
 
 ***Non modificar a seguinte parte, serve para automatizar o proceso de asignación de tarefas***
 
-/label ~Mellora Interface
+/label ~"Mellora Interface"
+
 /assign @a18franciscogc
