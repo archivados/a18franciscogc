@@ -60,7 +60,7 @@ Os autores de **xestiónSAT** non se fan responsables, baixo ningunha circunstac
 
 ## Notificar un erro
 
-Se atopaches un erro por favar acude á sección `Notificando unha incidencia` do ficheiro [CONTRIBUTING] e notificao, agradezoche toda a axuda que poidas ofrecer.
+Se atopaches un erro por favar acude á sección [Notificando unha incidencia][NovaIncidencia] do ficheiro [CONTRIBUTING] e notificao, agradezoche toda a axuda que poidas ofrecer.
 
 ## Índice
 
@@ -100,6 +100,7 @@ Antes de nada quero agradecerche se estás interesado en contribuír a este pequ
    <!-- Guía de contribución -->
 
    [CONTRIBUTING]: <CONTRIBUTING.md>
+   [NovaIncidencia]: <CONTRIBUTING.md#notificando-unha-incidencia>
 
    <!-- Enlaces a terceiros -->
 
