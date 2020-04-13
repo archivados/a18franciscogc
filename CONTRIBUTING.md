@@ -77,10 +77,10 @@ Este proxecto ten un [Código de Conduta] ó cal desexo que tódalas persoas int
 
    <!-- Issues -->
    
-   [ErroPrograma]: <https://gitlab.iessanclemente.net/damo/a18franciscogc/issues/new>
-   [ErroDoc]: <https://gitlab.iessanclemente.net/damo/a18franciscogc/issues/new>
+   [ErroPrograma]: <https://gitlab.iessanclemente.net/damo/a18franciscogc/issues/new?issuable_template=bug_software&issue[title]=Erro%20Programa>
+   [ErroDoc]: <https://gitlab.iessanclemente.net/damo/a18franciscogc/issues/new?issuable_template=bug_doc&issue[title]=Erro%20Documentacion>
 
-   [NovaFunionalidade]: <https://gitlab.iessanclemente.net/damo/a18franciscogc/issues/new>
-   [MelloraInterface]: <https://gitlab.iessanclemente.net/damo/a18franciscogc/issues/new>
+   [NovaFunionalidade]: <https://gitlab.iessanclemente.net/damo/a18franciscogc/issues/new?issuable_template=new_function&issue[title]=Nova%20Funcionaladiade>
+   [MelloraInterface]: <https://gitlab.iessanclemente.net/damo/a18franciscogc/issues/new?issuable_template=frontend&issue[title]=Mellora%20da%20Interface>
 
-   [NovaIncidencia]: <https://gitlab.iessanclemente.net/damo/a18franciscogc/issues/new>
+   [NovaIncidencia]: <https://gitlab.iessanclemente.net/damo/a18franciscogc/issues/new?issuable_template=new_issue&issue[title]=Novo%20Incidencia>
