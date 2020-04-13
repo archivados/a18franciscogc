@@ -18,6 +18,6 @@
 
 > Se tes unha idea de como resolver o erro por favor indica aquí cal é
 
-<!-- Non modificar esta parte, serve para automatizar o proceso de asignación de tarefas -->
+***Non modificar a seguinte parte, serve para automatizar o proceso de asignación de tarefas***
 
 /assign @a18franciscogc
