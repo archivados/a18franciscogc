@@ -56,6 +56,11 @@ Este software licensase baixo as condicións descritos no ficheiro [LICENSE.md] 
 
 Os autores de **xestiónSAT** non se fan responsables, baixo ningunha circunstacia, de posibles danos nin indemnizacións, moral ou patrimonial; directos ou indirectos; polo uso deste software ou pola perdida, parcial ou total, da información introducida polo mencionado software. O anterior inclúe os gastos asociados á fallas de comunicación e/ou de funcionamento de equipos informáticos vinculados co depregamento preciso para o seu emprego.
 
+
+## Notificar un erro
+
+Se atopaches un erro por favar acude á sección `Notificando unha incidencia` do ficheiro [CONTRIBUTING] e notificao, agradezoche toda a axuda que poidas ofrecer.
+
 ## Índice
 
 1. [Idea]
