@@ -16,5 +16,6 @@
 
 ***Non modificar a seguinte parte, serve para automatizar o proceso de asignación de tarefas***
 
-/label ~Erro Software
+/label ~"Erro Software"
+
 /assign @a18franciscogc
