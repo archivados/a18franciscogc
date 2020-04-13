@@ -6,7 +6,6 @@
 
 Este módulo para a plataforma de software ERP [Odoo] pretende extender as funcionalidades deste para adaptarser a unha empresa que dispoña dun **Servizo de Atención Técnica** (**SAT**) e facilitar o rexistro das súas intervencións sobre un ou varios **Equipos** relacionados cos seus **Clientes** e a consulta do histórico das mesmas.
 
-
 ## Instalación / Posta en marcha
 
 Para a posta en marcha deste módulo precisase instalar a plataforma de software [Odoo], recomendo a versión base da [OCA] (Odoo Community Association) dispoñible no seguinte enlace: [OCB]
@@ -25,13 +24,13 @@ Despois de poñer en marcha [Odoo] por calquera dos xeitos anteriormente descrit
 
 Con este software poderas ampliar o funcionamento do ERP [Odoo] para incluír as seguintes funcionalidades para o manexo do teu SAT:
 
- * Dar de alta unha nova Incidencia
- * Rexistrar unha Actuación sobre unha Incidencia dada
- * Crear novas Accións para poder asignar a unha Actuación
- * Crear Actuacións sen ser unha Acción rexistrada
- * Dar de alta un Equipo novo
- * Rexistrar/Editar/Borrar un Compoñente dun Equipo
- * Cambiar o estado operacional dun Equipo rexitrado (está funcionando, reparandose, de baixa...)
+* Dar de alta unha nova Incidencia
+* Rexistrar unha Actuación sobre unha Incidencia dada
+* Crear novas Accións para poder asignar a unha Actuación
+* Crear Actuacións sen ser unha Acción rexistrada
+* Dar de alta un Equipo novo
+* Rexistrar/Editar/Borrar un Compoñente dun Equipo
+* Cambiar o estado operacional dun Equipo rexitrado (está funcionando, reparandose, de baixa...)
 
 ## Sobre o autor
 
@@ -39,7 +38,7 @@ Con este software poderas ampliar o funcionamento do ERP [Odoo] para incluír as
 
 O meu nome é **Fco. Javier González Campos** e son técnico superior en ASI (Administración de Sistemas Informáticos) e DAM (Desenvolvemento de Aplicacións Multiplataforma) `(espero que en breve)`.
 
-As tecnoloxías que domino son:
+Algunhas das tecnoloxías que domino son:
 
 * Sistemas GNU/Linux e Windows
 * Administración de redes
@@ -55,7 +54,6 @@ Este software licensase baixo as condicións descritos no ficheiro [LICENSE.md] 
 ## Limitación de responsabilidades
 
 Os autores de **xestiónSAT** non se fan responsables, baixo ningunha circunstacia, de posibles danos nin indemnizacións, moral ou patrimonial; directos ou indirectos; polo uso deste software ou pola perdida, parcial ou total, da información introducida polo mencionado software. O anterior inclúe os gastos asociados á fallas de comunicación e/ou de funcionamento de equipos informáticos vinculados co depregamento preciso para o seu emprego.
-
 
 ## Notificar un erro
 
@@ -128,7 +126,7 @@ Antes de nada quero agradecerche se estás interesado en contribuír a este pequ
    [Deseño]: <doc/templates/4_deseño.md>
 
    [Planificación]: <doc/templates/5_planificacion.md>
-   
+
    [Implantación]: <doc/templates/6_implantacion.md>
 
    [Estratexia de versionado]: <doc/templates/7_versionado.md>
