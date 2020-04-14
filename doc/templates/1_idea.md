@@ -37,21 +37,21 @@ Isto fai que teña un gran punto ó seu favor con respecto a outros programas ó
 
 Penso que si é viable acadar un rendemento económico deste proxecto por varias vías:
 
-* Instalación do aplicativo no mercado ó que vai dirixido
+* Instalación do aplicativo en empresas do mercado ó que vai dirixido
 * Mantemento das instalacións do aplicativo, ben sexa un mantemento resolutivo ou preventivo
 * Dar soporte a tercerias empresas que decidan implementar este módulo, para si mesmos ou para os seus clientes
 * Adaptación das funcionalidades do software a casuísticas particulares, axudando así a medrar o nicho de mercado
-* Abrir a oportunidade de negocio ó ofrecerlle a posibilidade de adaptar outras características de [Odoo] ás necesidades particulares dos clientes ou xerar novos módulos para a mesma demostrando ser especialista nesta plataforma
+* Abrir a oportunidade de negocio ó ofrecerlle a posibilidade de adaptar outras características de [Odoo] ás necesidades particulares dos clientes ou xerar novos módulos para os mesmo demostrando ser especialistas nesta plataforma
 * Ofrecer servizos de mantemento e soporte para [Odoo] en xeral
 
-Tamén é posible sacar un rendemento ecónomico indirecto grazas as características do software libre se logra ter certa acollida por parte da comunidade, como por exemplo:
+Tamén é posible sacar un rendemento ecónomico indirecto grazas as características do software libre, se logra ter certa acollida por parte da comunidade, como por exemplo:
 
 * Minimizar os custes de mantemento e actualización do módulo xa que o desenvolvemento de novas características e a resolución de bugs estaría en mans, potencialmente, dun gran número de programadores e programadoras
-* Posibiliddade de abarcar máis sectores de mercado xa que calquera podería partir deste proxecto como base para adaptalo a un uso que non se contemplase
+* Posibiliddade de abarcar máis sectores de mercado xa que calquera podería partir deste proxecto como base para adaptalo a un uso que non se contemplase inicialmente
 * Detección máis rápida de erros ó ter acceso a este software usuarios de todo o mundo, o cal facilita a súa solución
-* Mellora das capacidades profesionais propias ó ter acceso ó código escrito por multitude de persoas
+* Mellora das capacidades profesionais propias ó ter acceso ó código escrito por multitude de persoas e así ver disintas solucións a un problema dado (esto tamén se pode aplicar a calquera que vexa o código deste proxecto)
 
-Este último bloque depende en gran medida da aceptación e promoción que se lle dea ó proxecto pero aínda que non se acaden estes beneficios son posibilidades que só se poden obter con esta vía, no peor dos casos non implicaría nngún custe a maoires ós dunha solución pechada.
+Este último bloque depende en gran medida da aceptación e promoción que se lle dea ó proxecto dentro da comunidade de software libre, pero aínda que non se acaden estes beneficios só cabe a posibilidade de obtelos con esta vía de licenzamento, e no peor dos casos non implicaría nngún custe a maoires ós dunha solución totalmente pechada, é polo tanto un punto de valor engadido.
 
 [//]: # (Listado dos links empregados)
 
