@@ -21,9 +21,17 @@ O grupo de usuarios ós que vai dirixida está principalmente esta ferramenta é
 
 ## Competencia
 
-Existen moitas solucións para cubrir as necesidades que **xestiónSAT** intenta aportar pero despois de algo máis de 15 anos de experiencia na administrción e mantemento de equipos informáticos non atopei ningún software, alo menos libre, que se adaptase ó 100% ás necesidades que tiña para a documentación e o seguimento das actividades profesionais realizadas. Hai software como [GLPI] ou [OCS-Inventory] que cubren e superan o propósito deste proxecto, sen embargo o problema que é que son demasiado grandes para o público ó cal vai destinado este proxecto e un gran inconveniente é que están pensadas só para xestionar as incidencias do parque informático só da propia empresa o cal non é adecuado para aquelas PEMES que necesiten atender a máis de un cliente.
+Existen moitas solucións para cubrir as necesidades que **xestiónSAT** intenta abordar, pero despois de algo máis de 15 anos de experiencia na administrción e mantemento de equipos informáticos non atopei ningún software que se adaptase ó 100% ás necesidades que tiña para a documentación e o seguimento das actividades profesionais realizadas.
 
-Unha meta a longo prazo será a de integrar as excelentes funcionalidades que aportan tanto [GLPI] como [OCS-Inventory] intentando empregar **xestiónSAT** como unha capa intermedia entre estas plataformas para poder xeneralizar o seu emprego para varios clientes.
+Hai software como [GLPI] ou [OCS-Inventory] que cubren e superan o propósito deste proxecto, sen embargo o problema que é que son demasiado grandes para o público ó cal vai destinado. Estas solucións teñen tamén un gran hándicap e é que están pensadas só para xestionar as incidencias do parque informático dunha única empresa o cal non é adecuado para aquelas PEMES que necesiten atender a máis de un cliente.
+
+Unha meta a longo prazo será a de integrar as excelentes funcionalidades que aportan tanto [GLPI] como [OCS-Inventory] no proxecto. Isto farase intentando empregar **xestiónSAT** como unha capa intermedia entre estas plataformas e [Odoo] para poder xeneralizar o seu emprego e así xestionar tódolos clientes de cada usuario.
+
+Por outra banda, as alternativas que existen no mercado adoitan poñer o peso dunha incidencia no **equipo** sobre o cal se actúa. Este enfoque pode estar ben se pensamos en amañar un coche, unha lavadora ou incluso un ascesor, pero se pensamos nun sistema informático é claramente insuficiente, xa que un sistema informático pode estar composto por cantidade de equipos con entidade propia. Un motivo polo cal se distingue **xestiónSAT** da competencia é que o peso de toda a xestión está na **incidencia** en si mesma, que pode incluso existir sen ningún equipo asociado, ou pola contra asociarse a un número indeterminado de equipos, o cal outrogalle a flexibilidade suficiente como para adaptarse ó mercado dos seus competidores ademais de engadirlle un valor mís ó permitir que sexa o usuario o que escolla o xeito de traballar en cada situación.
+
+Tamén ofrece a alternativa de dividir sistemas complexos, como os informáticos, en partes máis pequenas con entidade propia. Así poden ser intervidas por algún problema que non inflúa no normal funcionamento do sistema do que forman parte.
+
+Isto fai que teña un gran punto ó seu favor con respecto a outros programas ó adaptarse mellor a cada cliente potencial e deste xeito podese levar unha mellor documentación e control do seu SAT.
 
 ## Oportunidade de negocio
 
