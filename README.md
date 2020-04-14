@@ -1,4 +1,4 @@
-[![logo]][repositorio deste proxecto]
+[![logo]][repoProxecto]
 
 # Proxecto fin de ciclo: **xestiónSAT**
 
@@ -12,13 +12,21 @@ Para a posta en marcha deste módulo precisase instalar a plataforma de software
 
 Podese instalar todo o necesario por un dos seguintes métodos:
 
-**1. Instalación automatizada:** Para facilitar a súa instalación ofrezo un [repositorio despregue de Odoo] cun script para a automatización da descarga, instalación e parametrización do servizo de Odoo para un entorno GNU/Linux. Unha vez descargado o contido do repositorio é recomendable modificar o seu contido para unha parametrización máis adecuada a cada escenario de emprego.
+**1. Instalación automatizada:** Para facilitar a súa instalación ofrezo un [repositorio para o despregue de Odoo][repoOdoo] cun script para a automatización da descarga, instalación e parametrización do servizo de [Odoo] baseado na version [OCB]. O script é para o despregue nun entorno **`GNU/Linux`**, en concreto **`Debian 10`** e o punto de montaxe do directorio deste repositorio para a cal está configurado o script é `/var/odoo/`.
 
-**2. Instalación manual:** Se non se quixese facer uso destes repositorios de GIT para a posta a punto dos requisitos recomendo que sigan as instrucións da fonte oficial para a [instalación de Odoo]. Despois do cal será necesario descargar o contido do [repositorio deste proxecto] nun direcctorio de addons accesible dende a instancia de Odoo configurada.
+Para descar o repositorio debería empregarse o programa de terminal `git` coa seguinte instrucción:
 
-**Opcional:** Se se quixese empregar Odoo como un servizo en liña ou na intranet da empresa podese facer uso do seguinte [repositorio drepregue nginx] para facilitar a súa configuración. Do mesmo xeito que co [repositorio despregue de Odoo] é interesante a parametrización personalizada dos ficheiros descargados para unha mellor adaptación á causística partitular de despregue.
+``` bash
+git clone --recurse-submodules https://gitlab.iessanclemente.net/a18franciscogc/odoo /var/odoo/
+```
 
-Despois de poñer en marcha [Odoo] por calquera dos xeitos anteriormente descritos hai que ir á sección de aplicacións e buscar o módulo de nome `xestionSAT` na lista e instalalo dende ahí para (é necesario quitar calquera filtro preconfigurado por Odoo).
+Así descargarase o reposistorio principal e os submodulos asociados incluíndo o [OCB] no lugar apropiado. Unha vez finalizada a descarga é recomendable modificar o contido do script **`/var/odoo/cfg-odoo/odoo_install_d10.sh`** para unha parametrización máis adecuada ó escenario concreto da instalación.
+
+**2. Instalación manual:** Se non se quixese facer uso deste repositorio GIT para a posta a punto dos requisitos necesarios para por en marcha **xestiónSAT** recomendo que sigan as instrucións da fonte oficial para a [instalación de Odoo], despois do cal será necesario descargar o contido do [deste repositorio][repoProxecto] nun directorio de addons accesible dende a instancia de [Odoo] configurada.
+
+**Opcional:** Se se quixese empregar [Odoo] como un servizo en liña ou nunha intranet local da empresa podese facer uso do seguinte [repositorio de drepregue nginx][repoNginx] para facilitar a súa configuración. Do mesmo xeito que co [repositorio para o despregue de Odoo][repoOdoo] é interesante a parametrización personalizada dos ficheiros descargados para unha mellor adaptación á causística partitular do despreguamento.
+
+Despois de poñer en marcha [Odoo] por calquera dos xeitos anteriormente descritos hai que ir á sección de aplicacións e buscar o módulo de nome **xestiónSAT** na lista e instalalo dende ahí para (é necesario quitar calquera filtro preconfigurado por [Odoo]).
 
 ## Emprego
 
@@ -31,6 +39,7 @@ Con este software poderase ampliar o funcionamento do ERP [Odoo] para incluír a
 * Dar de alta un Equipo novo
 * Rexistrar/Editar/Borrar un Compoñente dun Equipo
 * Cambiar o estado operacional dun Equipo rexitrado (está funcionando, reparandose, de baixa...)
+* **Incluír os traballos realizados no ciclo de facturación da empresa**
 
 ## Sobre o autor
 
@@ -76,17 +85,17 @@ Antes de nada quero agradecerche se estás interesado en contribuír a este pequ
 
 ## Links
 
-| ENLACE                            | DESTINO
-|:-                                 |:-
-| [FSF]                             | Free Software Foundation
-| [GNU-AGPL]                        | Licenza GNU-AGPL
-| [Odoo]                            | Software ERP Odoo
-| [Instalación de Odoo]             | Documentación oficial de instalación de Odoo
-| [OCA]                             | Odoo Community Association
-| [OCB]                             | Repositorio do software de Odoo Community Base
-| [Repositorio deste proxecto]      | Repositorio deste proxecto
-| [Repositorio despregue de Odoo]   | Repositorio con script e ficheiros de configuración para a automatización do despregue da [OCB]
-| [Repositorio drepregue nginx]     | Repositorio con script e ficheiros de configuración para o despregue dunha intranet con [nginx]
+| ENLACE                                        | DESTINO
+|:-                                             |:-
+| [FSF]                                         | Free Software Foundation
+| [GNU-AGPL]                                    | Licenza GNU-AGPL
+| [Odoo]                                        | Software ERP Odoo
+| [Instalación de Odoo]                         | Documentación oficial de instalación de Odoo
+| [OCA]                                         | Odoo Community Association
+| [OCB]                                         | Repositorio do software de Odoo Community Base
+| [Repositorio Proxecto][repoProxecto]          | Repositorio deste proxecto
+| [Repositorio de despregue de Odoo][repoOdoo]  | Repositorio con script e ficheiros de configuración para a automatización do despregue da [OCB]
+| [Repositorio de drepregue nginx][repoNginx]   | Repositorio con script e ficheiros de configuración para o despregue dunha intranet con [nginx]
 
 [//]: # (Listado dos links empregados)
 
@@ -137,8 +146,8 @@ Antes de nada quero agradecerche se estás interesado en contribuír a este pequ
 
    [logo]: <doc/img/logo/xestionSAT_200x200.png>
 
-   [repositorio deste proxecto]: <https://gitlab.iessanclemente.net/damo/a18franciscogc.git>
+   [repoProxecto]: <https://gitlab.iessanclemente.net/damo/a18franciscogc.git>
 
-   [repositorio despregue de Odoo]: <https://gitlab.iessanclemente.net/a18franciscogc/odoo.git>
+   [repoOdoo]: <https://gitlab.iessanclemente.net/a18franciscogc/odoo.git>
 
-   [repositorio drepregue nginx]: <https://gitlab.iessanclemente.net/a18franciscogc/nginx.git>
+   [repoNginx]: <https://gitlab.iessanclemente.net/a18franciscogc/nginx.git>
