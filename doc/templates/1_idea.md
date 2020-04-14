@@ -51,7 +51,7 @@ Tamén é posible sacar un rendemento ecónomico indirecto grazas as caracterís
 * Detección máis rápida de erros ó ter acceso a este software usuarios de todo o mundo, o cal facilita a súa solución
 * Mellora das capacidades profesionais propias ó ter acceso ó código escrito por multitude de persoas e así ver disintas solucións a un problema dado (esto tamén se pode aplicar a calquera que vexa o código deste proxecto)
 
-Este último bloque depende en gran medida da aceptación e promoción que se lle dea ó proxecto dentro da comunidade de software libre, pero aínda que non se acaden estes beneficios só cabe a posibilidade de obtelos con esta vía de licenzamento, e no peor dos casos non implicaría nngún custe a maoires ós dunha solución totalmente pechada, é polo tanto un punto de valor engadido.
+Este último bloque depende en gran medida da aceptación e promoción que se lle dea ó proxecto dentro da comunidade de software libre, pero aínda que non se acadesen estes beneficios, obtelos só sería posible por medio desta vía de licenzamento e no peor dos casos non implicaría ningún custe a adicional sobre a inversión necesaria para unha solución cunha licenza totalmente pechada, é polo tanto un punto de valor engadido o mero feito de ter a posibilidade de conseguir o apoio de outra xente para o mantemento do proxecto.
 
 [//]: # (Listado dos links empregados)
 
