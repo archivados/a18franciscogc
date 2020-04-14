@@ -12,7 +12,9 @@ Para a posta en marcha deste módulo precisase instalar a plataforma de software
 
 Podese instalar todo o necesario por un dos seguintes métodos:
 
-**1. Instalación automatizada:** Para facilitar a súa instalación ofrezo un [repositorio para o despregue de Odoo][repoOdoo] cun script para a automatización da descarga, instalación e parametrización do servizo de [Odoo] baseado na version [OCB]. O script é para o despregue nun entorno **`GNU/Linux`**, en concreto **`Debian 10`** e o punto de montaxe do directorio deste repositorio para a cal está configurado o script é `/var/odoo/`.
+**1. Instalación automatizada:** Para facilitar a súa instalación ofrezo un [repositorio para o despregue de Odoo][repoOdoo] cun script para a automatización da descarga, instalación e parametrización do servizo de [Odoo] baseado na version [OCB]. O script é para o despregue nun entorno `GNU/Linux`, en concreto `Debian 10`.
+
+O punto de montaxe para a descarga deste repositorio que está configurado no script é `/var/odoo/`.
 
 Para descar o repositorio debería empregarse o programa de terminal `git` coa seguinte instrucción:
 
@@ -20,7 +22,7 @@ Para descar o repositorio debería empregarse o programa de terminal `git` coa s
 git clone --recurse-submodules https://gitlab.iessanclemente.net/a18franciscogc/odoo /var/odoo/
 ```
 
-Así descargarase o reposistorio principal e os submodulos asociados incluíndo o [OCB] no lugar apropiado. Unha vez finalizada a descarga é recomendable modificar o contido do script **`/var/odoo/cfg-odoo/odoo_install_d10.sh`** para unha parametrización máis adecuada ó escenario concreto da instalación.
+Así descargarase o reposistorio principal e os submodulos asociados incluíndo o [OCB] no lugar apropiado. Unha vez finalizada a descarga é recomendable modificar o contido do script `/var/odoo/cfg-odoo/odoo_install_d10.sh` para unha parametrización máis adecuada ó escenario concreto da instalación.
 
 **2. Instalación manual:** Se non se quixese facer uso deste repositorio GIT para a posta a punto dos requisitos necesarios para por en marcha **xestiónSAT** recomendo que sigan as instrucións da fonte oficial para a [instalación de Odoo], despois do cal será necesario descargar o contido do [deste repositorio][repoProxecto] nun directorio de addons accesible dende a instancia de [Odoo] configurada.
 
