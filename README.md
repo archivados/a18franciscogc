@@ -60,7 +60,7 @@ Despois de algo máis de 15 anos de experiencia na administrción e mantemento d
 
 ## Licenza
 
-Este software licensase baixo as condicións descritos no ficheiro [LICENSE.md] que se incormpora na raíz desde repoisitorio. Dito ficheiro describe unha licenza [GNU-AGPL] da [FSF] (Free Software Foundation).
+Este software licenciase baixo as condicións descritas no ficheiro [LICENSE.md] que se incormpora na raíz desde repoisitorio. Dito ficheiro describe unha licenza [GNU-AGPL] da [FSF] (Free Software Foundation).
 
 ## Limitación de responsabilidades
 
