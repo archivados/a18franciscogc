@@ -45,7 +45,7 @@ Algunhas das tecnoloxías que domino son:
 * Linguaxes de programacións: `Java, Python, VB.NET, C#, C/C++ e Pascal`
 * Sistemas Xestores de BD: `MySQL, MS SQL Server, MongoDB, PostgreSQL e Oracle`
 
-Despois de algo máis de 15 anos de experiencia na administrción e mantemento de equipos informáticos non atopei ningún software, alo menos libre, que se adaptase ó 100% ás necesidades que tiña para a documentación e o seguimento das actividades profesionais realizadas. Por ese motivo decidín iniciar este proxecto e así tentar cubrir esas demandas intentando xeneralizar o proxecto todo o posible para abarcar o mair número de sectores e calquera outro con requisitos parecidos.
+Despois de algo máis de 15 anos de experiencia na administrción e mantemento de equipos informáticos non atopei ningún software que se adaptase ó 100% ás necesidades que tiña para a documentación e o seguimento das actividades profesionais realizadas. Por ese motivo decidín iniciar este proxecto e así tentar cubrir esas demandas intentando xeneralizar o proxecto todo o posible para abarcar o mair número de sectores e calquera outro con requisitos parecidos.
 
 ## Licenza
 
