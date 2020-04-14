@@ -47,7 +47,7 @@ Con este software poderase ampliar o funcionamento do ERP [Odoo] para incluír a
 
 **Contacto:** a18franciscogc@iessanclemente.net
 
-O meu nome é **Fco. Javier González Campos** e son técnico superior en **ASI** (Administración de Sistemas Informáticos) e **DAM** (Desenvolvemento de Aplicacións Multiplataforma) `(espero que en breve)`, tamén son membro de **Inestable** (a Asociación de Usuarios de GNU/Linux de Ordes) aínda que actualmente estamos sen actividade pública.
+O meu nome é **Fco. Javier González Campos** e son técnico superior en **ASI** (Administración de Sistemas Informáticos) e **DAM** (Desenvolvemento de Aplicacións Multiplataforma) `(espero que en breve)`, tamén son membro de **Inestable**, a Asociación de Usuarios de GNU/Linux de Ordes (aínda que actualmente estamos sen actividade pública).
 
 Algunhas das tecnoloxías que domino son:
 
