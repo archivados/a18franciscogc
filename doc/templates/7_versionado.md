@@ -26,7 +26,7 @@ O modelo da etiquetas para o módulo de [Odoo] describirase na seguinte táboa:
 | z             | Incrementos que solucionen erros (bugs)
 | sufixo        | No caso de existir aportará información adicional sobre a madurez da compilación
 
-Estas etiquetas serán idénticas á versión do manifesto do módulo a excepción dos prefixos e sufixos.
+Estas etiquetas serán idénticas á versión do manifesto do módulo a excepción dos prefixos e sufixos que serán suprimidos.
 
 Exemplo:
 
