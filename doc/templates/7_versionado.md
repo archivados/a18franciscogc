@@ -10,8 +10,8 @@ Decidín ramificar o proxecto do seguinte xeito:
 |:-                 |:-
 | master            | Integrar as versións listas para produción das outras ramas
 | documentacion     | Desenvolvemento da documentación do proxecto
-| modulo_odoo       | Desenvolvemento dó módulo de Odoo
-| modulo_odoo_test  | Test das versións alfa ou beta dó módulo de Odoo antes de pasalo a rama de produción
+| oca_module        | Desenvolvemento dó módulo de [Odoo]
+| oca_module_test   | Test das versións alfa ou beta dó módulo de [Odoo] antes de pasalo a rama de produción
 
 ## Etiquetas
 
