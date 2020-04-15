@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-
 from datetime import datetime, timedelta
 from odoo import models, fields, api
 
-class Equipos(models.Model):
+class Device(models.Model):
     ### Campos modelo
     _name = 'xestionsat.equipos'
     _rec_name = 'nome'

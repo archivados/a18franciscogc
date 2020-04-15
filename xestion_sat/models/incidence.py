@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-
-from datetime import datetime, timedelta
 from odoo import models, fields, api
 
-class Incidencias(models.Model):
+
+class Incidence(models.Model):
     ### Campos modelo
     _name = 'xestionsat.incidencias'
     _rec_name = 'titulo'
