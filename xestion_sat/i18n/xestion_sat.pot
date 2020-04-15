@@ -23,14 +23,14 @@ msgid "xestionSAT Devices"
 msgstr ""
 
 #. module: xestion_sat
-#: model:xestion_sat_device.field_device__created_by_id
+#: model:xestion_sat_device.field_device__created_by_id, xestion_sat_incidence.field_incidence__created_by_id
 msgid "Created by"
 msgstr ""
 
 #. module: xestion_sat
-#: model:xestion_sat_device.field_device__owner_id
-msgid "Client"
-msgstr "Cliente"
+#: model:xestion_sat_device.field_device__owner_id,xestion_sat_incidence.field_incidence__parner_id
+msgid "Customer"
+msgstr ""
 
 #. module: xestion_sat
 #: model:xestion_sat_device.field_device__headquarter_id
@@ -58,12 +58,12 @@ msgid "Location"
 msgstr ""
 
 #. module: xestion_sat
-#: model:xestion_sat_device.field_device__description
+#: model:xestion_sat_device.field_device__description, xestion_sat_incidencestates.field_incidencestate__description, xestion_sat_assistanceplacesincidence.field_assistanceplacesincidence__description
 msgid "Description"
 msgstr ""
 
 #. module: xestion_sat
-#: model:xestion_sat_device.field_device__observation
+#: model:xestion_sat_device.field_device__observation, xestion_sat_devicecomponent.field_devicecomponent__observation, xestion_sat_incidence.field_incidence__observation, xestion_sat_incidenceaction.field_incidenceaction__observation
 msgid "Observations"
 msgstr ""
 
@@ -78,7 +78,7 @@ msgid "Date of cancellation"
 msgstr ""
 
 #. module: xestion_sat
-#: model:xestion_sat_device.field_device__state
+#: model:xestion_sat_device.field_device__state, xestion_sat_incidence.field_incidence__state, xestion_sat_incidencestates.field_incidencestate__state
 msgid "State"
 msgstr ""
 
@@ -127,13 +127,13 @@ msgstr ""
 #. module: xestion_sat
 #: model:xestion_sat_device.constrain_device_headquarter_id_user_ids___check_father__error_user_ids
 #, python-format
-msgid "The device user must be a member of the specified client"
+msgid "The device user must be a member of the specified customer"
 msgstr ""
 
 #. module: xestion_sat
 #: model:xestion_sat_device.constrain_device_headquarter_id_user_ids___check_father__error_headquarter_id
 #, python-format
-msgid "The headquarters must belong to the specified client"
+msgid "The headquarters must belong to the specified customer"
 msgstr ""
 
 #. module: xestion_sat
@@ -145,5 +145,111 @@ msgstr ""
 #. module: xestion_sat
 #: model:xestion_sat_device.constrain_device_created_by_id____check_created_by_id
 #, python-format
-msgid "One user cannot create computers in the name of another"
+msgid "One user cannot create Devices in the name of another"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_devicecomponent.field_devicecomponent___description
+msgid "xestionSAT Devices Compponents"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_devicecomponent.field_devicecomponent__created_by_id
+msgid "Compponent"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_devicecomponent.field_devicecomponent__owner_id
+msgid "ID device"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_devicecomponent.field_devicecomponent__headquarter_id
+msgid "Serial number"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_incidence.field_incidence___description
+msgid "xestionSAT Incidence"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_incidence.field_incidence__device_ids
+msgid "Devices"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_incidence.field_incidence__date_start, xestion_sat_incidenceaction.field_incidenceaction__date_start
+msgid "Date start"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_incidence.field_incidence__date_end, xestion_sat_incidenceaction.field_incidenceaction__date_end
+msgid "Date ends"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_incidence.field_incidence__assistance_place, xestion_sat_incidencestates.field_incidencestate__place_assistance
+msgid "Place of assistance"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_incidence.field_incidence__title
+msgid "Title"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_incidence.field_incidence__failure_description
+msgid "Description of the failure"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_incidence.field_incidence__lock
+msgid "Lock"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_incidence.constrain_incidence_device_ids___check_father
+#, python-format
+msgid "The Device must belong to the specified customer"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_incidence.constrain_incidence_created_by_id___check_created_by_id
+#, python-format
+msgid "One user cannot create Incidences in the name of another"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_incidencestates.field_incidencestate___description
+msgid "xestionSAT Incidence states"
+msgstr ""
+
+####
+
+#. module: xestion_sat
+#: model:xestion_sat_assistanceplacesincidence.field_assistanceplacesincidence___description
+msgid "xestionSAT Assistance Place Incidence"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_incidenceaction.field_incidenceaction___description
+msgid "xestionSAT Incidence Actions"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_incidenceaction.field_incidenceaction__executed_by
+msgid "Executed_by"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_incidenceaction.constrain_incidenceaction_executed_by___check_executed_by
+#, python-format
+msgid "One user cannot create Actions in the name of another"
+msgstr ""
+
+#. module: product_template
+#: model:product.template__type
+#: selection:xestion_sat_device.state,type:2
+msgid "TAS Action"
 msgstr ""

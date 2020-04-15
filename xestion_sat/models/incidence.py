@@ -1,55 +1,124 @@
+# 1: imports of python lib
+from datetime import datetime, timedelta
+
+# 2: import of known third party lib
+
+# 3:  imports of odoo
 from odoo import models, fields, api
+
+# 4:  imports from odoo modules
+
+# 5: local imports
+
+# 6: Import of unknown third party lib
 
 
 class Incidence(models.Model):
-    ### Campos modelo
-    _name = 'xestionsat.incidencias'
-    _rec_name = 'titulo'
-    _description = 'XestionSAT Incidencias'
-    _order = 'data_ini desc'
+    # Private attributes
+    _name = 'xestionsat.incidence'
+    _rec_name = 'title'
+    _description = 'xestionSAT Incidence'
+    _order = 'date_start desc'
     
-    ### Campos relacionados
-    cliente_id = fields.Many2one('res.partner', string='Cliente', ondelete='restrict', required=True)
-    equipos_ids = fields.Many2many('xestionsat.equipos', string='Equipos', required=True)
-    creado_por_id = fields.Many2one('res.users', string='Creado por', ondelete='restrict', default=lambda self: self.env.user, required=True)
+    # Default methods
 
-    actuacionsincidencia_ids = fields.One2many('xestionsat.actuacionsincidencia', inverse_name='incidencias_id')
+    # Fields declaration
+    # Relational Fields
+    parner_id = fields.Many2one(
+        'res.partner',
+        string='Customer',
+        ondelete='restrict',
+        required=True,
+    )
+    device_ids = fields.Many2many(
+        'xestionsat.device',
+        string='Devices',
+        required=True,
+    )
+    created_by_id = fields.Many2one(
+        'res.users',
+        string='Created by',
+        ondelete='restrict',
+        default=lambda self: self.env.user,
+        required=True,
+    )
 
-    data_ini = fields.Date('Data de Incio', default=lambda *a:datetime.now().strftime('%Y-%m-%d'))
-    data_fin = fields.Date('Data de Finalización')
+    incidenceaction = fields.One2many(
+        'xestionsat.incidenceaction',
+        inverse_name='incidence_id',
+    )
 
-    estado = fields.Many2one('xestionsat.estadosincidencia', string='Estado')
+    date_start = fields.Date(
+        string='Date start',
+        default=lambda *a: datetime.now().strftime('%Y-%m-%d')
+    )
+    date_end = fields.Date(
+        string='Date ends',
+    )
 
-    lugar = fields.Many2one('xestionsat.lugaresincidencia', string='Lugar de asistencia')
+    state = fields.Many2one(
+        'xestionsat.incidencestate',
+        string='State',
+    )
 
-    ### Campos propios
-    titulo = fields.Char('Título', required=True)
-    descricion = fields.Char('Descrición do cliente', required=True)
-    observacions = fields.Char('Observacións')
-    bloquear = fields.Boolean(default=False, readonly=True)
+    assistance_place = fields.Many2one(
+        'xestionsat.place_assistanceesincidencia',
+        string='Place of assistance',
+    )
 
-    ### Restriccións
-    @api.constrains ('equipos_ids')
-    def _comprobar_pai(self):
+    # Other Fields
+    title = fields.Char(
+        string='Title',
+        required=True,
+    )
+    failure_description = fields.Char(
+        string='Description of the failure',
+        required=True,
+    )
+    observation = fields.Char(
+        string='Observations',
+    )
+    lock = fields.Boolean(
+        string='Lock',
+        default=False,
+        readonly=True,
+    )
+
+    # compute and search fields, in the same order that fields declaration
+
+    # Constraints and onchanges
+    @api.constrains('device_ids')
+    def _check_father(self):
         for incidencia in self:
-            if incidencia.equipos_ids and incidencia.equipos_ids.propietario_id != incidencia.cliente_id:
-                raise models.ValidationError('O Equipo debe pertencer ó cliente especificado')
+            if incidencia.device_ids and incidencia.device_ids.propietario_id != incidencia.parner_id:
+                raise models.ValidationError(_('The Device must belong to the specified customer'))
 
-    @api.constrains ('creado_por_id')
-    def _comprobar_creador(self):
+    @api.constrains('created_by_id')
+    def _check_created_by_id(self):
         for incidencia in self:
-            if incidencia.creado_por_id and incidencia.creado_por_id != self.env.user:
-                raise models.ValidationError('Un usuario non pode crear Incidencias no nome de outro')
+            if incidencia.created_by_id and incidencia.created_by_id != self.env.user:
+                raise models.ValidationError(_('One user cannot create Incidences in the name of another'))
 
-class EstadosIncidencia(models.Model):
-    ### Campos modelo
-    _name = 'xestionsat.estadosincidencia'
-    _rec_name = 'estado'
-    _description = 'XestionSAT Estados Incidencia'
 
-    ### Campos propios
-    estado = fields.Char('Estado', required=True)
-    descricion = fields.Char('Descrición do etado')
+class IncidenceState(models.Model):
+    # Private attributes
+    _name = 'xestionsat.incidencestate'
+    _rec_name = 'state'
+    _description = 'xestionSAT Incidence states'
+
+    # Default methods
+
+    # Fields declaration
+    # Relational Fields
+
+    # Other Fields
+    state = fields.Char(
+        string='State',
+        required=True,
+    )
+    description = fields.Char(
+        string='Description',
+    )
 
     '''
     Posibles estados:
@@ -63,48 +132,101 @@ class EstadosIncidencia(models.Model):
         Irresoluble
     '''
 
-class LugaresIncidencia(models.Model):
-    ### Campos modelo
-    _name = 'xestionsat.lugaresincidencia'
-    _rec_name = 'lugar'
-    _description = 'XestionSAT Lugares Incidencia'
 
-    ### Campos propios
-    lugar = fields.Char('Lugar', required=True)
-    descricion = fields.Char('Descrición')
+class AssistancePlacesIncidence(models.Model):
+    # Private attributes
+    _name = 'xestionsat.assistanceplacesincidence'
+    _rec_name = 'place_assistance'
+    _description = 'xestionSAT Assistance Place Incidence'
 
-class ActuacionsIncidencia(models.Model):
-    ### Campos modelo
-    _name = 'xestionsat.actuacionsincidencia'
+    # Default methods
+
+    # Fields declaration
+    # Relational Fields
+    place_assistance = fields.Char(
+        string='Place of assistance',
+        required=True,
+    )
+    description = fields.Char(
+        string='Description',
+    )
+
+    # Other Fields
+
+    # compute and search fields, in the same order that fields declaration
+
+    # Constraints and onchanges
+
+
+class IncidenceAction(models.Model):
+    # Private attributes
+    _name = 'xestionsat.incidenceaction'
     _inherits = {'product.template': 'template_id'}
-    _description = 'XestionSAT Actuacións Incidencia'
-    _order = 'data_ini desc'
+    _description = 'xestionSAT Incidence Actions'
+    _order = 'date_start desc'
 
-    ### Campos relacionados
-    executado_por_id = fields.Many2one('res.users', string='Executada por', ondelete='restrict', default=lambda self: self.env.user, required=True)
+    # Default methods
 
-    incidencias_id = fields.Many2one('xestionsat.incidencias', ondelete='cascade')
-    template_id = fields.Many2one('product.template', string='Acción', ondelete='cascade')
+    # Fields declaration
+    # Relational Fields
+    executed_by = fields.Many2one(
+        'res.users',
+        string='Executed_by',
+        ondelete='restrict',
+        default=lambda self: self.env.user,
+        required=True,
+    )
 
-    ### Campos propios
-    data_ini = fields.Date('Data de Incio', default=lambda *a:datetime.now().strftime('%Y-%m-%d'))
-    data_fin = fields.Date('Data de Finalización')
+    incidence_id = fields.Many2one(
+        'xestionsat.incidence',
+        ondelete='cascade',
+    )
+    template_id = fields.Many2one(
+        'product.template',
+        string='Acción',
+        ondelete='cascade',
+    )
 
-    observacions = fields.Char('Observacións')
+    date_start = fields.Date(
+        string='Date start',
+        default=lambda *a: datetime.now().strftime('%Y-%m-%d')
+    )
+    date_end = fields.Date(
+        string='Date ends',
+    )
 
-    ### Restriccións
-    @api.constrains ('executado_por_id')
-    def _comprobar_creador(self):
+    observation = fields.Char(
+        string='Observations',
+    )
+
+    # compute and search fields, in the same order that fields declaration
+
+    # Constraints and onchanges
+    @api.constrains('executed_by')
+    def _check_executed_by(self):
         for actuacion in self:
-            if actuacion.executado_por_id and actuacion.executado_por_id != self.env.user:
-                raise models.ValidationError('Un usuario non pode crear Acccións no nome de outro')
+            if actuacion.executed_by and actuacion.executed_by != self.env.user:
+                raise models.ValidationError(_('One user cannot create Actions in the name of another'))
+
 
 class ProductTemplate(models.Model):
-    ### Campos modelo
+    # Private attributes
     _inherit = 'product.template'
 
-    type = fields.Selection([
-        ('consu', 'Consumable'),
-        ('service', 'Service'),
-        ('sat', 'Acción de SAT')],
-        'Type', default="consu")
+    # Default methods
+
+    # Fields declaration
+    # Relational Fields
+    type = fields.Selection(
+        [
+            ('consu', 'Consumable'),
+            ('service', 'Service'),
+            ('sat', 'TAS Action'),
+        ],
+        string='Type',
+        default="consu",
+    )
+
+    # compute and search fields, in the same order that fields declaration
+
+    # Constraints and onchanges
