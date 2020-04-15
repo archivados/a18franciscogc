@@ -35,9 +35,12 @@ Isto fai que teña un gran punto ó seu favor con respecto a outros programas ó
 
 ## Oportunidade de negocio
 
-Penso que si é viable acadar un rendemento económico deste proxecto por varias vías:
+Ó ser un módulo para a plataforma de software [Odoo] este pode ser un bo "gancho" para recomendar a instalacion de **xestiónSAT** xa que non só se poderá levar a xestión das incidencias do **parque de equipos** dos **clientes** senón que tamén poderá centralizarse toda a xestión da **empresa** dende o propio [Odoo] (vendas, compras, facturación, contabilidade, xestión de persoal... e con **xestiónSAT** o seu SAT) debido a isto penso que si é viable acadar un rendemento económico deste proxecto por varias vías:
 
-* Instalación do aplicativo en empresas do mercado ó que vai dirixido
+* Instalación do aplicativo en empresas que xa teñan instalado [Odoo]
+* Instalación do aplicativo en empresas do mercado ó que vai dirixido xunto con [Odoo] e neste caso a maiores abrense as seguintes oportunidades:
+  * Ofrecer o servizo de instalación dos módulos precisos da plataforma para levar a xestión comercial da empresa
+  * Migrar información de outras plataformas a [Odoo]
 * Mantemento das instalacións do aplicativo, ben sexa un mantemento resolutivo ou preventivo
 * Dar soporte a tercerias empresas que decidan implementar este módulo, para si mesmos ou para os seus clientes
 * Adaptación das funcionalidades do software a casuísticas particulares, axudando así a medrar o nicho de mercado
