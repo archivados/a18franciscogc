@@ -1,0 +1,44 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * xestion_sat
+#
+# Translators:
+# Fco. Javier González Campos <efja.gc@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 20020-04-15 14:50+0000\n"
+"PO-Revision-Date: 2020-04-15 14:50+0000\n"
+"Last-Translator: Fco. Javier González Campos <efja.gc@gmail.com>\n"
+"Language-Team: \n"
+"Language: gl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: project_timesheet_time_control
+#: code:addons/project_timesheet_time_control/wizards/hr_timesheet_switch.py:45
+#, python-format
+msgid ""
+"%d running timers found. Cannot know which one to stop. Please stop them "
+"manually."
+msgstr ""
+
+#. module: project_timesheet_time_control
+#: model_terms:ir.ui.view,arch_db:project_timesheet_time_control.hr_timesheet_switch_form
+msgid ""
+".\n"
+"                        If you continue, it will be stopped with"
+msgstr ""
+
+#. module: project_timesheet_time_control
+#: model_terms:ir.ui.view,arch_db:project_timesheet_time_control.view_project_kanban_inherited
+msgid ""
+"<span class=\"o_label\">\n"
+"                            <i class=\"fa fa-lg fa-play-circle text-success"
+"\"/>\n"
+"                            Start work\n"
+"                        </span>"
+msgstr ""
