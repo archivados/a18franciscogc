@@ -15,14 +15,29 @@ Decidín ramificar o proxecto do seguinte xeito:
 
 ## Etiquetas
 
-O modelo da etiquetas será o seguinte `<prefixo><número versión odoo><número versión módulo><compilación>-<nome da rama><sufixo>`, exemplo:
+O modelo da etiquetas para o módulo de [Odoo] describirase na seguinte táboa:
 
+| BLOQUE        | PROPÓSITO
+|:-             |:-
+| prefixo       | Indicará o tipo de estabilidade e madurez da compilación do módulo
+| versión Odoo  | Indicará a versión de [Odoo] para a cal está deseñado e probado o módulo
+| x             | Incrementos que incorporen un cambio no modelo de datos ou que supoñan cambios importantes. Pode supoñer que sexa preciso unha migración de datos ou que cambien as dependencias do módulo
+| y             | Incrementos con novas funcionalidades estables. Pode supoñer unha actualización do módulo
+| z             | Incrementos que solucionen erros (bugs)
+| sufixo        | No caso de existir aportará información adicional sobre a madurez da compilación
+
+Estas etiquetas serán idénticas á versión do manifesto do módulo a excepción dos prefixos e sufixos.
+
+Exemplo:
+
+``` bash
+a12.0.0.9.0-modulo_odoo
+b12.0.0.9.3-modulo_odoo
+b12.0.0.9.5rc-modulo_odoo
+v12.0.1.0.0-modulo_odoo
 ```
-a12.9.0-modulo_odoo
-b12.9.3-modulo_odoo
-b12.9.5rc-modulo_odoo
-v12.1.0-modulo_odoo
-```
+
+Información sobre os `prefixos` e os `sufixos`:
 
 | PREFIXOS  | PROPÓSITO
 |:-         |:-
@@ -30,8 +45,12 @@ v12.1.0-modulo_odoo
 | b         | Versión en probas (beta) aínda sen test completo
 | v         | Versión estable (release branch) para implementar en produción
 
-
 | SUFIXOS  | PROPÓSITO
 |:-         |:-
 | rc        | Versión na última fase de probas antes de ser promovida como versión en produción (release candidate)
 
+[//]: # (Listado dos links empregados)
+
+   <!-- Enlaces a terceiros -->
+
+   [Odoo]: <https://www.odoo.com/es_ES/>
