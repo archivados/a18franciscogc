@@ -1,4 +1,2 @@
-# -*- coding: utf-8 -*-
-
-from . import equipos
-from . import incidencias
+from . import device
+from . import incidence

@@ -18,27 +18,137 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#. module: project_timesheet_time_control
-#: code:addons/project_timesheet_time_control/wizards/hr_timesheet_switch.py:45
+#. module: xestion_sat
+msgid "xestionSAT"
+msgstr "xestiónSAT"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device___description
+msgid "xestionSAT Devices"
+msgstr "xestiónSAT Equipos"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__created_by_id
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__owner_id
+msgid "Client"
+msgstr "Cliente"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__headquarter_id
+msgid "Headquarters address"
+msgstr "Dirección sede"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__user_ids
+msgid "Users"
+msgstr "Usuarios"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__name
+msgid "Name"
+msgstr "Nome"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__internal_id
+msgid "Internal ID"
+msgstr "Código Interno"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__location
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__description
+msgid "Description"
+msgstr "Descrición"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__observation
+msgid "Observations"
+msgstr "Observacións"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__date_registration
+msgid "Date of registration"
+msgstr "Data de alta"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__data_cancellation
+msgid "Date of cancellation"
+msgstr "Data de baixa"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__state
+msgid "State"
+msgstr "Estado"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__state
+#: selection:xestion_sat_device.state,type:0
+msgid "Stored"
+msgstr "Almacenado"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__state
+#: selection:xestion_sat_device.state,type:1
+msgid "Operational"
+msgstr "Operativo"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__state
+#: selection:xestion_sat_device.state,type:2
+msgid "Repairing"
+msgstr "Reparandose"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__state
+#: selection:xestion_sat_device.state,type:3
+msgid "Unsubscribe"
+msgstr "Baixa"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.method_device__change_state
 #, python-format
-msgid ""
-"%d running timers found. Cannot know which one to stop. Please stop them "
-"manually."
-msgstr ""
+msgid "Moving from <%s> to <%s> is not allowed"
+msgstr "'Non se permite pasar de <%s> a <%s>"
 
-#. module: project_timesheet_time_control
-#: model_terms:ir.ui.view,arch_db:project_timesheet_time_control.hr_timesheet_switch_form
-msgid ""
-".\n"
-"                        If you continue, it will be stopped with"
-msgstr ""
+#. module: xestion_sat
+#: model:xestion_sat_device.method_device__change_state
+#, python-format
+msgid "Moving from <%s> to <%s> is not allowed"
+msgstr "Non se permite pasar de <%s> a <%s>"
 
-#. module: project_timesheet_time_control
-#: model_terms:ir.ui.view,arch_db:project_timesheet_time_control.view_project_kanban_inherited
-msgid ""
-"<span class=\"o_label\">\n"
-"                            <i class=\"fa fa-lg fa-play-circle text-success"
-"\"/>\n"
-"                            Start work\n"
-"                        </span>"
-msgstr ""
+#. module: xestion_sat
+#: model:xestion_sat_device.method_device__create_new_incidence
+#, python-format
+msgid "New incidence"
+msgstr "Nova incidencia"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.constrain_device_headquarter_id_user_ids___check_father__error_user_ids
+#, python-format
+msgid "The device user must be a member of the specified client"
+msgstr "O usuario do dispositivo debe ser membro do cliente especificado"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.constrain_device_headquarter_id_user_ids___check_father__error_headquarter_id
+#, python-format
+msgid "The headquarters must belong to the specified client"
+msgstr "A sede debe pertencer ó cliente especificado"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.constrain_device_internal_id___check_father
+#, python-format
+msgid "The code already exists"
+msgstr "O código xa existe"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.constrain_device_created_by_id____check_created_by_id
+#, python-format
+msgid "One user cannot create computers in the name of another"
+msgstr "Un usuario non pode crear equipos no nome de outro"

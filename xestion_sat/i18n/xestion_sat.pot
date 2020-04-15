@@ -14,5 +14,136 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: xestion_sat
-msgid "Xestion SAT"
+msgid "xestionSAT"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device___description
+msgid "xestionSAT Devices"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__created_by_id
+msgid "Created by"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__owner_id
+msgid "Client"
+msgstr "Cliente"
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__headquarter_id
+msgid "Headquarters address"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__user_ids
+msgid "Users"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__name
+msgid "Name"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__internal_id
+msgid "Internal ID"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__location
+msgid "Location"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__description
+msgid "Description"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__observation
+msgid "Observations"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__date_registration
+msgid "Date of registration"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__data_cancellation
+msgid "Date of cancellation"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__state
+msgid "State"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__state
+#: selection:xestion_sat_device.state,type:0
+msgid "Stored"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__state
+#: selection:xestion_sat_device.state,type:1
+msgid "Operational"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__state
+#: selection:xestion_sat_device.state,type:2
+msgid "Repairing"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.field_device__state
+#: selection:xestion_sat_device.state,type:3
+msgid "Unsubscribe"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.method_device__change_state
+#, python-format
+msgid "Moving from <%s> to <%s> is not allowed"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.method_device__change_state
+#, python-format
+msgid "Moving from <%s> to <%s> is not allowed"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.method_device__create_new_incidence
+#, python-format
+msgid "New incidence"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.constrain_device_headquarter_id_user_ids___check_father__error_user_ids
+#, python-format
+msgid "The device user must be a member of the specified client"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.constrain_device_headquarter_id_user_ids___check_father__error_headquarter_id
+#, python-format
+msgid "The headquarters must belong to the specified client"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.constrain_device_internal_id___check_father
+#, python-format
+msgid "The code already exists"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestion_sat_device.constrain_device_created_by_id____check_created_by_id
+#, python-format
+msgid "One user cannot create computers in the name of another"
 msgstr ""
