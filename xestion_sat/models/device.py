@@ -17,7 +17,7 @@ class Device(models.Model):
     # Private attributes
     _name = 'xestionsat.device'
     _rec_name = 'name'
-    _description = _('xestionSAT Devices')
+    _description = 'xestionSAT Devices'
     _order = 'owner_id, internal_id, name'
 
     # Default methods
@@ -33,7 +33,7 @@ class Device(models.Model):
     )
     owner_id = fields.Many2one(
         'res.partner',
-        string='Client',
+        string='Customer',
         ondelete='cascade',
         required=True,
     )
@@ -53,11 +53,22 @@ class Device(models.Model):
     )
 
     # Other Fields
-    name = fields.Char(string='Name', required=True)
-    internal_id = fields.Char(string='Internal ID')
-    location = fields.Char(string='Location')
-    description = fields.Char(string='Description')
-    observation = fields.Char(string='Observations')
+    name = fields.Char(
+        string='Name',
+        required=True,
+    )
+    internal_id = fields.Char(
+        string='Internal ID',
+    )
+    location = fields.Char(
+        string='Location',
+    )
+    description = fields.Char(
+        string='Description',
+    )
+    observation = fields.Char(
+        string='Observations',
+    )
 
     date_registration = fields.Date(
         'Date of registration',
@@ -142,7 +153,7 @@ class Device(models.Model):
 
         new_incidence_context = {
             'default_bloquear': True,
-            'default_cliente_id': self.owner_id.id,
+            'default_customer_id': self.owner_id.id,
             'default_device_ids': [self.id],
         }
 
@@ -175,14 +186,14 @@ class Device(models.Model):
     def _check_father(self):
         for device in self:
             if device.user_ids and device.user_ids.parent_id != device.owner_id:
-                raise models.ValidationError(_('The device user must be a member of the specified client'))
+                raise models.ValidationError(_('The device user must be a member of the specified customer'))
             if device.sede_id and device.sede_id.parent_id != device.owner_id:
-                raise models.ValidationError(_('The headquarters must belong to the specified client'))
+                raise models.ValidationError(_('The headquarters must belong to the specified customer'))
 
     @api.constrains('internal_id')
     def _check_father(self):
         for device in self:
-            if  device.internal_id and self.env['xestionsat.device'].search([('internal_id', '=', self.internal_id), ('id', '!=', self.id)]):
+            if device.internal_id and self.env['xestionsat.device'].search([('internal_id', '=', self.internal_id), ('id', '!=', self.id)]):
                 raise ValueError(_('The code already exists'))
 
     @api.constrains('created_by_id')
@@ -202,19 +213,33 @@ class DeviceComponent(models.Model):
     # Private attributes
     _name = 'xestionsat.devicecomponent'
     _inherits = {'product.template': 'template_id'}
-    _description = 'XestionSAT Compoñentes device'
+    _description = 'xestionSAT Devices Compponents'
 
     # Default methods
 
     # Fields declaration
     # Relational Fields
-    template_id = fields.Many2one('product.template', string='Compoñente', ondelete='cascade', required=True)
-    device_id = fields.Many2one('xestionsat.device', string='ID device', ondelete='cascade', required=True)
+    template_id = fields.Many2one(
+        'product.template',
+        string='Compponent',
+        ondelete='cascade',
+        required=True,
+    )
+    device_id = fields.Many2one(
+        'xestionsat.device',
+        string='ID device',
+        ondelete='cascade',
+        required=True,
+    )
 
     # Other Fields
     # nome = fields.Char('Nome descriptivo', required=True)
-    serial = fields.Char('Número de serie')
-    observacions = fields.Char('Observacións')
+    serial = fields.Char(
+        string='Serial number',
+    )
+    observation = fields.Char(
+        string='Observations',
+    )
 
     # compute and search fields, in the same order that fields declaration
 
