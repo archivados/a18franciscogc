@@ -62,7 +62,7 @@ class Incidence(models.Model):
     )
 
     assistance_place = fields.Many2one(
-        'xestionsat.place_assistanceesincidencia',
+        'xestionsat.incidenceassistanceplace',
         string='Place of assistance',
     )
 
@@ -133,17 +133,17 @@ class IncidenceState(models.Model):
     '''
 
 
-class AssistancePlacesIncidence(models.Model):
+class IncidenceAssistancePlace(models.Model):
     # Private attributes
-    _name = 'xestionsat.assistanceplacesincidence'
-    _rec_name = 'place_assistance'
+    _name = 'xestionsat.incidenceassistanceplace'
+    _rec_name = 'assistance_place'
     _description = 'xestionSAT Assistance Place Incidence'
 
     # Default methods
 
     # Fields declaration
     # Relational Fields
-    place_assistance = fields.Char(
+    assistance_place = fields.Char(
         string='Place of assistance',
         required=True,
     )
