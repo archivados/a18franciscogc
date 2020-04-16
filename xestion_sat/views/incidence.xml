@@ -34,7 +34,7 @@
                 </group>
                 <group>
                     <field name="device_ids"
-                        domain="[('propietario_id', '=', customer_id)]">
+                        domain="[('owner_id', '=', customer_id)]">
                         <tree>
                             <field name="created_by_id"/>
                             <field name="name"/>
