@@ -201,19 +201,19 @@ msgstr ""
 #. module: xestion_sat
 #: code:addons/xestion_sat/models/incidence.py:209
 #, python-format
-msgid "One user cannot create Actions in the name of another"
+msgid "One User cannot create Actions in the name of another"
 msgstr ""
 
 #. module: xestion_sat
 #: code:addons/xestion_sat/models/incidence.py:100
 #, python-format
-msgid "One user cannot create Incidences in the name of another"
+msgid "One User cannot create Incidences in the name of another"
 msgstr ""
 
 #. module: xestion_sat
 #: code:addons/xestion_sat/models/device.py:203
 #, python-format
-msgid "One user cannot create Devices in the name of another"
+msgid "One User cannot create Devices in the name of another"
 msgstr ""
 
 #. module: xestion_sat
@@ -268,15 +268,21 @@ msgid "The code already exists"
 msgstr ""
 
 #. module: xestion_sat
+#: code:addons/xestion_sat/models/incidence.py:94
+#, python-format
+msgid "The Device must belong to the specified Customer"
+msgstr ""
+
+#. module: xestion_sat
 #: code:addons/xestion_sat/models/device.py:189
 #, python-format
-msgid "The device user must be a member of the specified customer"
+msgid "The Device User must be a member of the specified Customer"
 msgstr ""
 
 #. module: xestion_sat
 #: code:addons/xestion_sat/models/device.py:191
 #, python-format
-msgid "The headquarters must belong to the specified customer"
+msgid "The Headquarters must belong to the specified Customer"
 msgstr ""
 
 #. module: xestion_sat

@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 # 2: import of known third party lib
 
 # 3:  imports of odoo
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
 
@@ -186,12 +186,12 @@ class Device(models.Model):
     def _check_father(self):
         for device in self:
             if device.user_ids and device.user_ids.parent_id != device.owner_id:
-                raise models.ValidationError(_('The device user must be a member of the specified customer'))
-            if device.sede_id and device.sede_id.parent_id != device.owner_id:
-                raise models.ValidationError(_('The headquarters must belong to the specified customer'))
+                raise models.ValidationError(_('The Device User must be a member of the specified Customer'))
+            if device.headquarter_id and device.headquarter_id.parent_id != device.owner_id:
+                raise models.ValidationError(_('The Headquarters must belong to the specified Customer'))
 
     @api.constrains('internal_id')
-    def _check_father(self):
+    def _check_internal_id(self):
         for device in self:
             if device.internal_id and self.env['xestionsat.device'].search([('internal_id', '=', self.internal_id), ('id', '!=', self.id)]):
                 raise ValueError(_('The code already exists'))
@@ -200,7 +200,8 @@ class Device(models.Model):
     def _check_created_by_id(self):
         for device in self:
             if device.created_by_id and device.created_by_id != self.env.user:
-                raise models.ValidationError(_('One user cannot create Devices in the name of another'))
+                raise models.ValidationError(_('One User cannot create Devices in the name of another'))
+
 
     # CRUD methods
 

@@ -270,16 +270,23 @@ msgid "The code already exists"
 msgstr "O código xa existe"
 
 #. module: xestion_sat
+#: code:addons/xestion_sat/models/incidence.py:94
+#, python-format
+msgid "The Device must belong to the specified Customer"
+msgstr "O Equipo debe pertencer ó Cliente especificado"
+
+
+#. module: xestion_sat
 #: code:addons/xestion_sat/models/device.py:189
 #, python-format
-msgid "The device user must be a member of the specified customer"
-msgstr "O Equipo debe pertencer ó cliente especificado"
+msgid "The Device User must be a member of the specified Customer"
+msgstr "O Usuario do Equipo debe ser membro do Cliente especificado"
 
 #. module: xestion_sat
 #: code:addons/xestion_sat/models/device.py:191
 #, python-format
-msgid "The headquarters must belong to the specified customer"
-msgstr "A sede debe pertencer ó cliente especificado"
+msgid "The Headquarters must belong to the specified Customer"
+msgstr "A Sede debe pertencer ó Cliente especificado"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__title

@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 # 2: import of known third party lib
 
 # 3:  imports of odoo
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
 
@@ -90,14 +90,14 @@ class Incidence(models.Model):
     @api.constrains('device_ids')
     def _check_father(self):
         for incidencia in self:
-            if incidencia.device_ids and incidencia.device_ids.propietario_id != incidencia.customer_id:
-                raise models.ValidationError(_('The Device must belong to the specified customer'))
+            if incidencia.device_ids and incidencia.device_ids.owner_id != incidencia.customer_id:
+                raise models.ValidationError(_('The Device must belong to the specified Customer'))
 
     @api.constrains('created_by_id')
     def _check_created_by_id(self):
         for incidencia in self:
             if incidencia.created_by_id and incidencia.created_by_id != self.env.user:
-                raise models.ValidationError(_('One user cannot create Incidences in the name of another'))
+                raise models.ValidationError(_('One User cannot create Incidences in the name of another'))
 
 
 class IncidenceState(models.Model):
