@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id='xestionsat_lugaresincidencia_action' model='ir.actions.act_window'>
-        <field name="name">Lugares Incidencias</field>
-        <field name="res_model">xestionsat.lugaresincidencia</field>
+    <record id='xestionsat_assistanceplacesincidence_action' model='ir.actions.act_window'>
+        <field name="name">Assistance Places Incidence</field>
+        <field name="res_model">xestionsat.assistanceplacesincidence</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
     <!-- Form View -->
-    <record id="xestionsat_lugaresincidencia_view_form" model="ir.ui.view">
-        <field name="name">Lugar Incidencia</field>
-        <field name="model">xestionsat.lugaresincidencia</field>
+    <record id="xestionsat_assistanceplacesincidence_view_form" model="ir.ui.view">
+        <field name="name">place_assistance Incidencia</field>
+        <field name="model">xestionsat.assistanceplacesincidence</field>
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="lugar"/>
-                    <field name="descricion"/>
+                    <field name="place_assistance"/>
+                    <field name="description"/>
                 </group>
             </form>
         </field>
     </record>
 
     <!-- Tree(list) View -->
-    <record id="xestionsat_lugaresincidencia_view_tree" model="ir.ui.view">
-        <field name="name">Lista Lugares Incidencias</field>
-        <field name="model">xestionsat.lugaresincidencia</field>
+    <record id="xestionsat_assistanceplacesincidence_view_tree" model="ir.ui.view">
+        <field name="name">Assistance Places Incidence List</field>
+        <field name="model">xestionsat.assistanceplacesincidence</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="lugar"/>
-                <field name="descricion"/>
+                <field name="place_assistance"/>
+                <field name="description"/>
             </tree>
         </field>
     </record>
 
     <!-- MENÚS -->
-    <menuitem name="Lugares Incidencias" 
-        id="xestionsat_lugaresincidencia_menu" 
+    <menuitem name="Assistance Places Incidence" 
+        id="xestionsat_assistanceplacesincidence_menu" 
         parent="xestionsat_incidencias_menu" 
         sequence="30" 
-        action="xestionsat_lugaresincidencia_action"/>
+        action="xestionsat_assistanceplacesincidence_action"/>
     
 </odoo>
