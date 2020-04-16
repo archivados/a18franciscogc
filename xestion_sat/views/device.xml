@@ -65,7 +65,7 @@
 
     <!-- Tree(list) View -->
     <record id="xestionsat_device_view_tree" model="ir.ui.view">
-        <field name="name">Lista de Devices</field>
+        <field name="name">Devices List</field>
         <field name="model">xestionsat.device</field>
         <field name="arch" type="xml">
             <tree>
