@@ -27,23 +27,23 @@
     'version': '12.0.0.5.1',
 
     # any module necessary for this one to work correctly
-    #'depends': ['base', 'sale_management', 'hr', 'calendar', 'crm'],
+    # 'depends': ['base', 'sale_management', 'hr', 'calendar', 'crm'],
     'depends': ['base', 'sale_management'],
 
     # always loaded
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
-        'views/menu_principal.xml',
-        'views/equipos.xml',
-        'views/componhentesequipo.xml',
-        'views/incidencias.xml',
-        'views/estadosincidencia.xml',
-        'views/lugaresincidencia.xml',
+        'views/main_menu.xml',
+        'views/device.xml',
+        'views/devicecomponent.xml',
+        'views/incidence.xml',
+        'views/assistanceplacesincidence.xml',
+        'views/incidenceaction.xml',
         'views/actuacionsincidencia.xml',
     ],
     # only loaded in demonstration mode
-    #'demo': [
+    # 'demo': [
     #    'demo/demo.xml',
-    #],
+    # ],
 }

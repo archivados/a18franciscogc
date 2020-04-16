@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='xestionsat_device_action' model='ir.actions.act_window'>
+        <field name="name">Devices</field>
+        <field name="res_model">xestionsat.device</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Form View -->
+    <record id="xestionsat_device_view_form" model="ir.ui.view">
+        <field name="name">Device</field>
+        <field name="model">xestionsat.device</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="make_stored" string="Stored" type="object"/>
+                    <button name="make_operational" string="Operational" type="object"/>
+                    <button name="create_incidence"  string="Create Inicidence" type="object"/>
+                    <button name="make_unsubscribe"  string="Unsubscribe" type="object"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="internal_id"/>
+                        <field name="created_by_id"
+                            domain="[('id', '=', uid)]"/>
+                        
+                        <field name="description"/>
+                        <field name="observation"/>
+                        <field name="date_registration"/>
+                        <field name="data_cancellation"/>
+                    </group>
+                    <group>
+                        <field name="owner_id"/>
+                        <field name="headquarter_id"
+                            options="{'no_create_edit': True}" 
+                            domain="[('parent_id', '=', owner_id)]" />
+                        <!--
+                        <field name="headquarter_id"/>
+                        -->
+                        <field name="location"/>
+                        <field name="user_ids" 
+                            domain="[('parent_id', '=', owner_id)]" 
+                            widget="many2many_tags"/>
+                    </group>
+                </group>
+                <label for="devicecomponents_ids" string="Device Components" />
+                <field name="devicecomponents_ids">
+                    <form>
+                        <group>
+                            <group>
+                                <field name="template_id"/>
+                                <field name="serial"/>
+                                <field name="observation"/>
+                            </group>
+                        </group>
+                    </form>
+                </field>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree(list) View -->
+    <record id="xestionsat_device_view_tree" model="ir.ui.view">
+        <field name="name">Lista de Devices</field>
+        <field name="model">xestionsat.device</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="owner_id"/>
+                <field name="name"/>
+                <field name="internal_id"/>
+                <field name="description"/>
+                <field name="date_registration"/>
+                <field name="headquarter_id"/>
+                <field name="location"/>
+                <field name="created_by_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- MENÚS -->
+    <menuitem 
+        name="Devices" 
+        id="xestionsat_device_sub_menu" 
+        parent="xestionsat_device_menu" 
+        sequence="10" 
+        action="xestionsat_device_action"/>
+    
+</odoo>

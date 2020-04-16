@@ -127,7 +127,7 @@ class Device(models.Model):
         self.change_state('operational')
 
     @api.multi
-    def crear_incidence(self):
+    def create_incidence(self):
         self.change_state('repairing')
 
         return self.create_new_incidence()
