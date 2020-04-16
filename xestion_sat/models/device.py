@@ -17,7 +17,6 @@ class Device(models.Model):
     # Private attributes
     _name = 'xestionsat.device'
     _rec_name = 'name'
-    _description = 'xestionSAT Devices'
     _order = 'owner_id, internal_id, name'
 
     # Default methods
@@ -201,7 +200,7 @@ class Device(models.Model):
     def _check_created_by_id(self):
         for device in self:
             if device.created_by_id and device.created_by_id != self.env.user:
-                raise models.ValidationError(_('One user cannot create computers in the name of another'))
+                raise models.ValidationError(_('One user cannot create Devices in the name of another'))
 
     # CRUD methods
 
@@ -214,7 +213,6 @@ class DeviceComponent(models.Model):
     # Private attributes
     _name = 'xestionsat.devicecomponent'
     _inherits = {'product.template': 'template_id'}
-    _description = 'xestionSAT Devices Compponents'
 
     # Default methods
 

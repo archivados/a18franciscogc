@@ -17,7 +17,6 @@ class Incidence(models.Model):
     # Private attributes
     _name = 'xestionsat.incidence'
     _rec_name = 'title'
-    _description = 'xestionSAT Incidence'
     _order = 'date_start desc'
     
     # Default methods
@@ -105,7 +104,6 @@ class IncidenceState(models.Model):
     # Private attributes
     _name = 'xestionsat.incidencestate'
     _rec_name = 'state'
-    _description = 'xestionSAT Incidence States'
 
     # Default methods
 
@@ -138,7 +136,6 @@ class IncidenceAssistancePlace(models.Model):
     # Private attributes
     _name = 'xestionsat.incidenceassistanceplace'
     _rec_name = 'assistance_place'
-    _description = 'xestionSAT Assistance Place Incidence'
 
     # Default methods
 
@@ -163,7 +160,6 @@ class IncidenceAction(models.Model):
     # Private attributes
     _name = 'xestionsat.incidenceaction'
     _inherits = {'product.template': 'template_id'}
-    _description = 'xestionSAT Incidence Actions'
     _order = 'date_start desc'
 
     # Default methods
