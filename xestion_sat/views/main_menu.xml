@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <act_window id="action_clientes"
-        name="Clientes"
+    <act_window id="customers_action"
+        name="Customers"
         res_model="res.partner"
         view_mode="kanban,tree,form,activity"
         context="{'search_default_customer':1}"
         limit="80"/>
 
-    <act_window id="action_accions"
-        name="Accións"
+    <act_window id="incidenceaction_action"
+        name="Actions"
         res_model="product.template"
         view_mode="kanban,tree,form,activity"
         domain="[('type', '=', 'sat')]"
@@ -17,35 +17,35 @@
 
     <!-- MENÚS -->
     <menuitem 
-        name="Xestión SAT" 
+        name="xestionSAT" 
         id="xestionsat_base_menu" />
 
         <!-- INCIDENCIAS -->
         <menuitem 
-            name="Incidencias"
-            id="xestionsat_incidencias_menu" 
+            name="Incidences"
+            id="xestionsat_incidences_menu" 
             parent="xestionsat_base_menu" 
             sequence="10" />
 
             <menuitem 
-                name="Accións de SAT (produtos)" 
-                id="xestionsat_accions_menu" 
-                parent="xestionsat_incidencias_menu" 
+                name="TAS Actions (products)" 
+                id="xestionsat_actions_menu" 
+                parent="xestionsat_incidences_menu" 
                 sequence="100" 
-                action="action_accions"/>
+                action="incidenceaction_action"/>
 
         <!-- EQUIPOS -->
         <menuitem 
-            name="Equipos" 
-            id="xestionsat_equipos_menu" 
+            name="Devices" 
+            id="xestionsat_device_menu" 
             parent="xestionsat_base_menu"
             sequence="20" />
 
             <menuitem 
-                name="Clientes" 
-                id="xestionsat_clientes_menu" 
-                parent="xestionsat_equipos_menu" 
+                name="Customers" 
+                id="xestionsat_customers_menu" 
+                parent="xestionsat_device_menu" 
                 sequence="100"
-                action="action_clientes" />
+                action="customers_action" />
 
 </odoo>
