@@ -21,12 +21,6 @@ msgid "Action"
 msgstr ""
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_devicecomponent__message_needaction
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__message_needaction
-msgid "Action Needed"
-msgstr ""
-
-#. module: xestion_sat
 #: model:ir.actions.act_window,name:xestion_sat.incidenceaction_action
 #: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_form
 msgid "Actions"
@@ -128,16 +122,6 @@ msgid "Headquarters address"
 msgstr ""
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__id
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_devicecomponent__id
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__id
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__id
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceassistanceplace__id
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidencestate__id
-msgid "ID"
-msgstr ""
-
-#. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_devicecomponent__device_id
 msgid "ID device"
 msgstr ""
@@ -229,7 +213,7 @@ msgstr ""
 #. module: xestion_sat
 #: code:addons/xestion_sat/models/device.py:203
 #, python-format
-msgid "One user cannot create computers in the name of another"
+msgid "One user cannot create Devices in the name of another"
 msgstr ""
 
 #. module: xestion_sat
@@ -320,34 +304,3 @@ msgstr ""
 #: model:ir.ui.menu,name:xestion_sat.xestionsat_base_menu
 msgid "xestionSAT"
 msgstr ""
-
-#. module: xestion_sat
-#: model:ir.model,name:xestion_sat.model_xestionsat_incidenceassistanceplace
-msgid "xestionSAT Assistance Place Incidence"
-msgstr ""
-
-#. module: xestion_sat
-#: model:ir.model,name:xestion_sat.model_xestionsat_device
-msgid "xestionSAT Devices"
-msgstr ""
-
-#. module: xestion_sat
-#: model:ir.model,name:xestion_sat.model_xestionsat_devicecomponent
-msgid "xestionSAT Devices Compponents"
-msgstr ""
-
-#. module: xestion_sat
-#: model:ir.model,name:xestion_sat.model_xestionsat_incidence
-msgid "xestionSAT Incidence"
-msgstr ""
-
-#. module: xestion_sat
-#: model:ir.model,name:xestion_sat.model_xestionsat_incidenceaction
-msgid "xestionSAT Incidence Actions"
-msgstr ""
-
-#. module: xestion_sat
-#: model:ir.model,name:xestion_sat.model_xestionsat_incidencestate
-msgid "xestionSAT Incidence States"
-msgstr ""
-
