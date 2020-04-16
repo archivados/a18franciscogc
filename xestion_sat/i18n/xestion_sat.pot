@@ -28,7 +28,7 @@ msgid "Created by"
 msgstr ""
 
 #. module: xestion_sat
-#: model:xestion_sat_device.field_device__owner_id,xestion_sat_incidence.field_incidence__parner_id
+#: model:xestion_sat_device.field_device__owner_id,xestion_sat_incidence.field_incidence__customer_id
 msgid "Customer"
 msgstr ""
 

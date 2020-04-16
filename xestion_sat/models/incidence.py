@@ -24,7 +24,7 @@ class Incidence(models.Model):
 
     # Fields declaration
     # Relational Fields
-    parner_id = fields.Many2one(
+    customer_id = fields.Many2one(
         'res.partner',
         string='Customer',
         ondelete='restrict',
@@ -90,7 +90,7 @@ class Incidence(models.Model):
     @api.constrains('device_ids')
     def _check_father(self):
         for incidencia in self:
-            if incidencia.device_ids and incidencia.device_ids.propietario_id != incidencia.parner_id:
+            if incidencia.device_ids and incidencia.device_ids.propietario_id != incidencia.customer_id:
                 raise models.ValidationError(_('The Device must belong to the specified customer'))
 
     @api.constrains('created_by_id')
