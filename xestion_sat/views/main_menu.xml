@@ -23,14 +23,14 @@
         <!-- INCIDENCIAS -->
         <menuitem 
             name="Incidences"
-            id="xestionsat_incidences_menu" 
+            id="xestionsat_incidence_menu" 
             parent="xestionsat_base_menu" 
             sequence="10" />
 
             <menuitem 
                 name="TAS Actions (products)" 
                 id="xestionsat_actions_menu" 
-                parent="xestionsat_incidences_menu" 
+                parent="xestionsat_incidence_menu" 
                 sequence="100" 
                 action="incidenceaction_action"/>
 

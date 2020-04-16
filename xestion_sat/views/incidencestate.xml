@@ -37,7 +37,7 @@
     <!-- MENÚS -->
     <menuitem name="Incidence States" 
         id="xestionsat_incidencestate_menu" 
-        parent="xestionsat_incidencias_menu" 
+        parent="xestionsat_incidence_menu" 
         sequence="30" 
         action="xestionsat_incidencestate_action"/>
     

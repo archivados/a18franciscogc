@@ -38,9 +38,9 @@
         'views/device.xml',
         'views/devicecomponent.xml',
         'views/incidence.xml',
-        'views/assistanceplacesincidence.xml',
+        'views/incidenceassistanceplaces.xml',
+        'views/incidencestate.xml',
         'views/incidenceaction.xml',
-        'views/actuacionsincidencia.xml',
     ],
     # only loaded in demonstration mode
     # 'demo': [
