@@ -1,0 +1,312 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* xestion_sat
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-16 16:19+0000\n"
+"PO-Revision-Date: 2020-04-16 16:19+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__template_id
+msgid "Action"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.actions.act_window,name:xestion_sat.incidenceaction_action
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_form
+msgid "Actions"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_devicecomponent__template_id
+msgid "Compponent"
+msgstr ""
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_view_form
+msgid "Create Inicidence"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__create_uid
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__created_by_id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_devicecomponent__create_uid
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__create_uid
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__created_by_id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__create_uid
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceassistanceplace__create_uid
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidencestate__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__owner_id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__customer_id
+msgid "Customer"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.actions.act_window,name:xestion_sat.customers_action
+#: model:ir.ui.menu,name:xestion_sat.xestionsat_customers_menu
+msgid "Customers"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__date_end
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__date_end
+msgid "Date ends"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__date_cancellation
+msgid "Date of cancellation"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__date_registration
+msgid "Date of registration"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__date_start
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__date_start
+msgid "Date start"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__description
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_devicecomponent__description
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__description
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceassistanceplace__description
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidencestate__description
+msgid "Description"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__failure_description
+msgid "Description of the failure"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.actions.act_window,name:xestion_sat.xestionsat_devicecomponent_action
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__devicecomponents_ids
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_view_form
+msgid "Device Components"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.actions.act_window,name:xestion_sat.xestionsat_device_action
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__device_ids
+#: model:ir.ui.menu,name:xestion_sat.xestionsat_device_menu
+#: model:ir.ui.menu,name:xestion_sat.xestionsat_device_sub_menu
+msgid "Devices"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__executed_by
+msgid "Executed_by"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__headquarter_id
+msgid "Headquarters address"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_devicecomponent__device_id
+msgid "ID device"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__incidence_id
+msgid "Incidence"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidenceaction_action
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__incidenceaction_ids
+msgid "Incidence Actions"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidenceassistanceplace_action
+#: model:ir.ui.menu,name:xestion_sat.xestionsat_incidenceassistanceplace_menu
+msgid "Incidence Assistance Places"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidencestate_action
+#: model:ir.ui.menu,name:xestion_sat.xestionsat_incidencestate_menu
+msgid "Incidence States"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidence_action
+#: model:ir.ui.menu,name:xestion_sat.xestionsat_incidence_menu
+#: model:ir.ui.menu,name:xestion_sat.xestionsat_incidence_sub_menu
+msgid "Incidences"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__internal_id
+msgid "Internal ID"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__location
+msgid "Location"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__lock
+msgid "Lock"
+msgstr ""
+
+#. module: xestion_sat
+#: code:addons/xestion_sat/models/device.py:120
+#, python-format
+msgid "Moving from %s to %s is not allowed"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__name
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_devicecomponent__name
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__name
+msgid "Name"
+msgstr ""
+
+#. module: xestion_sat
+#: code:addons/xestion_sat/models/device.py:169
+#, python-format
+msgid "New incidence"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__observation
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_devicecomponent__observation
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__observation
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__observation
+msgid "Observations"
+msgstr ""
+
+#. module: xestion_sat
+#: code:addons/xestion_sat/models/incidence.py:209
+#, python-format
+msgid "One User cannot create Actions in the name of another"
+msgstr ""
+
+#. module: xestion_sat
+#: code:addons/xestion_sat/models/incidence.py:100
+#, python-format
+msgid "One User cannot create Incidences in the name of another"
+msgstr ""
+
+#. module: xestion_sat
+#: code:addons/xestion_sat/models/device.py:203
+#, python-format
+msgid "One User cannot create Devices in the name of another"
+msgstr ""
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_view_form
+#: selection:xestionsat.device,state:0
+msgid "Operational"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__assistance_place
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceassistanceplace__assistance_place
+msgid "Place of assistance"
+msgstr ""
+
+#. module: xestion_sat
+#: selection:xestionsat.device,state:0
+msgid "Repairing"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_devicecomponent__serial
+msgid "Serial number"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__state
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__state
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidencestate__state
+msgid "State"
+msgstr ""
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_view_form
+#: selection:xestionsat.device,state:0
+msgid "Stored"
+msgstr ""
+
+#. module: xestion_sat
+#: selection:product.template,type:0
+msgid "TAS Action"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.ui.menu,name:xestion_sat.xestionsat_actions_menu
+msgid "TAS Actions (products)"
+msgstr ""
+
+#. module: xestion_sat
+#: code:addons/xestion_sat/models/device.py:197
+#, python-format
+msgid "The code already exists"
+msgstr ""
+
+#. module: xestion_sat
+#: code:addons/xestion_sat/models/incidence.py:94
+#, python-format
+msgid "The Device must belong to the specified Customer"
+msgstr ""
+
+#. module: xestion_sat
+#: code:addons/xestion_sat/models/device.py:189
+#, python-format
+msgid "The Device User must be a member of the specified Customer"
+msgstr ""
+
+#. module: xestion_sat
+#: code:addons/xestion_sat/models/device.py:191
+#, python-format
+msgid "The Headquarters must belong to the specified Customer"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__title
+msgid "Title"
+msgstr ""
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_view_form
+#: selection:xestionsat.device,state:0
+msgid "Unsubscribe"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__user_ids
+msgid "Users"
+msgstr ""
+
+#. module: xestion_sat
+#: model:res.groups,name:xestion_sat.group_xestsat_admin
+msgid "xestionSAT technicians"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.ui.menu,name:xestion_sat.xestionsat_base_menu
+msgid "xestionSAT"
+msgstr ""

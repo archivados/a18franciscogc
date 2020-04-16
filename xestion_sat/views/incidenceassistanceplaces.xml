@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='xestionsat_incidenceassistanceplace_action' model='ir.actions.act_window'>
+        <field name="name">Incidence Assistance Places</field>
+        <field name="res_model">xestionsat.incidenceassistanceplace</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Form View -->
+    <record id="xestionsat_incidenceassistanceplace_view_form" model="ir.ui.view">
+        <field name="name">Incidence Assistance Place</field>
+        <field name="model">xestionsat.incidenceassistanceplace</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="assistance_place"/>
+                    <field name="description"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree(list) View -->
+    <record id="xestionsat_incidenceassistanceplace_view_tree" model="ir.ui.view">
+        <field name="name">Incidence Assistance Places List</field>
+        <field name="model">xestionsat.incidenceassistanceplace</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="assistance_place"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- MENÚS -->
+    <menuitem name="Incidence Assistance Places" 
+        id="xestionsat_incidenceassistanceplace_menu" 
+        parent="xestionsat_incidence_menu" 
+        sequence="30" 
+        action="xestionsat_incidenceassistanceplace_action"/>
+    
+</odoo>

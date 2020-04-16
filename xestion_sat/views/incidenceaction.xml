@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='xestionsat_incidenceaction_action' model='ir.actions.act_window'>
+        <field name="name">Incidence Actions</field>
+        <field name="res_model">xestionsat.incidenceaction</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <!-- Tree(list) View -->
+    <record id="xestionsat_incidenceaction_view_tree" model="ir.ui.view">
+        <field name="name">Incidence Actions List</field>
+        <field name="model">xestionsat.incidenceaction</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="executed_by"/>
+                <field name="template_id"/>
+                <field name="observation"/>
+                <field name="list_price"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </tree>
+        </field>
+    </record>
+    
+</odoo>

@@ -24,26 +24,26 @@
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Tools',
-    'version': '12.0.1',
+    'version': '12.0.0.5.1',
 
     # any module necessary for this one to work correctly
-    #'depends': ['base', 'sale_management', 'hr', 'calendar', 'crm'],
+    # 'depends': ['base', 'sale_management', 'hr', 'calendar', 'crm'],
     'depends': ['base', 'sale_management'],
 
     # always loaded
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
-        'views/menu_principal.xml',
-        'views/equipos.xml',
-        'views/componhentesequipo.xml',
-        'views/incidencias.xml',
-        'views/estadosincidencia.xml',
-        'views/lugaresincidencia.xml',
-        'views/actuacionsincidencia.xml',
+        'views/main_menu.xml',
+        'views/device.xml',
+        'views/devicecomponent.xml',
+        'views/incidence.xml',
+        'views/incidenceassistanceplaces.xml',
+        'views/incidencestate.xml',
+        'views/incidenceaction.xml',
     ],
     # only loaded in demonstration mode
-    #'demo': [
+    # 'demo': [
     #    'demo/demo.xml',
-    #],
+    # ],
 }
