@@ -45,6 +45,7 @@ class Incidence(models.Model):
 
     incidenceaction_ids = fields.One2many(
         'xestionsat.incidenceaction',
+        string='Incidence Actions',
         inverse_name='incidence_id',
     )
 
@@ -104,7 +105,7 @@ class IncidenceState(models.Model):
     # Private attributes
     _name = 'xestionsat.incidencestate'
     _rec_name = 'state'
-    _description = 'xestionSAT Incidence states'
+    _description = 'xestionSAT Incidence States'
 
     # Default methods
 
@@ -183,7 +184,7 @@ class IncidenceAction(models.Model):
     )
     template_id = fields.Many2one(
         'product.template',
-        string='Acción',
+        string='Action',
         ondelete='cascade',
     )
 

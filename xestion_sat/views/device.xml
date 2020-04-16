@@ -31,7 +31,7 @@
                         <field name="description"/>
                         <field name="observation"/>
                         <field name="date_registration"/>
-                        <field name="data_cancellation"/>
+                        <field name="date_cancellation"/>
                     </group>
                     <group>
                         <field name="owner_id"/>
