@@ -43,7 +43,7 @@ class Incidence(models.Model):
         required=True,
     )
 
-    incidenceaction = fields.One2many(
+    incidenceaction_ids = fields.One2many(
         'xestionsat.incidenceaction',
         inverse_name='incidence_id',
     )
