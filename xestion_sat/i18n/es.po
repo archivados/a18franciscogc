@@ -136,20 +136,20 @@ msgstr "Incidencia"
 #. module: xestion_sat
 #: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidenceaction_action
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__incidenceaction_ids
-msgid "Incidence Actions"
-msgstr "Incidencia Accións"
+msgid "Actions"
+msgstr "Accións"
 
 #. module: xestion_sat
 #: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidenceassistanceplace_action
 #: model:ir.ui.menu,name:xestion_sat.xestionsat_incidenceassistanceplace_menu
-msgid "Incidence Assistance Places"
-msgstr "Incidencia Lugares de Asistencia"
+msgid "Assistance Places"
+msgstr "Lugares de Asistencia"
 
 #. module: xestion_sat
 #: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidencestate_action
 #: model:ir.ui.menu,name:xestion_sat.xestionsat_incidencestate_menu
-msgid "Incidence States"
-msgstr "Incidencia Estados"
+msgid "States"
+msgstr "Estados"
 
 #. module: xestion_sat
 #: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidence_action
