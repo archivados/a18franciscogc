@@ -35,7 +35,7 @@
     </record>
 
     <!-- MENÚS -->
-    <menuitem name="Incidence Assistance Places" 
+    <menuitem name="Assistance Places" 
         id="xestionsat_incidenceassistanceplace_menu" 
         parent="xestionsat_incidence_menu" 
         sequence="30" 

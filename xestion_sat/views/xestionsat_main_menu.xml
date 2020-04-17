@@ -41,11 +41,11 @@
             parent="xestionsat_base_menu"
             sequence="20" />
 
-            <menuitem 
-                name="Customers" 
-                id="xestionsat_customers_menu" 
-                parent="xestionsat_device_menu" 
-                sequence="100"
-                action="customers_action" />
+        <menuitem 
+            name="Customers" 
+            id="xestionsat_customers_menu" 
+            parent="xestionsat_base_menu" 
+            sequence="100"
+            action="customers_action" />
 
 </odoo>

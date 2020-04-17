@@ -35,7 +35,7 @@
     </record>
 
     <!-- MENÚS -->
-    <menuitem name="Incidence States" 
+    <menuitem name="States" 
         id="xestionsat_incidencestate_menu" 
         parent="xestionsat_incidence_menu" 
         sequence="30" 

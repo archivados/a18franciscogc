@@ -34,13 +34,13 @@
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
-        'views/main_menu.xml',
-        'views/device.xml',
-        'views/devicecomponent.xml',
-        'views/incidence.xml',
-        'views/incidenceassistanceplaces.xml',
-        'views/incidencestate.xml',
-        'views/incidenceaction.xml',
+        'views/xestionsat_main_menu.xml',
+        'views/xestionsat_device.xml',
+        'views/xestionsat_devicecomponent.xml',
+        'views/xestionsat_incidence.xml',
+        'views/xestionsat_incidenceassistanceplaces.xml',
+        'views/xestionsat_incidencestate.xml',
+        'views/xestionsat_incidenceaction.xml',
     ],
     # only loaded in demonstration mode
     # 'demo': [
