@@ -15,6 +15,7 @@
         <field name="arch" type="xml">
             <form>
                 <group>
+                <field name="sequence"/>
                     <field name="state"/>
                     <field name="description"/>
                 </group>
@@ -28,6 +29,7 @@
         <field name="model">xestionsat.incidence.state</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="sequence"/>
                 <field name="state"/>
                 <field name="description"/>
             </tree>

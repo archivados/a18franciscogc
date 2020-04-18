@@ -27,6 +27,7 @@ class IncidenceState(models.Model):
     # Other Fields
     state = fields.Char(
         string='State',
+        translate=True,
         required=True,
     )
     sequence = fields.Integer(
@@ -35,16 +36,5 @@ class IncidenceState(models.Model):
     )
     description = fields.Char(
         string='Description',
+        translate=True,
     )
-
-    '''
-    Posibles estados:
-        Pendente
-        Iniciada
-        En espera
-        Enviado a SAT externo
-        Retornado
-        Finalizada
-        Cancelada
-        Irresoluble
-    '''
