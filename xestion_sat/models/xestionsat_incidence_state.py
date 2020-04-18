@@ -17,6 +17,7 @@ class IncidenceState(models.Model):
     # Private attributes
     _name = 'xestionsat.incidence.state'
     _rec_name = 'state'
+    _order = "sequence, state, id"
 
     # Default methods
 
@@ -27,6 +28,10 @@ class IncidenceState(models.Model):
     state = fields.Char(
         string='State',
         required=True,
+    )
+    sequence = fields.Integer(
+        string='Sequence',
+        default=1,
     )
     description = fields.Char(
         string='Description',
