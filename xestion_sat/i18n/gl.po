@@ -354,7 +354,7 @@ msgstr "Fora do lugar de traballo do Cliente, nunha localización escollida por 
 #. module: xestion_sat
 #: model:xestionsat.incidence.state,state:xestion_sat.state1
 msgid "Pending"
-msgstr "Pendente""
+msgstr "Pendente"
 
 #. module: xestion_sat
 #: model:xestionsat.incidence.state,description:xestion_sat.state1
