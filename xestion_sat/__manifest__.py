@@ -32,6 +32,8 @@
 
     # always loaded
     'data': [
+        'data/xestionsat_incidence_assistance_place.xml',
+        'data/xestionsat_incidence_state.xml',
         'security/groups.xml',
         'security/ir.model.access.csv',
         'views/xestionsat_main_menu.xml',

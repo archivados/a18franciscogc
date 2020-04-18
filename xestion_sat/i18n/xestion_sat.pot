@@ -144,6 +144,11 @@ msgid "Assistance Places"
 msgstr ""
 
 #. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__Sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: xestion_sat
 #: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidence_state_action
 #: model:ir.ui.menu,name:xestion_sat.xestionsat_incidence_state_menu
 msgid "States"

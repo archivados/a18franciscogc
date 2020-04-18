@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record model="xestionsat.incidence.assistance_place" id="assistance_place1">
+        <field name="assistance_place">In workshop</field>
+        <field name="description">In our workshop</field>
+    </record>
+    <record model="xestionsat.incidence.assistance_place" id="assistance_place2">
+        <field name="assistance_place">On-site</field>
+        <field name="description">At the Customer's workplace</field>
+    </record>
+    <record model="xestionsat.incidence.assistance_place" id="assistance_place3">
+        <field name="assistance_place">On-site displaced</field>
+        <field name="description">Outside the Customer's workplace, at a location of his choice</field>
+    </record>
+</odoo>
