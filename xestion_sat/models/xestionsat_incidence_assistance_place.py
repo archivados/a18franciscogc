@@ -24,10 +24,12 @@ class IncidenceAssistancePlace(models.Model):
     # Relational Fields
     assistance_place = fields.Char(
         string='Place of assistance',
+        translate=True,
         required=True,
     )
     description = fields.Char(
         string='Description',
+        translate=True,
     )
 
     # Other Fields

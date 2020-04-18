@@ -13,7 +13,7 @@
     <record model="xestionsat.incidence.state" id="state3">
         <field name="state">On hold</field>
         <field name="sequence">3</field>
-        <field name="description">I work on hold for some other reason</field>
+        <field name="description">Work on hold for some other reason</field>
     </record>
     <record model="xestionsat.incidence.state" id="state4">
         <field name="state">Sent to external TAS</field>
@@ -33,7 +33,7 @@
     <record model="xestionsat.incidence.state" id="state7">
         <field name="state">Cancelled</field>
         <field name="sequence">7</field>
-        <field name="description">Work canceled by customer</field>
+        <field name="description">Work canceled by Customer</field>
     </record>
     <record model="xestionsat.incidence.state" id="state8">
         <field name="state">Irresolvable</field>

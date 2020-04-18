@@ -144,7 +144,9 @@ msgid "Assistance Places"
 msgstr ""
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__Sequence
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__sequence
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__sequence
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_state__sequence
 msgid "Sequence"
 msgstr ""
 
@@ -314,4 +316,114 @@ msgstr ""
 #. module: xestion_sat
 #: model:ir.ui.menu,name:xestion_sat.xestionsat_base_menu
 msgid "xestionSAT"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.assistance_place,assistance_place:xestion_sat.assistance_place1
+msgid "In workshop"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.assistance_place,description:xestion_sat.assistance_place1
+msgid "In our workshop"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.assistance_place,assistance_place:xestion_sat.assistance_place2
+msgid "On-site"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.assistance_place,description:xestion_sat.assistance_place2
+msgid "At the Customer's workplace"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.assistance_place,assistance_place:xestion_sat.assistance_place3
+msgid "On-site displaced"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.assistance_place,description:xestion_sat.assistance_place3
+msgid "Outside the Customer's workplace, at a location of his choice"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.state,state:xestion_sat.state1
+msgid "Pending"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.state,description:xestion_sat.state1
+msgid "Work without starting"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.state,state:xestion_sat.state2
+msgid "Started"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.state,description:xestion_sat.state2
+msgid "Work in progress"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.state,state:xestion_sat.state3
+msgid "On hold"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.state,description:xestion_sat.state3
+msgid "Work on hold for some other reason"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.state,state:xestion_sat.state4
+msgid "Sent to external TAS"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.state,description:xestion_sat.state4
+msgid "Sent to an external Technical Assistance Service"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.state,state:xestion_sat.state5
+msgid "Returned"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.state,description:xestion_sat.state5
+msgid "Returned from an external Technical Assistance Service and waiting to continue the work"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.state,state:xestion_sat.state6
+msgid "Finished"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.state,description:xestion_sat.state6
+msgid "Completed work"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.state,state:xestion_sat.state7
+msgid "Cancelled"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.state,description:xestion_sat.state7
+msgid "Work canceled by Customer"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.state,state:xestion_sat.state8
+msgid "Irresolvable"
+msgstr ""
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.state,description:xestion_sat.state8
+msgid "Impossible to repair with the means at our disposal"
 msgstr ""
