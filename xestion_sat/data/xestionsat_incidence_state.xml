@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record model="xestionsat.incidence.state" id="state1">
+        <field name="state">Pending</field>
+        <field name="sequence">1</field>
+        <field name="description">Work without starting</field>
+    </record>
+    <record model="xestionsat.incidence.state" id="state2">
+        <field name="state">Started</field>
+        <field name="sequence">2</field>
+        <field name="description">Work in progress</field>
+    </record>
+    <record model="xestionsat.incidence.state" id="state3">
+        <field name="state">On hold</field>
+        <field name="sequence">3</field>
+        <field name="description">I work on hold for some other reason</field>
+    </record>
+    <record model="xestionsat.incidence.state" id="state4">
+        <field name="state">Sent to external TAS</field>
+        <field name="sequence">4</field>
+        <field name="description">Sent to an external Technical Assistance Service</field>
+    </record>
+    <record model="xestionsat.incidence.state" id="state5">
+        <field name="state">Returned</field>
+        <field name="sequence">5</field>
+        <field name="description">Returned from an external Technical Assistance Service and waiting to continue the work</field>
+    </record>
+    <record model="xestionsat.incidence.state" id="state6">
+        <field name="state">Finished</field>
+        <field name="sequence">6</field>
+        <field name="description">Completed work</field>
+    </record>
+    <record model="xestionsat.incidence.state" id="state7">
+        <field name="state">Cancelled</field>
+        <field name="sequence">7</field>
+        <field name="description">Work canceled by customer</field>
+    </record>
+    <record model="xestionsat.incidence.state" id="state8">
+        <field name="state">Irresolvable</field>
+        <field name="sequence">8</field>
+        <field name="description">Impossible to repair with the means at our disposal</field>
+    </record>
+</odoo>
