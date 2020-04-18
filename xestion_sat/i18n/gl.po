@@ -18,18 +18,18 @@ msgstr ""
 "Language: gl\n"
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__template_id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__template_id
 msgid "Action"
 msgstr "Acción"
 
 #. module: xestion_sat
-#: model:ir.actions.act_window,name:xestion_sat.incidenceaction_action
+#: model:ir.actions.act_window,name:xestion_sat.incidence_action_action
 #: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_form
 msgid "Actions"
 msgstr "Accións"
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_devicecomponent__template_id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__template_id
 msgid "Compponent"
 msgstr "Compoñente"
 
@@ -41,12 +41,12 @@ msgstr "Crear Incidencia"
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__create_uid
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__created_by_id
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_devicecomponent__create_uid
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__create_uid
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__create_uid
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__created_by_id
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__create_uid
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceassistanceplace__create_uid
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidencestate__create_uid
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__create_uid
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_assistance_place__create_uid
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_state__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
@@ -64,7 +64,7 @@ msgstr "Clientes"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__date_end
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__date_end
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__date_end
 msgid "Date ends"
 msgstr "Data de fin"
 
@@ -80,16 +80,16 @@ msgstr "Data de alta"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__date_start
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__date_start
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__date_start
 msgid "Date start"
 msgstr "Data de inicio"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__description
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_devicecomponent__description
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__description
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceassistanceplace__description
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidencestate__description
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__description
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__description
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_assistance_place__description
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_state__description
 msgid "Description"
 msgstr "Descrición"
 
@@ -99,8 +99,8 @@ msgid "Description of the failure"
 msgstr "Descrición da falla"
 
 #. module: xestion_sat
-#: model:ir.actions.act_window,name:xestion_sat.xestionsat_devicecomponent_action
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__devicecomponents_ids
+#: model:ir.actions.act_window,name:xestion_sat.xestionsat_device_component_action
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__device_components_ids
 #: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_view_form
 msgid "Device Components"
 msgstr "Compoñentes do Equipo"
@@ -114,7 +114,7 @@ msgid "Devices"
 msgstr "Equipos"
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__executed_by
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__executed_by
 msgid "Executed_by"
 msgstr "Executado por"
 
@@ -124,30 +124,30 @@ msgid "Headquarters address"
 msgstr "Dirección da sede"
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_devicecomponent__device_id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__device_id
 msgid "ID device"
 msgstr "Código de Equipo"
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__incidence_id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__incidence_id
 msgid "Incidence"
 msgstr "Incidencia"
 
 #. module: xestion_sat
-#: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidenceaction_action
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__incidenceaction_ids
+#: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidence_action_action
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__incidence_action_ids
 msgid "Actions"
 msgstr "Accións"
 
 #. module: xestion_sat
-#: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidenceassistanceplace_action
-#: model:ir.ui.menu,name:xestion_sat.xestionsat_incidenceassistanceplace_menu
+#: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidence_assistance_place_action
+#: model:ir.ui.menu,name:xestion_sat.xestionsat_incidence_assistance_place_menu
 msgid "Assistance Places"
 msgstr "Lugares de Asistencia"
 
 #. module: xestion_sat
-#: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidencestate_action
-#: model:ir.ui.menu,name:xestion_sat.xestionsat_incidencestate_menu
+#: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidence_state_action
+#: model:ir.ui.menu,name:xestion_sat.xestionsat_incidence_state_menu
 msgid "States"
 msgstr "Estados"
 
@@ -181,8 +181,8 @@ msgstr "Non se permite pasar de %s a %s"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__name
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_devicecomponent__name
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__name
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__name
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__name
 msgid "Name"
 msgstr "Nome"
 
@@ -194,9 +194,9 @@ msgstr "Nova incidencia"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__observation
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_devicecomponent__observation
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__observation
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__observation
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceaction__observation
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__observation
 msgid "Observations"
 msgstr "Observacións"
 
@@ -226,7 +226,7 @@ msgstr "Operativo"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__assistance_place
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidenceassistanceplace__assistance_place
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_assistance_place__assistance_place
 msgid "Place of assistance"
 msgstr "Lugar de asistencia"
 
@@ -236,14 +236,14 @@ msgid "Repairing"
 msgstr "Reparandose"
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_devicecomponent__serial
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__serial
 msgid "Serial number"
 msgstr "Número de serie"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__state
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__state
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidencestate__state
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_state__state
 msgid "State"
 msgstr "Estado"
 

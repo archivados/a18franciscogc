@@ -15,7 +15,7 @@ from odoo import models, fields, api, _
 
 class DeviceComponent(models.Model):
     # Private attributes
-    _name = 'xestionsat.devicecomponent'
+    _name = 'xestionsat.device.component'
     _inherits = {'product.template': 'template_id'}
 
     # Default methods

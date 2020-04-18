@@ -47,7 +47,7 @@ class Device(models.Model):
         string='Users',
     )
     devicecomponents_ids = fields.One2many(
-        'xestionsat.devicecomponent',
+        'xestionsat.device.component',
         string='Device Components',
         inverse_name='device_id',
     )

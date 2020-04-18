@@ -13,25 +13,33 @@ from odoo import models, fields, api, _
 # 6: Import of unknown third party lib
 
 
-class IncidenceAssistancePlace(models.Model):
+class IncidenceState(models.Model):
     # Private attributes
-    _name = 'xestionsat.incidenceassistanceplace'
-    _rec_name = 'assistance_place'
+    _name = 'xestionsat.incidence.state'
+    _rec_name = 'state'
 
     # Default methods
 
     # Fields declaration
     # Relational Fields
-    assistance_place = fields.Char(
-        string='Place of assistance',
+
+    # Other Fields
+    state = fields.Char(
+        string='State',
         required=True,
     )
     description = fields.Char(
         string='Description',
     )
 
-    # Other Fields
-
-    # compute and search fields, in the same order that fields declaration
-
-    # Constraints and onchanges
+    '''
+    Posibles estados:
+        Pendente
+        Iniciada
+        En espera
+        Enviado a SAT externo
+        Retornado
+        Finalizada
+        Cancelada
+        Irresoluble
+    '''

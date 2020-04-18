@@ -45,8 +45,8 @@
                     </field>
                 </group>
 
-                <label for="incidenceaction_ids" string="Actions" />
-                <field name="incidenceaction_ids">
+                <label for="incidence_action_ids" string="Actions" />
+                <field name="incidence_action_ids">
                     <form>
                         <group>
                             <group>

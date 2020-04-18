@@ -42,8 +42,8 @@ class Incidence(models.Model):
         required=True,
     )
 
-    incidenceaction_ids = fields.One2many(
-        'xestionsat.incidenceaction',
+    incidence_action_ids = fields.One2many(
+        'xestionsat.incidence.action',
         string='Incidence Actions',
         inverse_name='incidence_id',
     )
@@ -57,12 +57,12 @@ class Incidence(models.Model):
     )
 
     state = fields.Many2one(
-        'xestionsat.incidencestate',
+        'xestionsat.incidence.state',
         string='State',
     )
 
     assistance_place = fields.Many2one(
-        'xestionsat.incidenceassistanceplace',
+        'xestionsat.incidence.assistance_place',
         string='Place of assistance',
     )
 

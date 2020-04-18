@@ -15,7 +15,7 @@ from odoo import models, fields, api, _
 
 class IncidenceAction(models.Model):
     # Private attributes
-    _name = 'xestionsat.incidenceaction'
+    _name = 'xestionsat.incidence.action'
     _inherits = {'product.template': 'template_id'}
     _order = 'date_start desc'
 
