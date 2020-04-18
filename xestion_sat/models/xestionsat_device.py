@@ -47,7 +47,7 @@ class Device(models.Model):
         string='Users',
     )
     devicecomponents_ids = fields.One2many(
-        'xestionsat.devicecomponent',
+        'xestionsat.device.component',
         string='Device Components',
         inverse_name='device_id',
     )
@@ -208,39 +208,3 @@ class Device(models.Model):
     # Action methods
 
     # Business methods
-
-
-class DeviceComponent(models.Model):
-    # Private attributes
-    _name = 'xestionsat.devicecomponent'
-    _inherits = {'product.template': 'template_id'}
-
-    # Default methods
-
-    # Fields declaration
-    # Relational Fields
-    template_id = fields.Many2one(
-        'product.template',
-        string='Compponent',
-        ondelete='cascade',
-        required=True,
-    )
-    device_id = fields.Many2one(
-        'xestionsat.device',
-        string='ID device',
-        ondelete='cascade',
-        required=True,
-    )
-
-    # Other Fields
-    # nome = fields.Char('Nome descriptivo', required=True)
-    serial = fields.Char(
-        string='Serial number',
-    )
-    observation = fields.Char(
-        string='Observations',
-    )
-
-    # compute and search fields, in the same order that fields declaration
-
-    # Constraints and onchanges
