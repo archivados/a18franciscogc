@@ -1,4 +1,9 @@
-# -*- coding: utf-8 -*-
+from . import xestionsat_device
+from . import xestionsat_device_component
+from . import xestionsat_incidence
+from . import xestionsat_incidence_action
+from . import xestionsat_incidence_assistance_place
+from . import xestionsat_incidence_state
 
-from . import equipos
-from . import incidencias
+# Modified third-party models
+from . import product_template
