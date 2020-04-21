@@ -95,6 +95,8 @@ class Device(models.Model):
     @api.model
     def is_allowed_transition(self, actual_state, new_state):
         """Handles allowed state changes.
+        :param actual_state: Currently assigned status.
+        :param new_state: New state to be assigned.
         """
 
         allowed = [
@@ -119,6 +121,7 @@ class Device(models.Model):
     @api.multi
     def change_state(self, new_state):
         """Apply a change of status.
+        :param new_state: New state to be assigned.
         """
 
         for device in self:
