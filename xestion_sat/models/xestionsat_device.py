@@ -182,13 +182,18 @@ class Device(models.Model):
         return new_incidence
 
     # Constraints and onchanges
-    @api.constrains('headquarter_id', 'user_ids')
-    def _check_father(self):
+    @api.constrains('headquarter_id')
+    def _check_headquarter(self):
         for device in self:
-            if device.user_ids and device.user_ids.parent_id != device.owner_id:
-                raise models.ValidationError(_('The Device User must be a member of the specified Customer'))
-            if device.headquarter_id and device.headquarter_id.parent_id != device.owner_id:
+            if device.headquarter_id and device.headquarter_id.parent_id != device.owner_id and device.headquarter_id != device.owner_id:
                 raise models.ValidationError(_('The Headquarters must belong to the specified Customer'))
+
+    @api.constrains('user_ids')
+    def _check_users(self):
+        for device in self:
+            for user in device.user_ids:
+                if user.parent_id != device.owner_id and user != device.owner_id:
+                    raise models.ValidationError(_('The Device User must be a member of the specified Customer'))
 
     @api.constrains('internal_id')
     def _check_internal_id(self):
