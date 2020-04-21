@@ -14,6 +14,9 @@ from odoo import models, fields, api, _
 
 
 class IncidenceAssistancePlace(models.Model):
+    """Model that describes the places of assistance of an incidence.
+    """
+
     # Private attributes
     _name = 'xestionsat.incidence.assistance_place'
     _rec_name = 'assistance_place'

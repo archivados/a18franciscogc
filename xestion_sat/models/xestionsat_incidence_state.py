@@ -14,6 +14,8 @@ from odoo import models, fields, api, _
 
 
 class IncidenceState(models.Model):
+    """Model that describes the states of an incidence.
+    """
     # Private attributes
     _name = 'xestionsat.incidence.state'
     _rec_name = 'state'

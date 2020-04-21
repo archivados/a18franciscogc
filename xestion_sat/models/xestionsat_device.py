@@ -14,6 +14,9 @@ from odoo import models, fields, api, _
 
 
 class Device(models.Model):
+    """Model to manage the information of a device.
+    """
+
     # Private attributes
     _name = 'xestionsat.device'
     _rec_name = 'name'
@@ -91,6 +94,9 @@ class Device(models.Model):
     # compute and search fields, in the same order that fields declaration
     @api.model
     def is_allowed_transition(self, actual_state, new_state):
+        """Handles allowed state changes.
+        """
+
         allowed = [
             ('stored', 'operational'),
             ('stored', 'repairing'),
@@ -112,6 +118,9 @@ class Device(models.Model):
 
     @api.multi
     def change_state(self, new_state):
+        """Apply a change of status.
+        """
+
         for device in self:
             if device.state != new_state:
                 if device.cambios_estado_permitidos(device.state, new_state):
@@ -121,23 +130,37 @@ class Device(models.Model):
                     raise models.UserError(mensaxe)
 
     def make_stored(self):
+        """Invokes the change of state to stored.
+        """
+
         self.change_state('stored')
 
     def make_operational(self):
+        """Invokes the change of state to operational.
+        """
+
         self.change_state('operational')
 
     @api.multi
     def create_incidence(self):
+        """Invokes the change of state to repairing and launches the method to create a new incidence.
+        """
+
         self.change_state('repairing')
 
         return self.create_new_incidence()
 
     def make_unsubscribe(self):
+        """Invokes the change of state to unsubscribe.
+        """
+
         self.change_state('unsubscribe')
 
     '''
     @api.multi
     def comprobar_incidences(self):
+        """.
+        """
         ten_incidences = False
 
         for incidence in self.env['xestionsat.incidence'].search([]):
@@ -149,6 +172,9 @@ class Device(models.Model):
 
     @api.multi
     def create_new_incidence(self):
+        """Method to create a new incidence with the data of the current device.
+        """
+
         incidence_form = self.env.ref('xestionsat.incidence', False)
 
         new_incidence_context = {
@@ -184,12 +210,18 @@ class Device(models.Model):
     # Constraints and onchanges
     @api.constrains('headquarter_id')
     def _check_headquarter(self):
+        """Check that the Headquarters entered correspond with the current customer.
+        """
+
         for device in self:
             if device.headquarter_id and device.headquarter_id.parent_id != device.owner_id and device.headquarter_id != device.owner_id:
                 raise models.ValidationError(_('The Headquarters must belong to the specified Customer'))
 
     @api.constrains('user_ids')
     def _check_users(self):
+        """Verify that the users entered correspond to the current customer.
+        """
+
         for device in self:
             for user in device.user_ids:
                 if user.parent_id != device.owner_id and user != device.owner_id:
@@ -197,12 +229,18 @@ class Device(models.Model):
 
     @api.constrains('internal_id')
     def _check_internal_id(self):
+        """Check that the internal_id is not repeated.
+        """
+
         for device in self:
             if device.internal_id and self.env['xestionsat.device'].search([('internal_id', '=', self.internal_id), ('id', '!=', self.id)]):
                 raise ValueError(_('The code already exists'))
 
     @api.constrains('created_by_id')
     def _check_created_by_id(self):
+        """Verify that device creation is not assigned to a different system user than the one running the application.
+        """
+
         for device in self:
             if device.created_by_id and device.created_by_id != self.env.user:
                 raise models.ValidationError(_('One User cannot create Devices in the name of another'))
