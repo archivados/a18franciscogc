@@ -123,7 +123,7 @@ class Device(models.Model):
 
         for device in self:
             if device.state != new_state:
-                if device.cambios_estado_permitidos(device.state, new_state):
+                if device.is_allowed_transition(device.state, new_state):
                     device.state = new_state
                 else:
                     mensaxe = _('Moving from %s to %s is not allowed') % (device.state, new_state)
