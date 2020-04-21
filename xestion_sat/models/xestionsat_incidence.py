@@ -14,11 +14,14 @@ from odoo import models, fields, api, _
 
 
 class Incidence(models.Model):
+    """Model to manage the information of an incidence.
+    """
+
     # Private attributes
     _name = 'xestionsat.incidence'
     _rec_name = 'title'
     _order = 'date_start desc'
-    
+
     # Default methods
 
     # Fields declaration
@@ -89,12 +92,19 @@ class Incidence(models.Model):
     # Constraints and onchanges
     @api.constrains('device_ids')
     def _check_father(self):
+        """Verify that the devices associated with the incidence belong to the customer.
+        """
+
         for incidencia in self:
-            if incidencia.device_ids and incidencia.device_ids.owner_id != incidencia.customer_id:
-                raise models.ValidationError(_('The Device must belong to the specified Customer'))
+            for device in incidencia.device_ids:
+                if device and device.owner_id != incidencia.customer_id:
+                    raise models.ValidationError(_('The Device must belong to the specified Customer'))
 
     @api.constrains('created_by_id')
     def _check_created_by_id(self):
+        """Verify that incidence creation is not assigned to a different system user than the one running the application.
+        """
+
         for incidencia in self:
             if incidencia.created_by_id and incidencia.created_by_id != self.env.user:
                 raise models.ValidationError(_('One User cannot create Incidences in the name of another'))

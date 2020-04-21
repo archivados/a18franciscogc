@@ -14,6 +14,9 @@ from odoo import models, fields, api, _
 
 
 class IncidenceAction(models.Model):
+    """Model that describes the actions taken in incidences.
+    """
+
     # Private attributes
     _name = 'xestionsat.incidence.action'
     _inherits = {'product.template': 'template_id'}
@@ -58,6 +61,8 @@ class IncidenceAction(models.Model):
     # Constraints and onchanges
     @api.constrains('executed_by')
     def _check_executed_by(self):
+        """Verify that the creation of the action is not assigned to a different system user than the one running the application.
+        """
         for actuacion in self:
             if actuacion.executed_by and actuacion.executed_by != self.env.user:
                 raise models.ValidationError(_('One user cannot create Actions in the name of another'))

@@ -14,6 +14,9 @@ from odoo import models, fields, api, _
 
 
 class DeviceComponent(models.Model):
+    """Model to describe the components that make up each device.
+    """
+
     # Private attributes
     _name = 'xestionsat.device.component'
     _inherits = {'product.template': 'template_id'}

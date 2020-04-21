@@ -14,6 +14,9 @@ from odoo import models, fields, api
 
 
 class ProductTemplate(models.Model):
+    """Modification of the product.template to adapt it to the needs of the module.
+    """
+
     # Private attributes
     _inherit = 'product.template'
 
@@ -21,11 +24,12 @@ class ProductTemplate(models.Model):
 
     # Fields declaration
     # Relational Fields
+    # Other Fields
     type = fields.Selection(
         [
             ('consu', 'Consumable'),
             ('service', 'Service'),
-            ('sat', 'TAS Action'),
+            ('sat', 'TAS Action'),  # To use as a filter to include in incidences
         ],
         string='Type',
         default="consu",
