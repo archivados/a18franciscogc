@@ -1,10 +1,9 @@
 # 1: imports of python lib
-from datetime import datetime, timedelta
 
 # 2: import of known third party lib
 
 # 3:  imports of odoo
-from odoo import models, fields, api, _
+from odoo import models, fields
 
 # 4:  imports from odoo modules
 

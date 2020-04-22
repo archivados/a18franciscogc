@@ -1,5 +1,5 @@
 # 1: imports of python lib
-from datetime import datetime, timedelta
+from datetime import datetime
 
 # 2: import of known third party lib
 
@@ -61,8 +61,13 @@ class IncidenceAction(models.Model):
     # Constraints and onchanges
     @api.constrains('executed_by')
     def _check_executed_by(self):
-        """Verify that the creation of the action is not assigned to a different system user than the one running the application.
+        """Verify that the creation of the action is not assigned to a
+        different system user than the one running the application.
         """
+
+        error_message = 'One user cannot create Actions in the name of another'
+
         for actuacion in self:
-            if actuacion.executed_by and actuacion.executed_by != self.env.user:
-                raise models.ValidationError(_('One user cannot create Actions in the name of another'))
+            if actuacion.executed_by \
+                    and actuacion.executed_by != self.env.user:
+                raise models.ValidationError(_(error_message))
