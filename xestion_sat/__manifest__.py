@@ -20,7 +20,7 @@
     """,
 
     'author': "Fco. Javier Gonzalez Campos",
-    'website': "https://github.com/a18franciscogc/xestionSAT",
+    'website': "https://github.com/efja/xestionSAT",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/
