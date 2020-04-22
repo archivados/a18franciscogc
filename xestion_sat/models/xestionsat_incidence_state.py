@@ -39,4 +39,3 @@ class IncidenceState(models.Model):
         string='Description',
         translate=True,
     )
-    
