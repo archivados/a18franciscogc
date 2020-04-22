@@ -1,10 +1,8 @@
 # 1: imports of python lib
-from datetime import datetime, timedelta
-
 # 2: import of known third party lib
 
 # 3:  imports of odoo
-from odoo import models, fields, api
+from odoo import models, fields
 
 # 4:  imports from odoo modules
 
@@ -29,7 +27,8 @@ class ProductTemplate(models.Model):
         [
             ('consu', 'Consumable'),
             ('service', 'Service'),
-            ('sat', 'TAS Action'),  # To use as a filter to include in incidences
+            ('sat', 'TAS Action'),  # To use as a filter to include in
+                                    # incidences
         ],
         string='Type',
         default="consu",

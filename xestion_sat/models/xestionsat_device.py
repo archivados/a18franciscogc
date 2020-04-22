@@ -1,5 +1,5 @@
 # 1: imports of python lib
-from datetime import datetime, timedelta
+from datetime import datetime
 
 # 2: import of known third party lib
 
@@ -95,6 +95,8 @@ class Device(models.Model):
     @api.model
     def is_allowed_transition(self, actual_state, new_state):
         """Handles allowed state changes.
+        :param actual_state: Currently assigned status.
+        :param new_state: New state to be assigned.
         """
 
         allowed = [
@@ -119,6 +121,7 @@ class Device(models.Model):
     @api.multi
     def change_state(self, new_state):
         """Apply a change of status.
+        :param new_state: New state to be assigned.
         """
 
         for device in self:
@@ -126,7 +129,8 @@ class Device(models.Model):
                 if device.is_allowed_transition(device.state, new_state):
                     device.state = new_state
                 else:
-                    mensaxe = _('Moving from %s to %s is not allowed') % (device.state, new_state)
+                    mensaxe = _('Moving from %s to %s is not allowed') \
+                        % (device.state, new_state)
                     raise models.UserError(mensaxe)
 
     def make_stored(self):
@@ -143,7 +147,8 @@ class Device(models.Model):
 
     @api.multi
     def create_incidence(self):
-        """Invokes the change of state to repairing and launches the method to create a new incidence.
+        """Invokes the change of state to repairing and launches the method to
+        create a new incidence.
         """
 
         self.change_state('repairing')
@@ -155,20 +160,6 @@ class Device(models.Model):
         """
 
         self.change_state('unsubscribe')
-
-    '''
-    @api.multi
-    def comprobar_incidences(self):
-        """.
-        """
-        ten_incidences = False
-
-        for incidence in self.env['xestionsat.incidence'].search([]):
-            domain = ['&',('device.id', 'in', incidence.device_ids), ('state', '=', 'repairing')]
-            ten_incidences = self.env['xestionsat.incidence'].search(domain, count=True) > 0
-
-        return ten_incidences
-    '''
 
     @api.multi
     def create_new_incidence(self):
@@ -214,18 +205,26 @@ class Device(models.Model):
         """
 
         for device in self:
-            if device.headquarter_id and device.headquarter_id.parent_id != device.owner_id and device.headquarter_id != device.owner_id:
-                raise models.ValidationError(_('The Headquarters must belong to the specified Customer'))
+            if device.headquarter_id \
+                and device.headquarter_id.parent_id != device.owner_id \
+                    and device.headquarter_id != device.owner_id:
+                raise models.ValidationError(
+                    _('The Headquarters must belong to the specified Customer')
+                )
 
     @api.constrains('user_ids')
     def _check_users(self):
         """Verify that the users entered correspond to the current customer.
         """
 
+        error_message = 'The Device User must be a member  of the specified' \
+            ' Customer'
+
         for device in self:
             for user in device.user_ids:
-                if user.parent_id != device.owner_id and user != device.owner_id:
-                    raise models.ValidationError(_('The Device User must be a member of the specified Customer'))
+                if user.parent_id != device.owner_id \
+                        and user != device.owner_id:
+                    raise models.ValidationError(_(error_message))
 
     @api.constrains('internal_id')
     def _check_internal_id(self):
@@ -233,18 +232,22 @@ class Device(models.Model):
         """
 
         for device in self:
-            if device.internal_id and self.env['xestionsat.device'].search([('internal_id', '=', self.internal_id), ('id', '!=', self.id)]):
+            if device.internal_id and self.env['xestionsat.device'].search(
+                [('internal_id', '=', self.internal_id), ('id', '!=', self.id)]
+            ):
                 raise ValueError(_('The code already exists'))
 
     @api.constrains('created_by_id')
     def _check_created_by_id(self):
-        """Verify that device creation is not assigned to a different system user than the one running the application.
+        """Verify that device creation is not assigned to a different system
+        user than the one running the application.
         """
+
+        error_message = 'One User cannot create Devices in the name of another'
 
         for device in self:
             if device.created_by_id and device.created_by_id != self.env.user:
-                raise models.ValidationError(_('One User cannot create Devices in the name of another'))
-
+                raise models.ValidationError(_(error_message))
 
     # CRUD methods
 

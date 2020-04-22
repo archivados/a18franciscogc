@@ -6,7 +6,9 @@
         Módulo para manexar a xestión dun Servizo de Asistencia Técnica""",
 
     'description': """
-        Preténdese modelar un módulo que facilite o rexistro das intervencións técnicas sobre un ou varios Equipos relacionados cuns clientes (Partners) e a consulta do histórico das mesmas.
+        Preténdese modelar un módulo que facilite o rexistro das intervencións
+        técnicas sobre un ou varios Equipos relacionados cuns clientes
+        (Partners) e a consulta do histórico das mesmas.
 
         Funcionalidades
            - Dar de alta unha Incidencia
@@ -21,7 +23,8 @@
     'website': "https://github.com/a18franciscogc/xestionSAT",
 
     # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
+    # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/
+    #   data/ir_module_category_data.xml
     # for the full list
     'category': 'Tools',
     'version': '12.0.0.5.1',

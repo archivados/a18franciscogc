@@ -1,5 +1,5 @@
 # 1: imports of python lib
-from datetime import datetime, timedelta
+from datetime import datetime
 
 # 2: import of known third party lib
 
@@ -92,19 +92,27 @@ class Incidence(models.Model):
     # Constraints and onchanges
     @api.constrains('device_ids')
     def _check_father(self):
-        """Verify that the devices associated with the incidence belong to the customer.
+        """Verify that the devices associated with the incidence belong to the
+        customer.
         """
+
+        error_message = 'The Device must belong to the specified Customer'
 
         for incidencia in self:
             for device in incidencia.device_ids:
                 if device and device.owner_id != incidencia.customer_id:
-                    raise models.ValidationError(_('The Device must belong to the specified Customer'))
+                    raise models.ValidationError(_(error_message))
 
     @api.constrains('created_by_id')
     def _check_created_by_id(self):
-        """Verify that incidence creation is not assigned to a different system user than the one running the application.
+        """Verify that incidence creation is not assigned to a different
+        system user than the one running the application.
         """
 
+        error_message = 'One User cannot create Incidences in the name of' \
+            'another'
+
         for incidencia in self:
-            if incidencia.created_by_id and incidencia.created_by_id != self.env.user:
-                raise models.ValidationError(_('One User cannot create Incidences in the name of another'))
+            if incidencia.created_by_id \
+                    and incidencia.created_by_id != self.env.user:
+                raise models.ValidationError(_(error_message))

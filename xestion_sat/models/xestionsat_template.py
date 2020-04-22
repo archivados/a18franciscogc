@@ -3,7 +3,7 @@
 # 2: import of known third party lib
 
 # 3:  imports of odoo
-from odoo import models, fields, api, _
+# from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
 
@@ -12,18 +12,16 @@ from odoo import models, fields, api, _
 # 6: Import of unknown third party lib
 
 
-class ModelTemplate(models.Model):
-    """.
-    """
-    
-    # Private attributes
+# class ModelTemplate(models.Model):
+# """.
+# """
 
-    # Default methods
+# Private attributes
 
-    # Fields declaration
+# Default methods
 
-    # compute and search fields, in the same order that fields declaration
+# Fields declaration
 
-    # Constraints and onchanges
+# compute and search fields, in the same order that fields declaration
 
-    pass
+# Constraints and onchanges
