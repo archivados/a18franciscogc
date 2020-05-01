@@ -24,7 +24,7 @@ class TestCommonData(TransactionCase):
                 'partner_id': self.env['res.partner'].create(
                     {
                         'name': 'María Técnica',
-                    'email': 'a.m@example.com',
+                        'email': 'a.m@example.com',
                     }
                 ).id
             }
