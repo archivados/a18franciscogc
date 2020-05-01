@@ -1,4 +1,5 @@
 # 1: imports of python lib
+from datetime import datetime
 
 # 2: import of known third party lib
 
@@ -46,6 +47,12 @@ class DeviceComponent(models.Model):
     observation = fields.Char(
         string='Observations',
     )
+
+    date_registration = fields.Date(
+        'Date of registration',
+        default=lambda *a: datetime.now().strftime('%Y-%m-%d'),
+    )
+    date_cancellation = fields.Date('Date of cancellation')
 
     # compute and search fields, in the same order that fields declaration
 

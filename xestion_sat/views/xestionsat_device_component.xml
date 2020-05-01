@@ -17,6 +17,8 @@
                 <field name="template_id"/>
                 <field name="serial"/>
                 <field name="observation"/>
+                <field name="date_registration"/>
+                <field name="date_cancellation"/>
             </tree>
         </field>
     </record>

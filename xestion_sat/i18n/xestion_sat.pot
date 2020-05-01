@@ -98,11 +98,13 @@ msgstr ""
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__date_cancellation
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__date_cancellation
 msgid "Date of cancellation"
 msgstr ""
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__date_registration
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__date_registration
 msgid "Date of registration"
 msgstr ""
 
