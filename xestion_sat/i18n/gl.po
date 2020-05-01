@@ -18,6 +18,36 @@ msgstr ""
 "Language: gl\n"
 
 #. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__description
+msgid "Device associated with a Customer"
+msgstr "Dispositivo asociado a un Cliente"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__description
+msgid "Component that is part of a Device"
+msgstr "Compoñente que forma parte dun Dispositivo"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__description
+msgid "Incidence associated with a Customer"
+msgstr "Incidencia asociada a un Cliente"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__description
+msgid "Action taken in an incidence"
+msgstr "Acción realizada nunha incidencia"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_assistance_place__description
+msgid "Place where an incidence is committed"
+msgstr "Lugar onde se acomete unha incidencia"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_state__description
+msgid "State in which an incidence is found"
+msgstr "Estado no que se atopa unha incidencia"
+
+#. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__template_id
 msgid "Action"
 msgstr "Acción"

@@ -3,7 +3,7 @@
 # 2: import of known third party lib
 
 # 3:  imports of odoo
-from odoo import models, fields
+from odoo import models, fields, _
 
 # 4:  imports from odoo modules
 
@@ -18,6 +18,7 @@ class DeviceComponent(models.Model):
 
     # Private attributes
     _name = 'xestionsat.device.component'
+    _description = _('Component that is part of a Device')
     _inherits = {'product.template': 'template_id'}
 
     # Default methods

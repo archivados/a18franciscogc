@@ -19,6 +19,7 @@ class Incidence(models.Model):
 
     # Private attributes
     _name = 'xestionsat.incidence'
+    _description = _('Incidence associated with a Customer')
     _rec_name = 'title'
     _order = 'date_start desc'
 

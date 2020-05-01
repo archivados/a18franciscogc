@@ -19,6 +19,7 @@ class IncidenceAction(models.Model):
 
     # Private attributes
     _name = 'xestionsat.incidence.action'
+    _description = _('Action taken in an incidence')
     _inherits = {'product.template': 'template_id'}
     _order = 'date_start desc'
 

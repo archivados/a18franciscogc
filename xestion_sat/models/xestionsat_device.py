@@ -19,6 +19,7 @@ class Device(models.Model):
 
     # Private attributes
     _name = 'xestionsat.device'
+    _description = _('Device associated with a Customer')
     _rec_name = 'name'
     _order = 'owner_id, internal_id, name'
 

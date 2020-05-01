@@ -16,6 +16,36 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__description
+msgid "Device associated with a Customer"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__description
+msgid "Component that is part of a Device"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__description
+msgid "Incidence associated with a Customer"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__description
+msgid "Action taken in an incidence"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_assistance_place__description
+msgid "Place where an incidence is committed"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_state__description
+msgid "State in which an incidence is found"
+msgstr ""
+
+#. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__template_id
 msgid "Action"
 msgstr ""

@@ -3,7 +3,7 @@
 # 2: import of known third party lib
 
 # 3:  imports of odoo
-from odoo import models, fields
+from odoo import models, fields, _
 
 # 4:  imports from odoo modules
 
@@ -17,6 +17,7 @@ class IncidenceState(models.Model):
     """
     # Private attributes
     _name = 'xestionsat.incidence.state'
+    _description = _('State in which an incidence is found')
     _rec_name = 'state'
     _order = "sequence, state, id"
 
