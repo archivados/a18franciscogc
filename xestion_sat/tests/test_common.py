@@ -19,27 +19,39 @@ class TestCommonData(TransactionCase):
         # User 1
         self.test_admin_1 = User.create(
             {
-                'name': 'María Técnica',
                 'login': 'testusuario1',
-                'email': 'a.m@example.com',
                 'groups_id': [(6, 0, [group_user.id])],
+                'partner_id': self.env['res.partner'].create(
+                    {
+                        'name': 'María Técnica',
+                    'email': 'a.m@example.com',
+                    }
+                ).id
             }
         )
         # User 2
         self.test_admin_2 = User.create(
             {
-                'name': 'Laura Técnica',
                 'login': 'testusuario2',
-                'email': 'a.m@example.com',
                 'groups_id': [(6, 0, [group_user.id])],
+                'partner_id': self.env['res.partner'].create(
+                    {
+                        'name': 'Laura Técnica',
+                        'email': 'a.m@example.com',
+                    }
+                ).id
             }
         )
         # User 3
         self.test_noadmin_1 = User.create(
             {
-                'name': 'Juan',
                 'login': 'testusuario3',
-                'email': 'a.m@example.com',
+                'partner_id': self.env['res.partner'].create(
+                    {
+                        'name': 'Juan',
+                        'email': 'a.m@example.com',
+                    }
+                ).id
             }
         )
 
