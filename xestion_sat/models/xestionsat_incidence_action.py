@@ -39,9 +39,11 @@ class IncidenceAction(models.Model):
         'xestionsat.incidence',
         ondelete='cascade',
     )
+
     template_id = fields.Many2one(
         'product.template',
         string='Action',
+        required=True,
         ondelete='cascade',
     )
 
