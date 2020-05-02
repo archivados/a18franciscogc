@@ -1,5 +1,5 @@
 # 1: imports of python lib
-# from datetime import datetime
+from datetime import datetime
 
 # 2: import of known third party lib
 
@@ -42,7 +42,7 @@ class XestionsatTestDevice(TestCommonData):
                 'location': 'Sala de reunións grande',
                 'description': 'Equipo para presentacións',
                 'observation': 'Saídas de video: 2xHDMI, 1xDVI e 1xVGA',
-                # 'date_registration': lambda *a: datetime.now().strftime('%Y-%m-%d'),
+                'date_registration': datetime.now().strftime('%Y-%m-%d'),
                 # 'date_cancellation': '',
             }
         )
