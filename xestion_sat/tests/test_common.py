@@ -1,8 +1,19 @@
+# 1: imports of python lib
+
+# 2: import of known third party lib
+
+# 3:  imports of odoo
 from odoo.tests.common import TransactionCase
+
+# 4:  imports from odoo modules
+
+# 5: local imports
+
+# 6: Import of unknown third party lib
 
 
 class TestCommonData(TransactionCase):
-    '''Test.
+    '''Common data for testing.
     '''
 
     def setUp(self):
