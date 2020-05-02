@@ -15,16 +15,16 @@ from odoo.exceptions import ValidationError
 
 
 class XestionsatTestDevice(TestCommonData):
-    '''Test.
-    '''
+    """Test.
+    """
 
     def setUp(self):
         super(XestionsatTestDevice, self).setUp()
         self.Device = self.env['xestionsat.device']
 
     def test_create_device(self):
-        '''Test.
-        '''
+        """Test.
+        """
 
         # Device 1
         self.device_1 = self.Device.sudo(self.test_admin_1).create(
@@ -67,4 +67,4 @@ class XestionsatTestDevice(TestCommonData):
 
         # Check device user constraint
         with self.assertRaises(ValidationError):
-            self.device_1.user_ids.add(self.partner_2_employee_2)
+            self.device_1.user_ids.append(self.partner_2_employee_2)
