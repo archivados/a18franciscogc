@@ -96,5 +96,5 @@ script:
   - travis_run_tests
 
 after_success:
-  - cp .coverage_custom ./.coverage
+  - cp .coverage_custom .coverage
   - travis_after_tests_success
