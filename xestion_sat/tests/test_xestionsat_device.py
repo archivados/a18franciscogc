@@ -1,4 +1,16 @@
+# 1: imports of python lib
+from datetime import datetime
+
+# 2: import of known third party lib
+
+# 3:  imports of odoo
 from .test_common import TestCommonData
+
+# 4:  imports from odoo modules
+
+# 5: local imports
+
+# 6: Import of unknown third party lib
 
 
 class XestionsatTestDevice(TestCommonData):
@@ -24,13 +36,13 @@ class XestionsatTestDevice(TestCommonData):
                 'state': 'operational',
 
                 # Optional fields
-                # 'user_ids': self.partner_1_employee_1,
+                'user_ids': self.partner_1_employee_1,
                 # 'devicecomponents_ids': 'xestionsat.device.component',
-                # 'internal_id': '',
-                # 'location': '',
-                # 'description': '',
-                # 'observation': '',
-                # 'date_registration': '',
+                'internal_id': '20-000001',
+                'location': 'Sala de reunións grande',
+                'description': 'Equipo para presentacións',
+                'observation': 'Saídas de video: 2xHDMI, 1xDVI e 1xVGA',
+                'date_registration': lambda *a: datetime.now().strftime('%Y-%m-%d'),
                 # 'date_cancellation': '',
             }
         )
