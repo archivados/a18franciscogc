@@ -36,10 +36,13 @@ class XestionsatTestDevice(TestCommonData):
                 'state': 'operational',
 
                 # Optional fields
-                'user_ids': self.partner_1_employee_1,
+                'user_ids': [
+                    self.partner_1_employee_1,
+                    self.partner_1_employee_2,
+                ],
                 'devicecomponents_ids': [
-                    self.product_1.id,
-                    self.product_2.id,
+                    self.product_1,
+                    self.product_2,
                 ],
                 'internal_id': '20-000001',
                 'location': 'Sala de reunións grande',
