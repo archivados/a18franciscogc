@@ -161,7 +161,7 @@ class TestCommonData(TransactionCase):
         )
 
         # Device Component 2 (Product)
-        self.product_1 = Product.create(
+        self.product_2 = Product.create(
             {
                 'name': 'RAM',
                 'type': 'consu',
@@ -169,7 +169,7 @@ class TestCommonData(TransactionCase):
         )
 
         # Device Component 3 (Product)
-        self.product_1 = Product.create(
+        self.product_3 = Product.create(
             {
                 'name': 'Disco duro',
                 'type': 'consu',
@@ -177,7 +177,7 @@ class TestCommonData(TransactionCase):
         )
 
         # Device Component 4 (Product)
-        self.product_1 = Product.create(
+        self.product_4 = Product.create(
             {
                 'name': 'Tarxeta gráfica',
                 'type': 'consu',
