@@ -34,3 +34,6 @@ class XestionsatTestDevice(TestCommonData):
                 # 'date_cancellation': '',
             }
         )
+
+        # Check that device is created or not
+        assert self.device_1, "Device not created"
