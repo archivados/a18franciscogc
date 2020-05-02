@@ -37,7 +37,10 @@ class XestionsatTestDevice(TestCommonData):
 
                 # Optional fields
                 'user_ids': self.partner_1_employee_1,
-                # 'devicecomponents_ids': 'xestionsat.device.component',
+                'devicecomponents_ids': [
+                    self.product_1.id,
+                    self.product_2.id,
+                ],
                 'internal_id': '20-000001',
                 'location': 'Sala de reunións grande',
                 'description': 'Equipo para presentacións',
