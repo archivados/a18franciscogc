@@ -13,8 +13,8 @@ from odoo.tests.common import TransactionCase
 
 
 class TestCommonData(TransactionCase):
-    '''Common data for testing.
-    '''
+    """Common data for testing.
+    """
 
     def setUp(self):
         super(TestCommonData, self).setUp()
