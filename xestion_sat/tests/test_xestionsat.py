@@ -14,12 +14,12 @@ from odoo.exceptions import ValidationError
 # 6: Import of unknown third party lib
 
 
-class XestionsatTestDevice(TestCommonData):
+class XestionsatTest(TestCommonData):
     """Test.
     """
 
     def setUp(self):
-        super(XestionsatTestDevice, self).setUp()
+        super(XestionsatTest, self).setUp()
         self.Device = self.env['xestionsat.device']
 
     def test_create_device(self):
