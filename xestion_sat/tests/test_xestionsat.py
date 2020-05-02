@@ -15,7 +15,7 @@ from odoo.exceptions import ValidationError
 
 
 class XestionsatTest(TestCommonData):
-    """Test.
+    """Model tests of the xestiónSAT module.
     """
 
     def setUp(self):
@@ -23,7 +23,7 @@ class XestionsatTest(TestCommonData):
         self.Device = self.env['xestionsat.device']
 
     def test_create_device(self):
-        """Test.
+        """Device model test.
         """
 
         # Device 1
