@@ -5,6 +5,7 @@ from datetime import datetime
 
 # 3:  imports of odoo
 from .test_common import TestCommonData
+from odoo.exceptions import ValidationError
 
 # 4:  imports from odoo modules
 
@@ -55,3 +56,15 @@ class XestionsatTestDevice(TestCommonData):
 
         # Check that device is created or not
         assert self.device_1, "Device not created"
+
+        # Check Odoo user constraint
+        with self.assertRaises(ValidationError):
+            self.device_1.created_by_id = self.test_admin_2
+
+        # Check headquarters constraints
+        with self.assertRaises(ValidationError):
+            self.device_1.headquarter_id = self.partner_2_address_2
+
+        # Check device user constraint
+        with self.assertRaises(ValidationError):
+            self.device_1.user_ids.add(self.partner_2_employee_2)
