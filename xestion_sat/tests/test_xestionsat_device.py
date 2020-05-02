@@ -7,21 +7,21 @@ class XestionsatTestDevice(TestCommonData):
 
     def setUp(self):
         super(XestionsatTestDevice, self).setUp()
-        self.DeviceModel = self.env['xestionsat.device']
+        self.Device = self.env['xestionsat.device']
 
     def test_create_device(self):
         '''Test.
         '''
 
         # Device 1
-        self.device_1 = self.DeviceModel.create(
+        self.device_1 = self.Device.sudo(self.test_admin_1).create(
             {
                 # Required fields
-                # 'created_by_id': self.test_admin_1.id,
+                'created_by_id': self.test_admin_1.id,
                 'owner_id': self.partner_1.id,
                 'headquarter_id': self.partner_1_address_2.id,
                 'name': 'Equipo 1',
-                # 'state': 'operational',
+                'state': 'operational',
 
                 # Optional fields
                 # 'user_ids': self.partner_1_employee_1,
