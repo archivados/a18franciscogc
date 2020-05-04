@@ -63,13 +63,6 @@ class XestionsatTest(TestCommonData):
             msg='Found ' + str(len(self.device_1['user_ids']))
             + ' users'
         )
-        # Remove device user
-        self.device_1['user_ids'] = (3, self.partner_1_employee_2.id)
-        self.assertTrue(
-            len(self.device_1['user_ids']) == 1,
-            msg='Found ' + str(len(self.device_1['user_ids']))
-            + ' users'
-        )
 
         # Check Odoo user constraint
         with self.assertRaises(ValidationError):
