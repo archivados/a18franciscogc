@@ -56,6 +56,14 @@ class XestionsatTest(TestCommonData):
         # Check that device is created or not
         assert self.device_1, "Device not created"
 
+        # Add device user
+        self.device_1['user_ids'] = (4, self.partner_1_employee_2.id)
+        self.assertTrue(
+            len(self.device_1['user_ids']) == 2,
+            msg='Found ' + str(len(self.device_1['user_ids']))
+            + ' users'
+        )
+
         # Check Odoo user constraint
         with self.assertRaises(ValidationError):
             self.device_1.created_by_id = self.test_admin_2
