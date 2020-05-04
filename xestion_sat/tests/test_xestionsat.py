@@ -39,7 +39,6 @@ class XestionsatTest(TestCommonData):
                 # Optional fields
                 'user_ids': [
                     self.partner_1_employee_1,
-                    self.partner_1_employee_2,
                 ],
                 'devicecomponents_ids': [
                     self.product_1,
@@ -65,6 +64,7 @@ class XestionsatTest(TestCommonData):
         with self.assertRaises(ValidationError):
             self.device_1.headquarter_id = self.partner_2_address_2
 
+        # User assignment checks
         # Check device user constraint
         with self.assertRaises(ValidationError):
-            self.device_1.user_ids.append(self.partner_2_employee_2)
+            self.device_1['user_ids'] = (4, self.partner_2_employee_2.id)
