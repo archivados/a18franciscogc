@@ -23,61 +23,6 @@ class XestionsatTest(TestCommonData):
         self.Device = self.env['xestionsat.device']
         self.DeviceComponent = self.env['xestionsat.device.component']
 
-    def test_create_device(self):
-        """Device model test.
-        """
-        users_list = [
-            self.partner_1_employee_1.id,
-        ]
-
-        # Device 1
-        self.device_1 = self.Device.sudo(self.test_admin_1).create(
-            {
-                # Required fields
-                'created_by_id': self.test_admin_1.id,
-                'owner_id': self.partner_1.id,
-                'headquarter_id': self.partner_1_address_2.id,
-                'name': 'Equipo 1',
-                'state': 'operational',
-
-                # Optional fields
-                'user_ids': [(6, 0, users_list)],
-                'internal_id': '20-000001',
-                'location': 'Sala de reunións grande',
-                'description': 'Equipo para presentacións',
-                'observation': 'Saídas de video: 2xHDMI, 1xDVI e 1xVGA',
-                'date_registration': datetime.now().strftime('%Y-%m-%d'),
-                # 'date_cancellation': '',
-            }
-        )
-
-        # Check that device is created or not
-        assert self.device_1, "Device not created"
-
-        # User assignment checks
-        # Add device user
-        len_user_ids = len(self.device_1['user_ids'])
-
-        self.device_1['user_ids'] = [(4, self.partner_1_employee_2.id)]
-        self.assertEqual(
-            len(self.device_1['user_ids']),
-            len_user_ids + 1,
-            msg='\nAdd Device User ERRO: '
-            + '\n Device: ' + self.device_1.name
-            + '\n len(user_ids): ' + str(len_user_ids)
-        )
-        # Remove device user
-        len_user_ids = len(self.device_1['user_ids'])
-
-        self.device_1['user_ids'] = [(2, self.partner_1_employee_1.id)]
-        self.assertEqual(
-            len(self.device_1['user_ids']),
-            len_user_ids - 1,
-            msg='\nRemove Device User ERRO: '
-            + '\n Device: ' + self.device_1.name
-            + '\n len(user_ids): ' + str(len_user_ids)
-        )
-
         # Components assignment checks
         # Create a Devices Components
         # Device Component 1 (Product)
@@ -132,14 +77,69 @@ class XestionsatTest(TestCommonData):
             }
         )
 
+    def test_create_device(self):
+        """Device model test.
+        """
+        users_list = [
+            self.partner_1_employee_1.id,
+        ]
+
         componets_list = [
             self.componet_1.id,
             self.componet_2.id,
             self.componet_4.id,
         ]
 
+        # Device 1
+        self.device_1 = self.Device.sudo(self.test_admin_1).create(
+            {
+                # Required fields
+                'created_by_id': self.test_admin_1.id,
+                'owner_id': self.partner_1.id,
+                'headquarter_id': self.partner_1_address_2.id,
+                'name': 'Equipo 1',
+                'state': 'operational',
+
+                # Optional fields
+                'user_ids': [(6, 0, users_list)],
+                'devicecomponents_ids': [(6, 0, componets_list)],
+                'internal_id': '20-000001',
+                'location': 'Sala de reunións grande',
+                'description': 'Equipo para presentacións',
+                'observation': 'Saídas de video: 2xHDMI, 1xDVI e 1xVGA',
+                'date_registration': datetime.now().strftime('%Y-%m-%d'),
+                # 'date_cancellation': '',
+            }
+        )
+
+        # Check that device is created or not
+        assert self.device_1, "Device not created"
+
+        # User assignment checks
+        # Add device user
+        len_user_ids = len(self.device_1['user_ids'])
+
+        self.device_1['user_ids'] = [(4, self.partner_1_employee_2.id)]
+        self.assertEqual(
+            len(self.device_1['user_ids']),
+            len_user_ids + 1,
+            msg='\nAdd Device User ERRO: '
+            + '\n Device: ' + self.device_1.name
+            + '\n len(user_ids): ' + str(len_user_ids)
+        )
+        # Remove device user
+        len_user_ids = len(self.device_1['user_ids'])
+
+        self.device_1['user_ids'] = [(2, self.partner_1_employee_1.id)]
+        self.assertEqual(
+            len(self.device_1['user_ids']),
+            len_user_ids - 1,
+            msg='\nRemove Device User ERRO: '
+            + '\n Device: ' + self.device_1.name
+            + '\n len(user_ids): ' + str(len_user_ids)
+        )
+
         # Add device component
-        self.device_1['devicecomponents_ids'] = [(6, 0, componets_list)]
         len_devicecomponents_ids = len(self.device_1['devicecomponents_ids'])
 
         self.device_1['devicecomponents_ids'] = [(4, self.componet_3.id)]
