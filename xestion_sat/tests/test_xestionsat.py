@@ -1,5 +1,5 @@
 # 1: imports of python lib
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # 2: import of known third party lib
 
@@ -119,6 +119,8 @@ class XestionsatTest(TestCommonData):
     def test_create_device(self):
         """Device model test.
         """
+
+        # Data for checks
         users_list = [
             self.partner_1_employee_1.id,
         ]
@@ -129,110 +131,168 @@ class XestionsatTest(TestCommonData):
             self.componet_4.id,
         ]
 
-        # Device 1
-        self.device_1 = self.Device.sudo(self.test_admin_1).create(
-            {
-                # Required fields
-                'created_by_id': self.test_admin_1.id,
-                'owner_id': self.partner_1.id,
-                'headquarter_id': self.partner_1_address_2.id,
-                'name': 'Equipo 1',
-                'state': 'operational',
+        internal_id = '20-000001'
+        location = 'Sala de reunións grande'
+        description = 'Equipo para presentacións'
+        observation = 'Saídas de video: 2xHDMI, 1xDVI e 1xVGA'
+        date_cancellation = (datetime.now() + timedelta(days=(10))).strftime('%Y-%m-%d')
 
-                # Optional fields
-                'user_ids': [(6, 0, users_list)],
-                'devicecomponents_ids': [(6, 0, componets_list)],
-                'internal_id': '20-000001',
-                'location': 'Sala de reunións grande',
-                'description': 'Equipo para presentacións',
-                'observation': 'Saídas de video: 2xHDMI, 1xDVI e 1xVGA',
-                'date_registration': datetime.now().strftime('%Y-%m-%d'),
-                # 'date_cancellation': '',
-            }
+        # Device 1
+        device_1 = self.create_device(
+            'Equipo1_incidencia',
+            self.test_admin_1,
+            self.partner_1,
+            self.partner_1_address_2,
         )
 
         # Check that device is created or not
-        assert self.device_1, "Device not created"
+        assert device_1, "Device not created"
+
+        # Optional fields assignment checks
+        device_1.internal_id = internal_id
+        self.assertEqual(
+            device_1.internal_id,
+            internal_id,
+            msg='Add internal_id'
+        )
+        device_1.location = location
+        self.assertEqual(
+            device_1.location,
+            location,
+            msg='Add location'
+        )
+        device_1.description = description
+        self.assertEqual(
+            device_1.description,
+            description,
+            msg='Add description'
+        )
+        device_1.observation = observation
+        self.assertEqual(
+            device_1.observation,
+            observation,
+            msg='Add observation'
+        )
+        device_1.date_cancellation = date_cancellation
+        self.assertEqual(
+            device_1.date_cancellation,
+            date_cancellation,
+            msg='Add date_cancellation'
+        )
 
         # User assignment checks
-        # Add device user
-        len_user_ids = len(self.device_1['user_ids'])
-
-        self.device_1['user_ids'] = [(4, self.partner_1_employee_2.id)]
+        # Add users list
+        device_1.user_ids = [(6, 0, users_list)]
         self.assertEqual(
-            len(self.device_1['user_ids']),
+            len(device_1.user_ids),
+            len(users_list),
+            msg='\nAdd Device User: '
+            + '\n Device: ' + device_1.name
+            + '\n len(device_1.user_ids): ' + str(len(device_1.user_ids))
+            + '\n len(users_ids): ' + str(len(users_list))
+        )
+
+        # Add device user
+        len_user_ids = len(device_1.user_ids)
+
+        device_1.user_ids = [(4, self.partner_1_employee_2.id)]
+        self.assertEqual(
+            len(device_1.user_ids),
             len_user_ids + 1,
-            msg='\nAdd Device User ERRO: '
-            + '\n Device: ' + self.device_1.name
+            msg='\nAdd Device User: '
+            + '\n Device: ' + device_1.name
+            + '\n len(device_1.user_ids): ' + str(len(device_1.user_ids))
             + '\n len(user_ids): ' + str(len_user_ids)
         )
         # Remove device user
-        len_user_ids = len(self.device_1['user_ids'])
+        len_user_ids = len(device_1.user_ids)
 
-        self.device_1['user_ids'] = [(2, self.partner_1_employee_1.id)]
+        device_1.user_ids = [(2, self.partner_1_employee_1.id)]
         self.assertEqual(
-            len(self.device_1['user_ids']),
+            len(device_1.user_ids),
             len_user_ids - 1,
-            msg='\nRemove Device User ERRO: '
-            + '\n Device: ' + self.device_1.name
+            msg='\nRemove Device User: '
+            + '\n Device: ' + device_1.name
+            + '\n len(device_1.user_ids): ' + str(len(device_1.user_ids))
             + '\n len(user_ids): ' + str(len_user_ids)
         )
 
         # Components assignment checks
-        # Add device component
-        len_devicecomponents_ids = len(self.device_1['devicecomponents_ids'])
-
-        self.device_1['devicecomponents_ids'] = [(4, self.componet_3.id)]
+        # Add device component list
+        device_1.devicecomponents_ids = [(6, 0, componets_list)]
         self.assertEqual(
-            len(self.device_1['devicecomponents_ids']),
+            len(device_1.devicecomponents_ids),
+            len(componets_list),
+            msg='\nAdd Componet: '
+            + '\n Product: ' + device_1.name
+            + '\n len(device_1.user_ids): '
+                + str(len(device_1.devicecomponents_ids))
+            + '\n len(componets_list): '
+                + str(componets_list)
+        )
+        # Add device component
+        len_devicecomponents_ids = len(device_1.devicecomponents_ids)
+
+        device_1.devicecomponents_ids = [(4, self.componet_3.id)]
+        self.assertEqual(
+            len(device_1.devicecomponents_ids),
             len_devicecomponents_ids + 1,
-            msg='\nAdd Componet ERRO:'
-            + '\n Product: ' + self.device_1.name
+            msg='\nAdd Componet: '
+            + '\n Product: ' + device_1.name
+            + '\n len(device_1.user_ids): '
+                + str(len(device_1.devicecomponents_ids))
             + '\n len(len_devicecomponents_ids): '
                 + str(len_devicecomponents_ids)
         )
         # Remove device component
-        len_devicecomponents_ids = len(self.device_1['devicecomponents_ids'])
+        len_devicecomponents_ids = len(device_1.devicecomponents_ids)
 
-        self.device_1['devicecomponents_ids'] = [(2, self.componet_3.id)]
+        device_1.devicecomponents_ids = [(2, self.componet_3.id)]
         self.assertEqual(
-            len(self.device_1['devicecomponents_ids']),
+            len(device_1.devicecomponents_ids),
             len_devicecomponents_ids - 1,
-            msg='\nRemove Componet ERRO:'
-            + '\n Product: ' + self.device_1.name
+            msg='\nRemove Componet: '
+            + '\n Product: ' + device_1.name
+            + '\n len(device_1.user_ids): '
+                + str(len(device_1.devicecomponents_ids))
             + '\n len(len_devicecomponents_ids): '
                 + str(len_devicecomponents_ids)
         )
-        len_user_ids = len(self.device_1['devicecomponents_ids'])
+        len_user_ids = len(device_1.devicecomponents_ids)
 
         # Check constraints
         # Check Odoo user constraint
         with self.assertRaises(ValidationError):
-            self.device_1.created_by_id = self.test_admin_2
+            device_1.created_by_id = self.test_admin_2
 
         # Check headquarters constraints
         with self.assertRaises(ValidationError):
-            self.device_1.headquarter_id = self.partner_2_address_2
+            device_1.headquarter_id = self.partner_2_address_2
 
         # Check device user constraint
         with self.assertRaises(ValidationError):
-            self.device_1['user_ids'] = (4, self.partner_2_employee_2.id)
+            device_1.user_ids = (4, self.partner_2_employee_2.id)
 
-        return self.device_1
+        return device_1
 
     def test_create_incidence(self):
         """Incidence model test.
         """
-        device_1 = self.test_create_device()
+        incidence_device_1 = self.create_device(
+            'Equipo1_incidencia',
+            self.test_admin_1,
+            self.partner_1,
+            self.partner_1_address_2,
+        )
 
         # Incidence 1
         self.incidence_1 = self.Incidence.sudo(self.test_admin_1).create(
             {
                 # Required fields
                 'created_by_id': self.test_admin_1.id,
-                'customer_id': device_1['owner_id'].id,
+                'customer_id': incidence_device_1['owner_id'].id,
                 # 'device_ids': self.partner_1.id,
-                'title': 'Incidencia 1: ' + device_1.name,
+                'title': 'Incidencia 1: ' + incidence_device_1.name,
                 'failure_description': 'Non se conecta a internet',
                 'state': self.incidence_state_1.id,
 
@@ -252,3 +312,26 @@ class XestionsatTest(TestCommonData):
         # Check Odoo user constraint
         with self.assertRaises(ValidationError):
             self.incidence_1.created_by_id = self.test_admin_2
+
+    def create_device(self, name, user, owner, headquarter):
+        """Create a device model with the passed data.
+        :param name: Device name
+        :param user: Odoo user to create device
+        :param owner: Device owner
+        :param headquarter: Device headquarter
+        """
+        device = self.Device.sudo(user).create(
+            {
+                # Required fields
+                'created_by_id': user,
+                'owner_id': owner.id,
+                'headquarter_id': headquarter.id,
+                'name': name,
+                'state': 'operational',
+
+                # Optional fields
+                'date_registration': datetime.now().strftime('%Y-%m-%d'),
+            }
+        )
+
+        return device
