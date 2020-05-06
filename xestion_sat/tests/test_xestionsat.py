@@ -135,7 +135,8 @@ class XestionsatTest(TestCommonData):
         location = 'Sala de reunións grande'
         description = 'Equipo para presentacións'
         observation = 'Saídas de video: 2xHDMI, 1xDVI e 1xVGA'
-        date_cancellation = (datetime.now() + timedelta(days=(10))).strftime('%Y-%m-%d')
+        date_cancellation = (datetime.now() + timedelta(days=(10))) \
+            .strftime('%Y-%m-%d')
 
         # Device 1
         device_1 = self.create_device(
