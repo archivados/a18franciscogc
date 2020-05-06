@@ -27,176 +27,201 @@ class TestCommonData(TransactionCase):
         # Create a Users
         GroupUser = self.env.ref('xestion_sat.group_xestionsat_admin')
 
-        # User 1
-        self.test_admin_1 = User.create(
-            {
-                'login': 'testusuario1',
-                'groups_id': [(6, 0, [GroupUser.id])],
-                'partner_id': self.env['res.partner'].create(
-                    {
-                        'name': 'María Técnica',
-                        'email': 'a.m@example.com',
-                    }
-                ).id
-            }
-        )
-        # User 2
-        self.test_admin_2 = User.create(
-            {
-                'login': 'testusuario2',
-                'groups_id': [(6, 0, [GroupUser.id])],
-                'partner_id': self.env['res.partner'].create(
-                    {
-                        'name': 'Laura Técnica',
-                        'email': 'a.m@example.com',
-                    }
-                ).id
-            }
-        )
-        # User 3
-        self.test_noadmin_1 = User.create(
-            {
-                'login': 'testusuario3',
-                'partner_id': self.env['res.partner'].create(
-                    {
-                        'name': 'Juan',
-                        'email': 'a.m@example.com',
-                    }
-                ).id
-            }
-        )
-
-        # Create a Customers
-        # Company 1
-        self.partner_1 = Partner.create(
-            {
-                'create_uid': self.test_admin_1.id,
-                'name': 'Empresa ABC',
-                'is_company': True,
-            }
-        )
+        self.test_admin_users = [
+            # User 1
+            User.create(
+                {
+                    'login': 'testusuario1',
+                    'groups_id': [(6, 0, [GroupUser.id])],
+                    'partner_id': self.env['res.partner'].create(
+                        {
+                            'name': 'María Técnica',
+                            'email': 'a.m@example.com',
+                        }
+                    ).id
+                }
+            ),
+            # User 2
+            User.create(
+                {
+                    'login': 'testusuario2',
+                    'groups_id': [(6, 0, [GroupUser.id])],
+                    'partner_id': self.env['res.partner'].create(
+                        {
+                            'name': 'Laura Técnica',
+                            'email': 'a.m@example.com',
+                        }
+                    ).id
+                }
+            ),
+            # User 3
+            User.create(
+                {
+                    'login': 'testusuario3',
+                    'partner_id': self.env['res.partner'].create(
+                        {
+                            'name': 'Juan',
+                            'email': 'a.m@example.com',
+                        }
+                    ).id
+                }
+            ),
+        ]
 
         # Company 1 addresses
-        self.partner_1_address_1 = Partner.create(
-            {
-                'name': 'Oficina A',
-                'street': 'Rúa A, número 3',
-                'type': 'other',
-                'city': 'Santiago de Compostela',
-                'parent_id': self.partner_1.id,
-            }
-        )
-        self.partner_1_address_2 = Partner.create(
-            {
-                'name': 'Oficina B',
-                'type': 'other',
-                'street': 'Rúa B, número 34',
-                'city': 'Santiago de Compostela',
-                'parent_id': self.partner_1.id,
-            }
-        )
-        # Company 1 employees
-        self.partner_1_employee_1 = Partner.create(
-            {
-                'name': 'Argentina',
-                'type': 'contact',
-                'parent_id': self.partner_1.id,
-            }
-        )
-        self.partner_1_employee_2 = Partner.create(
-            {
-                'name': 'Roberto',
-                'type': 'contact',
-                'parent_id': self.partner_1.id,
-            }
-        )
+        partner1_addresses = [
+            Partner.create(
+                {
+                    'name': 'Oficina A',
+                    'street': 'Rúa A, número 3',
+                    'type': 'other',
+                    'city': 'Santiago de Compostela',
+                    'parent_id': self.partner_1.id,
+                }
+            ),
+            Partner.create(
+                {
+                    'name': 'Oficina B',
+                    'type': 'other',
+                    'street': 'Rúa B, número 34',
+                    'city': 'Santiago de Compostela',
+                    'parent_id': self.partner_1.id,
+                }
+            ),
+        ]
 
-        # Company 2
-        self.partner_2 = Partner.create(
-            {
-                'name': 'Empresa ZYX',
-                'is_company': True,
-            }
-        )
+        # Company 1 employees
+        partner1_employees = [
+            Partner.create(
+                {
+                    'name': 'Argentina',
+                    'type': 'contact',
+                    'parent_id': self.partner_1.id,
+                }
+            ),
+            Partner.create(
+                {
+                    'name': 'Roberto',
+                    'type': 'contact',
+                    'parent_id': self.partner_1.id,
+                }
+            ),
+        ]
+
         # Company 2 addresses
-        self.partner_2_address_1 = Partner.create(
-            {
-                'name': 'Oficina Z',
-                'street': 'Rúa Z, número 12',
-                'city': 'Santiago de Compostela',
-                'parent_id': self.partner_2.id,
-            }
-        )
-        self.partner_2_address_2 = Partner.create(
-            {
-                'name': 'Oficina Y',
-                'street': 'Rúa Y, número 1',
-                'city': 'Santiago de Compostela',
-                'parent_id': self.partner_2.id,
-            }
-        )
+        partner2_addresses = [
+            Partner.create(
+                {
+                    'name': 'Oficina Z',
+                    'street': 'Rúa Z, número 12',
+                    'city': 'Santiago de Compostela',
+                    'parent_id': self.partner_2.id,
+                }
+            ),
+            Partner.create(
+                {
+                    'name': 'Oficina Y',
+                    'street': 'Rúa Y, número 1',
+                    'city': 'Santiago de Compostela',
+                    'parent_id': self.partner_2.id,
+                }
+            ),
+        ]
+
         # Company 2 employees
-        self.partner_2_employee_1 = Partner.create(
-            {
-                'name': 'Jesús',
-                'type': 'contact',
-                'parent_id': self.partner_2.id,
-            }
-        )
-        self.partner_2_employee_2 = Partner.create(
-            {
-                'name': 'Miguel',
-                'type': 'contact',
-                'parent_id': self.partner_2.id,
-            }
-        )
+        partner2_employees = [
+            Partner.create(
+                {
+                    'name': 'Jesús',
+                    'type': 'contact',
+                    'parent_id': self.partner_2.id,
+                }
+            ),
+            Partner.create(
+                {
+                    'name': 'Miguel',
+                    'type': 'contact',
+                    'parent_id': self.partner_2.id,
+                }
+            ),
+        ]
+
+        # Create a Customers
+        self.partners = [
+            # Company 1
+            (
+                Partner.create(
+                    {
+                        'name': 'Empresa ABC',
+                        'is_company': True,
+                    }
+                ),
+                {
+                    'addresses': partner1_addresses,
+                    'employees': partner1_employees,
+                }
+            ),
+            # Company 2
+            (
+                Partner.create(
+                    {
+                        'name': 'Empresa ZYX',
+                        'is_company': True,
+                    }
+                ),
+                {
+                    'addresses': partner2_addresses,
+                    'employees': partner2_employees,
+                }
+            ),
+        ]
 
         # Create Product for Devices Components
-        # Product_1
-        self.product_1 = Product.create(
-            {
-                'name': 'CPU',
-                'type': 'consu',
-            }
-        )
-
-        # Product_2
-        self.product_2 = Product.create(
-            {
-                'name': 'RAM',
-                'type': 'consu',
-            }
-        )
-
-        # Product_3
-        self.product_3 = Product.create(
-            {
-                'name': 'Disco duro',
-                'type': 'consu',
-            }
-        )
-
-        # Product_4
-        self.product_4 = Product.create(
-            {
-                'name': 'Tarxeta gráfica',
-                'type': 'consu',
-            }
-        )
+        self.products = [
+            # Product_1
+            Product.create(
+                {
+                    'name': 'CPU',
+                    'type': 'consu',
+                }
+            ),
+            # Product_2
+            Product.create(
+                {
+                    'name': 'RAM',
+                    'type': 'consu',
+                }
+            ),
+            # Product_3
+            Product.create(
+                {
+                    'name': 'Disco duro',
+                    'type': 'consu',
+                }
+            ),
+            # Product_4
+            Product.create(
+                {
+                    'name': 'Tarxeta gráfica',
+                    'type': 'consu',
+                }
+            ),
+        ]
 
         # Create Product for Incidence Atcions
-        # Action_1
-        self.incidence_action_1 = Product.create(
-            {
-                'name': 'Limpeza de virus',
-                'type': 'sat',
-            }
-        )
-
-        # Action_2
-        self.incidence_action_2 = Product.create(
-            {
-                'name': 'Formateo con GNU/Linux',
-                'type': 'sat',
-            }
-        )
+        self.incidence_actions = [
+            # Action_1
+            Product.create(
+                {
+                    'name': 'Limpeza de virus',
+                    'type': 'sat',
+                }
+            ),
+            # Action_2
+            Product.create(
+                {
+                    'name': 'Formateo con GNU/Linux',
+                    'type': 'sat',
+                }
+            ),
+        ]
