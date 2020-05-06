@@ -54,7 +54,8 @@ class Incidence(models.Model):
 
     date_start = fields.Date(
         string='Date start',
-        default=lambda *a: datetime.now().strftime('%Y-%m-%d')
+        default=lambda *a: datetime.now().strftime('%Y-%m-%d'),
+        required=True,
     )
     date_end = fields.Date(
         string='Date ends',

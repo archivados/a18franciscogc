@@ -75,10 +75,13 @@ class Device(models.Model):
     )
 
     date_registration = fields.Date(
-        'Date of registration',
+        string='Date of registration',
         default=lambda *a: datetime.now().strftime('%Y-%m-%d'),
+        required=True,
     )
-    date_cancellation = fields.Date('Date of cancellation')
+    date_cancellation = fields.Date(
+        string='Date of cancellation'
+    )
 
     state = fields.Selection(
         [
