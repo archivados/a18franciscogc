@@ -63,6 +63,7 @@ class Incidence(models.Model):
     state = fields.Many2one(
         'xestionsat.incidence.state',
         string='State',
+        required=True,
     )
 
     assistance_place = fields.Many2one(
