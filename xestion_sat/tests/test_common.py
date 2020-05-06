@@ -151,8 +151,8 @@ class TestCommonData(TransactionCase):
             }
         )
 
-        # Create a Devices Components
-        # Device Component 1 (Product)
+        # Create Products for Devices Components
+        # Product 1
         self.product_1 = Product.create(
             {
                 'name': 'CPU',
@@ -160,7 +160,7 @@ class TestCommonData(TransactionCase):
             }
         )
 
-        # Device Component 2 (Product)
+        # Product 2
         self.product_2 = Product.create(
             {
                 'name': 'RAM',
@@ -168,7 +168,7 @@ class TestCommonData(TransactionCase):
             }
         )
 
-        # Device Component 3 (Product)
+        # Product 3
         self.product_3 = Product.create(
             {
                 'name': 'Disco duro',
@@ -176,7 +176,7 @@ class TestCommonData(TransactionCase):
             }
         )
 
-        # Device Component 4 (Product)
+        # Product 4
         self.product_4 = Product.create(
             {
                 'name': 'Tarxeta gráfica',
