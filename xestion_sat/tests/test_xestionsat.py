@@ -21,6 +21,7 @@ class XestionsatTest(TestCommonData):
     def setUp(self):
         super(XestionsatTest, self).setUp()
         self.Device = self.env['xestionsat.device']
+        self.DeviceComponent = self.env['xestionsat.device.component']
 
     def test_create_device(self):
         """Device model test.
@@ -76,6 +77,93 @@ class XestionsatTest(TestCommonData):
             + '\n Device: ' + self.device_1.name
             + '\n len(user_ids): ' + str(len_user_ids)
         )
+
+        # Components assignment checks
+        # Create a Devices Components
+        # Device Component 1 (Product)
+        self.componet_1 = self.DeviceComponent.create(
+            {
+                # Required fields
+                'template_id': self.product_1.id,
+                # Optional fields
+                'serial': '1111',
+                'observation': 'Unha observación',
+                'date_registration': datetime.now().strftime('%Y-%m-%d'),
+                # 'date_cancellation': '',
+            }
+        )
+
+        # Device Component 2 (Product)
+        self.componet_2 = self.DeviceComponent.create(
+            {
+                # Required fields
+                'template_id': self.product_2.id,
+                # Optional fields
+                'serial': '2222',
+                'observation': 'Unha observación',
+                'date_registration': datetime.now().strftime('%Y-%m-%d'),
+                # 'date_cancellation': '',
+            }
+        )
+
+        # Device Component 3 (Product)
+        self.componet_3 = self.DeviceComponent.create(
+            {
+                # Required fields
+                'template_id': self.product_3.id,
+                # Optional fields
+                'serial': '3333',
+                'observation': 'Unha observación',
+                'date_registration': datetime.now().strftime('%Y-%m-%d'),
+                # 'date_cancellation': '',
+            }
+        )
+
+        # Device Component 4 (Product)
+        self.componet_4 = self.DeviceComponent.create(
+            {
+                # Required fields
+                'template_id': self.product_4.id,
+                # Optional fields
+                'serial': '4444',
+                'observation': 'Unha observación',
+                'date_registration': datetime.now().strftime('%Y-%m-%d'),
+                # 'date_cancellation': '',
+            }
+        )
+
+        componets_list = [
+            self.componet_1.id,
+            self.componet_2.id,
+            self.componet_4.id,
+        ]
+
+        # Add device component
+        self.device_1['devicecomponents_ids'] = [(6, 0, componets_list)]
+        len_devicecomponents_ids = len(self.device_1['devicecomponents_ids'])
+
+        self.device_1['devicecomponents_ids'] = [(4, self.componet_3.id)]
+        self.assertEqual(
+            len(self.device_1['devicecomponents_ids']),
+            len_devicecomponents_ids + 1,
+            msg='\nAdd Componet ERRO:'
+            + '\n Product: ' + self.device_1.name
+            + '\n len(len_devicecomponents_ids): '
+                + str(len_devicecomponents_ids)
+        )
+        # Remove device component
+        len_devicecomponents_ids = len(self.device_1['devicecomponents_ids'])
+
+        self.device_1['devicecomponents_ids'] = [(2, self.componet_3.id)]
+        self.assertEqual(
+            len(self.device_1['devicecomponents_ids']),
+            len_devicecomponents_ids - 1,
+            msg='\nRemove Componet ERRO:'
+            + '\n Product: ' + self.device_1.name
+            + '\n len(len_devicecomponents_ids): '
+                + str(len_devicecomponents_ids)
+        )
+        len_user_ids = len(self.device_1['devicecomponents_ids'])
 
         # Check constraints
         # Check Odoo user constraint
