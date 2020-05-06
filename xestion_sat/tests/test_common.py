@@ -151,8 +151,8 @@ class TestCommonData(TransactionCase):
             }
         )
 
-        # Create Products for Devices Components
-        # Product 1
+        # Create Product for Devices Components
+        # Product_1
         self.product_1 = Product.create(
             {
                 'name': 'CPU',
@@ -160,7 +160,7 @@ class TestCommonData(TransactionCase):
             }
         )
 
-        # Product 2
+        # Product_2
         self.product_2 = Product.create(
             {
                 'name': 'RAM',
@@ -168,7 +168,7 @@ class TestCommonData(TransactionCase):
             }
         )
 
-        # Product 3
+        # Product_3
         self.product_3 = Product.create(
             {
                 'name': 'Disco duro',
@@ -176,10 +176,27 @@ class TestCommonData(TransactionCase):
             }
         )
 
-        # Product 4
+        # Product_4
         self.product_4 = Product.create(
             {
                 'name': 'Tarxeta gráfica',
                 'type': 'consu',
+            }
+        )
+
+        # Create Product for Incidence Atcions
+        # Action_1
+        self.incidence_action_1 = Product.create(
+            {
+                'name': 'Limpeza de virus',
+                'type': 'sat',
+            }
+        )
+
+        # Action_2
+        self.incidence_action_2 = Product.create(
+            {
+                'name': 'Formateo con GNU/Linux',
+                'type': 'sat',
             }
         )
