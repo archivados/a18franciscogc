@@ -68,84 +68,6 @@ class TestCommonData(TransactionCase):
             ),
         ]
 
-        # Company 1 addresses
-        partner1_addresses = [
-            Partner.create(
-                {
-                    'name': 'Oficina A',
-                    'street': 'Rúa A, número 3',
-                    'type': 'other',
-                    'city': 'Santiago de Compostela',
-                    'parent_id': self.partner_1.id,
-                }
-            ),
-            Partner.create(
-                {
-                    'name': 'Oficina B',
-                    'type': 'other',
-                    'street': 'Rúa B, número 34',
-                    'city': 'Santiago de Compostela',
-                    'parent_id': self.partner_1.id,
-                }
-            ),
-        ]
-
-        # Company 1 employees
-        partner1_employees = [
-            Partner.create(
-                {
-                    'name': 'Argentina',
-                    'type': 'contact',
-                    'parent_id': self.partner_1.id,
-                }
-            ),
-            Partner.create(
-                {
-                    'name': 'Roberto',
-                    'type': 'contact',
-                    'parent_id': self.partner_1.id,
-                }
-            ),
-        ]
-
-        # Company 2 addresses
-        partner2_addresses = [
-            Partner.create(
-                {
-                    'name': 'Oficina Z',
-                    'street': 'Rúa Z, número 12',
-                    'city': 'Santiago de Compostela',
-                    'parent_id': self.partner_2.id,
-                }
-            ),
-            Partner.create(
-                {
-                    'name': 'Oficina Y',
-                    'street': 'Rúa Y, número 1',
-                    'city': 'Santiago de Compostela',
-                    'parent_id': self.partner_2.id,
-                }
-            ),
-        ]
-
-        # Company 2 employees
-        partner2_employees = [
-            Partner.create(
-                {
-                    'name': 'Jesús',
-                    'type': 'contact',
-                    'parent_id': self.partner_2.id,
-                }
-            ),
-            Partner.create(
-                {
-                    'name': 'Miguel',
-                    'type': 'contact',
-                    'parent_id': self.partner_2.id,
-                }
-            ),
-        ]
-
         # Create a Customers
         self.partners = [
             # Company 1
@@ -157,8 +79,44 @@ class TestCommonData(TransactionCase):
                     }
                 ),
                 {
-                    'addresses': partner1_addresses,
-                    'employees': partner1_employees,
+                    # Company 1 addresses
+                    'addresses': [
+                        Partner.create(
+                            {
+                                'name': 'Oficina A',
+                                'street': 'Rúa A, número 3',
+                                'type': 'other',
+                                'city': 'Santiago de Compostela',
+                                'parent_id': self.partners[0].id,
+                            }
+                        ),
+                        Partner.create(
+                            {
+                                'name': 'Oficina B',
+                                'type': 'other',
+                                'street': 'Rúa B, número 34',
+                                'city': 'Santiago de Compostela',
+                                'parent_id': self.partners[0].id,
+                            }
+                        ),
+                    ],
+                    # Company 1 employees
+                    'employees': [
+                        Partner.create(
+                            {
+                                'name': 'Argentina',
+                                'type': 'contact',
+                                'parent_id': self.partners[0].id,
+                            }
+                        ),
+                        Partner.create(
+                            {
+                                'name': 'Roberto',
+                                'type': 'contact',
+                                'parent_id': self.partners[0].id,
+                            }
+                        ),
+                    ],
                 }
             ),
             # Company 2
@@ -170,8 +128,42 @@ class TestCommonData(TransactionCase):
                     }
                 ),
                 {
-                    'addresses': partner2_addresses,
-                    'employees': partner2_employees,
+                    # Company 2 addresses
+                    'addresses': [
+                        Partner.create(
+                            {
+                                'name': 'Oficina Z',
+                                'street': 'Rúa Z, número 12',
+                                'city': 'Santiago de Compostela',
+                                'parent_id': self.partners[1].id,
+                            }
+                        ),
+                        Partner.create(
+                            {
+                                'name': 'Oficina Y',
+                                'street': 'Rúa Y, número 1',
+                                'city': 'Santiago de Compostela',
+                                'parent_id': self.partners[1].id,
+                            }
+                        ),
+                    ],
+                    # Company 2 employees
+                    'employees': [
+                        Partner.create(
+                            {
+                                'name': 'Jesús',
+                                'type': 'contact',
+                                'parent_id': self.partners[1].id,
+                            }
+                        ),
+                        Partner.create(
+                            {
+                                'name': 'Miguel',
+                                'type': 'contact',
+                                'parent_id': self.partners[1].id,
+                            }
+                        ),
+                    ],
                 }
             ),
         ]
