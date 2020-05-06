@@ -23,8 +23,7 @@ class XestionsatTest(TestCommonData):
         self.Device = self.env['xestionsat.device']
         self.DeviceComponent = self.env['xestionsat.device.component']
 
-        # Components assignment checks
-        # Create a Devices Components
+        # Create Devices Components
         # Device Component 1 (Product)
         self.componet_1 = self.DeviceComponent.create(
             {
@@ -139,6 +138,7 @@ class XestionsatTest(TestCommonData):
             + '\n len(user_ids): ' + str(len_user_ids)
         )
 
+        # Components assignment checks
         # Add device component
         len_devicecomponents_ids = len(self.device_1['devicecomponents_ids'])
 
@@ -177,3 +177,15 @@ class XestionsatTest(TestCommonData):
         # Check device user constraint
         with self.assertRaises(ValidationError):
             self.device_1['user_ids'] = (4, self.partner_2_employee_2.id)
+
+    def test_create_incidence(self):
+        """Incidence model test.
+        """
+        self.device_1
+        self.assertEqual(
+            1,
+            2,
+            msg='\nRemove Componet ERRO:'
+            + '\n Product: ' + self.device_1.name
+            + '\n len(len_devicecomponents_ids): '
+        )
