@@ -25,6 +25,9 @@ class XestionsatTest(TestCommonData):
     def test_create_device(self):
         """Device model test.
         """
+        users_list = [
+            self.partner_1_employee_1.id,
+        ]
 
         # Device 1
         self.device_1 = self.Device.sudo(self.test_admin_1).create(
@@ -37,13 +40,7 @@ class XestionsatTest(TestCommonData):
                 'state': 'operational',
 
                 # Optional fields
-                'user_ids': [
-                    self.partner_1_employee_1,
-                ],
-                'devicecomponents_ids': [
-                    self.product_1,
-                    self.product_2,
-                ],
+                'user_ids': [(6, 0, users_list)],
                 'internal_id': '20-000001',
                 'location': 'Sala de reunións grande',
                 'description': 'Equipo para presentacións',
@@ -56,21 +53,31 @@ class XestionsatTest(TestCommonData):
         # Check that device is created or not
         assert self.device_1, "Device not created"
 
+        # User assignment checks
         # Add device user
-        self.device_1['user_ids'] = (4, self.partner_1_employee_2.id)
-        self.assertTrue(
-            len(self.device_1['user_ids']) == 2,
-            msg='Found ' + str(len(self.device_1['user_ids']))
-            + ' users'
+        len_user_ids = len(self.device_1['user_ids'])
+
+        self.device_1['user_ids'] = [(4, self.partner_1_employee_2.id)]
+        self.assertEqual(
+            len(self.device_1['user_ids']),
+            len_user_ids + 1,
+            msg='\nAdd Device User ERRO: '
+            + '\n Device: ' + self.device_1.name
+            + '\n len(user_ids): ' + str(len_user_ids)
         )
         # Remove device user
-        self.device_1['user_ids'] = (2, self.partner_1_employee_2.id)
-        self.assertTrue(
-            len(self.device_1['user_ids']) == 1,
-            msg='Found ' + str(len(self.device_1['user_ids']))
-            + ' users'
+        len_user_ids = len(self.device_1['user_ids'])
+
+        self.device_1['user_ids'] = [(2, self.partner_1_employee_1.id)]
+        self.assertEqual(
+            len(self.device_1['user_ids']),
+            len_user_ids - 1,
+            msg='\nRemove Device User ERRO: '
+            + '\n Device: ' + self.device_1.name
+            + '\n len(user_ids): ' + str(len_user_ids)
         )
 
+        # Check constraints
         # Check Odoo user constraint
         with self.assertRaises(ValidationError):
             self.device_1.created_by_id = self.test_admin_2
@@ -79,7 +86,6 @@ class XestionsatTest(TestCommonData):
         with self.assertRaises(ValidationError):
             self.device_1.headquarter_id = self.partner_2_address_2
 
-        # User assignment checks
         # Check device user constraint
         with self.assertRaises(ValidationError):
             self.device_1['user_ids'] = (4, self.partner_2_employee_2.id)
