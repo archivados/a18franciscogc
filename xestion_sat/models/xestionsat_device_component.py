@@ -36,7 +36,6 @@ class DeviceComponent(models.Model):
         'xestionsat.device',
         string='ID device',
         ondelete='cascade',
-        required=True,
     )
 
     # Other Fields
