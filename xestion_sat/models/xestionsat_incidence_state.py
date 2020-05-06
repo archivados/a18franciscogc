@@ -35,6 +35,7 @@ class IncidenceState(models.Model):
     sequence = fields.Integer(
         string='Sequence',
         default=1,
+        required=True,
     )
     description = fields.Char(
         string='Description',
