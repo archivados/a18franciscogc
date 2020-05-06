@@ -28,93 +28,56 @@ class XestionsatTest(TestCommonData):
 
         # Create Devices Components
         # Device Component 1 (Product)
-        self.componet_1 = self.DeviceComponent.create(
-            {
-                # Required fields
-                'template_id': self.product_1.id,
-                # Optional fields
-                'serial': '1111',
-                'observation': 'Unha observación',
-                'date_registration': datetime.now().strftime('%Y-%m-%d'),
-                # 'date_cancellation': '',
-            }
-        )
-        # Device Component 2 (Product)
-        self.componet_2 = self.DeviceComponent.create(
-            {
-                # Required fields
-                'template_id': self.product_2.id,
-                # Optional fields
-                'serial': '2222',
-                'observation': 'Unha observación',
-                'date_registration': datetime.now().strftime('%Y-%m-%d'),
-                # 'date_cancellation': '',
-            }
-        )
-        # Device Component 3 (Product)
-        self.componet_3 = self.DeviceComponent.create(
-            {
-                # Required fields
-                'template_id': self.product_3.id,
-                # Optional fields
-                'serial': '3333',
-                'observation': 'Unha observación',
-                'date_registration': datetime.now().strftime('%Y-%m-%d'),
-                # 'date_cancellation': '',
-            }
-        )
-        # Device Component 4 (Product)
-        self.componet_4 = self.DeviceComponent.create(
-            {
-                # Required fields
-                'template_id': self.product_4.id,
-                # Optional fields
-                'serial': '4444',
-                'observation': 'Unha observación',
-                'date_registration': datetime.now().strftime('%Y-%m-%d'),
-                # 'date_cancellation': '',
-            }
-        )
+        self.componets = [
+            self.create_device_componet(self.products[0], '1111'),
+            self.create_device_componet(self.products[1], '2222'),
+            self.create_device_componet(self.products[2], '3333'),
+            self.create_device_componet(self.products[3], '4444'),
+        ]
 
         # Create Incidence States
-        # Incidence State 1
-        self.incidence_state_1 = self.IncidenceState.create(
-            {
-                # Required fields
-                'state': 'Pending',
-                'sequence': 1,
-                # Optional fields
-                'description': 'Work without starting',
-            }
-        )
-        # Incidence State 2
-        self.incidence_state_2 = self.IncidenceState.create(
-            {
-                # Required fields
-                'state': 'Started',
-                'sequence': 2,
-                # Optional fields
-                'description': 'Work in progress',
-            }
-        )
+        self.incidence_states = [
+            # Incidence State 1
+            self.IncidenceState.create(
+                {
+                    # Required fields
+                    'state': 'Pending',
+                    'sequence': 1,
+                    # Optional fields
+                    'description': 'Work without starting',
+                }
+            ),
+            # Incidence State 2
+            self.IncidenceState.create(
+                {
+                    # Required fields
+                    'state': 'Started',
+                    'sequence': 2,
+                    # Optional fields
+                    'description': 'Work in progress',
+                }
+            ),
+        ]
 
         # Create Incidence Assistance Place
-        # Incidence Assistance Place 1
-        self.incidence_place_1 = self.IncidencePlace.create(
-            {
-                # Required fields
-                'assistance_place': 'In workshop',
-                'description': 'In our workshop',
-            }
-        )
-        # Incidence Assistance Place 2
-        self.incidence_place_2 = self.IncidencePlace.create(
-            {
-                # Required fields
-                'assistance_place': 'On-site',
-                'description': 'At the Customers workplace',
-            }
-        )
+        self.incidence_places = [
+            # Incidence Assistance Place 1
+            self.IncidencePlace.create(
+                {
+                    # Required fields
+                    'assistance_place': 'In workshop',
+                    'description': 'In our workshop',
+                }
+            ),
+            # Incidence Assistance Place 2
+            self.IncidencePlace.create(
+                {
+                    # Required fields
+                    'assistance_place': 'On-site',
+                    'description': 'At the Customers workplace',
+                }
+            ),
+        ]
 
     def test_create_device(self):
         """Device model test.
@@ -122,13 +85,13 @@ class XestionsatTest(TestCommonData):
 
         # Data for checks
         users_list = [
-            self.partner_1_employee_1.id,
+            self.partners[0]['employees'][0],
         ]
 
         componets_list = [
-            self.componet_1.id,
-            self.componet_2.id,
-            self.componet_4.id,
+            self.componets[0].id,
+            self.componets[1].id,
+            self.componets[3].id,
         ]
 
         internal_id = '20-000001'
@@ -141,9 +104,9 @@ class XestionsatTest(TestCommonData):
         # Device 1
         device_1 = self.create_device(
             'Equipo1_incidencia',
-            self.test_admin_1,
-            self.partner_1,
-            self.partner_1_address_2,
+            self.test_admin_users[0],
+            self.partners[0],
+            self.partners[0]['addresses'][0],
         )
 
         # Check that device is created or not
@@ -196,7 +159,7 @@ class XestionsatTest(TestCommonData):
         # Add device user
         len_user_ids = len(device_1.user_ids)
 
-        device_1.user_ids = [(4, self.partner_1_employee_2.id)]
+        device_1.user_ids = [(4, self.partners[0]['employees'][1].id)]
         self.assertEqual(
             len(device_1.user_ids),
             len_user_ids + 1,
@@ -208,7 +171,7 @@ class XestionsatTest(TestCommonData):
         # Remove device user
         len_user_ids = len(device_1.user_ids)
 
-        device_1.user_ids = [(2, self.partner_1_employee_1.id)]
+        device_1.user_ids = [(2, self.partners[0]['employees'][0].id)]
         self.assertEqual(
             len(device_1.user_ids),
             len_user_ids - 1,
@@ -234,7 +197,7 @@ class XestionsatTest(TestCommonData):
         # Add device component
         len_devicecomponents_ids = len(device_1.devicecomponents_ids)
 
-        device_1.devicecomponents_ids = [(4, self.componet_3.id)]
+        device_1.devicecomponents_ids = [(4, self.componets[2].id)]
         self.assertEqual(
             len(device_1.devicecomponents_ids),
             len_devicecomponents_ids + 1,
@@ -248,7 +211,7 @@ class XestionsatTest(TestCommonData):
         # Remove device component
         len_devicecomponents_ids = len(device_1.devicecomponents_ids)
 
-        device_1.devicecomponents_ids = [(2, self.componet_3.id)]
+        device_1.devicecomponents_ids = [(2, self.componets[2].id)]
         self.assertEqual(
             len(device_1.devicecomponents_ids),
             len_devicecomponents_ids - 1,
@@ -264,17 +227,15 @@ class XestionsatTest(TestCommonData):
         # Check constraints
         # Check Odoo user constraint
         with self.assertRaises(ValidationError):
-            device_1.created_by_id = self.test_admin_2
+            device_1.created_by_id = self.test_admin_users[1]
 
         # Check headquarters constraints
         with self.assertRaises(ValidationError):
-            device_1.headquarter_id = self.partner_2_address_2
+            device_1.headquarter_id = self.partners[1]['addresses'][0]
 
         # Check device user constraint
         with self.assertRaises(ValidationError):
-            device_1.user_ids = (4, self.partner_2_employee_2.id)
-
-        return device_1
+            device_1.user_ids = [(4, self.partners[1]['employees'][0])]
 
     def test_create_incidence(self):
         """Incidence model test.
@@ -287,24 +248,25 @@ class XestionsatTest(TestCommonData):
         )
 
         # Incidence 1
-        self.incidence_1 = self.Incidence.sudo(self.test_admin_1).create(
-            {
-                # Required fields
-                'created_by_id': self.test_admin_1.id,
-                'customer_id': incidence_device_1['owner_id'].id,
-                # 'device_ids': self.partner_1.id,
-                'title': 'Incidencia 1: ' + incidence_device_1.name,
-                'failure_description': 'Non se conecta a internet',
-                'state': self.incidence_state_1.id,
+        self.incidence_1 = self.Incidence.sudo(self.test_admin_users[0]) \
+            .create(
+                {
+                    # Required fields
+                    'created_by_id': self.test_admin_users[0].id,
+                    'customer_id': incidence_device_1['owner_id'].id,
+                    # 'device_ids': self.partner_1.id,
+                    'title': 'Incidencia 1: ' + incidence_device_1.name,
+                    'failure_description': 'Non se conecta a internet',
+                    'state': self.incidence_states[0].id,
 
-                # Optional fields
-                'observation': 'Unha observación',
-                'assistance_place': self.incidence_place_1.id,
-                # 'incidence_action_ids': ,
-                'date_start': datetime.now().strftime('%Y-%m-%d'),
-                # 'date_end': '',
-            }
-        )
+                    # Optional fields
+                    'observation': 'Unha observación',
+                    'assistance_place': self.incidence_places[0].id,
+                    # 'incidence_action_ids': ,
+                    'date_start': datetime.now().strftime('%Y-%m-%d'),
+                    # 'date_end': '',
+                }
+            )
 
         # Check that device is created or not
         assert self.incidence_1, "Device not created"
@@ -336,3 +298,20 @@ class XestionsatTest(TestCommonData):
         )
 
         return device
+
+    def create_device_componet(self, product, serial):
+        """Create a device component model with the passed data.
+        :param product: Product to associate with a device
+        :param serial: Serial Number of Product
+        """
+        self.componet_4 = self.DeviceComponent.create(
+            {
+                # Required fields
+                'template_id': product.id,
+                # Optional fields
+                'serial': serial,
+                'observation': 'Unha observación',
+                'date_registration': datetime.now().strftime('%Y-%m-%d'),
+                # 'date_cancellation': '',
+            }
+        )
