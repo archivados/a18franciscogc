@@ -253,7 +253,7 @@ class XestionsatTest(TestCommonData):
 
         # Optional fields
         observation = 'Unha observación'
-        assistance_place = self.incidence_places[0].id
+        assistance_place = self.incidence_places[0]
         date_end = (datetime.now() + timedelta(days=(10))) \
             .strftime('%Y-%m-%d')
 
@@ -301,10 +301,10 @@ class XestionsatTest(TestCommonData):
             observation,
             msg='Add observation'
         )
-        incidence_1.assistance_place = assistance_place.id
+        incidence_1.assistance_place = assistance_place
         self.assertEqual(
-            incidence_1.assistance_place.id,
-            assistance_place.id,
+            incidence_1.assistance_place,
+            assistance_place,
             msg='Add assistance_place'
         )
         incidence_1.date_end = date_end
