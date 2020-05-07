@@ -248,33 +248,20 @@ class XestionsatTest(TestCommonData):
         )
 
         # Incidence 1
-        self.incidence_1 = self.Incidence.sudo(self.test_admin_users[0]) \
-            .create(
-                {
-                    # Required fields
-                    'created_by_id': self.test_admin_users[0].id,
-                    'customer_id': incidence_device_1['owner_id'].id,
-                    # 'device_ids': self.partner_1.id,
-                    'title': 'Incidencia 1: ' + incidence_device_1.name,
-                    'failure_description': 'Non se conecta a internet',
-                    'state': self.incidence_states[0].id,
-
-                    # Optional fields
-                    'observation': 'Unha observación',
-                    'assistance_place': self.incidence_places[0].id,
-                    # 'incidence_action_ids': ,
-                    'date_start': datetime.now().strftime('%Y-%m-%d'),
-                    # 'date_end': '',
-                }
-            )
+        incidence_1 = self.create_incidence(
+            self.test_admin_users[0],
+            incidence_device_1['owner_id'],
+            'Incidencia 1: ' + incidence_device_1.name,
+            'Non se conecta a internet',
+        )
 
         # Check that device is created or not
-        assert self.incidence_1, "Device not created"
+        assert incidence_1, "Device not created"
 
         # Check constraints
         # Check Odoo user constraint
         with self.assertRaises(ValidationError):
-            self.incidence_1.created_by_id = self.test_admin_users[1]
+            incidence_1.created_by_id = self.test_admin_users[1]
 
     def create_device(self, name, user, owner, headquarter):
         """Create a device model with the passed data.
@@ -291,8 +278,6 @@ class XestionsatTest(TestCommonData):
                 'headquarter_id': headquarter.id,
                 'name': name,
                 'state': 'operational',
-
-                # Optional fields
                 'date_registration': datetime.now().strftime('%Y-%m-%d'),
             }
         )
@@ -308,12 +293,42 @@ class XestionsatTest(TestCommonData):
             {
                 # Required fields
                 'template_id': product.id,
+                'date_registration': datetime.now().strftime('%Y-%m-%d'),
+
                 # Optional fields
                 'serial': serial,
                 'observation': 'Unha observación',
-                'date_registration': datetime.now().strftime('%Y-%m-%d'),
                 # 'date_cancellation': '',
             }
         )
 
         return componet
+
+    def create_incidence(self, user, owner, title, description):
+        """Create a device model with the passed data.
+        :param user: Odoo user to create device
+        :param owner: Device owner
+        :param title: Incidence title
+        :param description: Incidence description
+        """
+        incidence = self.Incidence.sudo(user) \
+            .create(
+                {
+                    # Required fields
+                    'created_by_id': user.id,
+                    'customer_id': owner.id,
+                    # 'device_ids': ,
+                    'title': title,
+                    'failure_description': description,
+                    'state': self.incidence_states[0].id,
+                    'date_start': datetime.now().strftime('%Y-%m-%d'),
+
+                    # Optional fields
+                    'observation': 'Unha observación',
+                    'assistance_place': self.incidence_places[0].id,
+                    # 'incidence_action_ids': ,
+                    # 'date_end': '',
+                }
+            )
+
+        return incidence
