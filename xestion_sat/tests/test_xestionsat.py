@@ -301,13 +301,13 @@ class XestionsatTest(TestCommonData):
             observation,
             msg='Add observation'
         )
-        incidence_1.assistance_place = assistance_place
+        incidence_1.assistance_place = assistance_place.id
         self.assertEqual(
-            incidence_1.assistance_place,
-            assistance_place,
+            incidence_1.assistance_place.id,
+            assistance_place.id,
             msg='Add assistance_place'
         )
-        incidence_1.date_cancellation = date_end
+        incidence_1.date_end = date_end
         self.assertEqual(
             incidence_1.date_end.strftime('%Y-%m-%d'),
             date_end,
