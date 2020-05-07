@@ -170,7 +170,7 @@ class XestionsatTest(TestCommonData):
         # Remove device user
         len_user_ids = len(device_1.user_ids)
 
-        device_1.user_ids = [(2, self.partner0_employees[0].id)]
+        device_1.user_ids = [(3, self.partner0_employees[0].id)]
         self.assertEqual(
             len(device_1.user_ids),
             len_user_ids - 1,
@@ -187,7 +187,7 @@ class XestionsatTest(TestCommonData):
             len(device_1.devicecomponents_ids),
             len(componets_list),
             msg='\nAdd Componet: '
-            + '\n Product: ' + device_1.name
+            + '\n Device: ' + device_1.name
             + '\n len(device_1.user_ids): '
                 + str(len(device_1.devicecomponents_ids))
             + '\n len(componets_list): '
@@ -201,7 +201,7 @@ class XestionsatTest(TestCommonData):
             len(device_1.devicecomponents_ids),
             len_devicecomponents_ids + 1,
             msg='\nAdd Componet: '
-            + '\n Product: ' + device_1.name
+            + '\n Device: ' + device_1.name
             + '\n len(device_1.user_ids): '
                 + str(len(device_1.devicecomponents_ids))
             + '\n len(len_devicecomponents_ids): '
@@ -210,18 +210,17 @@ class XestionsatTest(TestCommonData):
         # Remove device component
         len_devicecomponents_ids = len(device_1.devicecomponents_ids)
 
-        device_1.devicecomponents_ids = [(2, self.componets[2].id)]
+        device_1.devicecomponents_ids = [(3, self.componets[2].id)]
         self.assertEqual(
             len(device_1.devicecomponents_ids),
             len_devicecomponents_ids - 1,
             msg='\nRemove Componet: '
-            + '\n Product: ' + device_1.name
+            + '\n Device: ' + device_1.name
             + '\n len(device_1.user_ids): '
                 + str(len(device_1.devicecomponents_ids))
             + '\n len(len_devicecomponents_ids): '
                 + str(len_devicecomponents_ids)
         )
-        len_user_ids = len(device_1.devicecomponents_ids)
 
         # Check constraints
         # Check Odoo user constraint
@@ -239,6 +238,14 @@ class XestionsatTest(TestCommonData):
     def test_create_incidence(self):
         """Incidence model test.
         """
+        # Data for checks
+
+        # Optional fields
+        observation = 'Unha observación',
+        assistance_place = self.incidence_places[0].id,
+        date_end = (datetime.now() + timedelta(days=(10))) \
+            .strftime('%Y-%m-%d')
+
         # Partner0 Devices
         partner0_devices = [
             self.create_device(
@@ -269,17 +276,83 @@ class XestionsatTest(TestCommonData):
         incidence_1 = self.create_incidence(
             self.test_admin_users[0],
             partner0_devices[0].owner_id,
-            'Incidencia 1: ' + partner0_devices.name,
+            'Incidencia 1: ' + partner0_devices[0].name,
             'Non se conecta a internet',
         )
 
         # Check that device is created or not
         assert incidence_1, "Device not created"
 
+        # Optional fields assignment checks
+        incidence_1.observation = observation
+        self.assertEqual(
+            incidence_1.observation,
+            observation,
+            msg='Add observation'
+        )
+        incidence_1.assistance_place = assistance_place
+        self.assertEqual(
+            incidence_1.assistance_place,
+            assistance_place,
+            msg='Add assistance_place'
+        )
+        incidence_1.date_cancellation = date_end
+        self.assertEqual(
+            incidence_1.date_end.strftime('%Y-%m-%d'),
+            date_end,
+            msg='Add date_end'
+        )
+
+        # device_ids assignment checks
+        device_ids_list = [
+            partner0_devices[1].id
+        ]
+
+        # Add device_ids list
+        incidence_1.device_ids = [(6, 0, device_ids_list)]
+        self.assertEqual(
+            len(incidence_1.device_ids),
+            len(device_ids_list),
+            msg='\nAdd Componet: '
+            + '\n Incidence: ' + incidence_1.title
+            + '\n len(device_1.user_ids): '
+                + str(len(incidence_1.device_ids))
+            + '\n len(device_ids_list): '
+                + str(device_ids_list)
+        )
+        # Add device to list
+        len_device_ids = len(incidence_1.device_ids)
+
+        incidence_1.device_ids = [(4, partner0_devices[0].id)]
+        self.assertEqual(
+            len(incidence_1.device_ids),
+            len_device_ids + 1,
+            msg='\nAdd Componet: '
+            + '\n Incidence: ' + incidence_1.title
+            + '\n len(device_1.user_ids): '
+                + str(len(incidence_1.device_ids))
+            + '\n len(len_device_ids): '
+                + str(len_device_ids)
+        )
+        # Remove device from list
+        len_device_ids = len(incidence_1.device_ids)
+
+        incidence_1.device_ids = [(3, partner0_devices[1].id)]
+        self.assertEqual(
+            len(incidence_1.device_ids),
+            len_device_ids - 1,
+            msg='\nRemove Componet: '
+            + '\n Incidence: ' + incidence_1.title
+            + '\n len(device_1.user_ids): '
+                + str(len(incidence_1.device_ids))
+            + '\n len(len_device_ids): '
+                + str(len_device_ids)
+        )
+
         # Check constraints
         # Check device_ids constraint
         with self.assertRaises(ValidationError):
-            incidence_1.device_ids = [(4, partner1_devices[1].id)]
+            incidence_1.device_ids = [(4, partner1_devices[0].id)]
         # Check Odoo user constraint
         with self.assertRaises(ValidationError):
             incidence_1.created_by_id = self.test_admin_users[1]
@@ -338,17 +411,10 @@ class XestionsatTest(TestCommonData):
                     # Required fields
                     'created_by_id': user.id,
                     'customer_id': owner.id,
-                    # 'device_ids': ,
                     'title': title,
                     'failure_description': description,
                     'state': self.incidence_states[0].id,
                     'date_start': datetime.now().strftime('%Y-%m-%d'),
-
-                    # Optional fields
-                    'observation': 'Unha observación',
-                    'assistance_place': self.incidence_places[0].id,
-                    # 'incidence_action_ids': ,
-                    # 'date_end': '',
                 }
             )
 
