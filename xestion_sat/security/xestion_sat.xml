@@ -8,7 +8,7 @@
 -->
     <record id="group_xestionsat_admin" model="res.groups">
         <field name="name">xestionSAT technicians</field>
-        <field name="users"
+        <field name="implied_ids"
             eval="[(4, ref('base.group_user')),
                 (4, ref('base.user_admin'))]"/>
     </record>
