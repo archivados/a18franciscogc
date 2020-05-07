@@ -82,7 +82,6 @@ class XestionsatTest(TestCommonData):
     def test_create_device(self):
         """Device model test.
         """
-
         # Data for checks
         users_list = [
             self.partner0_employees[0].id,
@@ -240,18 +239,37 @@ class XestionsatTest(TestCommonData):
     def test_create_incidence(self):
         """Incidence model test.
         """
-        incidence_device_1 = self.create_device(
-            'Equipo1_incidencia',
-            self.test_admin_users[0],
-            self.partners[0],
-            self.partner0_addresses[0],
-        )
+        # Partner0 Devices
+        partner0_devices = [
+            self.create_device(
+                'Usuario0 Equipo1',
+                self.test_admin_users[0],
+                self.partners[0],
+                self.partner0_addresses[0],
+            ),
+            self.create_device(
+                'Usuario0 Equipo2',
+                self.test_admin_users[0],
+                self.partners[0],
+                self.partner0_addresses[1],
+            ),
+        ]
+
+        # Partner1 Devices
+        partner1_devices = [
+            self.create_device(
+                'Usuario1 Equipo1',
+                self.test_admin_users[0],
+                self.partners[1],
+                self.partner1_addresses[0],
+            ),
+        ]
 
         # Incidence 1
         incidence_1 = self.create_incidence(
             self.test_admin_users[0],
-            incidence_device_1['owner_id'],
-            'Incidencia 1: ' + incidence_device_1.name,
+            partner0_devices[0].owner_id,
+            'Incidencia 1: ' + partner0_devices.name,
             'Non se conecta a internet',
         )
 
@@ -259,6 +277,9 @@ class XestionsatTest(TestCommonData):
         assert incidence_1, "Device not created"
 
         # Check constraints
+        # Check device_ids constraint
+        with self.assertRaises(ValidationError):
+            incidence_1.device_ids = [(4, partner1_devices[1].id)]
         # Check Odoo user constraint
         with self.assertRaises(ValidationError):
             incidence_1.created_by_id = self.test_admin_users[1]
