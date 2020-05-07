@@ -69,101 +69,97 @@ class TestCommonData(TransactionCase):
         ]
 
         # Create a Customers
+
+        # Customers
         self.partners = [
             # Company 1
-            (
-                Partner.create(
-                    {
-                        'name': 'Empresa ABC',
-                        'is_company': True,
-                    }
-                ),
+            Partner.create(
                 {
-                    # Company 1 addresses
-                    'addresses': [
-                        Partner.create(
-                            {
-                                'name': 'Oficina A',
-                                'street': 'Rúa A, número 3',
-                                'type': 'other',
-                                'city': 'Santiago de Compostela',
-                                'parent_id': self.partners[0].id,
-                            }
-                        ),
-                        Partner.create(
-                            {
-                                'name': 'Oficina B',
-                                'type': 'other',
-                                'street': 'Rúa B, número 34',
-                                'city': 'Santiago de Compostela',
-                                'parent_id': self.partners[0].id,
-                            }
-                        ),
-                    ],
-                    # Company 1 employees
-                    'employees': [
-                        Partner.create(
-                            {
-                                'name': 'Argentina',
-                                'type': 'contact',
-                                'parent_id': self.partners[0].id,
-                            }
-                        ),
-                        Partner.create(
-                            {
-                                'name': 'Roberto',
-                                'type': 'contact',
-                                'parent_id': self.partners[0].id,
-                            }
-                        ),
-                    ],
+                    'name': 'Empresa ABC',
+                    'is_company': True,
                 }
             ),
             # Company 2
-            (
-                Partner.create(
-                    {
-                        'name': 'Empresa ZYX',
-                        'is_company': True,
-                    }
-                ),
+            Partner.create(
                 {
-                    # Company 2 addresses
-                    'addresses': [
-                        Partner.create(
-                            {
-                                'name': 'Oficina Z',
-                                'street': 'Rúa Z, número 12',
-                                'city': 'Santiago de Compostela',
-                                'parent_id': self.partners[1].id,
-                            }
-                        ),
-                        Partner.create(
-                            {
-                                'name': 'Oficina Y',
-                                'street': 'Rúa Y, número 1',
-                                'city': 'Santiago de Compostela',
-                                'parent_id': self.partners[1].id,
-                            }
-                        ),
-                    ],
-                    # Company 2 employees
-                    'employees': [
-                        Partner.create(
-                            {
-                                'name': 'Jesús',
-                                'type': 'contact',
-                                'parent_id': self.partners[1].id,
-                            }
-                        ),
-                        Partner.create(
-                            {
-                                'name': 'Miguel',
-                                'type': 'contact',
-                                'parent_id': self.partners[1].id,
-                            }
-                        ),
-                    ],
+                    'name': 'Empresa ZYX',
+                    'is_company': True,
+                }
+            ),
+        ]
+
+        # Company 1 addresses
+        self.partner0_addresses = [
+            Partner.create(
+                {
+                    'name': 'Oficina A',
+                    'street': 'Rúa A, número 3',
+                    'type': 'other',
+                    'city': 'Santiago de Compostela',
+                    'parent_id': self.partners[0].id,
+                }
+            ),
+            Partner.create(
+                {
+                    'name': 'Oficina B',
+                    'type': 'other',
+                    'street': 'Rúa B, número 34',
+                    'city': 'Santiago de Compostela',
+                    'parent_id': self.partners[0].id,
+                }
+            ),
+        ]
+        # Company 1 employees
+        self.partner0_employees = [
+            Partner.create(
+                {
+                    'name': 'Argentina',
+                    'type': 'contact',
+                    'parent_id': self.partners[0].id,
+                }
+            ),
+            Partner.create(
+                {
+                    'name': 'Roberto',
+                    'type': 'contact',
+                    'parent_id': self.partners[0].id,
+                }
+            ),
+        ]
+
+        # Company 2 addresses
+        self.partner1_addresses = [
+            Partner.create(
+                {
+                    'name': 'Oficina Z',
+                    'street': 'Rúa Z, número 12',
+                    'city': 'Santiago de Compostela',
+                    'parent_id': self.partners[1].id,
+                }
+            ),
+            Partner.create(
+                {
+                    'name': 'Oficina Y',
+                    'street': 'Rúa Y, número 1',
+                    'city': 'Santiago de Compostela',
+                    'parent_id': self.partners[1].id,
+                }
+            ),
+        ]
+        # Company 2 employees
+        self.partner1_employees = [
+            Partner.create(
+                {
+                    'name': 'Jesús',
+                    'type': 'contact',
+                    'parent_id': self.partners[1].id,
+                }
+            ),
+            Partner.create(
+                {
+                    'name': 'Miguel',
+                    'type': 'contact',
+                    'parent_id': self.partners[1].id,
                 }
             ),
         ]

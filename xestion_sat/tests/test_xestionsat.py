@@ -85,7 +85,7 @@ class XestionsatTest(TestCommonData):
 
         # Data for checks
         users_list = [
-            self.partners[0]['employees'][0],
+            self.partner0_employees[0].id,
         ]
 
         componets_list = [
@@ -106,7 +106,7 @@ class XestionsatTest(TestCommonData):
             'Equipo1_incidencia',
             self.test_admin_users[0],
             self.partners[0],
-            self.partners[0]['addresses'][0],
+            self.partner0_addresses[0],
         )
 
         # Check that device is created or not
@@ -139,7 +139,7 @@ class XestionsatTest(TestCommonData):
         )
         device_1.date_cancellation = date_cancellation
         self.assertEqual(
-            device_1.date_cancellation,
+            device_1.date_cancellation.strftime('%Y-%m-%d'),
             date_cancellation,
             msg='Add date_cancellation'
         )
@@ -159,7 +159,7 @@ class XestionsatTest(TestCommonData):
         # Add device user
         len_user_ids = len(device_1.user_ids)
 
-        device_1.user_ids = [(4, self.partners[0]['employees'][1].id)]
+        device_1.user_ids = [(4, self.partner0_employees[1].id)]
         self.assertEqual(
             len(device_1.user_ids),
             len_user_ids + 1,
@@ -171,7 +171,7 @@ class XestionsatTest(TestCommonData):
         # Remove device user
         len_user_ids = len(device_1.user_ids)
 
-        device_1.user_ids = [(2, self.partners[0]['employees'][0].id)]
+        device_1.user_ids = [(2, self.partner0_employees[0].id)]
         self.assertEqual(
             len(device_1.user_ids),
             len_user_ids - 1,
@@ -231,20 +231,20 @@ class XestionsatTest(TestCommonData):
 
         # Check headquarters constraints
         with self.assertRaises(ValidationError):
-            device_1.headquarter_id = self.partners[1]['addresses'][0]
+            device_1.headquarter_id = self.partner1_addresses[0].id
 
         # Check device user constraint
         with self.assertRaises(ValidationError):
-            device_1.user_ids = [(4, self.partners[1]['employees'][0])]
+            device_1.user_ids = [(4, self.partner1_employees[0].id)]
 
     def test_create_incidence(self):
         """Incidence model test.
         """
         incidence_device_1 = self.create_device(
             'Equipo1_incidencia',
-            self.test_admin_1,
-            self.partner_1,
-            self.partner_1_address_2,
+            self.test_admin_users[0],
+            self.partners[0],
+            self.partner0_addresses[0],
         )
 
         # Incidence 1
@@ -274,7 +274,7 @@ class XestionsatTest(TestCommonData):
         # Check constraints
         # Check Odoo user constraint
         with self.assertRaises(ValidationError):
-            self.incidence_1.created_by_id = self.test_admin_2
+            self.incidence_1.created_by_id = self.test_admin_users[1]
 
     def create_device(self, name, user, owner, headquarter):
         """Create a device model with the passed data.
@@ -286,7 +286,7 @@ class XestionsatTest(TestCommonData):
         device = self.Device.sudo(user).create(
             {
                 # Required fields
-                'created_by_id': user,
+                'created_by_id': user.id,
                 'owner_id': owner.id,
                 'headquarter_id': headquarter.id,
                 'name': name,
@@ -304,7 +304,7 @@ class XestionsatTest(TestCommonData):
         :param product: Product to associate with a device
         :param serial: Serial Number of Product
         """
-        self.componet_4 = self.DeviceComponent.create(
+        componet = self.DeviceComponent.create(
             {
                 # Required fields
                 'template_id': product.id,
@@ -315,3 +315,5 @@ class XestionsatTest(TestCommonData):
                 # 'date_cancellation': '',
             }
         )
+
+        return componet
