@@ -228,7 +228,7 @@ class Device(models.Model):
         incidence_form = self.env.ref('xestionsat.incidence', False)
 
         new_incidence_context = {
-            'default_bloquear': True,
+            'default_lock': True,
             'default_customer_id': self.owner_id.id,
             'default_device_ids': [self.id],
         }
@@ -254,7 +254,6 @@ class Device(models.Model):
             'flags': new_incidence_flags,
         }
 
-        # record = self.env['xestionsat.incidence'].create(new_incidence)
         return new_incidence
 
     # Business methods
