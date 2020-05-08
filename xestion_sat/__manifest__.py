@@ -3,30 +3,32 @@
     'name': "xestionSAT",
 
     'summary': """
-        Módulo para manexar a xestión dun Servizo de Asistencia Técnica""",
+        Module to handle the management of a Technical Assistance Service""",
 
     'description': """
-        Preténdese modelar un módulo que facilite o rexistro das intervencións
-        técnicas sobre un ou varios Equipos relacionados cuns clientes
-        (Partners) e a consulta do histórico das mesmas.
+        It is intended to formalize a module that facilitates the registration
+        of interventions techniques on one or more Equipment related to
+        customers (Partners) and the consultation of the history of the same.
 
-        Funcionalidades
-           - Dar de alta unha Incidencia
-           - Rexistrar unha Actuación sobre unha Incidencia dada
-           - Crear novas Accións para poder asignar a unha Actuación
-           - Crear Actuacións sen ser unha Acción rexistrada
-           - Dar de alta un Equipo
-           - Rexistrar/Editar/Borrar un Compoñente dun Equipo
+         Functionalities
+            - Register an Incidence
+            - Record an Action on a given Incidence
+            - Create new Actions to be able to assign to a Performance
+            - Create Actions without being a registered Action
+            - Register a Team
+            - Register / Edit / Delete a Team Component
     """,
 
     'author': "Fco. Javier Gonzalez Campos",
     'website': "https://github.com/efja/xestionSAT",
+    'installable': True,
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/
     #   data/ir_module_category_data.xml
     # for the full list
     'category': 'Tools',
+    "license": "AGPL-3",
     'version': '12.0.0.5.1',
 
     # any module necessary for this one to work correctly
