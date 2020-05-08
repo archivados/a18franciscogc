@@ -15,6 +15,64 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#. module: base
+#: model:ir.module.module,summary:base.module_xestion_sat
+msgid "\n"
+"        Module to handle the management of a Technical Assistance Service"
+msgstr ""
+
+#. module: base
+#: model:ir.module.module,description:base.module_xestion_sat
+msgid "\n"
+"        It is intended to formalize a module that facilitates the registration\n"
+"        of interventions techniques on one or more Equipment related to\n"
+"        customers (Partners) and the consultation of the history of the same.\n"
+"\n"
+"         Functionalities\n"
+"            - Register an Incidence\n"
+"            - Record an Action on a given Incidence\n"
+"            - Create new Actions to be able to assign to a Performance\n"
+"            - Create Actions without being a registered Action\n"
+"            - Register a Team\n"
+"            - Register / Edit / Delete a Team Component\n"
+"    "
+msgstr ""
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_xestion_sat
+msgid "xestionSAT"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__description
+msgid "Device associated with a Customer"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__description
+msgid "Component that is part of a Device"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__description
+msgid "Incidence associated with a Customer"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__description
+msgid "Action taken in an incidence"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_assistance_place__description
+msgid "Place where an incidence is committed"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_state__description
+msgid "State in which an incidence is found"
+msgstr ""
+
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__template_id
 msgid "Action"
@@ -68,11 +126,13 @@ msgstr ""
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__date_cancellation
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__date_cancellation
 msgid "Date of cancellation"
 msgstr ""
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__date_registration
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__date_registration
 msgid "Date of registration"
 msgstr ""
 
@@ -427,3 +487,4 @@ msgstr ""
 #: model:xestionsat.incidence.state,description:xestion_sat.state8
 msgid "Impossible to repair with the means at our disposal"
 msgstr ""
+

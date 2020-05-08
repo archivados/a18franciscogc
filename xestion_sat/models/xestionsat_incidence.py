@@ -19,6 +19,7 @@ class Incidence(models.Model):
 
     # Private attributes
     _name = 'xestionsat.incidence'
+    _description = _('Incidence associated with a Customer')
     _rec_name = 'title'
     _order = 'date_start desc'
 
@@ -53,7 +54,8 @@ class Incidence(models.Model):
 
     date_start = fields.Date(
         string='Date start',
-        default=lambda *a: datetime.now().strftime('%Y-%m-%d')
+        default=lambda *a: datetime.now().strftime('%Y-%m-%d'),
+        required=True,
     )
     date_end = fields.Date(
         string='Date ends',
@@ -62,6 +64,7 @@ class Incidence(models.Model):
     state = fields.Many2one(
         'xestionsat.incidence.state',
         string='State',
+        required=True,
     )
 
     assistance_place = fields.Many2one(

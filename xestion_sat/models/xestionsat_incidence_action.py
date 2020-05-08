@@ -19,6 +19,7 @@ class IncidenceAction(models.Model):
 
     # Private attributes
     _name = 'xestionsat.incidence.action'
+    _description = _('Action taken in an incidence')
     _inherits = {'product.template': 'template_id'}
     _order = 'date_start desc'
 
@@ -38,15 +39,18 @@ class IncidenceAction(models.Model):
         'xestionsat.incidence',
         ondelete='cascade',
     )
+
     template_id = fields.Many2one(
         'product.template',
         string='Action',
+        required=True,
         ondelete='cascade',
     )
 
     date_start = fields.Date(
         string='Date start',
-        default=lambda *a: datetime.now().strftime('%Y-%m-%d')
+        default=lambda *a: datetime.now().strftime('%Y-%m-%d'),
+        required=True,
     )
     date_end = fields.Date(
         string='Date ends',

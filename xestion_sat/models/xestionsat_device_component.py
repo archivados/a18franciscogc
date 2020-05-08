@@ -1,9 +1,10 @@
 # 1: imports of python lib
+from datetime import datetime
 
 # 2: import of known third party lib
 
 # 3:  imports of odoo
-from odoo import models, fields
+from odoo import models, fields, _
 
 # 4:  imports from odoo modules
 
@@ -18,6 +19,7 @@ class DeviceComponent(models.Model):
 
     # Private attributes
     _name = 'xestionsat.device.component'
+    _description = _('Component that is part of a Device')
     _inherits = {'product.template': 'template_id'}
 
     # Default methods
@@ -34,7 +36,6 @@ class DeviceComponent(models.Model):
         'xestionsat.device',
         string='ID device',
         ondelete='cascade',
-        required=True,
     )
 
     # Other Fields
@@ -44,6 +45,15 @@ class DeviceComponent(models.Model):
     )
     observation = fields.Char(
         string='Observations',
+    )
+
+    date_registration = fields.Date(
+        string='Date of registration',
+        default=lambda *a: datetime.now().strftime('%Y-%m-%d'),
+        required=True,
+    )
+    date_cancellation = fields.Date(
+        string='Date of cancellation'
     )
 
     # compute and search fields, in the same order that fields declaration

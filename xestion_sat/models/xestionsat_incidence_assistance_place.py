@@ -3,7 +3,7 @@
 # 2: import of known third party lib
 
 # 3:  imports of odoo
-from odoo import models, fields
+from odoo import models, fields, _
 
 # 4:  imports from odoo modules
 
@@ -18,6 +18,7 @@ class IncidenceAssistancePlace(models.Model):
 
     # Private attributes
     _name = 'xestionsat.incidence.assistance_place'
+    _description = _('Place where an incidence is committed')
     _rec_name = 'assistance_place'
 
     # Default methods

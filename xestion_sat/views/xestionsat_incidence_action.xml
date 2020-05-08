@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-    <record id='xestionsat_incidence_action_action' model='ir.actions.act_window'>
-        <field name="name">Incidence Actions</field>
-        <field name="res_model">xestionsat.incidence.action</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree</field>
-    </record>
+    <!-- ACTIONS -->
+    <act_window id="incidenceaction_action"
+        name="Actions"
+        res_model="product.template"
+        view_mode="kanban,tree,form,activity"
+        domain="[('type', '=', 'sat')]"
+        context="{'search_default_filter_to_sell':1}"
+        limit="80"/>
 
     <!-- Tree(list) View -->
     <record id="xestionsat_incidence_action_view_tree" model="ir.ui.view">
@@ -23,5 +24,12 @@
             </tree>
         </field>
     </record>
-    
+
+    <!-- MENÚS -->
+    <menuitem 
+        name="TAS Actions (products)" 
+        id="xestionsat_actions_menu" 
+        parent="xestionsat_incidence_menu" 
+        sequence="100" 
+        action="incidenceaction_action"/>
 </odoo>
