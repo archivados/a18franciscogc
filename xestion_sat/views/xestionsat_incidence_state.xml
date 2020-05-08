@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-    <record id='xestionsat_incidence_state_action' model='ir.actions.act_window'>
-        <field name="name">Incidence States</field>
-        <field name="res_model">xestionsat.incidence.state</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-    </record>
+    <!-- ACTIONS -->
+    <act_window id="xestionsat_incidence_state_action"
+        name="Incidence States"
+        res_model="xestionsat.incidence.state"
+        view_type="form"
+        view_mode="tree,form"
+        context="{'search_default_customer':1}"
+        limit="80"/>
 
     <!-- Form View -->
     <record id="xestionsat_incidence_state_view_form" model="ir.ui.view">
@@ -42,5 +43,4 @@
         parent="xestionsat_incidence_menu" 
         sequence="30" 
         action="xestionsat_incidence_state_action"/>
-    
 </odoo>

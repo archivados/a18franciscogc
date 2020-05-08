@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
+    <!-- ACTIONS -->
     <record id='xestionsat_device_action' model='ir.actions.act_window'>
         <field name="name">Devices</field>
         <field name="res_model">xestionsat.device</field>
@@ -84,13 +84,4 @@
             </tree>
         </field>
     </record>
-
-    <!-- MENÚS -->
-    <menuitem 
-        name="Devices" 
-        id="xestionsat_device_sub_menu" 
-        parent="xestionsat_device_menu" 
-        sequence="10" 
-        action="xestionsat_device_action"/>
-    
 </odoo>

@@ -40,5 +40,4 @@
         parent="xestionsat_incidence_menu" 
         sequence="30" 
         action="xestionsat_incidence_assistance_place_action"/>
-    
 </odoo>

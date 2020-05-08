@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- ACTIONS -->
     <act_window id="customers_action"
         name="Customers"
         res_model="res.partner"
@@ -7,12 +8,11 @@
         context="{'search_default_customer':1}"
         limit="80"/>
 
-    <act_window id="incidenceaction_action"
-        name="Actions"
-        res_model="product.template"
-        view_mode="kanban,tree,form,activity"
-        domain="[('type', '=', 'sat')]"
-        context="{'search_default_filter_to_sell':1}"
+    <act_window id="xestionsat_device_action"
+        name="Devices"
+        res_model="xestionsat.device"
+        view_mode="tree"
+        context="{'search_default_customer':1}"
         limit="80"/>
 
     <!-- MENÚS -->
@@ -20,32 +20,26 @@
         name="xestionSAT" 
         id="xestionsat_base_menu" />
 
-        <!-- INCIDENCIAS -->
+        <!-- INCIDENCES -->
         <menuitem 
             name="Incidences"
             id="xestionsat_incidence_menu" 
             parent="xestionsat_base_menu" 
             sequence="10" />
 
-            <menuitem 
-                name="TAS Actions (products)" 
-                id="xestionsat_actions_menu" 
-                parent="xestionsat_incidence_menu" 
-                sequence="100" 
-                action="incidenceaction_action"/>
-
-        <!-- EQUIPOS -->
+        <!-- DEVICES -->
         <menuitem 
             name="Devices" 
             id="xestionsat_device_menu" 
             parent="xestionsat_base_menu"
-            sequence="20" />
+            sequence="20"
+            action="xestionsat_device_action" />
 
+        <!-- CUSTOMERS -->
         <menuitem 
             name="Customers" 
             id="xestionsat_customers_menu" 
             parent="xestionsat_base_menu" 
             sequence="100"
             action="customers_action" />
-
 </odoo>

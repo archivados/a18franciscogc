@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-    <record id='xestionsat_incidence_action' model='ir.actions.act_window'>
-        <field name="name">Incidences</field>
-        <field name="res_model">xestionsat.incidence</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-    </record>
+    <!-- ACTIONS -->
+    <act_window id="xestionsat_incidence_action"
+        name="Incidences"
+        res_model="xestionsat.incidence"
+        view_type="form"
+        view_mode="tree,form"
+        context="{'search_default_customer':1}"
+        limit="80"/>
 
     <!-- Form View -->
     <record id="xestionsat_incidence_view_form" model="ir.ui.view">
@@ -88,5 +89,4 @@
         parent="xestionsat_incidence_menu" 
         sequence="10" 
         action="xestionsat_incidence_action"/>
-    
 </odoo>
