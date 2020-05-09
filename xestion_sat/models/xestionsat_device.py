@@ -50,10 +50,14 @@ class Device(models.Model):
         'res.partner',
         string='Users',
     )
-    devicecomponents_ids = fields.One2many(
+    devicecomponent_ids = fields.One2many(
         'xestionsat.device.component',
         string='Device Components',
         inverse_name='device_id',
+    )
+    incidence_ids = fields.Many2many(
+        'xestionsat.incidence',
+        string='Related Incidences',
     )
 
     # Other Fields
@@ -255,5 +259,39 @@ class Device(models.Model):
         }
 
         return new_incidence
+
+    @api.multi
+    def add_component(self):
+        """Method to add a new component for the current device.
+        """
+
+        component_form = self.env.ref('xestionsat.device.component', False)
+
+        add_component_context = {
+            'default_device_id': self.id,
+        }
+
+        add_component_views = [
+            (component_form, 'form'),
+        ]
+
+        add_component_flags = {
+            'action_buttons': True,
+        }
+
+        add_component = {
+            'name': _('Add component'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'xestionsat.device.component',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'context': add_component_context,
+            'target': 'new',
+            'views': add_component_views,
+            'view_id': component_form,
+            'flags': add_component_flags,
+        }
+
+        return add_component
 
     # Business methods
