@@ -37,3 +37,9 @@ class ProductTemplate(models.Model):
     # compute and search fields, in the same order that fields declaration
 
     # Constraints and onchanges
+
+    # CRUD methods
+
+    # Action methods
+
+    # Business methods

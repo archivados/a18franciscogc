@@ -12,7 +12,7 @@
         <field name="name">Device Components</field>
         <field name="model">xestionsat.device.component</field>
         <field name="arch" type="xml">
-            <form>
+            <form create="false" edit="false">
                 <group>
                     <group>
                         <field name="device_id"/>
@@ -25,6 +25,8 @@
                         <field name="date_cancellation"/>
                     </group>
                 </group>
+                
+                <button special="cancel" string="Close" class="pull-left oe_highlight oe_read_only"/>
             </form>
         </field>
     </record>
