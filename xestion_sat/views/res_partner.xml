@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <notebook position="after">
+                <separator string="xestionSAT" colspan="4" />
+                <notebook colspan="4">
+                    <page string="Incidences" name="incidences">
+                        <field name="incidence_ids" />
+                        <button name="create_incidence"  string="New Inicidence" type="object" class="oe_highlight" />
+                    </page>
+                    <page string="Devices" name="devices">
+                        <field name="device_ids" />
+                        <button name="create_incidence"  string="New Device" type="object" class="oe_highlight" />
+                    </page>
+                </notebook>
+            </notebook>
+        </field>
+    </record>
+</odoo>

@@ -7,3 +7,4 @@ from . import xestionsat_incidence_state
 
 # Modified third-party models
 from . import product_template
+from . import res_partner

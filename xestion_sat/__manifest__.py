@@ -48,6 +48,7 @@
         'views/xestionsat_incidence_assistance_place.xml',
         'views/xestionsat_incidence_state.xml',
         'views/xestionsat_incidence_action.xml',
+        'views/res_partner.xml',
     ],
     # only loaded in demonstration mode
     # 'demo': [
