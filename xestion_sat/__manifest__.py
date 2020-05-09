@@ -43,6 +43,7 @@
         'security/ir.model.access.csv',
         'views/xestionsat_main_menu.xml',
         'views/xestionsat_device.xml',
+        'views/xestionsat_device_component.xml',
         'views/xestionsat_incidence.xml',
         'views/xestionsat_incidence_assistance_place.xml',
         'views/xestionsat_incidence_state.xml',

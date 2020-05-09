@@ -189,47 +189,47 @@ class XestionsatTest(TestCommonData):
 
         # Components assignment checks
         # Add device component list
-        device_1.devicecomponents_ids = [
+        device_1.devicecomponent_ids = [
             (self._LIST_ADD_ALL, 0, componets_list)]
         self.assertEqual(
-            len(device_1.devicecomponents_ids),
+            len(device_1.devicecomponent_ids),
             len(componets_list),
             msg='\nAdd Componet: '
             + '\n Device: ' + device_1.name
             + '\n len(device_1.user_ids): '
-                + str(len(device_1.devicecomponents_ids))
+                + str(len(device_1.devicecomponent_ids))
             + '\n len(componets_list): '
                 + str(componets_list)
         )
         # Add device component
-        len_devicecomponents_ids = len(device_1.devicecomponents_ids)
+        len_devicecomponent_ids = len(device_1.devicecomponent_ids)
 
-        device_1.devicecomponents_ids = [
+        device_1.devicecomponent_ids = [
             (self._LIST_ADD, self.componets[2].id)]
         self.assertEqual(
-            len(device_1.devicecomponents_ids),
-            len_devicecomponents_ids + 1,
+            len(device_1.devicecomponent_ids),
+            len_devicecomponent_ids + 1,
             msg='\nAdd Componet: '
             + '\n Device: ' + device_1.name
             + '\n len(device_1.user_ids): '
-                + str(len(device_1.devicecomponents_ids))
-            + '\n len(len_devicecomponents_ids): '
-                + str(len_devicecomponents_ids)
+                + str(len(device_1.devicecomponent_ids))
+            + '\n len(len_devicecomponent_ids): '
+                + str(len_devicecomponent_ids)
         )
         # Remove device component
-        len_devicecomponents_ids = len(device_1.devicecomponents_ids)
+        len_devicecomponent_ids = len(device_1.devicecomponent_ids)
 
-        device_1.devicecomponents_ids = [
+        device_1.devicecomponent_ids = [
             (self._LIST_REMOVE, self.componets[2].id)]
         self.assertEqual(
-            len(device_1.devicecomponents_ids),
-            len_devicecomponents_ids - 1,
+            len(device_1.devicecomponent_ids),
+            len_devicecomponent_ids - 1,
             msg='\nRemove Componet: '
             + '\n Device: ' + device_1.name
             + '\n len(device_1.user_ids): '
-                + str(len(device_1.devicecomponents_ids))
-            + '\n len(len_devicecomponents_ids): '
-                + str(len_devicecomponents_ids)
+                + str(len(device_1.devicecomponent_ids))
+            + '\n len(len_devicecomponent_ids): '
+                + str(len_devicecomponent_ids)
         )
 
         # Check constraints
