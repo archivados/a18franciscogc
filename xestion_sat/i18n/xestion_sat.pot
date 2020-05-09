@@ -45,7 +45,7 @@ msgstr ""
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__description
-msgid "Device associated with a Customer"
+msgid "Description"
 msgstr ""
 
 #. module: xestion_sat
