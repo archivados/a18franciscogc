@@ -39,7 +39,6 @@ class DeviceComponent(models.Model):
     )
 
     # Other Fields
-    # nome = fields.Char('Nome descriptivo', required=True)
     serial = fields.Char(
         string='Serial number',
     )
@@ -59,3 +58,9 @@ class DeviceComponent(models.Model):
     # compute and search fields, in the same order that fields declaration
 
     # Constraints and onchanges
+
+    # CRUD methods
+
+    # Action methods
+
+    # Business methods

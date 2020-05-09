@@ -14,7 +14,7 @@
         <field name="name">Incidence</field>
         <field name="model">xestionsat.incidence</field>
         <field name="arch" type="xml">
-            <form>
+            <form create="false" edit="false">
                 <group>
                     <group>
                         <field name="lock" attrs="{'invisible': True}"/>
@@ -62,6 +62,8 @@
                         </group>
                     </form>
                 </field>
+
+                <button special="cancel" string="Close" class="pull-left oe_highlight oe_read_only" attrs="{'invisible': [('lock', '=', False)]}"/>
             </form>
         </field>
     </record>

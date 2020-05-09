@@ -43,7 +43,7 @@
                         <field name="description"/>
                         <field name="observation"/>
                     </group>
-                    <notebook>
+                    <notebook colspan="4">
                         <page string="Device Components" name="device_components">
                             <field name="devicecomponent_ids">
                                 <tree editable="bottom" colors="green:state==repairing">
