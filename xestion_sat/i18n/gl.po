@@ -59,8 +59,8 @@ msgstr "xestionSAT"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__description
-msgid "Device associated with a Customer"
-msgstr "Dispositivo asociado a un Cliente"
+msgid "Description"
+msgstr "Descrición"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__description
