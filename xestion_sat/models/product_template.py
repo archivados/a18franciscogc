@@ -24,14 +24,8 @@ class ProductTemplate(models.Model):
     # Relational Fields
     # Other Fields
     type = fields.Selection(
-        [
-            ('consu', 'Consumable'),
-            ('service', 'Service'),
-            ('sat', 'TAS Action'),  # To use as a filter to include in
-                                    # incidences
-        ],
-        string='Type',
-        default="consu",
+        # To use as a filter to include in incidences
+        selection_add=[('sat', 'TAS Action')],
     )
 
     # compute and search fields, in the same order that fields declaration
