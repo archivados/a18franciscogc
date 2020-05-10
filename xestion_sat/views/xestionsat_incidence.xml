@@ -73,11 +73,15 @@
         <field name="name">Incidences List</field>
         <field name="model">xestionsat.incidence</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree string="Estados"
+                    decoration-danger="state_value == 'Pendente'"
+                    decoration-warning="state_value not in ('Pendente','Finalizada', 'Iniciada')"
+                    decoration-success="state_value == 'Finalizada'">
                 <field name="customer_id"/>
                 <field name="title"/>
                 <field name="failure_description"/>
                 <field name="state"/>
+                <field name="state_value"/>
                 <field name="assistance_place"/>
                 <field name="created_by_id"/>
                 <field name="date_start"/>

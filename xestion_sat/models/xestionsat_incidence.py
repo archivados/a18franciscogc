@@ -66,6 +66,11 @@ class Incidence(models.Model):
         string='State',
         required=True,
     )
+    state_value = fields.Char(
+        string='State Value',
+        readonly=True,
+        compute='change_state',
+    )
 
     assistance_place = fields.Many2one(
         'xestionsat.incidence.assistance_place',
@@ -91,6 +96,14 @@ class Incidence(models.Model):
     )
 
     # compute and search fields, in the same order that fields declaration
+    @api.depends('state')
+    def change_state(self):
+        """Apply a change of status.
+        :param new_state: New state to be assigned.
+        """
+
+        for incidence in self:
+            incidence.state_value = incidence.state.state
 
     # Constraints and onchanges
     @api.constrains('device_ids')

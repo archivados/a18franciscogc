@@ -192,9 +192,9 @@ class Device(models.Model):
                 if device.is_allowed_transition(device.state, new_state):
                     device.state = new_state
                 else:
-                    mensaxe = _('Moving from %s to %s is not allowed') \
+                    error_message = _('Moving from %s to %s is not allowed') \
                         % (device.state, new_state)
-                    raise models.UserError(mensaxe)
+                    raise models.UserError(error_message)
 
     def make_stored(self):
         """Invokes the change of state to stored.
