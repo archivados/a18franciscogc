@@ -43,15 +43,13 @@ class ResPartner(models.Model):
     # Action methods
     @api.multi
     def create_new_incidence(self):
-        """Method to create a new incidence with the data of the current device.
+        """Method to create a new incidence with the data of the current partner.
         """
 
-        incidence_form = self.env.ref('xestionsat.incidence', False)
+        incidence_form = self.env.ref('xestionsat.incidence.form_readonly', False)
 
         new_incidence_context = {
-            'default_lock': True,
-            'default_customer_id': self.owner_id.id,
-            'default_device_ids': [self.id],
+            'default_customer_id': self.id,
         }
 
         new_incidence_views = [
@@ -76,5 +74,38 @@ class ResPartner(models.Model):
         }
 
         return new_incidence
+
+    @api.multi
+    def create_new_device(self):
+        """Method to create a new device with the data of the current partner.
+        """
+
+        device_form = self.env.ref('xestionsat.device', False)
+
+        new_device_context = {
+            'default_owner_id': self.id,
+        }
+
+        new_device_views = [
+            (device_form, 'form'),
+        ]
+
+        new_device_flags = {
+        }
+
+        new_device = {
+            'name': _('New device'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'xestionsat.device',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'context': new_device_context,
+            'target': 'new',
+            'views': new_device_views,
+            'view_id': device_form,
+            'flags': new_device_flags,
+        }
+
+        return new_device
 
     # Business methods
