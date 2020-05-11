@@ -14,7 +14,14 @@
         <field name="name">Incidence</field>
         <field name="model">xestionsat.incidence</field>
         <field name="arch" type="xml">
-            <form create="false" edit="false">
+            <form>
+                <!--
+                <header>
+                    <field name="state" widget="statusbar" 
+                        options="{'clickable': '1', 'fold_field': 'fold'}"
+                        domain="[('id', '=', state)]"/>
+                </header>
+                -->
                 <group>
                     <group>
                         <field name="lock" attrs="{'invisible': True}"/>
@@ -62,8 +69,9 @@
                         </group>
                     </form>
                 </field>
-
+                <!--
                 <button special="cancel" string="Close" class="pull-left oe_highlight oe_read_only" attrs="{'invisible': [('lock', '=', False)]}"/>
+                -->
             </form>
         </field>
     </record>
@@ -73,19 +81,20 @@
         <field name="name">Incidences List</field>
         <field name="model">xestionsat.incidence</field>
         <field name="arch" type="xml">
-            <tree string="Estados"
+            <tree string="Incidences"
                     decoration-danger="state_value == 'Pendente'"
-                    decoration-warning="state_value not in ('Pendente','Finalizada', 'Iniciada')"
+                    decoration-warning="state_value not in ('Pendente', 'Finalizada', 'Iniciada', 'Cancelada')"
                     decoration-success="state_value == 'Finalizada'">
+
+                <field name="state"/>
+                <field name="state_value"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
                 <field name="customer_id"/>
                 <field name="title"/>
                 <field name="failure_description"/>
-                <field name="state"/>
-                <field name="state_value"/>
                 <field name="assistance_place"/>
                 <field name="created_by_id"/>
-                <field name="date_start"/>
-                <field name="date_end"/>
             </tree>
         </field>
     </record>

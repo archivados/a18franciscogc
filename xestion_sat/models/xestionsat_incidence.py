@@ -1,5 +1,6 @@
 # 1: imports of python lib
 from datetime import datetime
+from lxml import etree
 
 # 2: import of known third party lib
 
@@ -70,6 +71,7 @@ class Incidence(models.Model):
         string='State Value',
         readonly=True,
         compute='change_state',
+        translate=True,
     )
 
     assistance_place = fields.Many2one(
@@ -81,6 +83,7 @@ class Incidence(models.Model):
     title = fields.Char(
         string='Title',
         required=True,
+        index=True,
     )
     failure_description = fields.Char(
         string='Description of the failure',
@@ -104,6 +107,19 @@ class Incidence(models.Model):
 
         for incidence in self:
             incidence.state_value = incidence.state.state
+
+    @api.model
+    def fields_view_get(self, view_id=None, view_type='tree', **kwargs):
+        result = super(Incidence, self).fields_view_get(
+            view_id=view_id, view_type=view_type, **kwargs
+        )
+
+        if view_type == 'search':
+            doc = etree.XML(result['arch'])
+            for node in doc.xpath("//field[@name='state_value']"):
+                node.set('string', 'new_string')
+            result['arch'] = etree.tostring(doc)
+        return result
 
     # Constraints and onchanges
     @api.constrains('device_ids')
