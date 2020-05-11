@@ -11,7 +11,7 @@
 
     <!-- Form View -->
     <record id="xestionsat_incidence_view_form" model="ir.ui.view">
-        <field name="name">Incidence</field>
+        <field name="name">xestionsat.incidence.form</field>
         <field name="model">xestionsat.incidence</field>
         <field name="arch" type="xml">
             <form>
@@ -24,8 +24,7 @@
                 -->
                 <group>
                     <group>
-                        <field name="lock" invisible="True"/>
-                        <field name="customer_id" attrs="{'readonly': [('lock', '=', True)]}"/>
+                        <field name="customer_id"/>
                         <field name="title"/>
                         <field name="failure_description"/>
                         <field name="observation"/>
@@ -73,6 +72,7 @@
         </field>
     </record>
     <record id="xestionsat_incidence_view_form_readonly" model="ir.ui.view">
+        <field name="name">xestionsat.incidence.form_readonly</field>
         <field name="model">xestionsat.incidence</field>
         <field name="inherit_id" ref="xestionsat_incidence_view_form" />
         <field name="arch" type="xml">
@@ -80,6 +80,9 @@
                 <attribute name="create">false</attribute>
                 <attribute name="edit">false</attribute>
             </xpath>
+            <field name="customer_id" position="attributes">
+                <attribute name="readonly">True</attribute>
+            </field>
             <form position="inside">
                 <button special="cancel" string="Close" class="pull-left oe_highlight oe_read_only"/>
             </form>

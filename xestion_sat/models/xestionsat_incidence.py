@@ -92,11 +92,6 @@ class Incidence(models.Model):
     observation = fields.Char(
         string='Observations',
     )
-    lock = fields.Boolean(
-        string='Lock',
-        default=False,
-        readonly=True,
-    )
 
     # compute and search fields, in the same order that fields declaration
     @api.depends('state')
