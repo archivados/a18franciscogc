@@ -15,7 +15,7 @@
             <form create="false" edit="false">
                 <group>
                     <group>
-                        <field name="device_id"/>
+                        <field name="device_id" readonly="True"/>
                         <field name="template_id"/>
                         <field name="serial"/>
                         <field name="observation"/>
@@ -25,9 +25,8 @@
                         <field name="date_cancellation"/>
                     </group>
                 </group>
-                <!--
+                
                 <button special="cancel" string="Close" class="pull-left oe_highlight oe_read_only"/>
-                -->
             </form>
         </field>
     </record>
