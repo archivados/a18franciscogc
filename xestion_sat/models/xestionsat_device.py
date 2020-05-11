@@ -64,9 +64,11 @@ class Device(models.Model):
     name = fields.Char(
         string='Name',
         required=True,
+        index=True,
     )
     internal_id = fields.Char(
         string='Internal ID',
+        index=True,
     )
     location = fields.Char(
         string='Location',
