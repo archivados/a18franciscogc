@@ -231,7 +231,8 @@ class Device(models.Model):
         """Method to create a new incidence with the data of the current device.
         """
 
-        incidence_form = self.env.ref('xestionsat.incidence', False)
+        incidence_form = self.env.ref(
+            'xestionsat.incidence.form_readonly', False)
 
         new_incidence_context = {
             'default_lock': True,
