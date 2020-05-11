@@ -1,5 +1,6 @@
 # 1: imports of python lib
 from datetime import datetime
+from lxml import etree
 
 # 2: import of known third party lib
 
@@ -66,6 +67,12 @@ class Incidence(models.Model):
         string='State',
         required=True,
     )
+    state_value = fields.Char(
+        string='State Value',
+        readonly=True,
+        compute='change_state',
+        translate=True,
+    )
 
     assistance_place = fields.Many2one(
         'xestionsat.incidence.assistance_place',
@@ -76,6 +83,7 @@ class Incidence(models.Model):
     title = fields.Char(
         string='Title',
         required=True,
+        index=True,
     )
     failure_description = fields.Char(
         string='Description of the failure',
@@ -91,6 +99,27 @@ class Incidence(models.Model):
     )
 
     # compute and search fields, in the same order that fields declaration
+    @api.depends('state')
+    def change_state(self):
+        """Apply a change of status.
+        :param new_state: New state to be assigned.
+        """
+
+        for incidence in self:
+            incidence.state_value = incidence.state.state
+
+    @api.model
+    def fields_view_get(self, view_id=None, view_type='tree', **kwargs):
+        result = super(Incidence, self).fields_view_get(
+            view_id=view_id, view_type=view_type, **kwargs
+        )
+
+        if view_type == 'search':
+            doc = etree.XML(result['arch'])
+            for node in doc.xpath("//field[@name='state_value']"):
+                node.set('string', 'new_string')
+            result['arch'] = etree.tostring(doc)
+        return result
 
     # Constraints and onchanges
     @api.constrains('device_ids')
