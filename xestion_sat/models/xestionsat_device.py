@@ -231,18 +231,11 @@ class Device(models.Model):
         """Method to create a new incidence with the data of the current device.
         """
 
-        incidence_form = self.env.ref(
-            'xestionsat.incidence.form_readonly', False)
-
         new_incidence_context = {
-            'default_lock': True,
+            'default_lock_view': True,
             'default_customer_id': self.owner_id.id,
             'default_device_ids': [self.id],
         }
-
-        new_incidence_views = [
-            (incidence_form, 'form'),
-        ]
 
         new_incidence_flags = {
             'action_buttons': True,
@@ -256,8 +249,6 @@ class Device(models.Model):
             'view_mode': 'form',
             'context': new_incidence_context,
             'target': 'new',
-            'views': new_incidence_views,
-            'view_id': incidence_form,
             'flags': new_incidence_flags,
         }
 

@@ -92,6 +92,11 @@ class Incidence(models.Model):
     observation = fields.Char(
         string='Observations',
     )
+    lock_view = fields.Boolean(
+        string='Lock view',
+        default=False,
+        readonly=True,
+    )
 
     # compute and search fields, in the same order that fields declaration
     @api.depends('state')
@@ -103,18 +108,30 @@ class Incidence(models.Model):
         for incidence in self:
             incidence.state_value = incidence.state.state
 
+    ###########################################################################
+    # Revisar
+    ###########################################################################
     @api.model
-    def fields_view_get(self, view_id=None, view_type='tree', **kwargs):
+    def fields_view_get(self, view_id=None, view_type='form', **kwargs):
         result = super(Incidence, self).fields_view_get(
             view_id=view_id, view_type=view_type, **kwargs
         )
 
-        if view_type == 'search':
+        if view_type == 'form':
+            lock = False
             doc = etree.XML(result['arch'])
-            for node in doc.xpath("//field[@name='state_value']"):
-                node.set('string', 'new_string')
-            result['arch'] = etree.tostring(doc)
+            doc2 = doc
+            for node1 in doc2.xpath("/form/field[@name='lock_view']"):
+                a = node1
+                if a is not None:
+                    lock = True
+            if lock:
+                for node in doc.xpath("/form"):
+                    node.set('create', 'false')
+                    node.set('edit', 'false')
+                result['arch'] = etree.tostring(doc)
         return result
+    ###########################################################################
 
     # Constraints and onchanges
     @api.constrains('device_ids')
@@ -143,3 +160,9 @@ class Incidence(models.Model):
             if incidencia.created_by_id \
                     and incidencia.created_by_id != self.env.user:
                 raise models.ValidationError(_(error_message))
+
+    # CRUD methods
+
+    # Action methods
+
+    # Business methods

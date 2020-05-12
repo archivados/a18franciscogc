@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- ACTIONS -->
-    <act_window id="xestionsat_incidence_action"
-        name="Incidences"
-        res_model="xestionsat.incidence"
-        view_type="form"
-        view_mode="tree,form"
-        context="{'search_default_customer':1}"
-        limit="80"/>
-
     <!-- Form View -->
     <record id="xestionsat_incidence_view_form" model="ir.ui.view">
         <field name="name">xestionsat.incidence.form</field>
         <field name="model">xestionsat.incidence</field>
+        <field name="priority">10</field>
         <field name="arch" type="xml">
             <form>
                 <!--
@@ -24,7 +16,8 @@
                 -->
                 <group>
                     <group>
-                        <field name="customer_id"/>
+                        <field name="lock_view" invisible="True"/>
+                        <field name="customer_id" attrs="{'readonly': [('lock_view', '=', True)]}"/>
                         <field name="title"/>
                         <field name="failure_description"/>
                         <field name="observation"/>
@@ -68,31 +61,16 @@
                         </group>
                     </form>
                 </field>
+                <button special="cancel" string="Close" class="pull-left oe_highlight oe_read_only" attrs="{'invisible': [('lock_view', '=', False)]}"/>
             </form>
         </field>
     </record>
-    <record id="xestionsat_incidence_view_form_readonly" model="ir.ui.view">
-        <field name="name">xestionsat.incidence.form_readonly</field>
-        <field name="model">xestionsat.incidence</field>
-        <field name="inherit_id" ref="xestionsat_incidence_view_form" />
-        <field name="arch" type="xml">
-            <xpath expr="/form" position="attributes">
-                <attribute name="create">false</attribute>
-                <attribute name="edit">false</attribute>
-            </xpath>
-            <field name="customer_id" position="attributes">
-                <attribute name="readonly">True</attribute>
-            </field>
-            <form position="inside">
-                <button special="cancel" string="Close" class="pull-left oe_highlight oe_read_only"/>
-            </form>
-        </field>
-    </record>
-
+    
     <!-- Tree(list) View -->
     <record id="xestionsat_incidence_view_tree" model="ir.ui.view">
         <field name="name">Incidences List</field>
         <field name="model">xestionsat.incidence</field>
+        <field name="priority">10</field>
         <field name="arch" type="xml">
             <tree string="Incidences"
                     decoration-danger="state_value == 'Pendente'"
@@ -111,6 +89,22 @@
             </tree>
         </field>
     </record>
+
+    <!-- ACTIONS -->
+    <act_window id="xestionsat_incidence_action"
+        name="Incidences"
+        res_model="xestionsat.incidence"
+        view_mode="tree,form"
+        limit="80"/>
+    <!--
+    <record id="xestionsat_incidence_action" model="ir.actions.act_window">
+        <field name="name">Incidences</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">xestionsat.incidence</field>
+        <field name="view_mode">tree,form</field>
+        <field name="views" eval="[6, 0, [xestionsat_incidence_view_tree, xestionsat_incidence_view_form]]"/>
+    </record>
+    -->
 
     <!-- MENÚS -->
     <menuitem 

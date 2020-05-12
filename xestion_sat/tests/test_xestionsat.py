@@ -4,10 +4,10 @@ from datetime import datetime, timedelta
 # 2: import of known third party lib
 
 # 3:  imports of odoo
-from .test_common import TestCommonData
 from odoo.exceptions import ValidationError
 
 # 4:  imports from odoo modules
+from .test_common import TestCommonData
 
 # 5: local imports
 
