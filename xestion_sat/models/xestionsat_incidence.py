@@ -67,12 +67,6 @@ class Incidence(models.Model):
         string='State',
         required=True,
     )
-    state_value = fields.Char(
-        string='State Value',
-        readonly=True,
-        compute='change_state',
-        translate=True,
-    )
 
     assistance_place = fields.Many2one(
         'xestionsat.incidence.assistance_place',
@@ -92,6 +86,12 @@ class Incidence(models.Model):
     observation = fields.Char(
         string='Observations',
     )
+    state_value = fields.Char(
+        string='State Value',
+        readonly=True,
+        compute='change_state',
+        translate=True,
+    )
 
     # compute and search fields, in the same order that fields declaration
     @api.depends('state')
@@ -103,18 +103,65 @@ class Incidence(models.Model):
         for incidence in self:
             incidence.state_value = incidence.state.state
 
+    ###########################################################################
+    # Revisar
+    ###########################################################################
     @api.model
-    def fields_view_get(self, view_id=None, view_type='tree', **kwargs):
+    def fields_view_get(self, view_id=None, view_type=None, **kwargs):
+        """Modify the resulting view according to the past context.
+        """
+
+        context = self.env.context
+
         result = super(Incidence, self).fields_view_get(
             view_id=view_id, view_type=view_type, **kwargs
         )
 
-        if view_type == 'search':
-            doc = etree.XML(result['arch'])
-            for node in doc.xpath("//field[@name='state_value']"):
-                node.set('string', 'new_string')
-            result['arch'] = etree.tostring(doc)
+        if view_type == 'form':
+            lock = False
+
+            if 'lock_view' in context:
+                lock = context['lock_view']
+
+            if lock:
+                doc = etree.XML(result['arch'])
+
+                # Form
+                for node in doc.xpath("//form[@name='primary_form']"):
+                    node.set('create', 'false')
+                    node.set('edit', 'false')
+
+                # customer_id
+                for node in doc.xpath("//field[@name='customer_id']"):
+                    node.set('modifiers', '{"readonly": true}')
+
+                # btn_close
+                for node in doc.xpath("//button[@name='btn_close']"):
+                    # node.set('invisible', 'False')
+                    node.set('modifiers', '{}')
+
+                result['arch'] = etree.tostring(doc)
         return result
+
+    @api.multi
+    def create_new_incidence(
+        self, new_incidence_context=dict(), new_incidence_flags=dict()
+    ):
+        """Method to create a new incidence with the data of the current device.
+        """
+
+        new_incidence = {
+            'name': _('New incidence'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'xestionsat.incidence',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'context': new_incidence_context,
+            'target': 'new',
+            'flags': new_incidence_flags,
+        }
+
+        return new_incidence
 
     # Constraints and onchanges
     @api.constrains('device_ids')
@@ -143,3 +190,9 @@ class Incidence(models.Model):
             if incidencia.created_by_id \
                     and incidencia.created_by_id != self.env.user:
                 raise models.ValidationError(_(error_message))
+
+    # CRUD methods
+
+    # Action methods
+
+    # Business methods
