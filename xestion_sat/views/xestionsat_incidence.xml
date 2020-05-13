@@ -6,7 +6,7 @@
         <field name="model">xestionsat.incidence</field>
         <field name="priority">10</field>
         <field name="arch" type="xml">
-            <form>
+            <form name="primary_form">
                 <!--
                 <header>
                     <field name="state" widget="statusbar" 
@@ -16,8 +16,7 @@
                 -->
                 <group>
                     <group>
-                        <field name="lock_view" invisible="True"/>
-                        <field name="customer_id" attrs="{'readonly': [('lock_view', '=', True)]}"/>
+                        <field name="customer_id"/>
                         <field name="title"/>
                         <field name="failure_description"/>
                         <field name="observation"/>
@@ -61,7 +60,7 @@
                         </group>
                     </form>
                 </field>
-                <button special="cancel" string="Close" class="pull-left oe_highlight oe_read_only" attrs="{'invisible': [('lock_view', '=', False)]}"/>
+                <button special="cancel" name="btn_close" string="Close" class="pull-left oe_highlight oe_read_only" invisible="True"/>
             </form>
         </field>
     </record>
@@ -96,15 +95,6 @@
         res_model="xestionsat.incidence"
         view_mode="tree,form"
         limit="80"/>
-    <!--
-    <record id="xestionsat_incidence_action" model="ir.actions.act_window">
-        <field name="name">Incidences</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">xestionsat.incidence</field>
-        <field name="view_mode">tree,form</field>
-        <field name="views" eval="[6, 0, [xestionsat_incidence_view_tree, xestionsat_incidence_view_form]]"/>
-    </record>
-    -->
 
     <!-- MENÚS -->
     <menuitem 

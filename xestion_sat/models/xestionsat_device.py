@@ -232,7 +232,7 @@ class Device(models.Model):
         """
 
         new_incidence_context = {
-            'default_lock_view': True,
+            'lock_view': True,
             'default_customer_id': self.owner_id.id,
             'default_device_ids': [self.id],
         }
@@ -241,18 +241,10 @@ class Device(models.Model):
             'action_buttons': True,
         }
 
-        new_incidence = {
-            'name': _('New incidence'),
-            'type': 'ir.actions.act_window',
-            'res_model': 'xestionsat.incidence',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'context': new_incidence_context,
-            'target': 'new',
-            'flags': new_incidence_flags,
-        }
+        new_incidence = self.env['xestionsat.incidence']
 
-        return new_incidence
+        return new_incidence.create_new_incidence(
+            new_incidence_context, new_incidence_flags)
 
     @api.multi
     def add_component(self):
