@@ -28,6 +28,7 @@
                                 domain="['|', ('parent_id', '=', owner_id), ('id', '=', owner_id)]" />
                             <field name="location"/>
                             <field name="user_ids" 
+                                options="{'no_create_edit': True}" 
                                 domain="['|', ('parent_id', '=', owner_id), ('id', '=', owner_id)]"
                                 widget="many2many_tags"/>
                         </group>
