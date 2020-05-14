@@ -62,7 +62,7 @@ class DeviceComponent(models.Model):
     # CRUD methods
     @api.multi
     def create_new_component(
-        self, name='Add component', context=dict(), flags=dict()
+        self, name='Add component', context=None, flags=None
     ):
         """Method to create a new add component according to the past context.
         """

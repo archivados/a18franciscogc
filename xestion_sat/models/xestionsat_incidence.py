@@ -134,7 +134,7 @@ class Incidence(models.Model):
     # CRUD methods
     @api.multi
     def create_new_incidence(
-        self, name='New incidence', context=dict(), flags=dict()
+        self, name='New incidence', context=None, flags=None
     ):
         """Method to create a new incidence according to the past context.
         """
@@ -197,6 +197,10 @@ class Incidence(models.Model):
                 # customer_id
                 for node in doc.xpath("//field[@name='customer_id']"):
                     node.set('modifiers', '{"readonly": true}')
+
+                # btn_add_action
+                for node in doc.xpath("//button[@name='add_action']"):
+                    node.set('modifiers', '{"invisible": true}')
 
                 # btn_close
                 for node in doc.xpath("//button[@name='btn_close']"):
