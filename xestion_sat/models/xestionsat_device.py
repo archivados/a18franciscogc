@@ -158,7 +158,7 @@ class Device(models.Model):
     # CRUD methods
     @api.multi
     def create_new_device(
-        self, name='New device', context=dict(), flags=dict()
+        self, name='New device', context=None, flags=None
     ):
         """Method to create a new device according to the past context.
         """

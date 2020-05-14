@@ -80,7 +80,7 @@ class IncidenceAction(models.Model):
     # CRUD methods
     @api.multi
     def create_new_action(
-        self, name='Add action', context=dict(), flags=dict()
+        self, name='Add action', context=None, flags=None
     ):
         """Method to add a new action for the current incidence.
         """

@@ -48,7 +48,7 @@
                     <label for="incidence_action_ids" string="Actions" />
                     <field name="incidence_action_ids"/>
                     
-                    <button name="add_action" string="Add Action" type="object" class="oe_highlight oe_read_only"/>
+                    <button name="add_action" string="Add Action" type="object" class="pull-left oe_highlight oe_read_only"/>
                     
                     <!-- This button is made visible through Python in the <fields_view_get> method definition -->
                     <button name="btn_close" special="cancel" string="Close" class="pull-left oe_highlight oe_read_only" invisible="True"/>
