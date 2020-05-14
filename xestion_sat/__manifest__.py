@@ -29,7 +29,7 @@
     # for the full list
     'category': 'Tools',
     "license": "AGPL-3",
-    'version': '12.0.0.5.1',
+    'version': '12.0.0.9.0',
 
     # any module necessary for this one to work correctly
     # 'depends': ['base', 'sale_management', 'hr', 'calendar', 'crm'],
