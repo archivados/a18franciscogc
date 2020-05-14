@@ -9,11 +9,11 @@
                 <notebook colspan="4">
                     <page string="Incidences" name="incidences">
                         <field name="incidence_ids" />
-                        <button name="create_new_incidence"  string="New Inicidence" type="object" class="oe_highlight" />
+                        <button name="add_incidence"  string="New Inicidence" type="object" class="oe_highlight oe_read_only"/>
                     </page>
                     <page string="Devices" name="devices">
                         <field name="device_ids" />
-                        <button name="create_new_device"  string="New Device" type="object" class="oe_highlight" />
+                        <button name="add_device"  string="New Device" type="object" class="oe_highlight oe_read_only"/>
                     </page>
                 </notebook>
             </notebook>

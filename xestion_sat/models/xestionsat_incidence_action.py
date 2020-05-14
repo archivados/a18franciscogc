@@ -1,5 +1,6 @@
 # 1: imports of python lib
 from datetime import datetime
+from lxml import etree
 
 # 2: import of known third party lib
 
@@ -75,3 +76,52 @@ class IncidenceAction(models.Model):
             if actuacion.executed_by \
                     and actuacion.executed_by != self.env.user:
                 raise models.ValidationError(_(error_message))
+
+    # CRUD methods
+    @api.multi
+    def create_new_action(
+        self, name='Add action', context=dict(), flags=dict()
+    ):
+        """Method to add a new action for the current incidence.
+        """
+
+        return {
+            'name': _(name),
+            'type': 'ir.actions.act_window',
+            'res_model': 'xestionsat.incidence.action',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'context': context,
+            'target': 'new',
+            'flags': flags,
+        }
+
+    # Action methods
+
+    # Business methods
+    @api.model
+    def fields_view_get(self, view_id=None, view_type=None, **kwargs):
+        """Modify the resulting view according to the past context.
+        """
+
+        context = self.env.context
+
+        result = super(IncidenceAction, self).fields_view_get(
+            view_id=view_id, view_type=view_type, **kwargs
+        )
+
+        if view_type == 'form':
+            lock = False
+
+            if 'lock_view' in context:
+                lock = context['lock_view']
+
+            if lock:
+                doc = etree.XML(result['arch'])
+
+                # btn_close
+                for node in doc.xpath("//button[@name='btn_close']"):
+                    node.set('modifiers', '{}')
+
+                result['arch'] = etree.tostring(doc)
+        return result
