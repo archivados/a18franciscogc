@@ -42,70 +42,36 @@ class ResPartner(models.Model):
 
     # Action methods
     @api.multi
-    def create_new_incidence(self):
+    def add_incidence(self):
         """Method to create a new incidence with the data of the current partner.
         """
 
-        incidence_form = self.env.ref('xestionsat.incidence.form_readonly', False)
-
-        new_incidence_context = {
+        context = {
+            'lock_view': True,
             'default_customer_id': self.id,
         }
 
-        new_incidence_views = [
-            (incidence_form, 'form'),
-        ]
-
-        new_incidence_flags = {
+        flags = {
             'action_buttons': True,
         }
 
-        new_incidence = {
-            'name': _('New incidence'),
-            'type': 'ir.actions.act_window',
-            'res_model': 'xestionsat.incidence',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'context': new_incidence_context,
-            'target': 'new',
-            'views': new_incidence_views,
-            'view_id': incidence_form,
-            'flags': new_incidence_flags,
-        }
-
-        return new_incidence
+        return self.env['xestionsat.incidence'].create_new_incidence(
+            context=context, flags=flags)
 
     @api.multi
-    def create_new_device(self):
+    def add_device(self):
         """Method to create a new device with the data of the current partner.
         """
 
-        device_form = self.env.ref('xestionsat.device', False)
-
-        new_device_context = {
+        context = {
+            'lock_view': True,
             'default_owner_id': self.id,
         }
 
-        new_device_views = [
-            (device_form, 'form'),
-        ]
-
-        new_device_flags = {
+        flags = {
         }
 
-        new_device = {
-            'name': _('New device'),
-            'type': 'ir.actions.act_window',
-            'res_model': 'xestionsat.device',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'context': new_device_context,
-            'target': 'new',
-            'views': new_device_views,
-            'view_id': device_form,
-            'flags': new_device_flags,
-        }
-
-        return new_device
+        return self.env['xestionsat.device'].create_new_device(
+            context=context, flags=flags)
 
     # Business methods

@@ -4,7 +4,7 @@ from datetime import datetime
 # 2: import of known third party lib
 
 # 3:  imports of odoo
-from odoo import models, fields, _
+from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
 
@@ -60,6 +60,23 @@ class DeviceComponent(models.Model):
     # Constraints and onchanges
 
     # CRUD methods
+    @api.multi
+    def create_new_component(
+        self, name='Add component', context=dict(), flags=dict()
+    ):
+        """Method to create a new add component according to the past context.
+        """
+
+        return {
+            'name': _(name),
+            'type': 'ir.actions.act_window',
+            'res_model': 'xestionsat.device.component',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'context': context,
+            'target': 'new',
+            'flags': flags,
+        }
 
     # Action methods
 

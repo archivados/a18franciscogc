@@ -103,9 +103,72 @@ class Incidence(models.Model):
         for incidence in self:
             incidence.state_value = incidence.state.state
 
-    ###########################################################################
-    # Revisar
-    ###########################################################################
+    # Constraints and onchanges
+    @api.constrains('device_ids')
+    def _check_father(self):
+        """Verify that the devices associated with the incidence belong to the
+        customer.
+        """
+
+        error_message = 'The Device must belong to the specified Customer'
+
+        for incidencia in self:
+            for device in incidencia.device_ids:
+                if device and device.owner_id != incidencia.customer_id:
+                    raise models.ValidationError(_(error_message))
+
+    @api.constrains('created_by_id')
+    def _check_created_by_id(self):
+        """Verify that incidence creation is not assigned to a different
+        system user than the one running the application.
+        """
+
+        error_message = 'One User cannot create Incidences in the name of' \
+            'another'
+
+        for incidencia in self:
+            if incidencia.created_by_id \
+                    and incidencia.created_by_id != self.env.user:
+                raise models.ValidationError(_(error_message))
+
+    # CRUD methods
+    @api.multi
+    def create_new_incidence(
+        self, name='New incidence', context=dict(), flags=dict()
+    ):
+        """Method to create a new incidence according to the past context.
+        """
+
+        return {
+            'name': _(name),
+            'type': 'ir.actions.act_window',
+            'res_model': 'xestionsat.incidence',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'context': context,
+            'target': 'new',
+            'flags': flags,
+        }
+
+    # Action methods
+    @api.multi
+    def add_action(self):
+        """Method to add a new action for the current incidence.
+        """
+
+        context = {
+            'lock_view': True,
+            'default_incidence_id': self.id,
+        }
+
+        flags = {
+            'action_buttons': True,
+        }
+
+        return self.env['xestionsat.incidence.action'].create_new_action(
+            context=context, flags=flags)
+
+    # Business methods
     @api.model
     def fields_view_get(self, view_id=None, view_type=None, **kwargs):
         """Modify the resulting view according to the past context.
@@ -137,62 +200,7 @@ class Incidence(models.Model):
 
                 # btn_close
                 for node in doc.xpath("//button[@name='btn_close']"):
-                    # node.set('invisible', 'False')
                     node.set('modifiers', '{}')
 
                 result['arch'] = etree.tostring(doc)
         return result
-
-    @api.multi
-    def create_new_incidence(
-        self, new_incidence_context=dict(), new_incidence_flags=dict()
-    ):
-        """Method to create a new incidence with the data of the current device.
-        """
-
-        new_incidence = {
-            'name': _('New incidence'),
-            'type': 'ir.actions.act_window',
-            'res_model': 'xestionsat.incidence',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'context': new_incidence_context,
-            'target': 'new',
-            'flags': new_incidence_flags,
-        }
-
-        return new_incidence
-
-    # Constraints and onchanges
-    @api.constrains('device_ids')
-    def _check_father(self):
-        """Verify that the devices associated with the incidence belong to the
-        customer.
-        """
-
-        error_message = 'The Device must belong to the specified Customer'
-
-        for incidencia in self:
-            for device in incidencia.device_ids:
-                if device and device.owner_id != incidencia.customer_id:
-                    raise models.ValidationError(_(error_message))
-
-    @api.constrains('created_by_id')
-    def _check_created_by_id(self):
-        """Verify that incidence creation is not assigned to a different
-        system user than the one running the application.
-        """
-
-        error_message = 'One User cannot create Incidences in the name of' \
-            'another'
-
-        for incidencia in self:
-            if incidencia.created_by_id \
-                    and incidencia.created_by_id != self.env.user:
-                raise models.ValidationError(_(error_message))
-
-    # CRUD methods
-
-    # Action methods
-
-    # Business methods

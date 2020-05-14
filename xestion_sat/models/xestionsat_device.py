@@ -1,5 +1,6 @@
 # 1: imports of python lib
 from datetime import datetime
+from lxml import etree
 
 # 2: import of known third party lib
 
@@ -155,6 +156,23 @@ class Device(models.Model):
                 raise models.ValidationError(_(error_message))
 
     # CRUD methods
+    @api.multi
+    def create_new_device(
+        self, name='New device', context=dict(), flags=dict()
+    ):
+        """Method to create a new device according to the past context.
+        """
+
+        return {
+            'name': _(name),
+            'type': 'ir.actions.act_window',
+            'res_model': 'xestionsat.device',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'context': context,
+            'target': 'new',
+            'flags': flags,
+        }
 
     # Action methods
     @api.model
@@ -218,7 +236,7 @@ class Device(models.Model):
 
         self.change_state('repairing')
 
-        return self.create_new_incidence()
+        return self.add_incidence()
 
     def make_unsubscribe(self):
         """Invokes the change of state to unsubscribe.
@@ -227,57 +245,73 @@ class Device(models.Model):
         self.change_state('unsubscribe')
 
     @api.multi
-    def create_new_incidence(self):
+    def add_incidence(self):
         """Method to create a new incidence with the data of the current device.
         """
 
-        new_incidence_context = {
+        context = {
             'lock_view': True,
             'default_customer_id': self.owner_id.id,
             'default_device_ids': [self.id],
         }
 
-        new_incidence_flags = {
+        flags = {
             'action_buttons': True,
         }
 
-        new_incidence = self.env['xestionsat.incidence']
-
-        return new_incidence.create_new_incidence(
-            new_incidence_context, new_incidence_flags)
+        return self.env['xestionsat.incidence'].create_new_incidence(
+            context=context, flags=flags)
 
     @api.multi
     def add_component(self):
         """Method to add a new component for the current device.
         """
 
-        component_form = self.env.ref('xestionsat.device.component', False)
-
-        add_component_context = {
+        context = {
             'default_device_id': self.id,
         }
 
-        add_component_views = [
-            (component_form, 'form'),
-        ]
-
-        add_component_flags = {
+        flags = {
             'action_buttons': True,
         }
 
-        add_component = {
-            'name': _('Add component'),
-            'type': 'ir.actions.act_window',
-            'res_model': 'xestionsat.device.component',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'context': add_component_context,
-            'target': 'new',
-            'views': add_component_views,
-            'view_id': component_form,
-            'flags': add_component_flags,
-        }
-
-        return add_component
+        return self.env['xestionsat.device.component'].create_new_component(
+            context=context, flags=flags)
 
     # Business methods
+    @api.model
+    def fields_view_get(self, view_id=None, view_type=None, **kwargs):
+        """Modify the resulting view according to the past context.
+        """
+
+        context = self.env.context
+
+        result = super(Device, self).fields_view_get(
+            view_id=view_id, view_type=view_type, **kwargs
+        )
+
+        if view_type == 'form':
+            lock = False
+
+            if 'lock_view' in context:
+                lock = context['lock_view']
+
+            if lock:
+                doc = etree.XML(result['arch'])
+
+                # Form
+                for node in doc.xpath("//form[@name='primary_form']"):
+                    node.set('create', 'false')
+                    node.set('edit', 'false')
+
+                # owner_id
+                for node in doc.xpath("//field[@name='owner_id']"):
+                    node.set('modifiers', '{"readonly": true}')
+
+                # btn_close
+                for node in doc.xpath("//button[@name='btn_close']"):
+                    # node.set('invisible', 'False')
+                    node.set('modifiers', '{}')
+
+                result['arch'] = etree.tostring(doc)
+        return result
