@@ -1,0 +1,13 @@
+.btn_xest {
+    margin: 0px 4px;
+}
+
+.btn_xest_primary {
+    @extend .btn_xest;
+    @extend .btn-primary;
+}
+
+.btn_xest_secondary {
+    @extend .btn_xest;
+    @extend .btn-secondary;
+}

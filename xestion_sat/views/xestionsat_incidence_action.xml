@@ -24,7 +24,7 @@
                     </group>
                     
                     <!-- This button is made visible through Python in the <fields_view_get> method definition -->
-                    <button name="btn_close" special="cancel" string="Close" class="pull-left oe_highlight oe_read_only" invisible="True"/>
+                    <button name="btn_close" special="cancel" string="Close" class="pull-left btn_xest_primary oe_read_only" invisible="True"/>
                 </sheet>
             </form>
         </field>

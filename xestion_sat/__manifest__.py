@@ -41,6 +41,7 @@
         'data/xestionsat_incidence_state.xml',
         'security/xestion_sat.xml',
         'security/ir.model.access.csv',
+        'views/assets.xml',
         'views/xestionsat_main_menu.xml',
         'views/xestionsat_device.xml',
         'views/xestionsat_device_component.xml',
