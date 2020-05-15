@@ -168,6 +168,45 @@ class Incidence(models.Model):
         return self.env['xestionsat.incidence.action'].create_new_action(
             context=context, flags=flags)
 
+    @api.multi
+    def create_order(self):
+        """Method to create a new order for the current incidence.
+        """
+        return self.create_order_modify()
+
+    @api.multi
+    def create_order_modify(
+        self, name='Create Order and modify it', context=None, flags=None
+    ):
+        """Method to create a new order for the current incidence and modify it.
+        """
+
+        order_line = []
+
+        for line in self.incidence_action_ids:
+            order_line.append(line.id)
+
+        partner = self.customer_id.id
+        context = {
+            'default_partner_id': partner,
+            'default_order_line': order_line,
+            'default_picking_policy': 'direct',
+        }
+
+        flags = {
+            'action_buttons': True,
+        }
+
+        return {
+            'name': _(name),
+            'type': 'ir.actions.act_window',
+            'res_model': 'sale.order',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'context': context,
+            'target': 'new',
+            'flags': flags,
+        }
     # Business methods
     @api.model
     def fields_view_get(self, view_id=None, view_type=None, **kwargs):
