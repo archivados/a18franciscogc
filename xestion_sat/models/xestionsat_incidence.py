@@ -17,6 +17,10 @@ from odoo import models, fields, api, _
 class Incidence(models.Model):
     """Model to manage the information of an incidence.
     """
+    # Constants for CRUD messages
+    NEW_INCIDENCE = 'New incidence'
+    CREATE_ORDER = 'Create Order and modify it'
+
     # Private attributes
     _name = 'xestionsat.incidence'
     _description = _('Incidence associated with a Customer')
@@ -130,10 +134,13 @@ class Incidence(models.Model):
     # CRUD methods
     @api.multi
     def create_new_incidence(
-        self, name='New incidence', context=None, flags=None
+        self, name=NEW_INCIDENCE, context=None, flags=None
     ):
         """Method to create a new incidence according to the past context.
         """
+        if type(name) != str:
+            name = self.NEW_INCIDENCE
+
         return {
             'name': _(name),
             'type': 'ir.actions.act_window',
@@ -163,37 +170,17 @@ class Incidence(models.Model):
             context=context, flags=flags)
 
     @api.multi
-    def create_order(self):
-        """Method to create a new order for the current incidence.
-        """
-        """
-        line_env = self.env['sale.order.line']
-        for wizard in self:
-            for what in wizard.entries:
-                new_line = line_env.create({
-                            'product_id': what.product_id.id,
-                            'name': what.product_id.name,
-                            'order_id': what.sale_order_id.id,
-                            'product_uom' : what.product_id.uom_id.id})                
-                new_line.product_id_change() #Calling an onchange method to update the record
-        """
-        return self.create_order_modify()
-
-    @api.multi
     def create_order_modify(
-        self, name='Create Order and modify it', context=None, flags=None
+        self, name=CREATE_ORDER, context=None, flags=None
     ):
         """Method to create a new order for the current incidence and modify it.
         """
-        order_line = []
+        if type(name) != str:
+            name = self.CREATE_ORDER
 
-        for line in self.incidence_action_ids:
-            order_line.append(line.prepare_order_line())
-
-        partner = self.customer_id.id
         context = {
-            'default_partner_id': partner,
-            'default_order_line': order_line,
+            'default_partner_id': self.customer_id.id,
+            'default_order_line': self._get_actions_lines(),
             'default_picking_policy': 'direct',
         }
 
@@ -211,6 +198,27 @@ class Incidence(models.Model):
             'target': 'new',
             'flags': flags,
         }
+
+    @api.multi
+    def create_order(self):
+        """Method to create a new order for the current incidence.
+        """
+        sale = self.env['sale.order'].create({
+            'partner_id': self.customer_id.id,
+            'order_line': self._get_actions_lines(),
+            'state': 'sale'
+        })
+
+        sale.action_confirm()
+
+    def _get_actions_lines(self):
+        """Method to obtain the lines of action related to an incidence.
+        """
+        lines = []
+        for line in self.incidence_action_ids:
+            lines.append(line.prepare_order_line())
+
+        return lines
 
     # Business methods
     @api.model
