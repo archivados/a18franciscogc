@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <form name="primary_form">
                 <header>
-                    <button name="create_incidence"  string="Create Inicidence" type="object" class="oe_highlight oe_read_only"/>
+                    <button name="create_incidence"  string="Create Inicidence" type="object" class="btn_xest_primary oe_read_only"/>
                     <field name="state" widget="statusbar" clickable="True" />
                 </header>
                 <sheet>
@@ -48,7 +48,7 @@
                                     <field name="date_cancellation"/>
                                 </tree>
                             </field>
-                            <button name="add_component"  string="Add component" type="object" class="oe_highlight oe_read_only"/>
+                            <button name="add_component"  string="Add component" type="object" class="btn_xest_primary oe_read_only"/>
                         </page>
                         <page string="Incidences" name="incidences">
                             <field name="incidence_ids" />
@@ -56,7 +56,7 @@
                     </notebook>
                     
                     <!-- This button is made visible through Python in the <fields_view_get> method definition -->
-                    <button name="btn_close" special="cancel" string="Close" class="pull-left oe_highlight oe_read_only" invisible="True"/>
+                    <button name="btn_close" special="cancel" string="Close" class="pull-left btn_xest_primary oe_read_only" invisible="True"/>
                 </sheet>
             </form>
         </field>
