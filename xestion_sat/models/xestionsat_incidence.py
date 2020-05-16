@@ -211,6 +211,17 @@ class Incidence(models.Model):
 
         sale.action_confirm()
 
+        message_id = self.env['xestionsat.message'].create({'message': _("Invitation is successfully sent")})
+        return {
+            'name': _('Successfull'),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'xestionsat.message',
+            # pass the id
+            'res_id': message_id.id,
+            'target': 'new'
+        }
+
     def _get_actions_lines(self):
         """Method to obtain the lines of action related to an incidence.
         """

@@ -50,6 +50,7 @@
         'views/xestionsat_incidence_action.xml',
         'views/xestionsat_incidence.xml',
         'views/res_partner.xml',
+        'wizards/xestionsat_message_view.xml',
     ],
     # only loaded in demonstration mode
     # 'demo': [

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="message_form" model="ir.ui.view">
+        <field name="name">xestionsat.message.form</field>
+        <field name="model">xestionsat.message</field>
+        <field name="arch" type="xml">
+            <form >
+                <p class="text-center">
+                    <field name="message"/>
+                </p>
+                <footer>
+                    <button name="btn_close" special="cancel" string="Close" class="pull-left btn-primary oe_read_only" invisible="True"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
