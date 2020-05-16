@@ -15,7 +15,10 @@
                                 readonly="True"/>
                             <field name="template_id"/>
                             <field name="observation"/>
+                            <field name="quantity"/>
                             <field name="list_price"/>
+                            <field name="discount"/>
+                            <field name="subtotal"/>
                         </group>
                         <group>
                             <field name="date_start"/>
@@ -40,9 +43,12 @@
                 <field name="executed_by"/>
                 <field name="template_id"/>
                 <field name="observation"/>
-                <field name="list_price"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
+                <field name="quantity"/>
+                <field name="list_price"/>
+                <field name="discount"/>
+                <field name="subtotal"/>
             </tree>
         </field>
     </record>

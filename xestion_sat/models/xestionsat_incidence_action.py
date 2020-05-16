@@ -5,6 +5,7 @@ from lxml import etree
 # 2: import of known third party lib
 
 # 3:  imports of odoo
+from odoo.exceptions import UserError, ValidationError
 from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
@@ -17,7 +18,6 @@ from odoo import models, fields, api, _
 class IncidenceAction(models.Model):
     """Model that describes the actions taken in incidences.
     """
-
     # Private attributes
     _name = 'xestionsat.incidence.action'
     _description = _('Action taken in an incidence')
@@ -48,6 +48,7 @@ class IncidenceAction(models.Model):
         ondelete='cascade',
     )
 
+    # Other Fields
     date_start = fields.Date(
         string='Date start',
         default=lambda *a: datetime.now().strftime('%Y-%m-%d'),
@@ -56,12 +57,62 @@ class IncidenceAction(models.Model):
     date_end = fields.Date(
         string='Date ends',
     )
-
     observation = fields.Char(
         string='Observations',
     )
+    quantity = fields.Float(
+        string='Quantity',
+        default=1.0,
+    )
+    discount = fields.Float(
+        string='Discount (%)',
+        inverse='_check_discount',
+        default=0.0,
+    )
+    subtotal = fields.Float(
+        string='Subtotal',
+        readonly=True,
+        compute='_compute_subtotal',
+    )
 
     # compute and search fields, in the same order that fields declaration
+    @api.depends('quantity', 'discount', 'list_price')
+    def _compute_subtotal(self):
+        """Recalculate the price of the line.
+        :param new_state: New state to be assigned.
+        """
+        for line in self:
+            unit_discount = line.list_price * line.discount / 100
+            unit_price = line.list_price - unit_discount
+            line.subtotal = line.quantity * unit_price
+
+    @api.depends('discount')
+    def _check_discount(self):
+        """Check that the discount is between 1 and 100.
+        """
+        for line in self:
+            if line.discount < 0:
+                line.update({
+                    'discount': 0,
+                })
+            elif line.discount > 100:
+                line.update({
+                    'discount': 100,
+                })
+
+    @api.multi
+    def prepare_order_line(self):
+        """Prepare the dict of values to create the new sales order line.
+        """
+        self.ensure_one()
+
+        return (0, 0, {
+                'name': self.name,
+                'product_id': self.id,
+                'product_uom_qty': self.quantity,
+                'discount': self.discount,
+                'product_uom': self.uom_id.id,
+                'price_unit': self.list_price, })
 
     # Constraints and onchanges
     @api.constrains('executed_by')
@@ -69,12 +120,11 @@ class IncidenceAction(models.Model):
         """Verify that the creation of the action is not assigned to a
         different system user than the one running the application.
         """
-
         error_message = 'One user cannot create Actions in the name of another'
 
-        for actuacion in self:
-            if actuacion.executed_by \
-                    and actuacion.executed_by != self.env.user:
+        for line in self:
+            if line.executed_by \
+                    and line.executed_by != self.env.user:
                 raise models.ValidationError(_(error_message))
 
     # CRUD methods
@@ -84,7 +134,6 @@ class IncidenceAction(models.Model):
     ):
         """Method to add a new action for the current incidence.
         """
-
         return {
             'name': _(name),
             'type': 'ir.actions.act_window',
@@ -103,7 +152,6 @@ class IncidenceAction(models.Model):
     def fields_view_get(self, view_id=None, view_type=None, **kwargs):
         """Modify the resulting view according to the past context.
         """
-
         context = self.env.context
 
         result = super(IncidenceAction, self).fields_view_get(

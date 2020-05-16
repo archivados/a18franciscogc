@@ -17,7 +17,6 @@ from odoo import models, fields, api, _
 class Incidence(models.Model):
     """Model to manage the information of an incidence.
     """
-
     # Private attributes
     _name = 'xestionsat.incidence'
     _description = _('Incidence associated with a Customer')
@@ -89,17 +88,16 @@ class Incidence(models.Model):
     state_value = fields.Char(
         string='State Value',
         readonly=True,
-        compute='change_state',
+        compute='_change_state',
         translate=True,
     )
 
     # compute and search fields, in the same order that fields declaration
     @api.depends('state')
-    def change_state(self):
+    def _change_state(self):
         """Apply a change of status.
         :param new_state: New state to be assigned.
         """
-
         for incidence in self:
             incidence.state_value = incidence.state.state
 
@@ -109,7 +107,6 @@ class Incidence(models.Model):
         """Verify that the devices associated with the incidence belong to the
         customer.
         """
-
         error_message = 'The Device must belong to the specified Customer'
 
         for incidencia in self:
@@ -122,7 +119,6 @@ class Incidence(models.Model):
         """Verify that incidence creation is not assigned to a different
         system user than the one running the application.
         """
-
         error_message = 'One User cannot create Incidences in the name of' \
             'another'
 
@@ -138,7 +134,6 @@ class Incidence(models.Model):
     ):
         """Method to create a new incidence according to the past context.
         """
-
         return {
             'name': _(name),
             'type': 'ir.actions.act_window',
@@ -155,7 +150,6 @@ class Incidence(models.Model):
     def add_action(self):
         """Method to add a new action for the current incidence.
         """
-
         context = {
             'lock_view': True,
             'default_incidence_id': self.id,
@@ -172,6 +166,17 @@ class Incidence(models.Model):
     def create_order(self):
         """Method to create a new order for the current incidence.
         """
+        """
+        line_env = self.env['sale.order.line']
+        for wizard in self:
+            for what in wizard.entries:
+                new_line = line_env.create({
+                            'product_id': what.product_id.id,
+                            'name': what.product_id.name,
+                            'order_id': what.sale_order_id.id,
+                            'product_uom' : what.product_id.uom_id.id})                
+                new_line.product_id_change() #Calling an onchange method to update the record
+        """
         return self.create_order_modify()
 
     @api.multi
@@ -180,11 +185,10 @@ class Incidence(models.Model):
     ):
         """Method to create a new order for the current incidence and modify it.
         """
-
         order_line = []
 
         for line in self.incidence_action_ids:
-            order_line.append(line.id)
+            order_line.append(line.prepare_order_line())
 
         partner = self.customer_id.id
         context = {
@@ -207,12 +211,12 @@ class Incidence(models.Model):
             'target': 'new',
             'flags': flags,
         }
+
     # Business methods
     @api.model
     def fields_view_get(self, view_id=None, view_type=None, **kwargs):
         """Modify the resulting view according to the past context.
         """
-
         context = self.env.context
 
         result = super(Incidence, self).fields_view_get(
