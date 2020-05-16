@@ -17,10 +17,10 @@ from .test_common import TestCommonData
 class XestionsatTest(TestCommonData):
     """Model tests of the xestiónSAT module.
     """
-
-    _LIST_ADD_ALL = 6
-    _LIST_ADD = 4
-    _LIST_REMOVE = 3
+    # Constants
+    LIST_ADD_ALL = 6
+    LIST_ADD = 4
+    LIST_REMOVE = 3
 
     def setUp(self):
         super(XestionsatTest, self).setUp()
@@ -150,7 +150,7 @@ class XestionsatTest(TestCommonData):
         # User assignment checks
         # Add users list
         device_1.user_ids = [
-            (self._LIST_ADD_ALL, 0, users_list)]
+            (self.LIST_ADD_ALL, 0, users_list)]
         self.assertEqual(
             len(device_1.user_ids),
             len(users_list),
@@ -164,7 +164,7 @@ class XestionsatTest(TestCommonData):
         len_user_ids = len(device_1.user_ids)
 
         device_1.user_ids = [
-            (self._LIST_ADD, self.partner0_employees[1].id)]
+            (self.LIST_ADD, self.partner0_employees[1].id)]
         self.assertEqual(
             len(device_1.user_ids),
             len_user_ids + 1,
@@ -177,7 +177,7 @@ class XestionsatTest(TestCommonData):
         len_user_ids = len(device_1.user_ids)
 
         device_1.user_ids = [
-            (self._LIST_REMOVE, self.partner0_employees[0].id)]
+            (self.LIST_REMOVE, self.partner0_employees[0].id)]
         self.assertEqual(
             len(device_1.user_ids),
             len_user_ids - 1,
@@ -190,7 +190,7 @@ class XestionsatTest(TestCommonData):
         # Components assignment checks
         # Add device component list
         device_1.devicecomponent_ids = [
-            (self._LIST_ADD_ALL, 0, componets_list)]
+            (self.LIST_ADD_ALL, 0, componets_list)]
         self.assertEqual(
             len(device_1.devicecomponent_ids),
             len(componets_list),
@@ -205,7 +205,7 @@ class XestionsatTest(TestCommonData):
         len_devicecomponent_ids = len(device_1.devicecomponent_ids)
 
         device_1.devicecomponent_ids = [
-            (self._LIST_ADD, self.componets[2].id)]
+            (self.LIST_ADD, self.componets[2].id)]
         self.assertEqual(
             len(device_1.devicecomponent_ids),
             len_devicecomponent_ids + 1,
@@ -220,7 +220,7 @@ class XestionsatTest(TestCommonData):
         len_devicecomponent_ids = len(device_1.devicecomponent_ids)
 
         device_1.devicecomponent_ids = [
-            (self._LIST_REMOVE, self.componets[2].id)]
+            (self.LIST_REMOVE, self.componets[2].id)]
         self.assertEqual(
             len(device_1.devicecomponent_ids),
             len_devicecomponent_ids - 1,
@@ -244,7 +244,7 @@ class XestionsatTest(TestCommonData):
         # Check device user constraint
         with self.assertRaises(ValidationError):
             device_1.user_ids = [
-                (self._LIST_ADD, self.partner1_employees[0].id)]
+                (self.LIST_ADD, self.partner1_employees[0].id)]
 
     def test_create_incidence(self):
         """Incidence model test.
@@ -321,7 +321,7 @@ class XestionsatTest(TestCommonData):
 
         # Add device_ids list
         incidence_1.device_ids = [
-            (self._LIST_ADD_ALL, 0, device_ids_list)]
+            (self.LIST_ADD_ALL, 0, device_ids_list)]
         self.assertEqual(
             len(incidence_1.device_ids),
             len(device_ids_list),
@@ -336,7 +336,7 @@ class XestionsatTest(TestCommonData):
         len_device_ids = len(incidence_1.device_ids)
 
         incidence_1.device_ids = [
-            (self._LIST_ADD, partner0_devices[0].id)]
+            (self.LIST_ADD, partner0_devices[0].id)]
         self.assertEqual(
             len(incidence_1.device_ids),
             len_device_ids + 1,
@@ -351,7 +351,7 @@ class XestionsatTest(TestCommonData):
         len_device_ids = len(incidence_1.device_ids)
 
         incidence_1.device_ids = [
-            (self._LIST_REMOVE, partner0_devices[1].id)]
+            (self.LIST_REMOVE, partner0_devices[1].id)]
         self.assertEqual(
             len(incidence_1.device_ids),
             len_device_ids - 1,
@@ -367,7 +367,7 @@ class XestionsatTest(TestCommonData):
         # Check device_ids constraint
         with self.assertRaises(ValidationError):
             incidence_1.device_ids = [
-                (self._LIST_ADD, partner1_devices[0].id)]
+                (self.LIST_ADD, partner1_devices[0].id)]
         # Check Odoo user constraint
         with self.assertRaises(ValidationError):
             incidence_1.created_by_id = self.test_admin_users[1]

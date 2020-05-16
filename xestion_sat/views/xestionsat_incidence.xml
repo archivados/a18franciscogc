@@ -35,7 +35,7 @@
                     <group>
                         <field name="device_ids"
                             domain="[('owner_id', '=', customer_id)]">
-                            <tree>
+                            <tree name="devices_tree">
                                 <field name="created_by_id"/>
                                 <field name="name"/>
                                 <field name="description"/>
@@ -49,7 +49,7 @@
                     <field name="incidence_action_ids"/>
                     <div class="o_form_buttons_view" role="toolbar">
                         <button name="add_action" string="Add Action" type="object" class="oe_read_only btn_xest_primary"/>
-                        <button name="create_order" string="Create Order" type="object" class="oe_read_only btn_xest_secondary"/>
+                        <button name="create_order" string="Create Order" type="object" class="oe_read_only btn_xest_secondary" confirm="are you sure you want to continue?"/>
                         <button name="create_order_modify" string="Create Order and modify" type="object" class="oe_read_only btn_xest_secondary"/>
                         
                         <!-- This button is made visible through Python in the <fields_view_get> method definition -->

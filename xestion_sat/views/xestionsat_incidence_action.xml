@@ -39,7 +39,7 @@
         <field name="name">xestionsat.incidence.action.tree</field>
         <field name="model">xestionsat.incidence.action</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree name="primary_tree" editable="bottom">
                 <field name="executed_by"/>
                 <field name="template_id"/>
                 <field name="observation"/>

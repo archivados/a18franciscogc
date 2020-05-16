@@ -16,6 +16,8 @@ from odoo import models, fields, api, _
 class DeviceComponent(models.Model):
     """Model to describe the components that make up each device.
     """
+    # Constants for CRUD messages
+    NEW_COMPONENT = 'Add component'
 
     # Private attributes
     _name = 'xestionsat.device.component'
@@ -62,10 +64,12 @@ class DeviceComponent(models.Model):
     # CRUD methods
     @api.multi
     def create_new_component(
-        self, name='Add component', context=None, flags=None
+        self, name=NEW_COMPONENT, context=None, flags=None
     ):
         """Method to create a new add component according to the past context.
         """
+        if type(name) != str:
+            name = self.NEW_COMPONENT
 
         return {
             'name': _(name),
