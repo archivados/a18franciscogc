@@ -3,7 +3,7 @@
 # 2: import of known third party lib
 
 # 3:  imports of odoo
-from odoo import models, fields, api, _
+from odoo import models, fields, api
 
 # 4:  imports from odoo modules
 

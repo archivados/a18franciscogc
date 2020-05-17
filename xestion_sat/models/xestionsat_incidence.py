@@ -203,24 +203,33 @@ class Incidence(models.Model):
     def create_order(self):
         """Method to create a new order for the current incidence.
         """
-        sale = self.env['sale.order'].create({
-            'partner_id': self.customer_id.id,
-            'order_line': self._get_actions_lines(),
-            'state': 'sale'
-        })
+        error_message = 'An error has occurred and the operation could not' \
+            ' be completed.'
+        title_message = 'Finalized'
+        message = 'Automatic process completed, please check that the result' \
+            ' is correct.'
+        try:
+            sale = self.env['sale.order'].create({
+                'partner_id': self.customer_id.id,
+                'order_line': self._get_actions_lines(),
+                'state': 'sale'
+            })
 
-        sale.action_confirm()
+            sale.action_confirm()
 
-        message_id = self.env['xestionsat.message'].create({'message': _("Invitation is successfully sent")})
-        return {
-            'name': _('Successfull'),
-            'type': 'ir.actions.act_window',
-            'view_mode': 'form',
-            'res_model': 'xestionsat.message',
-            # pass the id
-            'res_id': message_id.id,
-            'target': 'new'
-        }
+            message_id = self.env['xestionsat.message'].create(
+                {'message': _(message)})
+            return {
+                'name': _(title_message),
+                'type': 'ir.actions.act_window',
+                'view_mode': 'form',
+                'res_model': 'xestionsat.message',
+                # pass the id
+                'res_id': message_id.id,
+                'target': 'new'
+            }
+        except Exception:
+            raise models.UserError(_(error_message))
 
     def _get_actions_lines(self):
         """Method to obtain the lines of action related to an incidence.

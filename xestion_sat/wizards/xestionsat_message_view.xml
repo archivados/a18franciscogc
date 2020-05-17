@@ -5,12 +5,17 @@
         <field name="name">xestionsat.message.form</field>
         <field name="model">xestionsat.message</field>
         <field name="arch" type="xml">
-            <form >
+            <form name="primary_form" create="false" edit="false">
+                <script>
+                    $(document).ready(function(){
+                        $('.modal-dialog').css({'width': '50%'});
+                    });
+                </script>
                 <p class="text-center">
-                    <field name="message"/>
+                    <field name="message" readonly="True"/>
                 </p>
                 <footer>
-                    <button name="btn_close" special="cancel" string="Close" class="pull-left btn-primary oe_read_only" invisible="True"/>
+                    <button name="btn_close" special="cancel" string="Close" class="pull-left btn_xest_primary oe_read_only"/>
                 </footer>
             </form>
         </field>
