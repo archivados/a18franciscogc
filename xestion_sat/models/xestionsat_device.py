@@ -17,6 +17,8 @@ from odoo import models, fields, api, _
 class Device(models.Model):
     """Model to manage the information of a device.
     """
+    # Constants for CRUD messages
+    NEW_DEVICE = 'New device'
 
     # Private attributes
     _name = 'xestionsat.device'
@@ -109,7 +111,6 @@ class Device(models.Model):
     def _check_headquarter(self):
         """Check that the Headquarters entered correspond with the current customer.
         """
-
         for device in self:
             if device.headquarter_id \
                 and device.headquarter_id.parent_id != device.owner_id \
@@ -122,7 +123,6 @@ class Device(models.Model):
     def _check_users(self):
         """Verify that the users entered correspond to the current customer.
         """
-
         error_message = 'The Device User must be a member  of the specified' \
             ' Customer'
 
@@ -136,7 +136,6 @@ class Device(models.Model):
     def _check_internal_id(self):
         """Check that the internal_id is not repeated.
         """
-
         for device in self:
             if device.internal_id and self.env['xestionsat.device'].search(
                 [('internal_id', '=', self.internal_id), ('id', '!=', self.id)]
@@ -148,7 +147,6 @@ class Device(models.Model):
         """Verify that device creation is not assigned to a different system
         user than the one running the application.
         """
-
         error_message = 'One User cannot create Devices in the name of another'
 
         for device in self:
@@ -158,10 +156,12 @@ class Device(models.Model):
     # CRUD methods
     @api.multi
     def create_new_device(
-        self, name='New device', context=None, flags=None
+        self, name=NEW_DEVICE, context=None, flags=None
     ):
         """Method to create a new device according to the past context.
         """
+        if type(name) != str:
+            name = self.NEW_DEVICE
 
         return {
             'name': _(name),
@@ -181,7 +181,6 @@ class Device(models.Model):
         :param actual_state: Currently assigned status.
         :param new_state: New state to be assigned.
         """
-
         allowed = [
             ('stored', 'operational'),
             ('stored', 'repairing'),
@@ -206,7 +205,6 @@ class Device(models.Model):
         """Apply a change of status.
         :param new_state: New state to be assigned.
         """
-
         for device in self:
             if device.state != new_state:
                 if device.is_allowed_transition(device.state, new_state):
@@ -219,13 +217,11 @@ class Device(models.Model):
     def make_stored(self):
         """Invokes the change of state to stored.
         """
-
         self.change_state('stored')
 
     def make_operational(self):
         """Invokes the change of state to operational.
         """
-
         self.change_state('operational')
 
     @api.multi
@@ -233,7 +229,6 @@ class Device(models.Model):
         """Invokes the change of state to repairing and launches the method to
         create a new incidence.
         """
-
         self.change_state('repairing')
 
         return self.add_incidence()
@@ -241,14 +236,12 @@ class Device(models.Model):
     def make_unsubscribe(self):
         """Invokes the change of state to unsubscribe.
         """
-
         self.change_state('unsubscribe')
 
     @api.multi
     def add_incidence(self):
         """Method to create a new incidence with the data of the current device.
         """
-
         context = {
             'lock_view': True,
             'default_customer_id': self.owner_id.id,
@@ -266,7 +259,6 @@ class Device(models.Model):
     def add_component(self):
         """Method to add a new component for the current device.
         """
-
         context = {
             'default_device_id': self.id,
         }
@@ -283,7 +275,6 @@ class Device(models.Model):
     def fields_view_get(self, view_id=None, view_type=None, **kwargs):
         """Modify the resulting view according to the past context.
         """
-
         context = self.env.context
 
         result = super(Device, self).fields_view_get(

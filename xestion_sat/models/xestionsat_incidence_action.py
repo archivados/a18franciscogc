@@ -5,7 +5,6 @@ from lxml import etree
 # 2: import of known third party lib
 
 # 3:  imports of odoo
-from odoo.exceptions import UserError, ValidationError
 from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
@@ -18,6 +17,9 @@ from odoo import models, fields, api, _
 class IncidenceAction(models.Model):
     """Model that describes the actions taken in incidences.
     """
+    # Constants for CRUD messages
+    NEW_ACTION = 'Add action'
+
     # Private attributes
     _name = 'xestionsat.incidence.action'
     _description = _('Action taken in an incidence')
@@ -130,10 +132,13 @@ class IncidenceAction(models.Model):
     # CRUD methods
     @api.multi
     def create_new_action(
-        self, name='Add action', context=None, flags=None
+        self, name=NEW_ACTION, context=None, flags=None
     ):
         """Method to add a new action for the current incidence.
         """
+        if type(name) != str:
+            name = self.NEW_ACTION
+
         return {
             'name': _(name),
             'type': 'ir.actions.act_window',
