@@ -15,18 +15,20 @@ from odoo import models, fields, _
 class IncidenceState(models.Model):
     """Model that describes the states of an incidence.
     """
+    ###########################################################################
     # Private attributes
+    ###########################################################################
     _name = 'xestionsat.incidence.state'
     _description = _('State in which an incidence is found')
     _rec_name = 'state'
     _order = "sequence, state, id"
 
-    # Default methods
-
+    ###########################################################################
     # Fields declaration
-    # Relational Fields
-
+    ###########################################################################
+    # -------------------------------------------------------------------------
     # Other Fields
+    # -------------------------------------------------------------------------
     state = fields.Char(
         string='State',
         translate=True,

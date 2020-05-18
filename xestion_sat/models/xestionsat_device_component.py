@@ -7,6 +7,7 @@ from datetime import datetime
 from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
+from .xestionsat_common import NEW_COMPONENT
 
 # 5: local imports
 
@@ -16,9 +17,6 @@ from odoo import models, fields, api, _
 class DeviceComponent(models.Model):
     """Model to describe the components that make up each device.
     """
-    # Constants for CRUD messages
-    NEW_COMPONENT = 'Add component'
-
     # Private attributes
     _name = 'xestionsat.device.component'
     _description = _('Component that is part of a Device')
@@ -69,7 +67,7 @@ class DeviceComponent(models.Model):
         """Method to create a new add component according to the past context.
         """
         if type(name) != str:
-            name = self.NEW_COMPONENT
+            name = NEW_COMPONENT
 
         return {
             'name': _(name),

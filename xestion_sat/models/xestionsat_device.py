@@ -8,6 +8,7 @@ from lxml import etree
 from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
+from .xestionsat_common import NEW_DEVICE
 
 # 5: local imports
 
@@ -17,19 +18,24 @@ from odoo import models, fields, api, _
 class Device(models.Model):
     """Model to manage the information of a device.
     """
-    # Constants for CRUD messages
-    NEW_DEVICE = 'New device'
-
+    ###########################################################################
     # Private attributes
+    ###########################################################################
     _name = 'xestionsat.device'
     _description = _('Device associated with a Customer')
     _rec_name = 'name'
     _order = 'owner_id, internal_id, name'
 
+    ###########################################################################
     # Default methods
+    ###########################################################################
 
+    ###########################################################################
     # Fields declaration
+    ###########################################################################
+    # -------------------------------------------------------------------------
     # Relational Fields
+    # -------------------------------------------------------------------------
     created_by_id = fields.Many2one(
         'res.users',
         string='Created by',
@@ -61,9 +67,12 @@ class Device(models.Model):
     incidence_ids = fields.Many2many(
         'xestionsat.incidence',
         string='Related Incidences',
+        ondelete='restrict',
     )
 
+    # -------------------------------------------------------------------------
     # Other Fields
+    # -------------------------------------------------------------------------
     name = fields.Char(
         string='Name',
         required=True,
@@ -104,9 +113,13 @@ class Device(models.Model):
         required=True,
     )
 
+    ###########################################################################
     # compute and search fields, in the same order that fields declaration
+    ###########################################################################
 
+    ###########################################################################
     # Constraints and onchanges
+    ###########################################################################
     @api.constrains('headquarter_id')
     def _check_headquarter(self):
         """Check that the Headquarters entered correspond with the current customer.
@@ -153,7 +166,9 @@ class Device(models.Model):
             if device.created_by_id and device.created_by_id != self.env.user:
                 raise models.ValidationError(_(error_message))
 
+    ###########################################################################
     # CRUD methods
+    ###########################################################################
     @api.multi
     def create_new_device(
         self, name=NEW_DEVICE, context=None, flags=None
@@ -161,7 +176,7 @@ class Device(models.Model):
         """Method to create a new device according to the past context.
         """
         if type(name) != str:
-            name = self.NEW_DEVICE
+            name = NEW_DEVICE
 
         return {
             'name': _(name),
@@ -174,7 +189,9 @@ class Device(models.Model):
             'flags': flags,
         }
 
+    ###########################################################################
     # Action methods
+    ###########################################################################
     @api.model
     def is_allowed_transition(self, actual_state, new_state):
         """Handles allowed state changes.
@@ -270,7 +287,9 @@ class Device(models.Model):
         return self.env['xestionsat.device.component'].create_new_component(
             context=context, flags=flags)
 
+    ###########################################################################
     # Business methods
+    ###########################################################################
     @api.model
     def fields_view_get(self, view_id=None, view_type=None, **kwargs):
         """Modify the resulting view according to the past context.
