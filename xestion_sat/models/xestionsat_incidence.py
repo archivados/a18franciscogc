@@ -176,6 +176,10 @@ class Incidence(models.Model):
         self, name=NEW_INCIDENCE, context=None, flags=None
     ):
         """Method to create a new incidence according to the past context.
+
+        :param name: View title.
+        :param context: Context to present the view data.
+        :param flags: Flags to modify the view.
         """
         if type(name) != str:
             name = NEW_INCIDENCE
@@ -222,6 +226,8 @@ class Incidence(models.Model):
     @api.multi
     def create_order_edit(self, name=CREATE_ORDER):
         """Method to create a new order for the current incidence and modify it.
+
+        :param name: View title.
         """
         if type(name) != str:
             name = CREATE_ORDER
@@ -229,6 +235,9 @@ class Incidence(models.Model):
         context = {
             'default_partner_id': self.customer_id.id,
             'default_order_line': self._get_actions_lines(ORDER_MODEL),
+            'default_confirmation_date': datetime.today(),
+            'default_pricelist_id': 1,
+            'default_state': 'sale',
         }
 
         flags = {
@@ -243,13 +252,13 @@ class Incidence(models.Model):
     # -------------------------------------------------------------------------
     @api.multi
     def create_invoice(self):
-        """Method to create a new order for the current incidence.
+        """Method to create a new invoice for the current incidence.
         """
         return self._get_invoice_order(INVOICE_MODEL, CREATE_INVOICE)
 
     @api.multi
     def create_invoice_edit(self, name=CREATE_INVOICE):
-        """Method to create a new order for the current incidence and modify it.
+        """Method to create a new invoice for the current incidence and modify it.
         """
         if type(name) != str:
             name = CREATE_INVOICE
@@ -271,6 +280,8 @@ class Incidence(models.Model):
     # -------------------------------------------------------------------------
     def _get_actions_lines(self, res_model):
         """Method to obtain the lines of action related to the incidence.
+
+        :param res_model: Model for which it is generated.
         """
         lines = []
         for line in self.incidence_action_ids:
@@ -279,7 +290,10 @@ class Incidence(models.Model):
         return lines
 
     def _get_invoice_order(self, return_model, title_message):
-        """.
+        """Method that generates an order or an invoice without user intervention.
+
+        :param res_model: Model to generate.
+        :param title_message: Reply message title.
         """
         error_message = 'An error has occurred and the operation could not' \
             ' be completed.'
@@ -298,13 +312,11 @@ class Incidence(models.Model):
             state = 'draft'
 
         try:
-            sale = self.env[return_model].create({
+            self.env[return_model].create({
                 'partner_id': self.customer_id.id,
                 lines_type: self._get_actions_lines(return_model),
                 'state': state,
             })
-
-            sale.action_confirm()
 
             message_id = self.env['xestionsat.message'].create(
                 {'message': _(message)})
@@ -323,7 +335,13 @@ class Incidence(models.Model):
     def _get_invoice_order_view(
         self, res_model, name, context=None, flags=None
     ):
-        """
+        """Method that generates the basis of an order or an invoice and shows
+        it to the user for confirmation.
+
+        :param res_model: Model to generate.
+        :param name: View title.
+        :param context: Context to present the view data.
+        :param flags: Flags to modify the view.
         """
         return {
             'name': _(name),

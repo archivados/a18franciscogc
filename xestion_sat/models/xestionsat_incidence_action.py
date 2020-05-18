@@ -57,6 +57,10 @@ class IncidenceAction(models.Model):
         ondelete='restrict',
     )
 
+    tax_ids = fields.Many2many(
+        'account.tax',
+        string='Taxes',
+    )
     # -------------------------------------------------------------------------
     # Other Fields
     # -------------------------------------------------------------------------
@@ -116,35 +120,48 @@ class IncidenceAction(models.Model):
             unit_discount = line.list_price * line.discount / 100
             unit_price = line.list_price - unit_discount
 
+            taxes = 0.0
+
+            for tax in line.tax_ids:
+                if tax.amount_type == 'fixed':
+                    taxes += tax.amount
+                elif tax.amount_type == 'percent':
+                    taxes += unit_price * tax.amount / 100
+
             # Price without applying the discount
-            subtotal_price = line.quantity * line.list_price
+            subtotal_price = line.quantity * line.list_price + taxes
 
             # Price after applying the discount
-            line.subtotal = line.quantity * unit_price
+            line.subtotal = line.quantity * unit_price + taxes
 
             # Discounted price
             line.subtotal_discount = subtotal_price - line.subtotal
 
     @api.multi
     def prepare_action_line(self, res_model):
-        """Prepare the dict of values to create the new sales order or invoice line.
+        """Prepare the dict of values to create the new sales order or invoice
+        line.
+
+        :param res_model: Model for which it is generated.
         """
         self.ensure_one()
 
         action_line = {
-                'name': self.name,
-                'product_id': self.id,
-                'discount': self.discount,
-                'product_uom': self.uom_id.id,
-                'price_unit': self.list_price, }
+            'name': self.name,
+            'product_id': self.id,
+            'discount': self.discount,
+            'product_uom': self.uom_id.id,
+            'price_unit': self.list_price, }
 
         if res_model == ORDER_MODEL:
             action_line['product_uom_qty'] = self.quantity
+            action_line['tax_id'] = [(6, 0, self.tax_ids.ids)]
 
         if res_model == INVOICE_MODEL:
             account = self.incidence_id.customer_id.property_account_payable_id
             action_line['quantity'] = self.quantity
             action_line['account_id'] = account.id
+            action_line['invoice_line_tax_ids'] = [(6, 0, self.tax_ids.ids)]
 
         return (0, 0, action_line)
 
@@ -162,6 +179,13 @@ class IncidenceAction(models.Model):
             if line.executed_by \
                     and line.executed_by != self.env.user:
                 raise models.ValidationError(_(error_message))
+
+    @api.onchange('tax_ids')
+    def _check_tax_ids(self):
+        """Execute the _compute_subtotal () method to calculate the price of the
+        line.
+        """
+        self._compute_subtotal()
 
     ###########################################################################
     # CRUD methods

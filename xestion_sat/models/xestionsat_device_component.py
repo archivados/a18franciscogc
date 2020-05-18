@@ -65,6 +65,10 @@ class DeviceComponent(models.Model):
         self, name=NEW_COMPONENT, context=None, flags=None
     ):
         """Method to create a new add component according to the past context.
+
+        :param name: View title.
+        :param context: Context to present the view data.
+        :param flags: Flags to modify the view.
         """
         if type(name) != str:
             name = NEW_COMPONENT

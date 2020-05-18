@@ -174,6 +174,10 @@ class Device(models.Model):
         self, name=NEW_DEVICE, context=None, flags=None
     ):
         """Method to create a new device according to the past context.
+
+        :param name: View title.
+        :param context: Context to present the view data.
+        :param flags: Flags to modify the view.
         """
         if type(name) != str:
             name = NEW_DEVICE
@@ -195,6 +199,7 @@ class Device(models.Model):
     @api.model
     def is_allowed_transition(self, actual_state, new_state):
         """Handles allowed state changes.
+
         :param actual_state: Currently assigned status.
         :param new_state: New state to be assigned.
         """
