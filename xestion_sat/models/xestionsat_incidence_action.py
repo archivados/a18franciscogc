@@ -8,6 +8,8 @@ from lxml import etree
 from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
+from .xestionsat_common import NEW_ACTION
+from .xestionsat_common import ORDER_MODEL, INVOICE_MODEL
 
 # 5: local imports
 
@@ -17,19 +19,24 @@ from odoo import models, fields, api, _
 class IncidenceAction(models.Model):
     """Model that describes the actions taken in incidences.
     """
-    # Constants for CRUD messages
-    NEW_ACTION = 'Add action'
-
+    ###########################################################################
     # Private attributes
+    ###########################################################################
     _name = 'xestionsat.incidence.action'
     _description = _('Action taken in an incidence')
     _inherits = {'product.template': 'template_id'}
     _order = 'date_start desc'
 
+    ###########################################################################
     # Default methods
+    ###########################################################################
 
+    ###########################################################################
     # Fields declaration
+    ###########################################################################
+    # -------------------------------------------------------------------------
     # Relational Fields
+    # -------------------------------------------------------------------------
     executed_by = fields.Many2one(
         'res.users',
         string='Executed_by',
@@ -40,17 +47,23 @@ class IncidenceAction(models.Model):
 
     incidence_id = fields.Many2one(
         'xestionsat.incidence',
-        ondelete='cascade',
+        ondelete='restrict',
     )
 
     template_id = fields.Many2one(
         'product.template',
         string='Action',
         required=True,
-        ondelete='cascade',
+        ondelete='restrict',
     )
 
+    tax_ids = fields.Many2many(
+        'account.tax',
+        string='Taxes',
+    )
+    # -------------------------------------------------------------------------
     # Other Fields
+    # -------------------------------------------------------------------------
     date_start = fields.Date(
         string='Date start',
         default=lambda *a: datetime.now().strftime('%Y-%m-%d'),
@@ -71,23 +84,20 @@ class IncidenceAction(models.Model):
         inverse='_check_discount',
         default=0.0,
     )
+    subtotal_discount = fields.Float(
+        string='Subtotal discount',
+        readonly=True,
+        compute='_compute_subtotal',
+    )
     subtotal = fields.Float(
         string='Subtotal',
         readonly=True,
         compute='_compute_subtotal',
     )
 
+    ###########################################################################
     # compute and search fields, in the same order that fields declaration
-    @api.depends('quantity', 'discount', 'list_price')
-    def _compute_subtotal(self):
-        """Recalculate the price of the line.
-        :param new_state: New state to be assigned.
-        """
-        for line in self:
-            unit_discount = line.list_price * line.discount / 100
-            unit_price = line.list_price - unit_discount
-            line.subtotal = line.quantity * unit_price
-
+    ###########################################################################
     @api.depends('discount')
     def _check_discount(self):
         """Check that the discount is between 1 and 100.
@@ -102,21 +112,62 @@ class IncidenceAction(models.Model):
                     'discount': 100,
                 })
 
+    @api.depends('quantity', 'discount', 'list_price')
+    def _compute_subtotal(self):
+        """Recalculate the price of the line.
+        """
+        for line in self:
+            unit_discount = line.list_price * line.discount / 100
+            unit_price = line.list_price - unit_discount
+
+            taxes = 0.0
+
+            for tax in line.tax_ids:
+                if tax.amount_type == 'fixed':
+                    taxes += tax.amount
+                elif tax.amount_type == 'percent':
+                    taxes += unit_price * tax.amount / 100
+
+            # Price without applying the discount
+            subtotal_price = line.quantity * line.list_price + taxes
+
+            # Price after applying the discount
+            line.subtotal = line.quantity * unit_price + taxes
+
+            # Discounted price
+            line.subtotal_discount = subtotal_price - line.subtotal
+
     @api.multi
-    def prepare_order_line(self):
-        """Prepare the dict of values to create the new sales order line.
+    def prepare_action_line(self, res_model):
+        """Prepare the dict of values to create the new sales order or invoice
+        line.
+
+        :param res_model: Model for which it is generated.
         """
         self.ensure_one()
 
-        return (0, 0, {
-                'name': self.name,
-                'product_id': self.id,
-                'product_uom_qty': self.quantity,
-                'discount': self.discount,
-                'product_uom': self.uom_id.id,
-                'price_unit': self.list_price, })
+        action_line = {
+            'name': self.name,
+            'product_id': self.id,
+            'discount': self.discount,
+            'product_uom': self.uom_id.id,
+            'price_unit': self.list_price, }
 
+        if res_model == ORDER_MODEL:
+            action_line['product_uom_qty'] = self.quantity
+            action_line['tax_id'] = [(6, 0, self.tax_ids.ids)]
+
+        if res_model == INVOICE_MODEL:
+            account = self.incidence_id.customer_id.property_account_payable_id
+            action_line['quantity'] = self.quantity
+            action_line['account_id'] = account.id
+            action_line['invoice_line_tax_ids'] = [(6, 0, self.tax_ids.ids)]
+
+        return (0, 0, action_line)
+
+    ###########################################################################
     # Constraints and onchanges
+    ###########################################################################
     @api.constrains('executed_by')
     def _check_executed_by(self):
         """Verify that the creation of the action is not assigned to a
@@ -129,7 +180,16 @@ class IncidenceAction(models.Model):
                     and line.executed_by != self.env.user:
                 raise models.ValidationError(_(error_message))
 
+    @api.onchange('tax_ids')
+    def _check_tax_ids(self):
+        """Execute the _compute_subtotal () method to calculate the price of the
+        line.
+        """
+        self._compute_subtotal()
+
+    ###########################################################################
     # CRUD methods
+    ###########################################################################
     @api.multi
     def create_new_action(
         self, name=NEW_ACTION, context=None, flags=None
@@ -137,7 +197,7 @@ class IncidenceAction(models.Model):
         """Method to add a new action for the current incidence.
         """
         if type(name) != str:
-            name = self.NEW_ACTION
+            name = NEW_ACTION
 
         return {
             'name': _(name),
@@ -150,9 +210,13 @@ class IncidenceAction(models.Model):
             'flags': flags,
         }
 
+    ###########################################################################
     # Action methods
+    ###########################################################################
 
+    ###########################################################################
     # Business methods
+    ###########################################################################
     @api.model
     def fields_view_get(self, view_id=None, view_type=None, **kwargs):
         """Modify the resulting view according to the past context.

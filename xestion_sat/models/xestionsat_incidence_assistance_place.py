@@ -16,15 +16,19 @@ class IncidenceAssistancePlace(models.Model):
     """Model that describes the places of assistance of an incidence.
     """
 
+    ###########################################################################
     # Private attributes
+    ###########################################################################
     _name = 'xestionsat.incidence.assistance_place'
     _description = _('Place where an incidence is committed')
     _rec_name = 'assistance_place'
 
-    # Default methods
-
+    ###########################################################################
     # Fields declaration
+    ###########################################################################
+    # -------------------------------------------------------------------------
     # Relational Fields
+    # -------------------------------------------------------------------------
     assistance_place = fields.Char(
         string='Place of assistance',
         translate=True,
@@ -34,9 +38,3 @@ class IncidenceAssistancePlace(models.Model):
         string='Description',
         translate=True,
     )
-
-    # Other Fields
-
-    # compute and search fields, in the same order that fields declaration
-
-    # Constraints and onchanges

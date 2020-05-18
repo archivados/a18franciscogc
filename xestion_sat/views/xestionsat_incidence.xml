@@ -7,13 +7,20 @@
         <field name="model">xestionsat.incidence</field>
         <field name="arch" type="xml">
             <form name="primary_form">
-                <!--
                 <header>
+                    <!-- Order options -->
+                    <button name="create_order" string="Create Order" type="object" class="oe_read_only btn-primary" confirm="Are you sure you want to continue?"/>
+                    <button name="create_order_edit" string="Create Order and Edit" type="object" class="oe_read_only btn-secondary"/>
+
+                    <!-- Invoice options -->
+                    <button name="create_invoice" string="Create Invoice" type="object" class="oe_read_only btn-primary" confirm="Are you sure you want to continue?"/>
+                    <button name="create_invoice_edit" string="Create Invoice and Edit" type="object" class="oe_read_only btn-secondary"/>
+                    <!--
                     <field name="state" widget="statusbar" 
                         options="{'clickable': '1', 'fold_field': 'fold'}"
                         domain="[('id', '=', state)]"/>
+                    -->
                 </header>
-                -->
                 <sheet>
                     <group>
                         <group>
@@ -47,10 +54,16 @@
 
                     <label for="incidence_action_ids" string="Actions" />
                     <field name="incidence_action_ids"/>
+                    <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                        <field name="total_discount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                            <label for="total"/>
+                        </div>
+                        <field name="total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    </group>
+
                     <div class="o_form_buttons_view" role="toolbar">
                         <button name="add_action" string="Add Action" type="object" class="oe_read_only btn_xest_primary"/>
-                        <button name="create_order" string="Create Order" type="object" class="oe_read_only btn_xest_secondary" confirm="Are you sure you want to continue?"/>
-                        <button name="create_order_modify" string="Create Order and modify" type="object" class="oe_read_only btn_xest_secondary"/>
                         
                         <!-- This button is made visible through Python in the <fields_view_get> method definition -->
                         <button name="btn_close" special="cancel" string="Close" class="pull-left btn-primary oe_read_only" invisible="True"/>
@@ -79,6 +92,7 @@
                 <field name="title"/>
                 <field name="failure_description"/>
                 <field name="assistance_place"/>
+                <field name="total" widget="monetary"/>
                 <field name="created_by_id"/>
             </tree>
         </field>

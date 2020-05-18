@@ -8,6 +8,9 @@ from lxml import etree
 from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
+from .xestionsat_common import NEW_INCIDENCE
+from .xestionsat_common import ORDER_MODEL, INVOICE_MODEL
+from .xestionsat_common import CREATE_ORDER, CREATE_INVOICE
 
 # 5: local imports
 
@@ -17,20 +20,24 @@ from odoo import models, fields, api, _
 class Incidence(models.Model):
     """Model to manage the information of an incidence.
     """
-    # Constants for CRUD messages
-    NEW_INCIDENCE = 'New incidence'
-    CREATE_ORDER = 'Create Order and modify it'
-
+    ###########################################################################
     # Private attributes
+    ###########################################################################
     _name = 'xestionsat.incidence'
     _description = _('Incidence associated with a Customer')
     _rec_name = 'title'
     _order = 'date_start desc'
 
+    ###########################################################################
     # Default methods
+    ###########################################################################
 
+    ###########################################################################
     # Fields declaration
+    ###########################################################################
+    # -------------------------------------------------------------------------
     # Relational Fields
+    # -------------------------------------------------------------------------
     customer_id = fields.Many2one(
         'res.partner',
         string='Customer',
@@ -76,7 +83,9 @@ class Incidence(models.Model):
         string='Place of assistance',
     )
 
+    # -------------------------------------------------------------------------
     # Other Fields
+    # -------------------------------------------------------------------------
     title = fields.Char(
         string='Title',
         required=True,
@@ -95,8 +104,20 @@ class Incidence(models.Model):
         compute='_change_state',
         translate=True,
     )
+    total_discount = fields.Float(
+        string='Total discount',
+        readonly=True,
+        compute='_compute_actions_total',
+    )
+    total = fields.Float(
+        string='Total',
+        readonly=True,
+        compute='_compute_actions_total',
+    )
 
+    ###########################################################################
     # compute and search fields, in the same order that fields declaration
+    ###########################################################################
     @api.depends('state')
     def _change_state(self):
         """Apply a change of status.
@@ -105,7 +126,23 @@ class Incidence(models.Model):
         for incidence in self:
             incidence.state_value = incidence.state.state
 
+    @api.depends('incidence_action_ids')
+    def _compute_actions_total(self):
+        """Method to obtain the total price of the action lines related to the
+        incidence.
+        """
+        self.total = 0.0
+        for line in self.incidence_action_ids:
+            subtotal = line.subtotal
+            subtotal_discount = line.subtotal_discount
+            if subtotal is not None:
+                self.total += subtotal
+            if subtotal_discount is not None:
+                self.total_discount += subtotal_discount
+
+    ###########################################################################
     # Constraints and onchanges
+    ###########################################################################
     @api.constrains('device_ids')
     def _check_father(self):
         """Verify that the devices associated with the incidence belong to the
@@ -131,15 +168,21 @@ class Incidence(models.Model):
                     and incidencia.created_by_id != self.env.user:
                 raise models.ValidationError(_(error_message))
 
+    ###########################################################################
     # CRUD methods
+    ###########################################################################
     @api.multi
     def create_new_incidence(
         self, name=NEW_INCIDENCE, context=None, flags=None
     ):
         """Method to create a new incidence according to the past context.
+
+        :param name: View title.
+        :param context: Context to present the view data.
+        :param flags: Flags to modify the view.
         """
         if type(name) != str:
-            name = self.NEW_INCIDENCE
+            name = NEW_INCIDENCE
 
         return {
             'name': _(name),
@@ -152,7 +195,9 @@ class Incidence(models.Model):
             'flags': flags,
         }
 
+    ###########################################################################
     # Action methods
+    ###########################################################################
     @api.multi
     def add_action(self):
         """Method to add a new action for the current incidence.
@@ -169,53 +214,109 @@ class Incidence(models.Model):
         return self.env['xestionsat.incidence.action'].create_new_action(
             context=context, flags=flags)
 
+    # -------------------------------------------------------------------------
+    # Order actions
+    # -------------------------------------------------------------------------
     @api.multi
-    def create_order_modify(
-        self, name=CREATE_ORDER, context=None, flags=None
-    ):
+    def create_order(self):
+        """Method to create a new order for the current incidence.
+        """
+        return self._get_invoice_order(ORDER_MODEL, CREATE_ORDER)
+
+    @api.multi
+    def create_order_edit(self, name=CREATE_ORDER):
         """Method to create a new order for the current incidence and modify it.
+
+        :param name: View title.
         """
         if type(name) != str:
-            name = self.CREATE_ORDER
+            name = CREATE_ORDER
 
         context = {
             'default_partner_id': self.customer_id.id,
-            'default_order_line': self._get_actions_lines(),
-            'default_picking_policy': 'direct',
+            'default_order_line': self._get_actions_lines(ORDER_MODEL),
+            'default_confirmation_date': datetime.today(),
+            'default_pricelist_id': 1,
+            'default_state': 'sale',
         }
 
         flags = {
             'action_buttons': True,
         }
 
-        return {
-            'name': _(name),
-            'type': 'ir.actions.act_window',
-            'res_model': 'sale.order',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'context': context,
-            'target': 'new',
-            'flags': flags,
-        }
+        return self._get_invoice_order_view(
+            ORDER_MODEL, name, context, flags)
+
+    # -------------------------------------------------------------------------
+    # Invoice actions
+    # -------------------------------------------------------------------------
+    @api.multi
+    def create_invoice(self):
+        """Method to create a new invoice for the current incidence.
+        """
+        return self._get_invoice_order(INVOICE_MODEL, CREATE_INVOICE)
 
     @api.multi
-    def create_order(self):
-        """Method to create a new order for the current incidence.
+    def create_invoice_edit(self, name=CREATE_INVOICE):
+        """Method to create a new invoice for the current incidence and modify it.
+        """
+        if type(name) != str:
+            name = CREATE_INVOICE
+
+        context = {
+            'default_partner_id': self.customer_id.id,
+            'default_invoice_line_ids': self._get_actions_lines(INVOICE_MODEL),
+        }
+
+        flags = {
+            'action_buttons': True,
+        }
+
+        return self._get_invoice_order_view(
+            INVOICE_MODEL, name, context, flags)
+
+    # -------------------------------------------------------------------------
+    # Common actions for Orders and Invoices
+    # -------------------------------------------------------------------------
+    def _get_actions_lines(self, res_model):
+        """Method to obtain the lines of action related to the incidence.
+
+        :param res_model: Model for which it is generated.
+        """
+        lines = []
+        for line in self.incidence_action_ids:
+            lines.append(line.prepare_action_line(res_model))
+
+        return lines
+
+    def _get_invoice_order(self, return_model, title_message):
+        """Method that generates an order or an invoice without user intervention.
+
+        :param res_model: Model to generate.
+        :param title_message: Reply message title.
         """
         error_message = 'An error has occurred and the operation could not' \
             ' be completed.'
-        title_message = 'Finalized'
         message = 'Automatic process completed, please check that the result' \
             ' is correct.'
-        try:
-            sale = self.env['sale.order'].create({
-                'partner_id': self.customer_id.id,
-                'order_line': self._get_actions_lines(),
-                'state': 'sale'
-            })
 
-            sale.action_confirm()
+        lines_type = ''
+        state = ''
+
+        if return_model == ORDER_MODEL:
+            lines_type = 'order_line'
+            state = 'sale'
+
+        if return_model == INVOICE_MODEL:
+            lines_type = 'invoice_line_ids'
+            state = 'draft'
+
+        try:
+            self.env[return_model].create({
+                'partner_id': self.customer_id.id,
+                lines_type: self._get_actions_lines(return_model),
+                'state': state,
+            })
 
             message_id = self.env['xestionsat.message'].create(
                 {'message': _(message)})
@@ -231,16 +332,31 @@ class Incidence(models.Model):
         except Exception:
             raise models.UserError(_(error_message))
 
-    def _get_actions_lines(self):
-        """Method to obtain the lines of action related to an incidence.
+    def _get_invoice_order_view(
+        self, res_model, name, context=None, flags=None
+    ):
+        """Method that generates the basis of an order or an invoice and shows
+        it to the user for confirmation.
+
+        :param res_model: Model to generate.
+        :param name: View title.
+        :param context: Context to present the view data.
+        :param flags: Flags to modify the view.
         """
-        lines = []
-        for line in self.incidence_action_ids:
-            lines.append(line.prepare_order_line())
+        return {
+            'name': _(name),
+            'type': 'ir.actions.act_window',
+            'res_model': res_model,
+            'view_type': 'form',
+            'view_mode': 'form',
+            'context': context,
+            'target': 'new',
+            'flags': flags,
+        }
 
-        return lines
-
+    ###########################################################################
     # Business methods
+    ###########################################################################
     @api.model
     def fields_view_get(self, view_id=None, view_type=None, **kwargs):
         """Modify the resulting view according to the past context.

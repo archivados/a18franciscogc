@@ -16,9 +16,10 @@
                             <field name="template_id"/>
                             <field name="observation"/>
                             <field name="quantity"/>
-                            <field name="list_price"/>
+                            <field name="list_price" widget="monetary"/>
                             <field name="discount"/>
-                            <field name="subtotal"/>
+                            <field name="tax_ids" widget="many2many_tags"/>
+                            <field name="subtotal" widget="monetary"/>
                         </group>
                         <group>
                             <field name="date_start"/>
@@ -46,9 +47,10 @@
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="quantity"/>
-                <field name="list_price"/>
+                <field name="list_price" widget="monetary"/>
                 <field name="discount"/>
-                <field name="subtotal"/>
+                <field name="tax_ids" widget="many2many_tags"/>
+                <field name="subtotal" widget="monetary"/>
             </tree>
         </field>
     </record>
