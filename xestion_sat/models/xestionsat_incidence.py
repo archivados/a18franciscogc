@@ -26,7 +26,7 @@ class Incidence(models.Model):
     _name = 'xestionsat.incidence'
     _description = _('Incidence associated with a Customer')
     _rec_name = 'title'
-    _order = 'date_start desc'
+    _order = 'id desc, date_start desc'
 
     ###########################################################################
     # Default methods
@@ -63,15 +63,6 @@ class Incidence(models.Model):
         inverse_name='incidence_id',
     )
 
-    date_start = fields.Date(
-        string='Date start',
-        default=lambda *a: datetime.now().strftime('%Y-%m-%d-%H:%M:%S'),
-        required=True,
-    )
-    date_end = fields.Date(
-        string='Date ends',
-    )
-
     state = fields.Many2one(
         'xestionsat.incidence.state',
         string='State',
@@ -98,12 +89,23 @@ class Incidence(models.Model):
     observation = fields.Text(
         string='Observations',
     )
+
+    date_start = fields.Datetime(
+        string='Date start',
+        default=lambda *a: fields.Datetime.now(),
+        required=True,
+    )
+    date_end = fields.Datetime(
+        string='Date ends',
+    )
+
     state_value = fields.Char(
         string='State Value',
         readonly=True,
         compute='_change_state',
         translate=True,
     )
+
     tax_amount = fields.Float(
         string='Tax amount',
         readonly=True,
@@ -141,25 +143,26 @@ class Incidence(models.Model):
         """Method to obtain the total price of the action lines related to the
         incidence.
         """
-        self.tax_amount = 0.0
-        self.total_discount = 0.0
-        self.total = 0.0
-        self.total_tax = 0.0
+        for incidence in self:
+            incidence.tax_amount = 0.0
+            incidence.total_discount = 0.0
+            incidence.total = 0.0
+            incidence.total_tax = 0.0
 
-        for line in self.incidence_action_ids:
-            tax_amount_line = line.tax_amount_line
-            subtotal_discount = line.subtotal_discount
-            subtotal = line.subtotal
-            subtotal_tax = line.subtotal_tax
+            for line in incidence.incidence_action_ids:
+                tax_amount_line = line.tax_amount_line
+                subtotal_discount = line.subtotal_discount
+                subtotal = line.subtotal
+                subtotal_tax = line.subtotal_tax
 
-            if tax_amount_line is not None:
-                self.tax_amount += tax_amount_line
-            if subtotal_discount is not None:
-                self.total_discount += subtotal_discount
-            if subtotal is not None:
-                self.total += subtotal
-            if subtotal_tax is not None:
-                self.total_tax += subtotal_tax
+                if tax_amount_line is not None:
+                    incidence.tax_amount += tax_amount_line
+                if subtotal_discount is not None:
+                    incidence.total_discount += subtotal_discount
+                if subtotal is not None:
+                    incidence.total += subtotal
+                if subtotal_tax is not None:
+                    incidence.total_tax += subtotal_tax
 
     ###########################################################################
     # Constraints and onchanges

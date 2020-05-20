@@ -82,19 +82,25 @@
         <field name="model">xestionsat.incidence</field>
         <field name="arch" type="xml">
             <tree name="primary_tree" string="Incidences"
+                    class="o_sale_order"
                     decoration-danger="state_value == 'Pendente'"
                     decoration-warning="state_value not in ('Pendente', 'Finalizada', 'Iniciada', 'Cancelada')"
                     decoration-success="state_value == 'Finalizada'">
 
-                <field name="state"/>
+            <!-- BORRAR -->
                 <field name="state_value"/>
+            <!-- BORRAR -->
+
+                <field name="state"/>
+                <field name="customer_id"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
-                <field name="customer_id"/>
                 <field name="title"/>
-                <field name="failure_description"/>
                 <field name="assistance_place"/>
-                <field name="total" widget="monetary"/>
+                <field name="total_discount" widget="monetary"  sum="Total Discounted"/>
+                <field name="tax_amount" widget="monetary"  sum="Total Taxes"/>
+                <field name="total" widget="monetary"  sum="Total Untaxed Amount"/>
+                <field name="total_tax" widget="monetary"  sum="Total Tax Included"/>
                 <field name="created_by_id"/>
             </tree>
         </field>
@@ -104,8 +110,7 @@
     <act_window id="xestionsat_incidence_action"
         name="Incidences"
         res_model="xestionsat.incidence"
-        view_mode="tree,form"
-        limit="80"/>
+        view_mode="tree,form"/>
 
     <!-- MENÚS -->
     <menuitem 

@@ -157,25 +157,29 @@ class IncidenceAction(models.Model):
 
         :param res_model: Model for which it is generated.
         """
-        self.ensure_one()
+        action_line = dict()
 
-        action_line = {
-            'name': self.name,
-            'product_id': self.id,
-            'discount': self.discount,
-            'product_uom': self.uom_id.id,
-            'price_unit': self.list_price,
-        }
+        for line in self:
+            action_line = {
+                'name': line.name,
+                'product_id': line.id,
+                'discount': line.discount,
+                'product_uom': line.uom_id.id,
+                'price_unit': line.list_price,
+            }
 
-        if res_model == ORDER_MODEL:
-            action_line['product_uom_qty'] = self.quantity
-            action_line['tax_id'] = [(6, 0, self.tax_ids.ids)]
+            if res_model == ORDER_MODEL:
+                action_line['product_uom_qty'] = line.quantity
+                action_line['tax_id'] = [(6, 0, line.tax_ids.ids)]
 
-        if res_model == INVOICE_MODEL:
-            account = self.incidence_id.customer_id.property_account_payable_id
-            action_line['quantity'] = self.quantity
-            action_line['account_id'] = account.id
-            action_line['invoice_line_tax_ids'] = [(6, 0, self.tax_ids.ids)]
+            if res_model == INVOICE_MODEL:
+                account = line.incidence_id.customer_id \
+                    .property_account_payable_id
+                action_line['quantity'] = line.quantity
+                action_line['account_id'] = account.id
+                action_line['invoice_line_tax_ids'] = [
+                    (6, 0, line.tax_ids.ids)
+                ]
 
         return (0, 0, action_line)
 
