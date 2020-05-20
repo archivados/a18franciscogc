@@ -85,10 +85,10 @@ class Device(models.Model):
     location = fields.Char(
         string='Location',
     )
-    description = fields.Char(
+    description = fields.Text(
         string='Description',
     )
-    observation = fields.Char(
+    observation = fields.Text(
         string='Observations',
     )
 

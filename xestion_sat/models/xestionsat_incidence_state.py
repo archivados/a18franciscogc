@@ -39,7 +39,7 @@ class IncidenceState(models.Model):
         default=1,
         required=True,
     )
-    description = fields.Char(
+    description = fields.Text(
         string='Description',
         translate=True,
     )

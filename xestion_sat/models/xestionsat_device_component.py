@@ -42,7 +42,7 @@ class DeviceComponent(models.Model):
     serial = fields.Char(
         string='Serial number',
     )
-    observation = fields.Char(
+    observation = fields.Text(
         string='Observations',
     )
 

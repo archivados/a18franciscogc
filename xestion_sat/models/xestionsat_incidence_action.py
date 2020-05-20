@@ -72,7 +72,7 @@ class IncidenceAction(models.Model):
     date_end = fields.Date(
         string='Date ends',
     )
-    observation = fields.Char(
+    observation = fields.Text(
         string='Observations',
     )
     quantity = fields.Float(
@@ -151,7 +151,8 @@ class IncidenceAction(models.Model):
             'product_id': self.id,
             'discount': self.discount,
             'product_uom': self.uom_id.id,
-            'price_unit': self.list_price, }
+            'price_unit': self.list_price,
+        }
 
         if res_model == ORDER_MODEL:
             action_line['product_uom_qty'] = self.quantity
