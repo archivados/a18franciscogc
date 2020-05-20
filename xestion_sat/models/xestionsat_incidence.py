@@ -1,5 +1,4 @@
 # 1: imports of python lib
-from datetime import datetime
 from lxml import etree
 
 # 2: import of known third party lib
@@ -143,26 +142,26 @@ class Incidence(models.Model):
         """Method to obtain the total price of the action lines related to the
         incidence.
         """
-        for incidence in self:
-            incidence.tax_amount = 0.0
-            incidence.total_discount = 0.0
-            incidence.total = 0.0
-            incidence.total_tax = 0.0
+        for record in self:
+            record.tax_amount = 0.0
+            record.total_discount = 0.0
+            record.total = 0.0
+            record.total_tax = 0.0
 
-            for line in incidence.incidence_action_ids:
+            for line in record.incidence_action_ids:
                 tax_amount_line = line.tax_amount_line
                 subtotal_discount = line.subtotal_discount
                 subtotal = line.subtotal
                 subtotal_tax = line.subtotal_tax
 
                 if tax_amount_line is not None:
-                    incidence.tax_amount += tax_amount_line
+                    record.tax_amount += tax_amount_line
                 if subtotal_discount is not None:
-                    incidence.total_discount += subtotal_discount
+                    record.total_discount += subtotal_discount
                 if subtotal is not None:
-                    incidence.total += subtotal
+                    record.total += subtotal
                 if subtotal_tax is not None:
-                    incidence.total_tax += subtotal_tax
+                    record.total_tax += subtotal_tax
 
     ###########################################################################
     # Constraints and onchanges
@@ -174,9 +173,9 @@ class Incidence(models.Model):
         """
         error_message = 'The Device must belong to the specified Customer'
 
-        for incidencia in self:
-            for device in incidencia.device_ids:
-                if device and device.owner_id != incidencia.customer_id:
+        for record in self:
+            for device in record.device_ids:
+                if device and device.owner_id != record.customer_id:
                     raise models.ValidationError(_(error_message))
 
     @api.constrains('created_by_id')
@@ -187,10 +186,21 @@ class Incidence(models.Model):
         error_message = 'One User cannot create Incidences in the name of' \
             'another'
 
-        for incidencia in self:
-            if incidencia.created_by_id \
-                    and incidencia.created_by_id != self.env.user:
+        for record in self:
+            if record.created_by_id \
+                    and record.created_by_id != self.env.user:
                 raise models.ValidationError(_(error_message))
+
+    @api.constrains('date_start', 'date_end')
+    def _check_date_end(self):
+        """Check that the end date is not earlier than the start date.
+        """
+        error_message = 'The end date cannot be earlier than the start date'
+
+        for record in self:
+            if record.date_end:
+                if record.date_end < record.date_start:
+                    raise models.ValidationError(_(error_message))
 
     ###########################################################################
     # CRUD methods
@@ -346,7 +356,7 @@ class Incidence(models.Model):
             })
 
             if return_model == ORDER_MODEL:
-                model['confirmation_date'] = datetime.today()
+                model['confirmation_date'] = fields.Datetime.now()
 
             message_id = self.env['xestionsat.message'].create(
                 {'message': _(message)})

@@ -1,5 +1,4 @@
 # 1: imports of python lib
-from datetime import datetime
 from lxml import etree
 
 # 2: import of known third party lib
@@ -124,10 +123,10 @@ class Device(models.Model):
     def _check_headquarter(self):
         """Check that the Headquarters entered correspond with the current customer.
         """
-        for device in self:
-            if device.headquarter_id \
-                and device.headquarter_id.parent_id != device.owner_id \
-                    and device.headquarter_id != device.owner_id:
+        for record in self:
+            if record.headquarter_id \
+                and record.headquarter_id.parent_id != record.owner_id \
+                    and record.headquarter_id != record.owner_id:
                 raise models.ValidationError(
                     _('The Headquarters must belong to the specified Customer')
                 )
@@ -139,18 +138,18 @@ class Device(models.Model):
         error_message = 'The Device User must be a member  of the specified' \
             ' Customer'
 
-        for device in self:
-            for user in device.user_ids:
-                if user.parent_id != device.owner_id \
-                        and user != device.owner_id:
+        for record in self:
+            for user in record.user_ids:
+                if user.parent_id != record.owner_id \
+                        and user != record.owner_id:
                     raise models.ValidationError(_(error_message))
 
     @api.constrains('internal_id')
     def _check_internal_id(self):
         """Check that the internal_id is not repeated.
         """
-        for device in self:
-            if device.internal_id and self.env['xestionsat.device'].search(
+        for record in self:
+            if record.internal_id and self.env['xestionsat.device'].search(
                 [('internal_id', '=', self.internal_id), ('id', '!=', self.id)]
             ):
                 raise ValueError(_('The code already exists'))
@@ -162,9 +161,21 @@ class Device(models.Model):
         """
         error_message = 'One User cannot create Devices in the name of another'
 
-        for device in self:
-            if device.created_by_id and device.created_by_id != self.env.user:
+        for record in self:
+            if record.created_by_id and record.created_by_id != self.env.user:
                 raise models.ValidationError(_(error_message))
+
+    @api.constrains('date_registration', 'date_cancellation')
+    def _check_date_end(self):
+        """Check that the cancellation date is not earlier than the start registration.
+        """
+        error_message = 'The cancellation date cannot be earlier than the' \
+            ' registration date'
+
+        for record in self:
+            if record.date_cancellation:
+                if record.date_cancellation < record.date_registration:
+                    raise models.ValidationError(_(error_message))
 
     ###########################################################################
     # CRUD methods

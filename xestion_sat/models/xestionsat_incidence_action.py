@@ -1,5 +1,4 @@
 # 1: imports of python lib
-from datetime import datetime
 from lxml import etree
 
 # 2: import of known third party lib
@@ -204,6 +203,17 @@ class IncidenceAction(models.Model):
         line.
         """
         self._compute_subtotal()
+
+    @api.constrains('date_start', 'date_end')
+    def _check_date_end(self):
+        """Check that the end date is not earlier than the start date.
+        """
+        error_message = 'The end date cannot be earlier than the start date'
+
+        for record in self:
+            if record.date_end:
+                if record.date_end < record.date_start:
+                    raise models.ValidationError(_(error_message))
 
     ###########################################################################
     # CRUD methods

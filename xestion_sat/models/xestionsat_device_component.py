@@ -1,5 +1,4 @@
 # 1: imports of python lib
-from datetime import datetime
 
 # 2: import of known third party lib
 
@@ -58,6 +57,17 @@ class DeviceComponent(models.Model):
     # compute and search fields, in the same order that fields declaration
 
     # Constraints and onchanges
+    @api.constrains('date_registration', 'date_cancellation')
+    def _check_date_end(self):
+        """Check that the cancellation date is not earlier than the start registration.
+        """
+        error_message = 'The cancellation date cannot be earlier than the' \
+            ' registration date'
+
+        for record in self:
+            if record.date_cancellation:
+                if record.date_cancellation < record.date_registration:
+                    raise models.ValidationError(_(error_message))
 
     # CRUD methods
     @api.multi
