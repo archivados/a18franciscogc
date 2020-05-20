@@ -92,12 +92,12 @@ class Device(models.Model):
         string='Observations',
     )
 
-    date_registration = fields.Date(
+    date_registration = fields.Datetime(
         string='Date of registration',
-        default=lambda *a: datetime.now().strftime('%Y-%m-%d'),
+        default=lambda *a: fields.Datetime.now(),
         required=True,
     )
-    date_cancellation = fields.Date(
+    date_cancellation = fields.Datetime(
         string='Date of cancellation'
     )
 

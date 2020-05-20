@@ -64,12 +64,12 @@ class IncidenceAction(models.Model):
     # -------------------------------------------------------------------------
     # Other Fields
     # -------------------------------------------------------------------------
-    date_start = fields.Date(
+    date_start = fields.Datetime(
         string='Date start',
-        default=lambda *a: datetime.now().strftime('%Y-%m-%d'),
+        default=lambda *a: fields.Datetime.now(),
         required=True,
     )
-    date_end = fields.Date(
+    date_end = fields.Datetime(
         string='Date ends',
     )
     observation = fields.Text(
