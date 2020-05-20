@@ -12,4 +12,8 @@
         <field name="assistance_place">On-site displaced</field>
         <field name="description">Outside the Customer's workplace, at a location of his choice</field>
     </record>
+    <record model="xestionsat.incidence.assistance_place" id="assistance_place4">
+        <field name="assistance_place">Remote</field>
+        <field name="description">Remote connection</field>
+    </record>
 </odoo>
