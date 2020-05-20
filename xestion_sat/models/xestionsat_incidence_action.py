@@ -84,6 +84,11 @@ class IncidenceAction(models.Model):
         inverse='_check_discount',
         default=0.0,
     )
+    tax_amount_line = fields.Float(
+        string='Tax amount',
+        readonly=True,
+        compute='_compute_subtotal',
+    )
     subtotal_discount = fields.Float(
         string='Subtotal discount',
         readonly=True,
@@ -91,6 +96,11 @@ class IncidenceAction(models.Model):
     )
     subtotal = fields.Float(
         string='Subtotal',
+        readonly=True,
+        compute='_compute_subtotal',
+    )
+    subtotal_tax = fields.Float(
+        string='Subtotal with taxes',
         readonly=True,
         compute='_compute_subtotal',
     )
@@ -132,10 +142,13 @@ class IncidenceAction(models.Model):
             subtotal_price = line.quantity * line.list_price + taxes
 
             # Price after applying the discount
-            line.subtotal = line.quantity * unit_price + taxes
+            line.subtotal = line.quantity * unit_price
+            line.subtotal_tax = line.quantity * unit_price + taxes
+
+            line.tax_amount_line = taxes
 
             # Discounted price
-            line.subtotal_discount = subtotal_price - line.subtotal
+            line.subtotal_discount = subtotal_price - line.subtotal_tax
 
     @api.multi
     def prepare_action_line(self, res_model):

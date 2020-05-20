@@ -65,7 +65,7 @@ class Incidence(models.Model):
 
     date_start = fields.Date(
         string='Date start',
-        default=lambda *a: datetime.now().strftime('%Y-%m-%d'),
+        default=lambda *a: datetime.now().strftime('%Y-%m-%d-%H:%M:%S'),
         required=True,
     )
     date_end = fields.Date(
@@ -91,11 +91,11 @@ class Incidence(models.Model):
         required=True,
         index=True,
     )
-    failure_description = fields.Char(
+    failure_description = fields.Text(
         string='Description of the failure',
         required=True,
     )
-    observation = fields.Char(
+    observation = fields.Text(
         string='Observations',
     )
     state_value = fields.Char(
@@ -104,12 +104,22 @@ class Incidence(models.Model):
         compute='_change_state',
         translate=True,
     )
+    tax_amount = fields.Float(
+        string='Tax amount',
+        readonly=True,
+        compute='_compute_actions_total',
+    )
     total_discount = fields.Float(
         string='Total discount',
         readonly=True,
         compute='_compute_actions_total',
     )
     total = fields.Float(
+        string='Untaxed Amount',
+        readonly=True,
+        compute='_compute_actions_total',
+    )
+    total_tax = fields.Float(
         string='Total',
         readonly=True,
         compute='_compute_actions_total',
@@ -131,14 +141,25 @@ class Incidence(models.Model):
         """Method to obtain the total price of the action lines related to the
         incidence.
         """
+        self.tax_amount = 0.0
+        self.total_discount = 0.0
         self.total = 0.0
+        self.total_tax = 0.0
+
         for line in self.incidence_action_ids:
-            subtotal = line.subtotal
+            tax_amount_line = line.tax_amount_line
             subtotal_discount = line.subtotal_discount
-            if subtotal is not None:
-                self.total += subtotal
+            subtotal = line.subtotal
+            subtotal_tax = line.subtotal_tax
+
+            if tax_amount_line is not None:
+                self.tax_amount += tax_amount_line
             if subtotal_discount is not None:
                 self.total_discount += subtotal_discount
+            if subtotal is not None:
+                self.total += subtotal
+            if subtotal_tax is not None:
+                self.total_tax += subtotal_tax
 
     ###########################################################################
     # Constraints and onchanges
@@ -232,12 +253,15 @@ class Incidence(models.Model):
         if type(name) != str:
             name = CREATE_ORDER
 
+        # pricelist_id = self.env['product.pricelist'].search(
+        #    [], limit=1, order='id desc')
+
         context = {
             'default_partner_id': self.customer_id.id,
             'default_order_line': self._get_actions_lines(ORDER_MODEL),
-            'default_confirmation_date': datetime.today(),
-            'default_pricelist_id': 1,
-            'default_state': 'sale',
+            # 'default_confirmation_date': datetime.today(),
+            # 'default_pricelist_id': pricelist_id.id,
+            # 'default_state': 'sale',
         }
 
         flags = {
@@ -296,7 +320,7 @@ class Incidence(models.Model):
         :param title_message: Reply message title.
         """
         error_message = 'An error has occurred and the operation could not' \
-            ' be completed.'
+            ' be completed:\n\n'
         message = 'Automatic process completed, please check that the result' \
             ' is correct.'
 
@@ -312,11 +336,14 @@ class Incidence(models.Model):
             state = 'draft'
 
         try:
-            self.env[return_model].create({
+            model = self.env[return_model].create({
                 'partner_id': self.customer_id.id,
                 lines_type: self._get_actions_lines(return_model),
                 'state': state,
             })
+
+            if return_model == ORDER_MODEL:
+                model['confirmation_date'] = datetime.today()
 
             message_id = self.env['xestionsat.message'].create(
                 {'message': _(message)})
@@ -329,8 +356,8 @@ class Incidence(models.Model):
                 'res_id': message_id.id,
                 'target': 'new'
             }
-        except Exception:
-            raise models.UserError(_(error_message))
+        except Exception as e:
+            raise models.UserError(_(error_message + str(e)))
 
     def _get_invoice_order_view(
         self, res_model, name, context=None, flags=None
