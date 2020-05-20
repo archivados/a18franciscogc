@@ -1,5 +1,4 @@
 # 1: imports of python lib
-from datetime import datetime
 from lxml import etree
 
 # 2: import of known third party lib
@@ -64,15 +63,15 @@ class IncidenceAction(models.Model):
     # -------------------------------------------------------------------------
     # Other Fields
     # -------------------------------------------------------------------------
-    date_start = fields.Date(
+    date_start = fields.Datetime(
         string='Date start',
-        default=lambda *a: datetime.now().strftime('%Y-%m-%d'),
+        default=lambda *a: fields.Datetime.now(),
         required=True,
     )
-    date_end = fields.Date(
+    date_end = fields.Datetime(
         string='Date ends',
     )
-    observation = fields.Char(
+    observation = fields.Text(
         string='Observations',
     )
     quantity = fields.Float(
@@ -84,6 +83,11 @@ class IncidenceAction(models.Model):
         inverse='_check_discount',
         default=0.0,
     )
+    tax_amount_line = fields.Float(
+        string='Tax amount',
+        readonly=True,
+        compute='_compute_subtotal',
+    )
     subtotal_discount = fields.Float(
         string='Subtotal discount',
         readonly=True,
@@ -91,6 +95,11 @@ class IncidenceAction(models.Model):
     )
     subtotal = fields.Float(
         string='Subtotal',
+        readonly=True,
+        compute='_compute_subtotal',
+    )
+    subtotal_tax = fields.Float(
+        string='Subtotal with taxes',
         readonly=True,
         compute='_compute_subtotal',
     )
@@ -132,10 +141,13 @@ class IncidenceAction(models.Model):
             subtotal_price = line.quantity * line.list_price + taxes
 
             # Price after applying the discount
-            line.subtotal = line.quantity * unit_price + taxes
+            line.subtotal = line.quantity * unit_price
+            line.subtotal_tax = line.quantity * unit_price + taxes
+
+            line.tax_amount_line = taxes
 
             # Discounted price
-            line.subtotal_discount = subtotal_price - line.subtotal
+            line.subtotal_discount = subtotal_price - line.subtotal_tax
 
     @api.multi
     def prepare_action_line(self, res_model):
@@ -144,24 +156,29 @@ class IncidenceAction(models.Model):
 
         :param res_model: Model for which it is generated.
         """
-        self.ensure_one()
+        action_line = dict()
 
-        action_line = {
-            'name': self.name,
-            'product_id': self.id,
-            'discount': self.discount,
-            'product_uom': self.uom_id.id,
-            'price_unit': self.list_price, }
+        for line in self:
+            action_line = {
+                'name': line.name,
+                'product_id': line.id,
+                'discount': line.discount,
+                'product_uom': line.uom_id.id,
+                'price_unit': line.list_price,
+            }
 
-        if res_model == ORDER_MODEL:
-            action_line['product_uom_qty'] = self.quantity
-            action_line['tax_id'] = [(6, 0, self.tax_ids.ids)]
+            if res_model == ORDER_MODEL:
+                action_line['product_uom_qty'] = line.quantity
+                action_line['tax_id'] = [(6, 0, line.tax_ids.ids)]
 
-        if res_model == INVOICE_MODEL:
-            account = self.incidence_id.customer_id.property_account_payable_id
-            action_line['quantity'] = self.quantity
-            action_line['account_id'] = account.id
-            action_line['invoice_line_tax_ids'] = [(6, 0, self.tax_ids.ids)]
+            if res_model == INVOICE_MODEL:
+                account = line.incidence_id.customer_id \
+                    .property_account_payable_id
+                action_line['quantity'] = line.quantity
+                action_line['account_id'] = account.id
+                action_line['invoice_line_tax_ids'] = [
+                    (6, 0, line.tax_ids.ids)
+                ]
 
         return (0, 0, action_line)
 
@@ -186,6 +203,17 @@ class IncidenceAction(models.Model):
         line.
         """
         self._compute_subtotal()
+
+    @api.constrains('date_start', 'date_end')
+    def _check_date_end(self):
+        """Check that the end date is not earlier than the start date.
+        """
+        error_message = 'The end date cannot be earlier than the start date'
+
+        for record in self:
+            if record.date_end:
+                if record.date_end < record.date_start:
+                    raise models.ValidationError(_(error_message))
 
     ###########################################################################
     # CRUD methods
