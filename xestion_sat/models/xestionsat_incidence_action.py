@@ -137,14 +137,16 @@ class IncidenceAction(models.Model):
                 elif tax.amount_type == 'percent':
                     taxes += unit_price * tax.amount / 100
 
+            # Taxes
+            taxes *= line.quantity
+            line.tax_amount_line = taxes
+
             # Price without applying the discount
             subtotal_price = line.quantity * line.list_price + taxes
 
             # Price after applying the discount
             line.subtotal = line.quantity * unit_price
             line.subtotal_tax = line.quantity * unit_price + taxes
-
-            line.tax_amount_line = taxes
 
             # Discounted price
             line.subtotal_discount = subtotal_price - line.subtotal_tax
@@ -197,13 +199,6 @@ class IncidenceAction(models.Model):
                     and line.executed_by != self.env.user:
                 raise models.ValidationError(_(error_message))
 
-    @api.onchange('tax_ids')
-    def _check_tax_ids(self):
-        """Execute the _compute_subtotal () method to calculate the price of the
-        line.
-        """
-        self._compute_subtotal()
-
     @api.constrains('date_start', 'date_end')
     def _check_date_end(self):
         """Check that the end date is not earlier than the start date.
@@ -214,6 +209,13 @@ class IncidenceAction(models.Model):
             if record.date_end:
                 if record.date_end < record.date_start:
                     raise models.ValidationError(_(error_message))
+
+    @api.onchange('tax_ids')
+    def _check_tax_ids(self):
+        """Execute the _compute_subtotal () method to calculate the price of the
+        line.
+        """
+        self._compute_subtotal()
 
     ###########################################################################
     # CRUD methods
