@@ -17,11 +17,12 @@ class ProductTemplate(models.Model):
     ###########################################################################
     # Private attributes
     _inherit = 'product.template'
+    _order = 'type desc, name'
 
     ###########################################################################
     # Fields declaration
     ###########################################################################
     type = fields.Selection(
         # To use as a filter to include in incidences
-        selection_add=[('sat', 'TAS Action')],
+        selection_add=[('xestionsat', 'TAS Action')],
     )

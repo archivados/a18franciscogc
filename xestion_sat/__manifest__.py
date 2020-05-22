@@ -32,25 +32,32 @@
     'version': '12.0.0.9.2',
 
     # any module necessary for this one to work correctly
-    # 'depends': ['base', 'sale_management', 'hr', 'calendar', 'crm'],
     'depends': ['base', 'sale_management'],
 
     # always loaded
     'data': [
         'data/xestionsat_incidence_assistance_place.xml',
         'data/xestionsat_incidence_state.xml',
+
         'security/xestion_sat.xml',
         'security/ir.model.access.csv',
+
         'views/assets.xml',
+
         'views/xestionsat_main_menu.xml',
+
+        'views/product_template.xml',
+        'views/res_partner.xml',
+
+        'wizards/xestionsat_message_view.xml',
+
         'views/xestionsat_device.xml',
         'views/xestionsat_device_component.xml',
+
         'views/xestionsat_incidence_assistance_place.xml',
         'views/xestionsat_incidence_state.xml',
         'views/xestionsat_incidence_action.xml',
         'views/xestionsat_incidence.xml',
-        'views/res_partner.xml',
-        'wizards/xestionsat_message_view.xml',
     ],
     # only loaded in demonstration mode
     # 'demo': [

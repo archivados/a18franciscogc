@@ -47,6 +47,7 @@ class Incidence(models.Model):
         'xestionsat.device',
         string='Devices',
         required=True,
+        ondelete='restrict',
     )
     created_by_id = fields.Many2one(
         'res.users',
@@ -66,11 +67,13 @@ class Incidence(models.Model):
         'xestionsat.incidence.state',
         string='State',
         required=True,
+        ondelete='restrict',
     )
 
     assistance_place = fields.Many2one(
         'xestionsat.incidence.assistance_place',
         string='Place of assistance',
+        ondelete='restrict',
     )
 
     # -------------------------------------------------------------------------

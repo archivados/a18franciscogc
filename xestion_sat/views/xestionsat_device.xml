@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Form View -->
+    <!-- Form Views -->
     <record id="xestionsat_device_view_form" model="ir.ui.view">
         <field name="view_type">form</field>
         <field name="name">xestionsat.device.form</field>
@@ -62,7 +62,7 @@
         </field>
     </record>
     
-    <!-- Tree(list) View -->
+    <!-- Tree(list) Views -->
     <record id="xestionsat_device_view_tree" model="ir.ui.view">
         <field name="view_type">tree</field>
         <field name="name">xestionsat.device.tree</field>
