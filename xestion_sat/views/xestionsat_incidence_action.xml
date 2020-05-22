@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Form View -->
+    <!-- Form Views -->
     <record id="xestionsat_incidence_action_view_form" model="ir.ui.view">
         <field name="view_type">form</field>
         <field name="name">xestionsat.incidence.action.form</field>
@@ -13,7 +13,8 @@
                             <field name="executed_by"
                                 domain="[('id', '=', uid)]"
                                 readonly="True"/>
-                            <field name="template_id"/>
+                            <field name="template_id"
+                                context="{'search_default_sat': 1}"/>
                             <field name="observation"/>
                             <field name="quantity"/>
                             <field name="list_price" widget="monetary"/>
@@ -34,7 +35,7 @@
         </field>
     </record>
     
-    <!-- Tree(list) View -->
+    <!-- Tree(list) Views -->
     <record id="xestionsat_incidence_action_view_tree" model="ir.ui.view">
         <field name="view_type">tree</field>
         <field name="name">xestionsat.incidence.action.tree</field>
@@ -60,9 +61,8 @@
         name="Actions"
         res_model="product.template"
         view_mode="kanban,tree,form,activity"
-        domain="[('type', '=', 'sat')]"
-        context="{'search_default_filter_to_sell':1}"
-        limit="80"/>
+        domain="[('type', '=', 'xestionsat')]"
+        context="{'search_default_filter_to_sell':1}"/>
 
     <!-- MENÚS -->
     <menuitem 

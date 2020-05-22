@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Form View -->
+    <!-- Form Views -->
     <record id="xestionsat_device_component_view_form" model="ir.ui.view">
         <field name="view_type">form</field>
         <field name="name">xestionsat.device.component.form</field>
