@@ -251,6 +251,32 @@ class Incidence(models.Model):
         return self.env['xestionsat.incidence.action'].create_new_action(
             context=context, flags=flags)
 
+    @api.multi
+    def close_incidence(self):
+        """Method to close or reopen the current Incidence.
+        """
+        date_now = False
+
+        if not self.date_end:
+            date_now = fields.Datetime.now()
+
+        self.write({'date_end': date_now})
+
+    def reload_page(self):
+        model_obj = self.env['ir.model.data']
+        data_id = model_obj._get_id('xestionsat.incidence', 'view_id')
+        view_id = model_obj.browse(data_id).res_id
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('String'),
+            'res_model': 'xestionsat.incidence',
+            'view_type': 'tree',
+            'view_mode': 'form',
+            'view_id': view_id,
+            'target': 'current',
+            'nodestroy': True,
+        }
+
     # -------------------------------------------------------------------------
     # Order actions
     # -------------------------------------------------------------------------

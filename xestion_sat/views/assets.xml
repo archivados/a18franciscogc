@@ -3,6 +3,9 @@
     <template id="assets_backend" name="xestion_sat assets" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
             <link rel="stylesheet" type="text/scss" href="/xestion_sat/static/src/scss/xestionsat.scss"/>
+        <!--
+            <script type="text/javascript" src="/xestion_sat/static/src/js/file.js"></script>
+        -->
         </xpath>
     </template>
 </odoo>

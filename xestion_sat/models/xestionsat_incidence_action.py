@@ -243,6 +243,22 @@ class IncidenceAction(models.Model):
     ###########################################################################
     # Action methods
     ###########################################################################
+    @api.multi
+    def close_action(self):
+        """Method to close or reopen the current Action.
+        """
+        date_now = False
+
+        if not self.date_end:
+            date_now = fields.Datetime.now()
+
+        self.write({'date_end': date_now})
+
+        # Reloaded to update the values of the incidence actions list
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }
 
     ###########################################################################
     # Business methods
