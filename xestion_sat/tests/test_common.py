@@ -202,14 +202,14 @@ class TestCommonData(TransactionCase):
             Product.create(
                 {
                     'name': 'Limpeza de virus',
-                    'type': 'sat',
+                    'type': 'xestionsat',
                 }
             ),
             # Action_2
             Product.create(
                 {
                     'name': 'Formateo con GNU/Linux',
-                    'type': 'sat',
+                    'type': 'xestionsat',
                 }
             ),
         ]

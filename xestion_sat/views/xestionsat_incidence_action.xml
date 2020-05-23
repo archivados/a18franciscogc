@@ -7,6 +7,14 @@
         <field name="model">xestionsat.incidence.action</field>
         <field name="arch" type="xml">
             <form name="primary_form" create="false" edit="false">
+                <header>
+                    <button name="close_action" string="Close Action" type="object" class="oe_read_only btn-primary"
+                        attrs="{'invisible':[('date_end', '!=', False)]}"/>
+                    <button name="close_action" string="Reopen Action" type="object" class="oe_read_only btn-secondary"
+                        attrs="{'invisible':[('date_end', '=', False)]}"/>
+                    <separator/>
+                    -->
+                </header>
                 <sheet>
                     <group>
                         <group>
@@ -27,7 +35,11 @@
                             <field name="date_end"/>
                         </group>
                     </group>
-                    
+                    <group>
+                        <script>
+                            
+                        </script>
+                    </group>                    
                     <!-- This button is made visible through Python in the <fields_view_get> method definition -->
                     <button name="btn_close" special="cancel" string="Close" class="pull-left btn_xest_primary oe_read_only" invisible="True"/>
                 </sheet>

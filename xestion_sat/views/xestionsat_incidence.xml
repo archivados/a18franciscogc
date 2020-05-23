@@ -8,6 +8,11 @@
         <field name="arch" type="xml">
             <form name="primary_form">
                 <header>
+                    <button name="close_incidence" string="Close Incidence" type="object" class="oe_read_only btn-primary"
+                        attrs="{'invisible':[('date_end', '!=', False)]}"/>
+                    <button name="close_incidence" string="Reopen Incidence" type="object" class="oe_read_only btn-secondary"
+                        attrs="{'invisible':[('date_end', '=', False)]}"/>
+
                     <!-- Order options -->
                     <button name="create_order" string="Create Order" type="object" class="oe_read_only btn-primary" confirm="Are you sure you want to continue?"/>
                     <button name="create_order_edit" string="Create Order and Edit" type="object" class="oe_read_only btn-secondary"/>
