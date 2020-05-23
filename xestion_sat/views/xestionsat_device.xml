@@ -7,10 +7,11 @@
         <field name="model">xestionsat.device</field>
         <field name="arch" type="xml">
             <form name="primary_form">
+            <!--
                 <header>
-                    <button name="create_incidence"  string="Create Inicidence" type="object" class="btn_xest_primary oe_read_only"/>
                     <field name="state" widget="statusbar" clickable="True" />
                 </header>
+            -->
                 <sheet>
                     <group>
                         <group>
@@ -40,6 +41,7 @@
                     <notebook colspan="4">
                         <page string="Incidences" name="incidences">
                             <field name="incidence_ids" />
+                            <button name="create_incidence"  string="Create Inicidence" type="object" class="btn_xest_primary oe_read_only"/>
                         </page>
                         <page string="Device Components" name="device_components">
                             <field name="devicecomponent_ids">
