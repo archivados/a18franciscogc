@@ -37,8 +37,8 @@ class DeviceOtherData(models.Model):
         string='Data',
         required=True,
     )
-    description = fields.Char(
-        string='Description',
+    value = fields.Char(
+        string='Value',
         required=True,
     )
 

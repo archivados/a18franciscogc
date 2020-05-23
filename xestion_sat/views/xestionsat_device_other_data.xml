@@ -12,7 +12,7 @@
                         <field colspan="4" name="device_id" readonly="True"/>
                         <group>
                             <field name="data"/>
-                            <field name="description"/>
+                            <field name="value"/>
                         </group>
                         <group>
                             <field name="date_registration"/>

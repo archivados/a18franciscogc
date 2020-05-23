@@ -59,7 +59,7 @@
                             <field name="othterdata_ids">
                                 <tree name="components_tree" editable="bottom">
                                     <field name="data"/>
-                                    <field name="description"/>
+                                    <field name="value"/>
                                     <field name="date_registration"/>
                                 </tree>
                             </field>
