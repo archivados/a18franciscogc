@@ -5,6 +5,9 @@ acl_xestionsat_device_admin,xestionsat_admin.equipos_default,model_xestionsat_de
 acl_xestionsat_device_component,xestionsat.device.component_default,model_xestionsat_device_component,,1,1,1,0
 acl_xestionsat_device_component_admin,xestionsat.device.component_default,model_xestionsat_device_component,group_xestionsat_admin,1,1,1,1
 
+acl_xestionsat_device_other_data,xestionsat.device.other_data_default,model_xestionsat_device_other_data,,1,1,1,0
+acl_xestionsat_device_other_data_admin,xestionsat.device.other_data_default,model_xestionsat_device_other_data,group_xestionsat_admin,1,1,1,1
+
 acl_xestionsat_incidence,xestionsat.incidence,model_xestionsat_incidence,,1,1,1,0
 acl_xestionsat_incidence_admin,xestionsat.incidence,model_xestionsat_incidence,group_xestionsat_admin,1,1,1,1
 

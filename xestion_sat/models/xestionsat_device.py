@@ -63,6 +63,11 @@ class Device(models.Model):
         string='Device Components',
         inverse_name='device_id',
     )
+    othterdata_ids = fields.One2many(
+        'xestionsat.device.other_data',
+        string='Other data',
+        inverse_name='device_id',
+    )
     incidence_ids = fields.Many2many(
         'xestionsat.incidence',
         string='Related Incidences',
@@ -301,6 +306,21 @@ class Device(models.Model):
         }
 
         return self.env['xestionsat.device.component'].create_new_component(
+            context=context, flags=flags)
+
+    @api.multi
+    def add_other_data(self):
+        """Method to add a new other data for the current device.
+        """
+        context = {
+            'default_device_id': self.id,
+        }
+
+        flags = {
+            'action_buttons': True,
+        }
+
+        return self.env['xestionsat.device.other_data'].add_new_data(
             context=context, flags=flags)
 
     ###########################################################################

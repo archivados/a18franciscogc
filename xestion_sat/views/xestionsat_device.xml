@@ -38,6 +38,9 @@
                         <field name="observation"/>
                     </group>
                     <notebook colspan="4">
+                        <page string="Incidences" name="incidences">
+                            <field name="incidence_ids" />
+                        </page>
                         <page string="Device Components" name="device_components">
                             <field name="devicecomponent_ids">
                                 <tree name="components_tree" editable="bottom">
@@ -50,8 +53,15 @@
                             </field>
                             <button name="add_component"  string="Add component" type="object" class="btn_xest_primary oe_read_only"/>
                         </page>
-                        <page string="Incidences" name="incidences">
-                            <field name="incidence_ids" />
+                        <page string="Othter Data" name="othterdata_ids">
+                            <field name="othterdata_ids">
+                                <tree name="components_tree" editable="bottom">
+                                    <field name="data"/>
+                                    <field name="description"/>
+                                    <field name="date_registration"/>
+                                </tree>
+                            </field>
+                            <button name="add_other_data"  string="Add data" type="object" class="btn_xest_primary oe_read_only"/>
                         </page>
                     </notebook>
                     

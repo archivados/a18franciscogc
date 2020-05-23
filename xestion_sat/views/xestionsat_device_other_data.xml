@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form Views -->
+    <record id="xestionsat_device_other_data_view_form" model="ir.ui.view">
+        <field name="view_type">form</field>
+        <field name="name">xestionsat.device.other_data.form</field>
+        <field name="model">xestionsat.device.other_data</field>
+        <field name="arch" type="xml">
+            <form name="primary_form" create="false" edit="false">
+                <sheet>
+                    <group>
+                        <field colspan="4" name="device_id" readonly="True"/>
+                        <group>
+                            <field name="data"/>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <field name="date_registration"/>
+                        </group>
+                    </group>
+                    
+                    <button name="btn_close" special="cancel" string="Close" class="pull-left btn_xest_primary oe_read_only"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

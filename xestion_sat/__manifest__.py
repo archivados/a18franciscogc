@@ -53,6 +53,7 @@
 
         'views/xestionsat_device.xml',
         'views/xestionsat_device_component.xml',
+        'views/xestionsat_device_other_data.xml',
 
         'views/xestionsat_incidence_assistance_place.xml',
         'views/xestionsat_incidence_state.xml',
