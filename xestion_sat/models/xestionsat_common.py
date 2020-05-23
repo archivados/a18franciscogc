@@ -3,19 +3,23 @@
 ###########################################################################
 # Device
 # -------------------------------------------------------------------------
-NEW_DEVICE = 'New device'
+NEW_DEVICE = 'New Device'
 
 # Device Component
 # -------------------------------------------------------------------------
-NEW_COMPONENT = 'Add component'
+NEW_COMPONENT = 'Add Component'
+
+# Device Other Data
+# -------------------------------------------------------------------------
+NEW_OTHER_DATA = 'Add Other Data'
 
 # Incidence
 # -------------------------------------------------------------------------
-NEW_INCIDENCE = 'New incidence'
+NEW_INCIDENCE = 'New Incidence'
 
 # Incidence Action
 # -------------------------------------------------------------------------
-NEW_ACTION = 'Add action'
+NEW_ACTION = 'Add Action'
 
 ###########################################################################
 # Constants for the control of orders and invoices
