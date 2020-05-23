@@ -74,7 +74,7 @@
         res_model="product.template"
         view_mode="kanban,tree,form,activity"
         domain="[('type', '=', 'xestionsat')]"
-        context="{'search_default_filter_to_sell':1}"/>
+        context="{'default_type': 'xestionsat', 'search_default_filter_to_sell':1}"/>
 
     <!-- MENÚS -->
     <menuitem 
