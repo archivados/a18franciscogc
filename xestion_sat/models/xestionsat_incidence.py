@@ -31,6 +31,14 @@ class Incidence(models.Model):
     # Default methods
     ###########################################################################
     @api.model
+    def _get_default_place(self):
+        """ Gives default assistance_place.
+        """
+        assistance_places = self.env['xestionsat.incidence.assistance_place'].search([])
+
+        return assistance_places[0] if assistance_places else False
+
+    @api.model
     def _get_default_stage_id(self):
         """ Gives default stage_id.
         """
@@ -90,6 +98,8 @@ class Incidence(models.Model):
         'xestionsat.incidence.assistance_place',
         string='Place of assistance',
         ondelete='restrict',
+        default=_get_default_place,
+        required=True,
     )
 
     # -------------------------------------------------------------------------
