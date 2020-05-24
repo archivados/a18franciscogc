@@ -5,7 +5,7 @@ from . import xestionsat_device_other_data
 from . import xestionsat_incidence
 from . import xestionsat_incidence_action
 from . import xestionsat_incidence_assistance_place
-from . import xestionsat_incidence_state
+from . import xestionsat_incidence_stage
 
 # Modified third-party models
 from . import product_template

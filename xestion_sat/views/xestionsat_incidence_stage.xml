@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Form Views -->
-    <record id="xestionsat_incidence_state_view_form" model="ir.ui.view">
+    <record id="xestionsat_incidence_stage_view_form" model="ir.ui.view">
         <field name="view_type">form</field>
-        <field name="name">xestionsat.incidence.state.form</field>
-        <field name="model">xestionsat.incidence.state</field>
+        <field name="name">xestionsat.incidence.stage.form</field>
+        <field name="model">xestionsat.incidence.stage</field>
         <field name="arch" type="xml">
             <form name="primary_form">
                 <sheet>
                     <group>
                     <field name="sequence"/>
-                        <field name="state"/>
+                        <field name="stage"/>
                         <field name="description"/>
                     </group>
                 </sheet>
@@ -19,32 +19,32 @@
     </record>
 
     <!-- Tree(list) Views -->
-    <record id="xestionsat_incidence_state_view_tree" model="ir.ui.view">
+    <record id="xestionsat_incidence_stage_view_tree" model="ir.ui.view">
         <field name="view_type">tree</field>
-        <field name="name">xestionsat.incidence.state.tree</field>
-        <field name="model">xestionsat.incidence.state</field>
+        <field name="name">xestionsat.incidence.stage.tree</field>
+        <field name="model">xestionsat.incidence.stage</field>
         <field name="arch" type="xml">
             <tree name="primary_tree">
                 <field name="sequence"/>
-                <field name="state"/>
+                <field name="stage"/>
                 <field name="description"/>
             </tree>
         </field>
     </record>
 
     <!-- ACTIONS -->
-    <act_window id="xestionsat_incidence_state_action"
-        name="Incidence States"
-        res_model="xestionsat.incidence.state"
+    <act_window id="xestionsat_incidence_stage_action"
+        name="Incidence Stages"
+        res_model="xestionsat.incidence.stage"
         view_type="form"
         view_mode="tree,form"
         context="{'search_default_customer':1}"
         limit="80"/>
 
     <!-- MENÚS -->
-    <menuitem name="States" 
-        id="xestionsat_incidence_state_menu" 
+    <menuitem name="Stages" 
+        id="xestionsat_incidence_stage_menu" 
         parent="xestionsat_incidence_menu" 
         sequence="30" 
-        action="xestionsat_incidence_state_action"/>
+        action="xestionsat_incidence_stage_action"/>
 </odoo>

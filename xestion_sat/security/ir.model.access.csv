@@ -11,8 +11,8 @@ acl_xestionsat_device_other_data_admin,xestionsat.device.other_data_default,mode
 acl_xestionsat_incidence,xestionsat.incidence,model_xestionsat_incidence,,1,1,1,0
 acl_xestionsat_incidence_admin,xestionsat.incidence,model_xestionsat_incidence,group_xestionsat_admin,1,1,1,1
 
-acl_xestionsat_incidence_state,xestionsat.incidence.state,model_xestionsat_incidence_state,,1,0,0,0
-acl_xestionsat_incidence_state_admin,xestionsat.incidence.state,model_xestionsat_incidence_state,group_xestionsat_admin,1,1,1,1
+acl_xestionsat_incidence_stage,xestionsat.incidence.stage,model_xestionsat_incidence_stage,,1,0,0,0
+acl_xestionsat_incidence_stage_admin,xestionsat.incidence.stage,model_xestionsat_incidence_stage,group_xestionsat_admin,1,1,1,1
 
 acl_xestionsat_incidence_assistance_place,xestionsat.incidence.assistance_place,model_xestionsat_incidence_assistance_place,,1,0,0,0
 acl_xestionsat_incidence_assistance_place_admin,xestionsat.incidence.assistance_place,model_xestionsat_incidence_assistance_place,group_xestionsat_admin,1,1,1,1

@@ -12,16 +12,16 @@ from odoo import models, fields, _
 # 6: Import of unknown third party lib
 
 
-class IncidenceState(models.Model):
-    """Model that describes the states of an incidence.
+class IncidenceStage(models.Model):
+    """Model that describes the stages of an incidence.
     """
     ###########################################################################
     # Private attributes
     ###########################################################################
-    _name = 'xestionsat.incidence.state'
-    _description = _('State in which an incidence is found')
-    _rec_name = 'state'
-    _order = "sequence, state, id"
+    _name = 'xestionsat.incidence.stage'
+    _description = _('Stage in which an incidence is found')
+    _rec_name = 'stage'
+    _order = "sequence, stage, id"
 
     ###########################################################################
     # Fields declaration
@@ -29,8 +29,8 @@ class IncidenceState(models.Model):
     # -------------------------------------------------------------------------
     # Other Fields
     # -------------------------------------------------------------------------
-    state = fields.Char(
-        string='State',
+    stage = fields.Char(
+        string='Stage',
         translate=True,
         required=True,
     )
@@ -43,3 +43,4 @@ class IncidenceState(models.Model):
         string='Description',
         translate=True,
     )
+    fold = fields.Boolean('Folded in Pipeline')

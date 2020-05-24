@@ -37,7 +37,7 @@
     # always loaded
     'data': [
         'data/xestionsat_incidence_assistance_place.xml',
-        'data/xestionsat_incidence_state.xml',
+        'data/xestionsat_incidence_stage.xml',
 
         'security/xestion_sat.xml',
         'security/ir.model.access.csv',
@@ -56,7 +56,7 @@
         'views/xestionsat_device_other_data.xml',
 
         'views/xestionsat_incidence_assistance_place.xml',
-        'views/xestionsat_incidence_state.xml',
+        'views/xestionsat_incidence_stage.xml',
         'views/xestionsat_incidence_action.xml',
         'views/xestionsat_incidence.xml',
     ],

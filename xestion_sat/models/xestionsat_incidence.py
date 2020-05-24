@@ -63,9 +63,9 @@ class Incidence(models.Model):
         inverse_name='incidence_id',
     )
 
-    state = fields.Many2one(
-        'xestionsat.incidence.state',
-        string='State',
+    stage_id = fields.Many2one(
+        'xestionsat.incidence.stage',
+        string='Stage',
         required=True,
         ondelete='restrict',
     )
@@ -101,10 +101,10 @@ class Incidence(models.Model):
         string='Date ends',
     )
 
-    state_value = fields.Char(
-        string='State Value',
+    stage_value = fields.Char(
+        string='Stage Value',
         readonly=True,
-        compute='_change_state',
+        compute='_change_stage',
         translate=True,
     )
 
@@ -132,13 +132,13 @@ class Incidence(models.Model):
     ###########################################################################
     # compute and search fields, in the same order that fields declaration
     ###########################################################################
-    @api.depends('state')
-    def _change_state(self):
+    @api.depends('stage_id')
+    def _change_stage(self):
         """Apply a change of status.
-        :param new_state: New state to be assigned.
+        :param new_stage: New stage to be assigned.
         """
         for incidence in self:
-            incidence.state_value = incidence.state.state
+            incidence.stage_value = incidence.stage_id.stage
 
     @api.depends('incidence_action_ids')
     def _compute_actions_total(self):

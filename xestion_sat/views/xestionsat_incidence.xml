@@ -25,6 +25,8 @@
                         options="{'clickable': '1', 'fold_field': 'fold'}"
                         domain="[('id', '=', state)]"/>
                     -->
+
+                    <field name="stage_id" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>
                 </header>
                 <sheet>
                     <group>
@@ -40,7 +42,7 @@
                         <group>
                             <field name="date_start"/>
                             <field name="date_end"/>
-                            <field name="state"/>
+                            <field name="stage_id"/>
                             <field name="assistance_place"/>
                         </group>
                     </group>
@@ -88,15 +90,15 @@
         <field name="arch" type="xml">
             <tree name="primary_tree" string="Incidences"
                     class="o_sale_order"
-                    decoration-danger="state_value == 'Pendente'"
-                    decoration-warning="state_value not in ('Pendente', 'Finalizada', 'Iniciada', 'Cancelada')"
-                    decoration-success="state_value == 'Finalizada'">
+                    decoration-danger="stage_value == 'Pendente'"
+                    decoration-warning="stage_value not in ('Pendente', 'Finalizada', 'Iniciada', 'Cancelada')"
+                    decoration-success="stage_value == 'Finalizada'">
 
             <!-- BORRAR -->
-                <field name="state_value"/>
+                <field name="stage_value"/>
             <!-- BORRAR -->
 
-                <field name="state"/>
+                <field name="stage_id"/>
                 <field name="customer_id"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
