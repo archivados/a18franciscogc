@@ -133,6 +133,7 @@ class Incidence(models.Model):
         translate=True,
     )
 
+    # Economic Summary
     tax_amount = fields.Float(
         string='Tax amount',
         readonly=True,
@@ -153,14 +154,48 @@ class Incidence(models.Model):
         readonly=True,
         compute='_compute_actions_total',
     )
+
     invoiced = fields.Boolean()
+
+    # Summary of actions
+    number_total_actions = fields.Integer(
+        string='Open Actions',
+        readonly=True,
+        compute='_compute_number_actions',
+    )
+    number_open_actions = fields.Integer(
+        string='Actions',
+        readonly=True,
+        compute='_compute_number_actions',
+    )
+    number_actions = fields.Char(
+        string='Actions',
+        readonly=True,
+        compute='_compute_number_actions',
+    )
 
     ###########################################################################
     # compute and search fields, in the same order that fields declaration
     ###########################################################################
     @api.depends('incidence_action_ids')
-    def _compute_actions_total(self):
+    def _compute_number_actions(self):
         """Method to obtain the total price of the action lines related to the
+        incidence.
+        """
+        for record in self:
+            record.number_total_actions = len(record.incidence_action_ids)
+            record.number_open_actions = 0
+
+            if record.number_total_actions > 0:
+                for action in record.incidence_action_ids:
+                    if not action.date_end:
+                        record.number_open_actions += 1
+            record.number_actions = "{0} ({1})".format(
+                record.number_total_actions, record.number_open_actions)
+
+    @api.depends('incidence_action_ids')
+    def _compute_actions_total(self):
+        """Method to obtain the total number of actions related to the
         incidence.
         """
         for record in self:
