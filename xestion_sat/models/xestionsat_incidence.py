@@ -473,16 +473,25 @@ class Incidence(models.Model):
                 result['arch'] = etree.tostring(doc)
         if view_type == 'tree':
             doc = etree.XML(result['arch'])
-            stage_ids = self.env['xestionsat.incidence.stage'].search([])
+            stages = dict()
+
+            # Prepare the conditions to change the colors of each row
+            for stage in self.env['xestionsat.incidence.stage'].search([]):
+                if stage.highlight != 'normal':
+                    if stage.highlight in stages:
+                        stages[stage.highlight].append(stage.stage)
+                    else:
+                        stages[stage.highlight] = [stage.stage]
 
             # Tree
             for node in doc.xpath("//tree[@name='primary_tree']"):
-                for stage in stage_ids:
-                    if stage.highlight != 'normal':
-                        node.set(
-                            stage.highlight,
-                            "stage_value == '" + stage.stage + "'"
-                        )
+                for decoration, values in stages.items():
+                    condition = "stage_value in ("
+                    for stage in values:
+                        condition += "'" + stage + "', "
+                    condition += ")"
+
+                    node.set(decoration, condition)
 
             result['arch'] = etree.tostring(doc)
 
