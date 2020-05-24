@@ -30,6 +30,19 @@ class Incidence(models.Model):
     ###########################################################################
     # Default methods
     ###########################################################################
+    @api.model
+    def _get_default_stage_id(self):
+        """ Gives default stage_id.
+        """
+        stage_ids = self.env['xestionsat.incidence.stage'].search([])
+
+        return stage_ids[0] if stage_ids else False
+
+    @api.model
+    def _get_all_stage_ids(self, stages, domain, order):
+        """ Gives all stage_ids.
+        """
+        return self.env['xestionsat.incidence.stage'].search([])
 
     ###########################################################################
     # Fields declaration
@@ -68,6 +81,9 @@ class Incidence(models.Model):
         string='Stage',
         required=True,
         ondelete='restrict',
+        index=True,
+        default=_get_default_stage_id,
+        group_expand='_get_all_stage_ids',
     )
 
     assistance_place = fields.Many2one(
@@ -102,9 +118,8 @@ class Incidence(models.Model):
     )
 
     stage_value = fields.Char(
-        string='Stage Value',
         readonly=True,
-        compute='_change_stage',
+        related='stage_id.stage',
         translate=True,
     )
 
@@ -128,18 +143,11 @@ class Incidence(models.Model):
         readonly=True,
         compute='_compute_actions_total',
     )
+    invoiced = fields.Boolean()
 
     ###########################################################################
     # compute and search fields, in the same order that fields declaration
     ###########################################################################
-    @api.depends('stage_id')
-    def _change_stage(self):
-        """Apply a change of status.
-        :param new_stage: New stage to be assigned.
-        """
-        for incidence in self:
-            incidence.stage_value = incidence.stage_id.stage
-
     @api.depends('incidence_action_ids')
     def _compute_actions_total(self):
         """Method to obtain the total price of the action lines related to the
@@ -463,4 +471,19 @@ class Incidence(models.Model):
                     node.set('modifiers', '{}')
 
                 result['arch'] = etree.tostring(doc)
+        if view_type == 'tree':
+            doc = etree.XML(result['arch'])
+            stage_ids = self.env['xestionsat.incidence.stage'].search([])
+
+            # Tree
+            for node in doc.xpath("//tree[@name='primary_tree']"):
+                for stage in stage_ids:
+                    if stage.highlight != 'normal':
+                        node.set(
+                            stage.highlight,
+                            "stage_value == '" + stage.stage + "'"
+                        )
+
+            result['arch'] = etree.tostring(doc)
+
         return result

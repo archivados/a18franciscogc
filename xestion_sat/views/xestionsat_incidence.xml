@@ -20,12 +20,8 @@
                     <!-- Invoice options -->
                     <button name="create_invoice" string="Create Invoice" type="object" class="oe_read_only btn-primary" confirm="Are you sure you want to continue?"/>
                     <button name="create_invoice_edit" string="Create Invoice and Edit" type="object" class="oe_read_only btn-secondary"/>
-                    <!--
-                    <field name="state" widget="statusbar" 
-                        options="{'clickable': '1', 'fold_field': 'fold'}"
-                        domain="[('id', '=', state)]"/>
-                    -->
 
+                    <!-- Status bar -->
                     <field name="stage_id" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>
                 </header>
                 <sheet>
@@ -42,7 +38,6 @@
                         <group>
                             <field name="date_start"/>
                             <field name="date_end"/>
-                            <field name="stage_id"/>
                             <field name="assistance_place"/>
                         </group>
                     </group>
@@ -88,36 +83,44 @@
         <field name="name">xestionsat.incidence.tree</field>
         <field name="model">xestionsat.incidence</field>
         <field name="arch" type="xml">
-            <tree name="primary_tree" string="Incidences"
-                    class="o_sale_order"
-                    decoration-danger="stage_value == 'Pendente'"
-                    decoration-warning="stage_value not in ('Pendente', 'Finalizada', 'Iniciada', 'Cancelada')"
-                    decoration-success="stage_value == 'Finalizada'">
-
-            <!-- BORRAR -->
-                <field name="stage_value"/>
-            <!-- BORRAR -->
-
+            <tree name="primary_tree" string="Incidences" class="o_sale_order">
+                <!-- Used to define the color of the row -->
+                <field name="stage_value" invisible="True"/>
                 <field name="stage_id"/>
+
                 <field name="customer_id"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="title"/>
                 <field name="assistance_place"/>
-                <field name="total_discount" widget="monetary"  sum="Total Discounted"/>
-                <field name="tax_amount" widget="monetary"  sum="Total Taxes"/>
                 <field name="total" widget="monetary"  sum="Total Untaxed Amount"/>
+                <field name="tax_amount" widget="monetary"  sum="Total Taxes"/>
+                <field name="total_discount" widget="monetary"  sum="Total Discounted"/>
                 <field name="total_tax" widget="monetary"  sum="Total Tax Included"/>
                 <field name="created_by_id"/>
             </tree>
         </field>
     </record>
 
-    <!-- ACTIONS -->
+    <!-- ACTIONS
     <act_window id="xestionsat_incidence_action"
         name="Incidences"
         res_model="xestionsat.incidence"
         view_mode="tree,form"/>
+    -->
+    <record id="xestionsat_incidence_action" model="ir.actions.act_window">
+        <field name="name">Incidences</field>
+        <field name="res_model">xestionsat.incidence</field>
+        <field name="view_type">form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new Incidence. Take control of your Technical Assistance Service now!
+          </p><p>
+            After creating your Incidences you can add Actions, Products, Services, relate it
+            to your Customers Devices and include them in the billing cycle.
+          </p>
+        </field>
+    </record>
 
     <!-- MENÚS -->
     <menuitem 

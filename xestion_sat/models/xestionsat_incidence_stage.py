@@ -43,4 +43,28 @@ class IncidenceStage(models.Model):
         string='Description',
         translate=True,
     )
-    fold = fields.Boolean('Folded in Pipeline')
+    highlight = fields.Selection(
+        selection=[
+            ('normal', 'Normal'),
+            ('decoration-bf', 'Bold'),
+            ('decoration-it', 'Italics'),
+            ('decoration-danger', 'Light Red'),
+            ('decoration-info', 'Light Blue'),
+            ('decoration-muted', 'Light Gray'),
+            ('decoration-primary', 'Light Purple'),
+            ('decoration-success', 'Light Green'),
+            ('decoration-warning', 'Light Brown'),
+        ],
+        string='Highlight',
+        default='normal',
+        required=True,
+    )
+    fold = fields.Boolean(
+        string='Folded in Pipeline'
+    )
+    lock_incidence = fields.Boolean(
+        string='Lock the Incidence'
+    )
+    cancel_incidence = fields.Boolean(
+        string='Cancel the Incidence'
+    )

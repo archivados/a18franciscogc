@@ -23,7 +23,7 @@
         <field name="name">xestionsat.incidence.assistance_place.tree</field>
         <field name="model">xestionsat.incidence.assistance_place</field>
         <field name="arch" type="xml">
-            <tree name="primary_tree">
+            <tree name="primary_tree" editable="top">
                 <field name="assistance_place"/>
                 <field name="description"/>
             </tree>

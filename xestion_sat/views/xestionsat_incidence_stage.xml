@@ -9,9 +9,13 @@
             <form name="primary_form">
                 <sheet>
                     <group>
-                    <field name="sequence"/>
+                        <field name="sequence"/>
                         <field name="stage"/>
                         <field name="description"/>
+                        <field name="highlight"/>
+                        <field name="fold"/>
+                        <field name="lock_incidence"/>
+                        <field name="cancel_incidence"/>
                     </group>
                 </sheet>
             </form>
@@ -24,10 +28,14 @@
         <field name="name">xestionsat.incidence.stage.tree</field>
         <field name="model">xestionsat.incidence.stage</field>
         <field name="arch" type="xml">
-            <tree name="primary_tree">
+            <tree name="primary_tree" editable="top">
                 <field name="sequence"/>
                 <field name="stage"/>
                 <field name="description"/>
+                <field name="highlight"/>
+                <field name="fold" class="text-center"/>
+                <field name="lock_incidence" class="text-center"/>
+                <field name="cancel_incidence" class="text-center"/>
             </tree>
         </field>
     </record>
