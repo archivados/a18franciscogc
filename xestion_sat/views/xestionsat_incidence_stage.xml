@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form Views -->
+    <record id="xestionsat_incidence_stage_view_form" model="ir.ui.view">
+        <field name="view_type">form</field>
+        <field name="name">xestionsat.incidence.stage.form</field>
+        <field name="model">xestionsat.incidence.stage</field>
+        <field name="arch" type="xml">
+            <form name="primary_form">
+                <sheet>
+                    <group>
+                        <field name="sequence"/>
+                        <field name="stage"/>
+                        <field name="description"/>
+                        <field name="highlight"/>
+                        <field name="fold"/>
+                        <field name="lock_incidence"/>
+                        <field name="cancel_incidence"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree(list) Views -->
+    <record id="xestionsat_incidence_stage_view_tree" model="ir.ui.view">
+        <field name="view_type">tree</field>
+        <field name="name">xestionsat.incidence.stage.tree</field>
+        <field name="model">xestionsat.incidence.stage</field>
+        <field name="arch" type="xml">
+            <tree name="primary_tree" editable="top">
+                <field name="sequence"/>
+                <field name="stage"/>
+                <field name="description"/>
+                <field name="highlight"/>
+                <field name="fold" class="text-center"/>
+                <field name="lock_incidence" class="text-center"/>
+                <field name="cancel_incidence" class="text-center"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ACTIONS -->
+    <act_window id="xestionsat_incidence_stage_action"
+        name="Incidence Stages"
+        res_model="xestionsat.incidence.stage"
+        view_type="form"
+        view_mode="tree,form"
+        context="{'search_default_customer':1}"
+        limit="80"/>
+
+    <!-- MENÚS -->
+    <menuitem name="Stages" 
+        id="xestionsat_incidence_stage_menu" 
+        parent="xestionsat_incidence_menu" 
+        sequence="30" 
+        action="xestionsat_incidence_stage_action"/>
+</odoo>

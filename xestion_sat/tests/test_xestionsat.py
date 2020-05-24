@@ -27,7 +27,7 @@ class XestionsatTest(TestCommonData):
         self.Device = self.env['xestionsat.device']
         self.DeviceComponent = self.env['xestionsat.device.component']
         self.Incidence = self.env['xestionsat.incidence']
-        self.IncidenceState = self.env['xestionsat.incidence.state']
+        self.IncidenceStage = self.env['xestionsat.incidence.stage']
         self.IncidencePlace = self.env['xestionsat.incidence.assistance_place']
 
         # Create Devices Components
@@ -39,23 +39,23 @@ class XestionsatTest(TestCommonData):
             self.create_device_componet(self.products[3], '4444'),
         ]
 
-        # Create Incidence States
-        self.incidence_states = [
-            # Incidence State 1
-            self.IncidenceState.create(
+        # Create Incidence Stages
+        self.incidence_stages = [
+            # Incidence Stage 1
+            self.IncidenceStage.create(
                 {
                     # Required fields
-                    'state': 'Pending',
+                    'stage': 'Pending',
                     'sequence': 1,
                     # Optional fields
                     'description': 'Work without starting',
                 }
             ),
-            # Incidence State 2
-            self.IncidenceState.create(
+            # Incidence Stage 2
+            self.IncidenceStage.create(
                 {
                     # Required fields
-                    'state': 'Started',
+                    'stage': 'Started',
                     'sequence': 2,
                     # Optional fields
                     'description': 'Work in progress',
@@ -428,7 +428,7 @@ class XestionsatTest(TestCommonData):
                     'customer_id': owner.id,
                     'title': title,
                     'failure_description': description,
-                    'state': self.incidence_states[0].id,
+                    'stage_id': self.incidence_stages[0].id,
                     'date_start': datetime.now().strftime('%Y-%m-%d'),
                 }
             )

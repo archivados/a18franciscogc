@@ -83,8 +83,8 @@ msgid "Place where an incidence is committed"
 msgstr "Lugar onde se acomete unha incidencia"
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_state__description
-msgid "State in which an incidence is found"
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_stage__description
+msgid "Stage in which an incidence is found"
 msgstr "Estado no que se atopa unha incidencia"
 
 #. module: xestion_sat
@@ -116,7 +116,7 @@ msgstr "Crear Incidencia"
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__created_by_id
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__create_uid
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_assistance_place__create_uid
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_state__create_uid
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_stage__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
@@ -161,7 +161,7 @@ msgstr "Data de inicio"
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__description
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__description
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_assistance_place__description
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_state__description
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_stage__description
 msgid "Description"
 msgstr "Descrición"
 
@@ -220,15 +220,20 @@ msgstr "Lugares de Asistencia"
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__sequence
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__sequence
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_state__sequence
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_stage__sequence
 msgid "Sequence"
 msgstr "Secuencia"
 
 #. module: xestion_sat
-#: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidence_state_action
-#: model:ir.ui.menu,name:xestion_sat.xestionsat_incidence_state_menu
+#: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidence_stage_action
 msgid "States"
 msgstr "Estados"
+
+
+#. module: xestion_sat
+#: model:ir.ui.menu,name:xestion_sat.xestionsat_incidence_stage_menu
+msgid "Stages"
+msgstr "Etapas"
 
 #. module: xestion_sat
 #: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidence_action
@@ -321,10 +326,14 @@ msgstr "Número de serie"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__state
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__state
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_state__state
 msgid "State"
 msgstr "Estado"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__stage
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_stage__stage
+msgid "Stage"
+msgstr "Etapa"
 
 #. module: xestion_sat
 #: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_view_form
@@ -424,82 +433,82 @@ msgid "Outside the Customer's workplace, at a location of his choice"
 msgstr "Fora do lugar de traballo do Cliente, nunha localización escollida por el"
 
 #. module: xestion_sat
-#: model:xestionsat.incidence.state,state:xestion_sat.state1
+#: model:xestionsat.incidence.stage,stage:xestion_sat.stage1
 msgid "Pending"
 msgstr "Pendente"
 
 #. module: xestion_sat
-#: model:xestionsat.incidence.state,description:xestion_sat.state1
+#: model:xestionsat.incidence.stage,description:xestion_sat.stage1
 msgid "Work without starting"
 msgstr "Taballo pendente de iniciar"
 
 #. module: xestion_sat
-#: model:xestionsat.incidence.state,state:xestion_sat.state2
+#: model:xestionsat.incidence.stage,stage:xestion_sat.stage2
 msgid "Started"
 msgstr "Iniciada"
 
 #. module: xestion_sat
-#: model:xestionsat.incidence.state,description:xestion_sat.state2
+#: model:xestionsat.incidence.stage,description:xestion_sat.stage2
 msgid "Work in progress"
 msgstr "Traballo en proceso"
 
 #. module: xestion_sat
-#: model:xestionsat.incidence.state,state:xestion_sat.state3
+#: model:xestionsat.incidence.stage,stage:xestion_sat.stage3
 msgid "On hold"
 msgstr "En espera"
 
 #. module: xestion_sat
-#: model:xestionsat.incidence.state,description:xestion_sat.state3
+#: model:xestionsat.incidence.stage,description:xestion_sat.stage3
 msgid "Work on hold for some other reason"
 msgstr "Traballo en espera por razóns alleas a nos"
 
 #. module: xestion_sat
-#: model:xestionsat.incidence.state,state:xestion_sat.state4
+#: model:xestionsat.incidence.stage,stage:xestion_sat.stage4
 msgid "Sent to external TAS"
 msgstr "Enviado a SAT externo"
 
 #. module: xestion_sat
-#: model:xestionsat.incidence.state,description:xestion_sat.state4
+#: model:xestionsat.incidence.stage,description:xestion_sat.stage4
 msgid "Sent to an external Technical Assistance Service"
 msgstr "Enviado a un Servizo de Asistencia Técnica externo"
 
 #. module: xestion_sat
-#: model:xestionsat.incidence.state,state:xestion_sat.state5
+#: model:xestionsat.incidence.stage,stage:xestion_sat.stage5
 msgid "Returned"
 msgstr "Retornado"
 
 #. module: xestion_sat
-#: model:xestionsat.incidence.state,description:xestion_sat.state5
+#: model:xestionsat.incidence.stage,description:xestion_sat.stage5
 msgid "Returned from an external Technical Assistance Service and waiting to continue the work"
 msgstr "Retornado dun servizo externo de asistencia técnica e á espera de continuar co traballo"
 
 #. module: xestion_sat
-#: model:xestionsat.incidence.state,state:xestion_sat.state6
+#: model:xestionsat.incidence.stage,stage:xestion_sat.stage6
 msgid "Finished"
 msgstr "Finalizada"
 
 #. module: xestion_sat
-#: model:xestionsat.incidence.state,description:xestion_sat.state6
+#: model:xestionsat.incidence.stage,description:xestion_sat.stage6
 msgid "Completed work"
 msgstr "Traballo completado"
 
 #. module: xestion_sat
-#: model:xestionsat.incidence.state,state:xestion_sat.state7
+#: model:xestionsat.incidence.stage,stage:xestion_sat.stage7
 msgid "Cancelled"
 msgstr "Cancelada"
 
 #. module: xestion_sat
-#: model:xestionsat.incidence.state,description:xestion_sat.state7
+#: model:xestionsat.incidence.stage,description:xestion_sat.stage7
 msgid "Work canceled by Customer"
 msgstr "Traballo cancelado polo Cliente"
 
 #. module: xestion_sat
-#: model:xestionsat.incidence.state,state:xestion_sat.state8
+#: model:xestionsat.incidence.stage,stage:xestion_sat.stage8
 msgid "Irresolvable"
 msgstr "Irresoluble"
 
 #. module: xestion_sat
-#: model:xestionsat.incidence.state,description:xestion_sat.state8
+#: model:xestionsat.incidence.stage,description:xestion_sat.stage8
 msgid "Impossible to repair with the means at our disposal"
 msgstr "Imposible reparar cos medios ó noso alcance"
 

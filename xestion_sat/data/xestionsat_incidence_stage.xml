@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record model="xestionsat.incidence.stage" id="stage1">
+        <field name="stage">Pending</field>
+        <field name="sequence">1</field>
+        <field name="description">Work without starting</field>
+        <field name="highlight">decoration-danger</field>
+        <field name="fold">False</field>
+        <field name="lock_incidence">False</field>
+        <field name="cancel_incidence">False</field>
+    </record>
+    <record model="xestionsat.incidence.stage" id="stage2">
+        <field name="stage">Started</field>
+        <field name="sequence">2</field>
+        <field name="description">Work in progress</field>
+        <field name="highlight">decoration-bf</field>
+        <field name="fold">False</field>
+        <field name="lock_incidence">False</field>
+        <field name="cancel_incidence">False</field>
+    </record>
+    <record model="xestionsat.incidence.stage" id="stage3">
+        <field name="stage">On hold</field>
+        <field name="sequence">3</field>
+        <field name="description">Work on hold for some other reason</field>
+        <field name="highlight">decoration-info</field>
+        <field name="fold">False</field>
+        <field name="lock_incidence">False</field>
+        <field name="cancel_incidence">False</field>
+    </record>
+    <record model="xestionsat.incidence.stage" id="stage4">
+        <field name="stage">Sent to external TAS</field>
+        <field name="sequence">4</field>
+        <field name="description">Sent to an external Technical Assistance Service</field>
+        <field name="highlight">decoration-warning</field>
+        <field name="fold">False</field>
+        <field name="lock_incidence">False</field>
+        <field name="cancel_incidence">False</field>
+    </record>
+    <record model="xestionsat.incidence.stage" id="stage5">
+        <field name="stage">Returned</field>
+        <field name="sequence">5</field>
+        <field name="description">Returned from an external Technical Assistance Service and waiting to continue the work</field>
+        <field name="highlight">decoration-info</field>
+        <field name="fold">True</field>
+        <field name="lock_incidence">False</field>
+        <field name="cancel_incidence">False</field>
+    </record>
+    <record model="xestionsat.incidence.stage" id="stage6">
+        <field name="stage">Finished</field>
+        <field name="sequence">6</field>
+        <field name="description">Completed work</field>
+        <field name="highlight">decoration-success</field>
+        <field name="fold">False</field>
+        <field name="lock_incidence">True</field>
+        <field name="cancel_incidence">False</field>
+    </record>
+    <record model="xestionsat.incidence.stage" id="stage7">
+        <field name="stage">Cancelled</field>
+        <field name="sequence">7</field>
+        <field name="description">Work canceled by Customer</field>
+        <field name="highlight">decoration-muted</field>
+        <field name="fold">True</field>
+        <field name="lock_incidence">True</field>
+        <field name="cancel_incidence">True</field>
+    </record>
+    <record model="xestionsat.incidence.stage" id="stage8">
+        <field name="stage">Irresolvable</field>
+        <field name="sequence">8</field>
+        <field name="description">Impossible to repair with the means at our disposal</field>
+        <field name="highlight">decoration-muted</field>
+        <field name="fold">True</field>
+        <field name="lock_incidence">True</field>
+        <field name="cancel_incidence">True</field>
+    </record>
+</odoo>
