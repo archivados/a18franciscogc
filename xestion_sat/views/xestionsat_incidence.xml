@@ -39,6 +39,9 @@
                             <field name="date_start"/>
                             <field name="date_end"/>
                             <field name="assistance_place"/>
+
+                            <field name="number_actions"/>
+                            
                         </group>
                     </group>
                     <group>
@@ -93,10 +96,14 @@
                 <field name="date_end"/>
                 <field name="title"/>
                 <field name="assistance_place"/>
+                
+                <field name="number_actions" class="text-right"/>
+
                 <field name="total" widget="monetary"  sum="Total Untaxed Amount"/>
                 <field name="tax_amount" widget="monetary"  sum="Total Taxes"/>
                 <field name="total_discount" widget="monetary"  sum="Total Discounted"/>
                 <field name="total_tax" widget="monetary"  sum="Total Tax Included"/>
+                
                 <field name="created_by_id"/>
             </tree>
         </field>
