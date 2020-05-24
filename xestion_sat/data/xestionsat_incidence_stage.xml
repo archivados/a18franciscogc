@@ -13,7 +13,7 @@
         <field name="stage">Started</field>
         <field name="sequence">2</field>
         <field name="description">Work in progress</field>
-        <field name="highlight">decoration-bf</field>
+        <field name="highlight">normal</field>
         <field name="fold">False</field>
         <field name="lock_incidence">False</field>
         <field name="cancel_incidence">False</field>
@@ -22,7 +22,7 @@
         <field name="stage">On hold</field>
         <field name="sequence">3</field>
         <field name="description">Work on hold for some other reason</field>
-        <field name="highlight">decoration-info</field>
+        <field name="highlight">decoration-bf</field>
         <field name="fold">False</field>
         <field name="lock_incidence">False</field>
         <field name="cancel_incidence">False</field>
