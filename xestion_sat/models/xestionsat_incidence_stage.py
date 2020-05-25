@@ -3,7 +3,7 @@
 # 2: import of known third party lib
 
 # 3:  imports of odoo
-from odoo import models, fields, _
+from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
 
@@ -21,7 +21,21 @@ class IncidenceStage(models.Model):
     _name = 'xestionsat.incidence.stage'
     _description = _('Stage in which an incidence is found')
     _rec_name = 'stage'
-    _order = "sequence, stage, id"
+    _order = "sequence"
+
+    ###########################################################################
+    # Default methods
+    ###########################################################################
+    @api.model
+    def _get_default_sequence(self):
+        """ Gives default sequence.
+        """
+        sequence = self.env['xestionsat.incidence.stage'].search([])
+
+        if sequence:
+            new_sequence = sequence[len(sequence) - 1].sequence + 1
+
+        return new_sequence if new_sequence else False
 
     ###########################################################################
     # Fields declaration
@@ -36,8 +50,9 @@ class IncidenceStage(models.Model):
     )
     sequence = fields.Integer(
         string='Sequence',
-        default=1,
+        default=_get_default_sequence,
         required=True,
+        index=True
     )
     description = fields.Text(
         string='Description',
@@ -68,3 +83,19 @@ class IncidenceStage(models.Model):
     cancel_incidence = fields.Boolean(
         string='Cancel the Incidence'
     )
+
+    ###########################################################################
+    # Constraints and onchanges
+    ###########################################################################
+    @api.constrains('sequence')
+    def _check_unique_sequence(self):
+        """Verify that the devices associated with the incidence belong to the
+        customer.
+        """
+        error_message = 'There can only be one stage per sequence number'
+
+        for record in self:
+            new_sequence = self.env['xestionsat.incidence.stage'].search(
+                [('sequence', '=', record.sequence)])
+            if len(new_sequence) > 1:
+                raise models.ValidationError(_(error_message))

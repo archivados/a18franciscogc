@@ -34,9 +34,9 @@ class Incidence(models.Model):
     def _get_default_place(self):
         """ Gives default assistance_place.
         """
-        assistance_places = self.env['xestionsat.incidence.assistance_place'].search([])
+        places = self.env['xestionsat.incidence.assistance_place'].search([])
 
-        return assistance_places[0] if assistance_places else False
+        return places[0] if places else False
 
     @api.model
     def _get_default_stage_id(self):
@@ -155,8 +155,6 @@ class Incidence(models.Model):
         compute='_compute_actions_total',
     )
 
-    invoiced = fields.Boolean()
-
     # Summary of actions
     number_total_actions = fields.Integer(
         string='Open Actions',
@@ -173,6 +171,10 @@ class Incidence(models.Model):
         readonly=True,
         compute='_compute_number_actions',
     )
+
+    # Blocking flags
+    invoiced = fields.Boolean()
+    locked = fields.Boolean()
 
     ###########################################################################
     # compute and search fields, in the same order that fields declaration
@@ -251,12 +253,18 @@ class Incidence(models.Model):
     def _check_date_end(self):
         """Check that the end date is not earlier than the start date.
         """
+        actions_message = 'There are {0} unclosed actions. All actions need' \
+            ' to be closed in order to close the Incidence.'
+
         error_message = 'The end date cannot be earlier than the start date'
 
         for record in self:
             if record.date_end:
                 if record.date_end < record.date_start:
                     raise models.ValidationError(_(error_message))
+                if record.number_open_actions > 0:
+                    raise models.ValidationError(
+                        _(actions_message.format(record.number_open_actions)))
 
     ###########################################################################
     # CRUD methods
@@ -309,11 +317,14 @@ class Incidence(models.Model):
         """Method to close or reopen the current Incidence.
         """
         date_now = False
+        lock = False
 
         if not self.date_end:
             date_now = fields.Datetime.now()
+            lock = True
 
         self.write({'date_end': date_now})
+        self.locked = lock
 
     def reload_page(self):
         model_obj = self.env['ir.model.data']
