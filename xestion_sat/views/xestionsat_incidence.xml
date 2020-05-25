@@ -7,6 +7,10 @@
         <field name="model">xestionsat.incidence</field>
         <field name="arch" type="xml">
             <form name="primary_form">
+                <!-- Blocking flags -->
+                <field name="invoiced" invisible="True"/>
+                <field name="locked" invisible="True"/>
+
                 <header>
                     <button name="close_incidence" string="Close Incidence" type="object" class="oe_read_only btn-primary"
                         attrs="{'invisible':[('date_end', '!=', False)]}"/>
@@ -14,12 +18,16 @@
                         attrs="{'invisible':[('date_end', '=', False)]}"/>
 
                     <!-- Order options -->
-                    <button name="create_order" string="Create Order" type="object" class="oe_read_only btn-primary" confirm="Are you sure you want to continue?"/>
-                    <button name="create_order_edit" string="Create Order and Edit" type="object" class="oe_read_only btn-secondary"/>
+                    <button name="create_order" string="Create Order" type="object" class="oe_read_only btn-primary" confirm="Are you sure you want to continue?"
+                        attrs="{'invisible':['|',('invoiced','=',True),('locked','=',False)]}"/>
+                    <button name="create_order_edit" string="Create Order and Edit" type="object" class="oe_read_only btn-secondary"
+                        attrs="{'invisible':['|',('invoiced','=',True),('locked','=',False)]}"/>
 
                     <!-- Invoice options -->
-                    <button name="create_invoice" string="Create Invoice" type="object" class="oe_read_only btn-primary" confirm="Are you sure you want to continue?"/>
-                    <button name="create_invoice_edit" string="Create Invoice and Edit" type="object" class="oe_read_only btn-secondary"/>
+                    <button name="create_invoice" string="Create Invoice" type="object" class="oe_read_only btn-primary" confirm="Are you sure you want to continue?"
+                        attrs="{'invisible':['|',('invoiced','=',True),('locked','=',False)]}"/>
+                    <button name="create_invoice_edit" string="Create Invoice and Edit" type="object" class="oe_read_only btn-secondary"
+                        attrs="{'invisible':['|',('invoiced','=',True),('locked','=',False)]}"/>
 
                     <!-- Status bar -->
                     <field name="stage_id" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>
@@ -41,7 +49,7 @@
                             <field name="assistance_place"/>
 
                             <field name="number_actions"/>
-                            
+                            <label for="number_actions" string="Actions (open)"/>
                         </group>
                     </group>
                     <group>
