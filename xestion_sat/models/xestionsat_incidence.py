@@ -266,6 +266,9 @@ class Incidence(models.Model):
                     raise models.ValidationError(
                         _(actions_message.format(record.number_open_actions)))
 
+    # -------------------------------------------------------------------------
+    # Onchange
+    # -------------------------------------------------------------------------
     @api.onchange('stage_id')
     def _check_stage_id(self):
         """Check the current stage_id.
@@ -328,14 +331,13 @@ class Incidence(models.Model):
             context=context, flags=flags)
 
     @api.multi
-    def close_incidence(self, final_stage=False):
+    def close_incidence(self):
         """Method to close or reopen the current Incidence.
         """
         # It will be changed to the one indicated in the settings
         # (coming soon)
-        if not final_stage:
-            final_stage = self.env['xestionsat.incidence.stage'].search(
-                [('sequence', '=', 6)])
+        final_stage = self.env['xestionsat.incidence.stage'].search(
+            [('sequence', '=', 6)])
         wait_stage = self.env['xestionsat.incidence.stage'].search(
             [('sequence', '=', 3)])
 
