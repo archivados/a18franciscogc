@@ -46,7 +46,7 @@ class XestionsatTest(TestCommonData):
                 {
                     # Required fields
                     'stage': 'Pending',
-                    'sequence': 1,
+                    'sequence': 11,
                     # Optional fields
                     'description': 'Work without starting',
                 }
@@ -56,7 +56,7 @@ class XestionsatTest(TestCommonData):
                 {
                     # Required fields
                     'stage': 'Started',
-                    'sequence': 2,
+                    'sequence': 22,
                     # Optional fields
                     'description': 'Work in progress',
                 }
