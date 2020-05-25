@@ -68,12 +68,11 @@
         <field name="domain">[('type', '=', 'xestionsat')]</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Empty Device List, register the first device!
+                Empty Incidence Actions List, register the first device!
             </p>
             <p>
-                To be able to link the Devices of your Customers with their incidents you need to
-                register them first. After creating a Device you can save its components and any
-                other relevant information.
+                You can create a specific type of Product called TAS Action, this type of Product
+                can be used to record specific Actions of your Technical Assistance Service.
             </p>
         </field>
     </record>
@@ -88,11 +87,12 @@
         <field name="limit">80</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Create a new Device. Take control of your Technical Assistance Service now!
+                Empty Device List, register the first device!
             </p>
             <p>
-                After creating your Incidences you can add Actions, Products, Services, relate it
-                to your Customers Devices and include them in the billing cycle.
+                To be able to link the Devices of your Customers with their Incidences you need to
+                register them first. After creating a Device you can save its components and any
+                other relevant information.
             </p>
         </field>
     </record>
@@ -107,7 +107,6 @@
         <!--
         <field name="context">{'search_default_customer':1}</field>
         -->
-        <field name="limit">80</field>
     </record>
 
     <!--####################################-->
