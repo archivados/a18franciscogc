@@ -266,6 +266,21 @@ class Incidence(models.Model):
                     raise models.ValidationError(
                         _(actions_message.format(record.number_open_actions)))
 
+    @api.onchange('stage_id')
+    def _check_stage_id(self):
+        """Check the current stage_id.
+        """
+        # It will be changed to the one indicated in the settings
+        # (coming soon)
+        final_stage = self.env['xestionsat.incidence.stage'].search(
+            [('sequence', '=', 6)])
+
+        if self.stage_id == final_stage:
+            self.close_incidence()
+        elif self.locked:
+            self.locked = False
+            self.date_end = False
+
     ###########################################################################
     # CRUD methods
     ###########################################################################
@@ -313,13 +328,14 @@ class Incidence(models.Model):
             context=context, flags=flags)
 
     @api.multi
-    def close_incidence(self):
+    def close_incidence(self, final_stage=False):
         """Method to close or reopen the current Incidence.
         """
         # It will be changed to the one indicated in the settings
         # (coming soon)
-        final_stage = self.env['xestionsat.incidence.stage'].search(
-            [('sequence', '=', 6)])
+        if not final_stage:
+            final_stage = self.env['xestionsat.incidence.stage'].search(
+                [('sequence', '=', 6)])
         wait_stage = self.env['xestionsat.incidence.stage'].search(
             [('sequence', '=', 3)])
 
@@ -334,7 +350,7 @@ class Incidence(models.Model):
             lock = True
             next_stage = final_stage
 
-        self.write({'date_end': date_now})
+        self.date_end = date_now
         self.locked = lock
         self.stage_id = next_stage
 
