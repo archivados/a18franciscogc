@@ -44,8 +44,6 @@
 
         'views/assets.xml',
 
-        'views/xestionsat_main_menu.xml',
-
         'views/product_template.xml',
         'views/res_partner.xml',
 
@@ -59,6 +57,8 @@
         'views/xestionsat_incidence_stage.xml',
         'views/xestionsat_incidence_action.xml',
         'views/xestionsat_incidence.xml',
+
+        'views/xestionsat_main_menu.xml',
     ],
     # only loaded in demonstration mode
     # 'demo': [

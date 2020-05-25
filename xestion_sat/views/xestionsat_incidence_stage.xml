@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Form Views -->
+    <!--####################################-->
+    <!--            Form Views              -->
+    <!--####################################-->
     <record id="xestionsat_incidence_stage_view_form" model="ir.ui.view">
         <field name="view_type">form</field>
         <field name="name">xestionsat.incidence.stage.form</field>
@@ -21,8 +23,10 @@
             </form>
         </field>
     </record>
-
-    <!-- Tree(list) Views -->
+    
+    <!--####################################-->
+    <!--         Tree(list) Views           -->
+    <!--####################################-->
     <record id="xestionsat_incidence_stage_view_tree" model="ir.ui.view">
         <field name="view_type">tree</field>
         <field name="name">xestionsat.incidence.stage.tree</field>
@@ -39,20 +43,4 @@
             </tree>
         </field>
     </record>
-
-    <!-- ACTIONS -->
-    <act_window id="xestionsat_incidence_stage_action"
-        name="Incidence Stages"
-        res_model="xestionsat.incidence.stage"
-        view_type="form"
-        view_mode="tree,form"
-        context="{'search_default_customer':1}"
-        limit="80"/>
-
-    <!-- MENÚS -->
-    <menuitem name="Stages" 
-        id="xestionsat_incidence_stage_menu" 
-        parent="xestionsat_incidence_menu" 
-        sequence="30" 
-        action="xestionsat_incidence_stage_action"/>
 </odoo>

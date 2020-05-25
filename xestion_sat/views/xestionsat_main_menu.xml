@@ -1,45 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- ACTIONS -->
-    <act_window id="customers_action"
-        name="Customers"
-        res_model="res.partner"
-        view_mode="kanban,tree,form,activity"
-        context="{'search_default_customer':1}"
-        limit="80"/>
+    <!--####################################-->
+    <!--              ACTIONS               -->
+    <!--####################################-->
 
-    <act_window id="xestionsat_device_action"
-        name="Devices"
-        res_model="xestionsat.device"
-        view_mode="tree"
-        context="{'search_default_customer':1}"
-        limit="80"/>
+    <!--************************************-->
+    <!--             INCIDENCES             -->
+    <!--************************************-->
+    <record id="xestionsat_incidence_action" model="ir.actions.act_window">
+        <field name="name">Incidences</field>
+        <field name="res_model">xestionsat.incidence</field>
+        <field name="view_mode">tree,form</field>
+        <field name="limit">80</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Incidence. Take control of your Technical Assistance Service now!
+            </p>
+            <p>
+                After creating your Incidences you can add Actions, Products, Services, relate it
+                to your Customers Devices and include them in the billing cycle.
+            </p>
+        </field>
+    </record>
 
-    <!-- MENÚS -->
+    <!-- INCIDENCES ASSISTANCE PLACES -->
+    <record id="xestionsat_incidence_assistance_place_action" model="ir.actions.act_window">
+        <field name="name">Incidence Assistance Places</field>
+        <field name="res_model">xestionsat.incidence.assistance_place</field>
+        <field name="view_mode">tree,form</field>
+        <field name="limit">80</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Empty Incidence Assistance Places List, register the first one!
+            </p>
+            <p>
+                Incidence Assistance Places are the places where you serve your Customers:
+                for example, your workshop, your Customer's headquarters, a place in transit ... 
+                you decide!!
+            </p>
+        </field>
+    </record>
+    
+    <!-- INCIDENCES STAGES -->
+    <record id="xestionsat_incidence_stage_action" model="ir.actions.act_window">
+        <field name="name">Incidence Stages</field>
+        <field name="res_model">xestionsat.incidence.stage</field>
+        <field name="view_mode">tree,form</field>
+        <field name="limit">80</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Empty Incidence Stages List, register the first one!
+            </p>
+            <p>
+                The Incidence Stages are necessary to keep your work flow orderly and to be able
+                to keep track of the status of your work.
+            </p>
+        </field>
+    </record>
+
+    <!-- INCIDENCES ACTIONS -->
+    <record id="incidenceaction_action" model="ir.actions.act_window">
+        <field name="name">Incidence Actions</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="limit">80</field>
+        <field name="context">{'default_type': 'xestionsat', 'search_default_filter_to_sell':1}</field>
+        <field name="domain">[('type', '=', 'xestionsat')]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Empty Device List, register the first device!
+            </p>
+            <p>
+                To be able to link the Devices of your Customers with their incidents you need to
+                register them first. After creating a Device you can save its components and any
+                other relevant information.
+            </p>
+        </field>
+    </record>
+
+    <!--************************************-->
+    <!--              DEVICES               -->
+    <!--************************************-->
+    <record id="xestionsat_device_action" model="ir.actions.act_window">
+        <field name="name">Devices</field>
+        <field name="res_model">xestionsat.device</field>
+        <field name="view_mode">tree,form</field>
+        <field name="limit">80</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Device. Take control of your Technical Assistance Service now!
+            </p>
+            <p>
+                After creating your Incidences you can add Actions, Products, Services, relate it
+                to your Customers Devices and include them in the billing cycle.
+            </p>
+        </field>
+    </record>
+    
+    <!--************************************-->
+    <!--             CUSTOMERS              -->
+    <!--************************************-->
+    <record id="customers_action" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <!--
+        <field name="context">{'search_default_customer':1}</field>
+        -->
+        <field name="limit">80</field>
+    </record>
+
+    <!--####################################-->
+    <!--               MENUS                -->
+    <!--####################################-->
     <menuitem 
         name="xestionSAT" 
         id="xestionsat_base_menu" />
 
-        <!-- INCIDENCES -->
-        <menuitem 
-            name="Incidences"
-            id="xestionsat_incidence_menu" 
-            parent="xestionsat_base_menu" 
-            sequence="10" />
+    <!--************************************-->
+    <!--             INCIDENCES             -->
+    <!--************************************-->
+    <menuitem 
+        name="Incidences"
+        id="xestionsat_incidence_menu" 
+        parent="xestionsat_base_menu" 
+        sequence="10" />
+    <menuitem 
+        name="Incidences" 
+        id="xestionsat_incidence_sub_menu" 
+        parent="xestionsat_incidence_menu" 
+        sequence="10" 
+        action="xestionsat_incidence_action"/>
 
-        <!-- DEVICES -->
-        <menuitem 
-            name="Devices" 
-            id="xestionsat_device_menu" 
-            parent="xestionsat_base_menu"
-            sequence="20"
-            action="xestionsat_device_action" />
+    <!-- INCIDENCES ASSISTANCE PLACES -->
+    <menuitem name="Assistance Places" 
+        id="xestionsat_incidence_assistance_place_menu" 
+        parent="xestionsat_incidence_menu" 
+        sequence="30" 
+        action="xestionsat_incidence_assistance_place_action"/>
+    
+    <!-- INCIDENCES STAGES -->
+    <menuitem name="Stages" 
+        id="xestionsat_incidence_stage_menu" 
+        parent="xestionsat_incidence_menu" 
+        sequence="30" 
+        action="xestionsat_incidence_stage_action"/>
 
-        <!-- CUSTOMERS -->
-        <menuitem 
-            name="Customers" 
-            id="xestionsat_customers_menu" 
-            parent="xestionsat_base_menu" 
-            sequence="100"
-            action="customers_action" />
+    <!-- INCIDENCES ACTIONS -->
+    <menuitem 
+        name="TAS Actions (products)" 
+        id="xestionsat_actions_menu" 
+        parent="xestionsat_incidence_menu" 
+        sequence="100" 
+            action="incidenceaction_action"/>
+
+    <!--************************************-->
+    <!--              DEVICES               -->
+    <!--************************************-->
+    <menuitem 
+        name="Devices" 
+        id="xestionsat_device_menu" 
+        parent="xestionsat_base_menu"
+        sequence="20"
+        action="xestionsat_device_action" />
+
+    <!--************************************-->
+    <!--             CUSTOMERS              -->
+    <!--************************************-->
+    <menuitem 
+        name="Customers" 
+        id="xestionsat_customers_menu" 
+        parent="xestionsat_base_menu" 
+        sequence="100"
+        action="customers_action" />
 </odoo>
