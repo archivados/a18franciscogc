@@ -316,15 +316,27 @@ class Incidence(models.Model):
     def close_incidence(self):
         """Method to close or reopen the current Incidence.
         """
+        # It will be changed to the one indicated in the settings
+        # (coming soon)
+        final_stage = self.env['xestionsat.incidence.stage'].search(
+            [('sequence', '=', 6)])
+        wait_stage = self.env['xestionsat.incidence.stage'].search(
+            [('sequence', '=', 3)])
+
         date_now = False
         lock = False
+
+        next_stage = self.stage_id \
+            if self.stage_id != final_stage else wait_stage
 
         if not self.date_end:
             date_now = fields.Datetime.now()
             lock = True
+            next_stage = final_stage
 
         self.write({'date_end': date_now})
         self.locked = lock
+        self.stage_id = next_stage
 
     def reload_page(self):
         model_obj = self.env['ir.model.data']
