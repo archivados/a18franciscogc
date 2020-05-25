@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Form Views -->
+    <!--####################################-->
+    <!--            Form Views              -->
+    <!--####################################-->
     <record id="xestionsat_incidence_action_view_form" model="ir.ui.view">
         <field name="view_type">form</field>
         <field name="name">xestionsat.incidence.action.form</field>
@@ -47,7 +49,9 @@
         </field>
     </record>
     
-    <!-- Tree(list) Views -->
+    <!--####################################-->
+    <!--         Tree(list) Views           -->
+    <!--####################################-->
     <record id="xestionsat_incidence_action_view_tree" model="ir.ui.view">
         <field name="view_type">tree</field>
         <field name="name">xestionsat.incidence.action.tree</field>
@@ -68,20 +72,4 @@
             </tree>
         </field>
     </record>
-
-    <!-- ACTIONS -->
-    <act_window id="incidenceaction_action"
-        name="Actions"
-        res_model="product.template"
-        view_mode="kanban,tree,form,activity"
-        domain="[('type', '=', 'xestionsat')]"
-        context="{'default_type': 'xestionsat', 'search_default_filter_to_sell':1}"/>
-
-    <!-- MENÚS -->
-    <menuitem 
-        name="TAS Actions (products)" 
-        id="xestionsat_actions_menu" 
-        parent="xestionsat_incidence_menu" 
-        sequence="100" 
-        action="incidenceaction_action"/>
 </odoo>

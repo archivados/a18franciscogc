@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Form Views -->
+    <!--####################################-->
+    <!--            Form Views              -->
+    <!--####################################-->
     <record id="xestionsat_incidence_view_form" model="ir.ui.view">
         <field name="view_type">form</field>
         <field name="name">xestionsat.incidence.form</field>
@@ -88,7 +90,9 @@
         </field>
     </record>
     
-    <!-- Tree(list) Views -->
+    <!--####################################-->
+    <!--         Tree(list) Views           -->
+    <!--####################################-->
     <record id="xestionsat_incidence_view_tree" model="ir.ui.view">
         <field name="view_type">tree</field>
         <field name="name">xestionsat.incidence.tree</field>
@@ -116,32 +120,11 @@
             </tree>
         </field>
     </record>
-
-    <!-- ACTIONS
-    <act_window id="xestionsat_incidence_action"
-        name="Incidences"
-        res_model="xestionsat.incidence"
-        view_mode="tree,form"/>
-    -->
-    <record id="xestionsat_incidence_action" model="ir.actions.act_window">
-        <field name="name">Incidences</field>
-        <field name="res_model">xestionsat.incidence</field>
-        <field name="view_type">form</field>
-        <field name="help" type="html">
-          <p class="o_view_nocontent_smiling_face">
-            Create a new Incidence. Take control of your Technical Assistance Service now!
-          </p><p>
-            After creating your Incidences you can add Actions, Products, Services, relate it
-            to your Customers Devices and include them in the billing cycle.
-          </p>
-        </field>
-    </record>
-
-    <!-- MENÚS -->
-    <menuitem 
-        name="Incidences" 
-        id="xestionsat_incidence_sub_menu" 
-        parent="xestionsat_incidence_menu" 
-        sequence="10" 
-        action="xestionsat_incidence_action"/>
+    
+    <!--####################################-->
+    <!--           Kanban Views             -->
+    <!--####################################-->
+    <!--####################################-->
+    <!--           Search Views             -->
+    <!--####################################-->
 </odoo>
