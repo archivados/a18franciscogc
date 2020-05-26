@@ -157,12 +157,12 @@ class Incidence(models.Model):
 
     # Summary of actions
     number_total_actions = fields.Integer(
-        string='Open Actions',
+        string='Actions',
         readonly=True,
         compute='_compute_number_actions',
     )
     number_open_actions = fields.Integer(
-        string='Actions',
+        string='Open Actions',
         readonly=True,
         compute='_compute_number_actions',
     )
