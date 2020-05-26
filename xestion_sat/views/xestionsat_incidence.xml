@@ -124,6 +124,73 @@
     <!--####################################-->
     <!--           Kanban Views             -->
     <!--####################################-->
+    <record id="xestionsat_incidence_view_kanban" model="ir.ui.view">
+        <field name="view_type">kanban</field>
+        <field name="name">xestionsat.incidence.kanban</field>
+        <field name="model">xestionsat.incidence</field>
+        <field name="arch" type="xml">
+            <kanban name="primary_kanban" default_group_by="stage_id" class="o_kanban_small_column">
+                <!-- Used to define the color of the row -->
+                <field name="stage_value"/>
+                <field name="stage_id"/>
+
+                <field name="customer_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="title"/>
+                <field name="title"/>
+                <field name="failure_description"/>
+                
+                <field name="number_total_actions"/>
+                <field name="number_open_actions"/>
+                <field name="number_actions"/>
+
+                <field name="total"/>
+                <field name="tax_amount"/>
+                <field name="total_discount"/>
+                <field name="total_tax"/>
+                
+                <field name="created_by_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div>
+                                <span class='text-success'><field name="customer_id"/></span>
+                            </div>
+                            <div>
+                                <strong class='text-uppercase'><field name="title"/></strong>
+                            </div>
+                            <div class="text-justify text-truncate">
+                                <field name="failure_description"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <strong>
+                                        <field name="number_total_actions" widget="statinfo"/>
+                                        <t t-if="record.number_open_actions.raw_value">
+                                            <span role="alert" class='oe_kanban_mail_new text-info' title='Open actions'>
+                                                <i class='fa fa-gears' role="img" aria-label="Open actions"/>
+                                                <t t-raw="record.number_open_actions.raw_value"/>
+                                            </span>
+                                        </t>
+                                    </strong>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <strong>
+                                        <span role="alert" class='text-muted' title='Total money'>
+                                            <field name="total_tax" widget="monetary"/>
+                                            <i class='fa fa-money' role="img" aria-label="Total money"/>
+                                        </span>
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <!--####################################-->
     <!--           Search Views             -->
     <!--####################################-->
