@@ -151,6 +151,10 @@
                 <field name="total_tax"/>
                 
                 <field name="created_by_id"/>
+                <progressbar field="total_tax"
+                    colors='{"Finished": "success", "Started": "warning", "Pending": "danger"}'
+                    sum_field="total_tax"
+                    help="This bar allows to filter the opportunities based on scheduled activities."/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_card oe_kanban_global_click">
@@ -162,6 +166,14 @@
                             </div>
                             <div class="text-justify text-truncate">
                                 <field name="failure_description"/>
+                            <!-- Para vista dun só estado
+                                <div>  
+                                    <field name="number_open_actions" widget="inverted_gauge"
+                                        style="width:120px;height:90px;cursor:pointer;" 
+                                        options="{'max_field': 'number_total_actions'}"> 
+                                    </field>                            
+                                </div>
+                            -->
                             </div>
                             <div class="o_kanban_record_bottom">
                                 <div class="oe_kanban_bottom_left">
