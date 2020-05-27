@@ -6,6 +6,7 @@
 from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
+from .xestionsat_common import DECORATION_INCIDENCE_STAGE
 
 # 5: local imports
 
@@ -37,6 +38,24 @@ class IncidenceStage(models.Model):
 
         return new_sequence if new_sequence else False
 
+    @api.model
+    def _get_highlight_items(self):
+        """ Get the values for the highlight.
+        """
+        items = []
+
+        for key, value in DECORATION_INCIDENCE_STAGE.items():
+            items.append(
+                (key, _(value[0]))
+            )
+        return items
+
+    @api.model
+    def _get_default_highlight(self):
+        """ Gives default highlight.
+        """
+        return list(DECORATION_INCIDENCE_STAGE.keys())[0]
+
     ###########################################################################
     # Fields declaration
     ###########################################################################
@@ -59,19 +78,9 @@ class IncidenceStage(models.Model):
         translate=True,
     )
     highlight = fields.Selection(
-        selection=[
-            ('normal', 'Normal'),
-            ('decoration-bf', 'Bold'),
-            ('decoration-it', 'Italics'),
-            ('decoration-danger', 'Light Red'),
-            ('decoration-info', 'Light Blue'),
-            ('decoration-muted', 'Light Gray'),
-            ('decoration-primary', 'Light Purple'),
-            ('decoration-success', 'Light Green'),
-            ('decoration-warning', 'Light Brown'),
-        ],
+        selection=_get_highlight_items,
         string='Highlight',
-        default='normal',
+        default=_get_default_highlight,
         required=True,
     )
     fold = fields.Boolean(

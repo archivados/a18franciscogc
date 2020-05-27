@@ -10,6 +10,7 @@ from odoo import models, fields, api, _
 from .xestionsat_common import NEW_INCIDENCE
 from .xestionsat_common import ORDER_MODEL, INVOICE_MODEL
 from .xestionsat_common import CREATE_ORDER, CREATE_INVOICE
+from .xestionsat_common import COLORS_KANBAN_STATE
 
 # 5: local imports
 
@@ -51,6 +52,25 @@ class Incidence(models.Model):
         """ Gives all stage_ids.
         """
         return self.env['xestionsat.incidence.stage'].search([])
+
+    @api.model
+    def _get_kanban_stage_items(self):
+        """ Get the values for the kanban_stage.
+        """
+        items = []
+
+        for key, value in COLORS_KANBAN_STATE.items():
+            items.append(
+                (key, _(value[0]))
+            )
+        return items
+
+    @api.model
+    def _get_default_kanban_state(self):
+        """ Gives default kanban_stage.
+        """
+        default = list(COLORS_KANBAN_STATE.keys())[0]
+        return default
 
     ###########################################################################
     # Fields declaration
@@ -176,6 +196,26 @@ class Incidence(models.Model):
     invoiced = fields.Boolean()
     locked = fields.Boolean()
 
+    # Kanban control
+    color = fields.Integer(
+        string='Color Index',
+        compute='_change_color',
+    )
+    priority = fields.Selection(
+        selection=[
+            ('0', _('Low')),
+            ('1', _('Normal')),
+            ('2', _('High')),
+        ],
+        string='Priority',
+        default='1',
+    )
+    kanban_state = fields.Selection(
+        selection=_get_kanban_stage_items,
+        string='Kanban State',
+        default=_get_default_kanban_state,
+    )
+
     ###########################################################################
     # compute and search fields, in the same order that fields declaration
     ###########################################################################
@@ -220,6 +260,15 @@ class Incidence(models.Model):
                     record.total += subtotal
                 if subtotal_tax is not None:
                     record.total_tax += subtotal_tax
+
+    @api.depends('kanban_state')
+    def _change_color(self):
+        """Check the current kanban_state.
+        """
+        for record in self:
+            cor = COLORS_KANBAN_STATE[record.kanban_state][1] \
+                if record.kanban_state else 1
+            record.color = cor
 
     ###########################################################################
     # Constraints and onchanges
@@ -557,6 +606,7 @@ class Incidence(models.Model):
                     node.set('modifiers', '{}')
 
                 result['arch'] = etree.tostring(doc)
+
         if view_type == 'tree':
             doc = etree.XML(result['arch'])
             stages = dict()

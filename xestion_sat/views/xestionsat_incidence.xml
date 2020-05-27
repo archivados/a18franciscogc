@@ -46,6 +46,7 @@
                                 options="{'no_create_edit': True}" />
                         </group>
                         <group>
+                            <field name="kanban_state" widget="state_selection_plus"/>
                             <field name="date_start"/>
                             <field name="date_end"/>
                             <field name="assistance_place"/>
@@ -82,7 +83,7 @@
                     <div class="o_form_buttons_view" role="toolbar">
                         <button name="add_action" string="Add Action" type="object" class="oe_read_only btn_xest_primary"/>
                         
-                        <!-- This button is made visible through Python in the <fields_view_get> method definition -->
+                        <!-- This button is made visible through Python in the <fields_view_get>method definition -->
                         <button name="btn_close" special="cancel" string="Close" class="pull-left btn-primary oe_read_only" invisible="True"/>
                     </div>
                 </sheet>
@@ -151,32 +152,56 @@
                 <field name="total_tax"/>
                 
                 <field name="created_by_id"/>
-                <progressbar field="total_tax"
-                    colors='{"Finished": "success", "Started": "warning", "Pending": "danger"}'
-                    sum_field="total_tax"
-                    help="This bar allows to filter the opportunities based on scheduled activities."/>
+                
+                <field name="color"/>
+                <progressbar field="kanban_state"
+                    colors='{"yellow": "warning", "green": "success", "red": "danger", "blue": "blue"}'
+                    sum="total_tax"
+                    help=""/>
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="oe_kanban_card oe_kanban_global_click">
-                            <div>
-                                <span class='text-success'><field name="customer_id"/></span>
-                            </div>
-                            <div>
-                                <strong class='text-uppercase'><field name="title"/></strong>
-                            </div>
-                            <div class="text-justify text-truncate">
-                                <field name="failure_description"/>
-                            <!-- Para vista dun só estado
-                                <div>  
-                                    <field name="number_open_actions" widget="inverted_gauge"
-                                        style="width:120px;height:90px;cursor:pointer;" 
-                                        options="{'max_field': 'number_total_actions'}"> 
-                                    </field>                            
+                        <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                            <div class="o_dropdown_kanban dropdown">
+                                <a class="dropdown-toggle btn" data-toggle="dropdown" role="menu" href="#">
+                                    <span class="fa fa-ellipsis-v"/>
+                                </a>
+                                <div class="dropdown-menu" role="menu">
+                                    <t t-if="widget.editable">
+                                        <a role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                                    </t>
+                                    <t t-if="widget.deletable">
+                                        <a role="menuitem" type="delete" class="dropdown-item">Delete</a>
+                                    </t>
+                                <!-- Color picker option:
+                                    <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                -->
                                 </div>
-                            -->
+                            </div>
+                            <div class="oe_kanban_body">
+                                <div>
+                                    <strong><field name="customer_id"/></strong>
+                                </div>
+                                <div class="text-justify text-truncate">
+                                    <strong class='text-uppercase text-primary'><field name="title"/></strong>
+                                </div>
+                                <div class="text-justify text-truncate" style="margin-bottom: 1em;">
+                                    <field name="failure_description"/>
+                                <!-- Para vista dun só estado
+                                    <div>
+                                        <field name="number_open_actions" widget="inverted_gauge"
+                                            style="width:120px;height:90px;cursor:pointer;" 
+                                            options="{'max_field': 'number_total_actions'}">
+                                        </field>
+                                    </div>
+                                -->
+                                </div>
+                                <div title='Start date' style="margin-bottom: 0.5em;">
+                                    <span><field name="date_start" widget="date"/></span>
+                                </div>
                             </div>
                             <div class="o_kanban_record_bottom">
                                 <div class="oe_kanban_bottom_left">
+                                    <field name="priority" widget="priority"/>
                                     <strong>
                                         <field name="number_total_actions" widget="statinfo"/>
                                         <t t-if="record.number_open_actions.raw_value">
@@ -188,14 +213,16 @@
                                     </strong>
                                 </div>
                                 <div class="oe_kanban_bottom_right">
-                                    <strong>
-                                        <span role="alert" class='text-muted' title='Total money'>
-                                            <field name="total_tax" widget="monetary"/>
-                                            <i class='fa fa-money' role="img" aria-label="Total money"/>
-                                        </span>
+                                    <strong role="alert" class='text-muted' title='Total money'>
+                                        <field name="total_tax" widget="monetary"/>
+                                        <i class='fa fa-money' role="img" aria-label="Total money"/>
                                     </strong>
+                                    <span style="margin-left: 0.3em;">
+                                        <field name="kanban_state" widget="state_selection_plus"/>
+                                    </span>
                                 </div>
                             </div>
+                            <div class="oe_clear"/>
                         </div>
                     </t>
                 </templates>

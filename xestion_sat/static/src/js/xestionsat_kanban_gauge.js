@@ -51,7 +51,7 @@ const START_HUE = 120;
  * - style: custom style
  */
 
-var GaugeWidget = AbstractField.extend({
+var InvertedGaugeWidget = AbstractField.extend({
     className: "oe_gauge",
     cssLibs: [
         '/web/static/lib/nvd3/nv.d3.css'
@@ -169,8 +169,8 @@ var GaugeWidget = AbstractField.extend({
     },
 });
 
-field_registry.add("inverted_gauge", GaugeWidget);
+field_registry.add("inverted_gauge", InvertedGaugeWidget);
 
-return GaugeWidget;
+return InvertedGaugeWidget;
 
 });
