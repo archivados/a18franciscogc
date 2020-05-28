@@ -13,56 +13,56 @@
 }
 
 .oe_kanban_color_plus_1 {
-    background-color: #F06050;  // Alternative color in case it fails @extend
     @extend .oe_kanban_color_1::after;
+    background-color: #F06050;  // Alternative color in case it fails @extend
 }
 
 .oe_kanban_color_plus_2 {
-    background-color: #F4A460;  // Alternative color in case it fails @extend
     @extend .oe_kanban_color_2::after;
+    background-color: #F4A460;  // Alternative color in case it fails @extend
 }
 
 .oe_kanban_color_plus_3 {
-    background-color: #F7CD1F;  // Alternative color in case it fails @extend
     @extend .oe_kanban_color_3::after;
+    background-color: #F7CD1F;  // Alternative color in case it fails @extend
 }
 
 .oe_kanban_color_plus_4 {
-    background-color: #6CC1ED;  // Alternative color in case it fails @extend
     @extend .oe_kanban_color_4::after;
+    background-color: #6CC1ED;  // Alternative color in case it fails @extend
 }
 
 .oe_kanban_color_plus_5 {
-    background-color: #814968;  // Alternative color in case it fails @extend
     @extend .oe_kanban_color_5::after;
+    background-color: #814968;  // Alternative color in case it fails @extend
 }
 
 .oe_kanban_color_plus_6 {
-    background-color: #EB7E7F;  // Alternative color in case it fails @extend
     @extend .oe_kanban_color_6::after;
+    background-color: #EB7E7F;  // Alternative color in case it fails @extend
 }
 
 .oe_kanban_color_plus_7 {
-    background-color: #2C8397;  // Alternative color in case it fails @extend
     @extend .oe_kanban_color_7::after;
+    background-color: #2C8397;  // Alternative color in case it fails @extend
 }
 
 .oe_kanban_color_plus_8 {
-    background-color: #475577;  // Alternative color in case it fails @extend
     @extend .oe_kanban_color_8::after;
+    background-color: #475577;  // Alternative color in case it fails @extend
 }
 
 .oe_kanban_color_plus_9 {
-    background-color: #D6145F;  // Alternative color in case it fails @extend
     @extend .oe_kanban_color_9::after;
+    background-color: #D6145F;  // Alternative color in case it fails @extend
 }
 
 .oe_kanban_color_plus_10 {
-    background-color: #30C381;  // Alternative color in case it fails @extend
     @extend .oe_kanban_color_10::after;
+    background-color: #30C381;  // Alternative color in case it fails @extend
 }
 
 .oe_kanban_color_plus_11 {
-    background-color: #9365B8;  // Alternative color in case it fails @extend
     @extend .oe_kanban_color_11::after;
+    background-color: #9365B8;  // Alternative color in case it fails @extend
 }
