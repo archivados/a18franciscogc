@@ -154,25 +154,46 @@ class Incidence(models.Model):
     )
 
     # Economic Summary
-    tax_amount = fields.Float(
+    company_currency = fields.Many2one(
+        string='Currency',
+        related='company_id.currency_id',
+        readonly=True,
+        relation="res.currency"
+    )
+    company_id = fields.Many2one(
+        'res.company',
+        string='Company',
+        index=True,
+        default=lambda self: self.env.user.company_id.id
+    )
+
+    tax_amount = fields.Monetary(
         string='Tax amount',
-        readonly=True,
         compute='_compute_actions_total',
+        currency_field='company_currency',
+        track_visibility='always',
+        store=True,
     )
-    total_discount = fields.Float(
+    total_discount = fields.Monetary(
         string='Total discount',
-        readonly=True,
         compute='_compute_actions_total',
+        currency_field='company_currency',
+        track_visibility='always',
+        store=True,
     )
-    total = fields.Float(
+    total = fields.Monetary(
         string='Untaxed Amount',
-        readonly=True,
         compute='_compute_actions_total',
+        currency_field='company_currency',
+        track_visibility='always',
+        store=True,
     )
-    total_tax = fields.Float(
+    total_tax = fields.Monetary(
         string='Total',
-        readonly=True,
         compute='_compute_actions_total',
+        currency_field='company_currency',
+        track_visibility='always',
+        store=True,
     )
 
     # Summary of actions
@@ -199,7 +220,8 @@ class Incidence(models.Model):
     # Kanban control
     color = fields.Integer(
         string='Color Index',
-        compute='_change_color',
+        # compute='_change_color',
+        default=0,
     )
     priority = fields.Selection(
         selection=[
@@ -260,15 +282,6 @@ class Incidence(models.Model):
                     record.total += subtotal
                 if subtotal_tax is not None:
                     record.total_tax += subtotal_tax
-
-    @api.depends('kanban_state')
-    def _change_color(self):
-        """Check the current kanban_state.
-        """
-        for record in self:
-            cor = COLORS_KANBAN_STATE[record.kanban_state][1] \
-                if record.kanban_state else 1
-            record.color = cor
 
     ###########################################################################
     # Constraints and onchanges
@@ -571,7 +584,7 @@ class Incidence(models.Model):
     ###########################################################################
     @api.model
     def fields_view_get(self, view_id=None, view_type=None, **kwargs):
-        """Modify the resulting view according to the past context.
+        """Modify the resulting view according to user preferences.
         """
         context = self.env.context
 
@@ -628,6 +641,30 @@ class Incidence(models.Model):
                     condition += ")"
 
                     node.set(decoration, condition)
+
+            result['arch'] = etree.tostring(doc)
+
+        if view_type == 'kanban':
+            doc = etree.XML(result['arch'])
+
+            # kanban
+            for node in doc.xpath("//progressbar[@field='kanban_state']"):
+                colors = '{'
+
+                # A comma after the last dictionary element causes an error
+                # when creating the view
+                number_values = len(COLORS_KANBAN_STATE.values())
+                i = 1
+                for color, state in COLORS_KANBAN_STATE.items():
+                    if color != 'none':
+                        colors += '"' + color + '": "' + state[1] + '"'
+
+                        if i < number_values:
+                            colors += ', '
+                    i += 1
+
+                colors += '}'
+                node.set('colors', colors)
 
             result['arch'] = etree.tostring(doc)
 

@@ -53,11 +53,11 @@ COLORS_KANBAN_BOX = {
 }
 
 COLORS_KANBAN_STATE = {
-    'none': ('None', COLORS_KANBAN_BOX['none']),
-    'red': ('Red', COLORS_KANBAN_BOX['red']),
-    'yellow': ('Yellow', COLORS_KANBAN_BOX['yellow']),
-    'green': ('Green', COLORS_KANBAN_BOX['green']),
-    'blue': ('Blue', COLORS_KANBAN_BOX['dark_blue']),
+    'none': ('None', 'none', COLORS_KANBAN_BOX['none']),
+    'red': ('Late', 'danger', COLORS_KANBAN_BOX['red']),
+    'yellow': ('In progress', 'warning', COLORS_KANBAN_BOX['yellow']),
+    'green': ('Done', 'success', COLORS_KANBAN_BOX['green']),
+    'blue': ('On hold', 'blue', COLORS_KANBAN_BOX['dark_blue']),
 }
 
 DECORATION_INCIDENCE_STAGE = {

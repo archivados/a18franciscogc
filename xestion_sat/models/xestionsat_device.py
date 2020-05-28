@@ -328,7 +328,7 @@ class Device(models.Model):
     ###########################################################################
     @api.model
     def fields_view_get(self, view_id=None, view_type=None, **kwargs):
-        """Modify the resulting view according to the past context.
+        """Modify the resulting view according to user preferences.
         """
         context = self.env.context
 

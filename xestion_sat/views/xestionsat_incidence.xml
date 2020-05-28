@@ -12,6 +12,7 @@
                 <!-- Blocking flags -->
                 <field name="invoiced" invisible="True"/>
                 <field name="locked" invisible="True"/>
+                <field name="company_currency" invisible="1"/>
 
                 <header>
                     <button name="close_incidence" string="Close Incidence" type="object" class="oe_read_only btn-primary"
@@ -71,13 +72,13 @@
                     <label for="incidence_action_ids" string="Actions" />
                     <field name="incidence_action_ids"/>
                     <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
-                        <field name="total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                        <field name="tax_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                        <field name="total_discount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="total" widget='monetary' options="{'currency_field': 'company_currency'}"/>
+                        <field name="tax_amount" widget='monetary' options="{'currency_field': 'company_currency'}"/>
+                        <field name="total_discount" widget='monetary' options="{'currency_field': 'company_currency'}"/>
                         <div class="oe_subtotal_footer_separator oe_inline o_td_label">
                             <label for="total_tax"/>
                         </div>
-                        <field name="total_tax" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="total_tax" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'company_currency'}"/>
                     </group>
 
                     <div class="o_form_buttons_view" role="toolbar">
@@ -105,17 +106,19 @@
                 <field name="stage_id"/>
 
                 <field name="customer_id"/>
-                <field name="date_start"/>
-                <field name="date_end"/>
+                <field name="date_start" widget="date"/>
+                <field name="date_end" widget="date"/>
                 <field name="title"/>
                 <field name="assistance_place"/>
                 
                 <field name="number_actions" class="text-right"/>
 
-                <field name="total" widget="monetary"  sum="Total Untaxed Amount"/>
-                <field name="tax_amount" widget="monetary"  sum="Total Taxes"/>
-                <field name="total_discount" widget="monetary"  sum="Total Discounted"/>
-                <field name="total_tax" widget="monetary"  sum="Total Tax Included"/>
+                <field name="company_currency" invisible="1"/>
+
+                <field name="total" widget="monetary" sum="Total Untaxed Amount"/>
+                <field name="tax_amount" widget="monetary" sum="Total Taxes"/>
+                <field name="total_discount" widget="monetary" sum="Total Discounted"/>
+                <field name="total_tax" widget="monetary" sum="Total Tax Included"/>
                 
                 <field name="created_by_id"/>
             </tree>
@@ -137,27 +140,22 @@
 
                 <field name="customer_id"/>
                 <field name="date_start"/>
-                <field name="date_end"/>
-                <field name="title"/>
                 <field name="title"/>
                 <field name="failure_description"/>
                 
                 <field name="number_total_actions"/>
                 <field name="number_open_actions"/>
-                <field name="number_actions"/>
 
-                <field name="total"/>
-                <field name="tax_amount"/>
-                <field name="total_discount"/>
+                <field name="company_currency"/>
                 <field name="total_tax"/>
                 
                 <field name="created_by_id"/>
                 
                 <field name="color"/>
+                <!-- The colors attribute of the progressbar are added through Python in the <fields_view_get>method definition -->
                 <progressbar field="kanban_state"
-                    colors='{"yellow": "warning", "green": "success", "red": "danger", "blue": "blue"}'
-                    sum="total_tax"
-                    help=""/>
+                    colors="{}"
+                    sum_field="total_tax"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
@@ -172,19 +170,18 @@
                                     <t t-if="widget.deletable">
                                         <a role="menuitem" type="delete" class="dropdown-item">Delete</a>
                                     </t>
-                                <!-- Color picker option:
+                                    <!-- Color picker option: -->
                                     <ul class="oe_kanban_colorpicker" data-field="color"/>
-                                -->
                                 </div>
                             </div>
                             <div class="oe_kanban_body">
-                                <div>
+                                <div class="text-truncate">
                                     <strong><field name="customer_id"/></strong>
                                 </div>
-                                <div class="text-justify text-truncate">
-                                    <strong class='text-uppercase text-primary'><field name="title"/></strong>
+                                <div class="text-truncate">
+                                    <strong class="text-uppercase text-primary"><field name="title"/></strong>
                                 </div>
-                                <div class="text-justify text-truncate" style="margin-bottom: 1em;">
+                                <div class="text-justify text-truncate" style="margin-bottom: 0.5em;">
                                     <field name="failure_description"/>
                                 <!-- Para vista dun só estado
                                     <div>
@@ -195,8 +192,15 @@
                                     </div>
                                 -->
                                 </div>
-                                <div title='Start date' style="margin-bottom: 0.5em;">
-                                    <span><field name="date_start" widget="date"/></span>
+                                <div title="Start date" class="container-fluid" style="margin-bottom: 0.5em;">
+                                    <div class="row">
+                                        <div class="col text-muted" style="padding: 2px;">
+                                            <field name="created_by_id"/>
+                                        </div>
+                                        <div class="col-lg-4 text-right" style="padding: 2px;">
+                                            <field name="date_start" widget="date"/>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="o_kanban_record_bottom">
@@ -205,17 +209,16 @@
                                     <strong>
                                         <field name="number_total_actions" widget="statinfo"/>
                                         <t t-if="record.number_open_actions.raw_value">
-                                            <span role="alert" class='oe_kanban_mail_new text-info' title='Open actions'>
-                                                <i class='fa fa-gears' role="img" aria-label="Open actions"/>
+                                            <span role="alert" class="oe_kanban_mail_new text-info" title="Open actions">
+                                                <i class="fa fa-gears" role="img" aria-label="Open actions"/>
                                                 <t t-raw="record.number_open_actions.raw_value"/>
                                             </span>
                                         </t>
                                     </strong>
                                 </div>
-                                <div class="oe_kanban_bottom_right">
-                                    <strong role="alert" class='text-muted' title='Total money'>
-                                        <field name="total_tax" widget="monetary"/>
-                                        <i class='fa fa-money' role="img" aria-label="Total money"/>
+                                <div class="oe_kanban_bottom_right align-bottom">
+                                    <strong role="alert" class="text-muted" title="Total money">
+                                        <field name="total_tax" widget="monetary" options="{'currency_field': 'company_currency'}"/>
                                     </strong>
                                     <span style="margin-left: 0.3em;">
                                         <field name="kanban_state" widget="state_selection_plus"/>

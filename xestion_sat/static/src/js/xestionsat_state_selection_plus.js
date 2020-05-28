@@ -68,36 +68,43 @@ var StateSelectionPlusWidget = AbstractField.extend({
                 'tooltip': selection_item[1],
             };
             if (selection_item[0] === 'none') {
+                value.state_class = 'oe_kanban_color_plus_0';
                 value.state_name = stage_data.legend_none ? stage_data.legend_none : selection_item[1];
             } else if (selection_item[0] === 'red') {
-                value.state_class = 'o_status_red';
+                value.state_class = 'oe_kanban_color_plus_1';
                 value.state_name = stage_data.legend_red ? stage_data.legend_red : selection_item[1];
             } else if (selection_item[0] === 'orange') {
-                value.state_class = 'o_status_orange';
+                value.state_class = 'oe_kanban_color_plus_2';
                 value.state_name = stage_data.legend_orange ? stage_data.legend_orange : selection_item[1];
             } else if (selection_item[0] === 'yellow') {
-                value.state_class = 'o_status_yellow';
+                value.state_class = 'oe_kanban_color_plus_3';
                 value.state_name = stage_data.legend_yellow ? stage_data.legend_yellow : selection_item[1];
             } else if (selection_item[0] === 'light_blue') {
-                value.state_class = 'o_status_light_blue';
+                value.state_class = 'oe_kanban_color_plus_4';
                 value.state_name = stage_data.legend_light_blue ? stage_data.legend_light_blue : selection_item[1];
             } else if (selection_item[0] === 'dark_purple') {
-                value.state_class = 'o_status_dark_purple';
+                value.state_class = 'oe_kanban_color_plus_5';
                 value.state_name = stage_data.legend_dark_purple ? stage_data.legend_dark_purple : selection_item[1];
             } else if (selection_item[0] === 'salmon_pink') {
-                value.state_class = 'o_status_salmon_pink';
+                value.state_class = 'oe_kanban_color_plus_6';
                 value.state_name = stage_data.legend_salmon_pink ? stage_data.legend_salmon_pink : selection_item[1];
+            } else if (selection_item[0] === 'medium_blue') {
+                value.state_class = 'oe_kanban_color_plus_7';
+                value.state_name = stage_data.legend_medium_blue ? stage_data.legend_medium_blue : selection_item[1];
+            } else if (selection_item[0] === 'dark_blue') {
+                value.state_class = 'oe_kanban_color_plus_8';
+                value.state_name = stage_data.legend_dark_blue ? stage_data.legend_dark_blue : selection_item[1];
             } else if (selection_item[0] === 'fushia') {
-                value.state_class = 'o_status_fushia';
+                value.state_class = 'oe_kanban_color_plus_9';
                 value.state_name = stage_data.legend_fushia ? stage_data.legend_fushia : selection_item[1];
             } else if (selection_item[0] === 'green') {
-                value.state_class = 'o_status_green';
+                value.state_class = 'oe_kanban_color_plus_10';
                 value.state_name = stage_data.legend_green ? stage_data.legend_green : selection_item[1];
             } else if (selection_item[0] === 'purple') {
-                value.state_class = 'o_status_purple';
+                value.state_class = 'oe_kanban_color_plus_11';
                 value.state_name = stage_data.legend_purple ? stage_data.legend_purple : selection_item[1];
             } else {
-                value.state_class = 'o_status_dark_blue';
+                value.state_class = 'oe_kanban_color_plus_8';
                 value.state_name = stage_data.legend_dark_blue ? stage_data.legend_dark_blue : selection_item[1];
             }
             _data.push(value);
@@ -118,7 +125,7 @@ var StateSelectionPlusWidget = AbstractField.extend({
         // Like priority, default on the first possible value if no value is given.
         var currentState = _.findWhere(states, {name: self.value}) || states[0];
         this.$('.o_status')
-            .removeClass('o_status_red o_status_green')
+            .removeClass('oe_kanban_color_plus_0 oe_kanban_color_plus_1 oe_kanban_color_plus_2 oe_kanban_color_plus_3 oe_kanban_color_plus_4 oe_kanban_color_plus_5 oe_kanban_color_plus_6 oe_kanban_color_plus_7 oe_kanban_color_plus_8 oe_kanban_color_plus_9 oe_kanban_color_plus_10 oe_kanban_color_plus_11')
             .addClass(currentState.state_class)
             .prop('special_click', true)
             .parent().attr('title', currentState.state_name)
