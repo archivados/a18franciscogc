@@ -10,6 +10,7 @@ from odoo import models, fields, api, _
 from .xestionsat_common import NEW_INCIDENCE
 from .xestionsat_common import ORDER_MODEL, INVOICE_MODEL
 from .xestionsat_common import CREATE_ORDER, CREATE_INVOICE
+from .xestionsat_common import COLORS_KANBAN_STATE
 
 # 5: local imports
 
@@ -51,6 +52,25 @@ class Incidence(models.Model):
         """ Gives all stage_ids.
         """
         return self.env['xestionsat.incidence.stage'].search([])
+
+    @api.model
+    def _get_kanban_stage_items(self):
+        """ Get the values for the kanban_stage.
+        """
+        items = []
+
+        for key, value in COLORS_KANBAN_STATE.items():
+            items.append(
+                (key, _(value[0]))
+            )
+        return items
+
+    @api.model
+    def _get_default_kanban_state(self):
+        """ Gives default kanban_stage.
+        """
+        default = list(COLORS_KANBAN_STATE.keys())[0]
+        return default
 
     ###########################################################################
     # Fields declaration
@@ -134,25 +154,46 @@ class Incidence(models.Model):
     )
 
     # Economic Summary
-    tax_amount = fields.Float(
+    company_currency = fields.Many2one(
+        string='Currency',
+        related='company_id.currency_id',
+        readonly=True,
+        relation="res.currency"
+    )
+    company_id = fields.Many2one(
+        'res.company',
+        string='Company',
+        index=True,
+        default=lambda self: self.env.user.company_id.id
+    )
+
+    tax_amount = fields.Monetary(
         string='Tax amount',
-        readonly=True,
         compute='_compute_actions_total',
+        currency_field='company_currency',
+        track_visibility='always',
+        store=True,
     )
-    total_discount = fields.Float(
+    total_discount = fields.Monetary(
         string='Total discount',
-        readonly=True,
         compute='_compute_actions_total',
+        currency_field='company_currency',
+        track_visibility='always',
+        store=True,
     )
-    total = fields.Float(
+    total = fields.Monetary(
         string='Untaxed Amount',
-        readonly=True,
         compute='_compute_actions_total',
+        currency_field='company_currency',
+        track_visibility='always',
+        store=True,
     )
-    total_tax = fields.Float(
+    total_tax = fields.Monetary(
         string='Total',
-        readonly=True,
         compute='_compute_actions_total',
+        currency_field='company_currency',
+        track_visibility='always',
+        store=True,
     )
 
     # Summary of actions
@@ -175,6 +216,27 @@ class Incidence(models.Model):
     # Blocking flags
     invoiced = fields.Boolean()
     locked = fields.Boolean()
+
+    # Kanban control
+    color = fields.Integer(
+        string='Color Index',
+        # compute='_change_color',
+        default=0,
+    )
+    priority = fields.Selection(
+        selection=[
+            ('0', _('Low')),
+            ('1', _('Normal')),
+            ('2', _('High')),
+        ],
+        string='Priority',
+        default='1',
+    )
+    kanban_state = fields.Selection(
+        selection=_get_kanban_stage_items,
+        string='Kanban State',
+        default=_get_default_kanban_state,
+    )
 
     ###########################################################################
     # compute and search fields, in the same order that fields declaration
@@ -522,7 +584,7 @@ class Incidence(models.Model):
     ###########################################################################
     @api.model
     def fields_view_get(self, view_id=None, view_type=None, **kwargs):
-        """Modify the resulting view according to the past context.
+        """Modify the resulting view according to user preferences.
         """
         context = self.env.context
 
@@ -557,6 +619,7 @@ class Incidence(models.Model):
                     node.set('modifiers', '{}')
 
                 result['arch'] = etree.tostring(doc)
+
         if view_type == 'tree':
             doc = etree.XML(result['arch'])
             stages = dict()
@@ -578,6 +641,30 @@ class Incidence(models.Model):
                     condition += ")"
 
                     node.set(decoration, condition)
+
+            result['arch'] = etree.tostring(doc)
+
+        if view_type == 'kanban':
+            doc = etree.XML(result['arch'])
+
+            # kanban
+            for node in doc.xpath("//progressbar[@field='kanban_state']"):
+                colors = '{'
+
+                # A comma after the last dictionary element causes an error
+                # when creating the view
+                number_values = len(COLORS_KANBAN_STATE.values())
+                i = 1
+                for color, state in COLORS_KANBAN_STATE.items():
+                    if color != 'none':
+                        colors += '"' + color + '": "' + state[1] + '"'
+
+                        if i < number_values:
+                            colors += ', '
+                    i += 1
+
+                colors += '}'
+                node.set('colors', colors)
 
             result['arch'] = etree.tostring(doc)
 

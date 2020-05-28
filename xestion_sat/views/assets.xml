@@ -4,6 +4,7 @@
         <xpath expr="." position="inside">
             <link rel="stylesheet" type="text/scss" href="/xestion_sat/static/src/scss/xestionsat.scss"/>
             <script type="text/javascript" src="/xestion_sat/static/src/js/xestionsat_kanban_gauge.js"></script>
+            <script type="text/javascript" src="/xestion_sat/static/src/js/xestionsat_state_selection_plus.js"></script>
         </xpath>
     </template>
 </odoo>

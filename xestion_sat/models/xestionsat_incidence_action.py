@@ -9,6 +9,7 @@ from odoo import models, fields, api, _
 # 4:  imports from odoo modules
 from .xestionsat_common import NEW_ACTION
 from .xestionsat_common import ORDER_MODEL, INVOICE_MODEL
+from .xestionsat_common import DECORATION_ACTION_OPEN
 
 # 5: local imports
 
@@ -265,7 +266,7 @@ class IncidenceAction(models.Model):
     ###########################################################################
     @api.model
     def fields_view_get(self, view_id=None, view_type=None, **kwargs):
-        """Modify the resulting view according to the past context.
+        """Modify the resulting view according to user preferences.
         """
         context = self.env.context
 
@@ -287,4 +288,13 @@ class IncidenceAction(models.Model):
                     node.set('modifiers', '{}')
 
                 result['arch'] = etree.tostring(doc)
+
+        if view_type == 'tree':
+            doc = etree.XML(result['arch'])
+
+            # Tree
+            for node in doc.xpath("//tree[@name='primary_tree']"):
+                node.set(DECORATION_ACTION_OPEN, "date_end == False")
+
+            result['arch'] = etree.tostring(doc)
         return result

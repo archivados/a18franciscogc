@@ -5,6 +5,7 @@
         <field name="stage">Pending</field>
         <field name="sequence">1</field>
         <field name="description">Work without starting</field>
+        <!-- Decoration fields -->
         <field name="highlight">decoration-danger</field>
         <!-- Boolean fields -->
         <field name="fold">False</field>
@@ -17,6 +18,7 @@
         <field name="stage">Started</field>
         <field name="sequence">2</field>
         <field name="description">Work in progress</field>
+        <!-- Decoration fields -->
         <field name="highlight">normal</field>
         <!-- Boolean fields -->
         <field name="fold">False</field>
@@ -29,6 +31,7 @@
         <field name="stage">On hold</field>
         <field name="sequence">3</field>
         <field name="description">Work on hold for some other reason</field>
+        <!-- Decoration fields -->
         <field name="highlight">decoration-bf</field>
         <!-- Boolean fields -->
         <field name="fold">False</field>
@@ -41,6 +44,7 @@
         <field name="stage">Sent to external TAS</field>
         <field name="sequence">4</field>
         <field name="description">Sent to an external Technical Assistance Service</field>
+        <!-- Decoration fields -->
         <field name="highlight">decoration-warning</field>
         <!-- Boolean fields -->
         <field name="fold">True</field>
@@ -53,9 +57,10 @@
         <field name="stage">Returned</field>
         <field name="sequence">5</field>
         <field name="description">Returned from an external Technical Assistance Service and waiting to continue the work</field>
+        <!-- Decoration fields -->
         <field name="highlight">decoration-info</field>
         <!-- Boolean fields -->
-        <field name="fold">True</field>
+        <field name="fold">False</field>
         <field name="lock_incidence">False</field>
         <field name="cancel_incidence">False</field>
     </record>
@@ -65,6 +70,7 @@
         <field name="stage">Finished</field>
         <field name="sequence">6</field>
         <field name="description">Completed work</field>
+        <!-- Decoration fields -->
         <field name="highlight">decoration-success</field>
         <!-- Boolean fields -->
         <field name="fold">True</field>
@@ -77,6 +83,7 @@
         <field name="stage">Cancelled</field>
         <field name="sequence">7</field>
         <field name="description">Work canceled by Customer</field>
+        <!-- Decoration fields -->
         <field name="highlight">decoration-muted</field>
         <!-- Boolean fields -->
         <field name="fold">True</field>
@@ -89,6 +96,7 @@
         <field name="stage">Irresolvable</field>
         <field name="sequence">8</field>
         <field name="description">Impossible to repair with the means at our disposal</field>
+        <!-- Decoration fields -->
         <field name="highlight">decoration-muted</field>
         <!-- Boolean fields -->
         <field name="fold">True</field>
