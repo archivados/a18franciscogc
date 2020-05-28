@@ -32,7 +32,9 @@
     'version': '12.0.0.9.2',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale_management'],
+    'depends': [
+        'base', 'sale_management'
+    ],
 
     # always loaded
     'data': [
