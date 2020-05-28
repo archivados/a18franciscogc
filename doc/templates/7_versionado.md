@@ -6,12 +6,12 @@ A continuación veras unha breve descrición da estratexía de ramificación e d
 
 Decidín ramificar o proxecto do seguinte xeito:
 
-| RAMA              | PROPÓSITO
-|:-                 |:-
-| master            | Integrar as versións listas para produción das outras ramas
-| documentacion     | Desenvolvemento da documentación do proxecto
-| oca_module        | Desenvolvemento dó módulo de [Odoo]
-| oca_module_test   | Test das versións alfa ou beta dó módulo de [Odoo] antes de pasalo a rama de produción
+| RAMA                  | PROPÓSITO
+|:-                     |:-
+| master                | Integrar as versións listas para produción das outras ramas
+| documentacion         | Desenvolvemento da documentación do proxecto
+| oca_xestionsat        | Desenvolvemento dó módulo de [Odoo]
+| oca_xestionsat_test   | Test das versións alfa ou beta dó módulo de [Odoo] antes de pasalo a rama de produción
 
 ## Etiquetas
 
