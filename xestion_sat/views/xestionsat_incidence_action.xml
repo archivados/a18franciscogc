@@ -58,7 +58,9 @@
         <field name="model">xestionsat.incidence.action</field>
         <field name="arch" type="xml">
             <tree name="primary_tree" editable="bottom">
-                <field name="executed_by"/>
+                <field name="executed_by"
+                    domain="[('id', '=', uid)]"
+                    readonly="True"/>
                 <field name="template_id"/>
                 <field name="observation"/>
                 <field name="date_start"/>

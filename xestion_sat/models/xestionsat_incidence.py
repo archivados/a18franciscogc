@@ -286,42 +286,42 @@ class Incidence(models.Model):
         """Verify that the devices associated with the incidence belong to the
         customer.
         """
-        error_message = 'The Device must belong to the specified Customer'
+        message_error = 'The Device must belong to the specified Customer'
 
         for record in self:
             for device in record.device_ids:
                 if device and device.owner_id != record.customer_id:
-                    raise models.ValidationError(_(error_message))
+                    raise models.ValidationError(_(message_error))
 
     @api.constrains('created_by_id')
     def _check_created_by_id(self):
         """Verify that incidence creation is not assigned to a different
         system user than the one running the application.
         """
-        error_message = 'One User cannot create Incidences in the name of' \
+        message_error = 'One User cannot create Incidences in the name of' \
             'another'
 
         for record in self:
             if record.created_by_id \
                     and record.created_by_id != self.env.user:
-                raise models.ValidationError(_(error_message))
+                raise models.ValidationError(_(message_error))
 
     @api.constrains('date_start', 'date_end')
     def _check_date_end(self):
         """Check that the end date is not earlier than the start date.
         """
-        actions_message = 'There are {0} unclosed actions. All actions need' \
+        message_actions = 'There are {0} unclosed actions. All actions need' \
             ' to be closed in order to close the Incidence.'
 
-        error_message = 'The end date cannot be earlier than the start date'
+        message_error = 'The end date cannot be earlier than the start date'
 
         for record in self:
             if record.date_end:
                 if record.date_end < record.date_start:
-                    raise models.ValidationError(_(error_message))
+                    raise models.ValidationError(_(message_error))
                 if record.number_open_actions > 0:
                     raise models.ValidationError(
-                        _(actions_message.format(record.number_open_actions)))
+                        _(message_actions.format(record.number_open_actions)))
 
     # -------------------------------------------------------------------------
     # Onchange
@@ -455,14 +455,13 @@ class Incidence(models.Model):
         if type(name) != str:
             name = CREATE_ORDER
 
-        # pricelist_id = self.env['product.pricelist'].search(
-        #    [], limit=1, order='id desc')
+        # pricelist_id = self.env['product.pricelist'].search([], limit=1).id
 
         context = {
             'default_partner_id': self.customer_id.id,
             'default_order_line': self._get_actions_lines(ORDER_MODEL),
-            # 'default_confirmation_date': datetime.today(),
-            # 'default_pricelist_id': pricelist_id.id,
+            # 'default_confirmation_date': fields.Datetime.now(),
+            # 'default_pricelist_id': pricelist_id,
             # 'default_state': 'sale',
         }
 
@@ -521,9 +520,9 @@ class Incidence(models.Model):
         :param res_model: Model to generate.
         :param title_message: Reply message title.
         """
-        error_message = 'An error has occurred and the operation could not' \
+        message_error = 'An error has occurred and the operation could not' \
             ' be completed:\n\n'
-        message = 'Automatic process completed, please check that the result' \
+        message_ok = 'Automatic process completed, please check that the result' \
             ' is correct.'
 
         lines_type = ''
@@ -548,7 +547,7 @@ class Incidence(models.Model):
                 model['confirmation_date'] = fields.Datetime.now()
 
             message_id = self.env['xestionsat.message'].create(
-                {'message': _(message)})
+                {'message': _(message_ok)})
             return {
                 'name': _(title_message),
                 'type': 'ir.actions.act_window',
@@ -559,7 +558,7 @@ class Incidence(models.Model):
                 'target': 'new'
             }
         except Exception as e:
-            raise models.UserError(_(error_message + str(e)))
+            raise models.UserError(_(message_error + str(e)))
 
     def _get_invoice_order_view(
         self, res_model, name, context=None, flags=None
