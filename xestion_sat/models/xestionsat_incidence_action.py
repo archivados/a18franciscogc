@@ -250,8 +250,9 @@ class IncidenceAction(models.Model):
         """Method to close or reopen the current Action.
         """
         title_message = 'Operation not allowed'
-        message = 'You cannot reopen actions with the incidence closed. If you' \
-            'want to modify the action, please reopen the associated incident.'
+        message = 'You cannot reopen actions with the incidence closed. If' \
+            ' you want to modify the action, please reopen the associated' \
+            ' incident.'
         result = {}
         if not self.incidence_id.locked:
             date_now = False

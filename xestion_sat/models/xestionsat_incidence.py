@@ -10,7 +10,8 @@ from odoo import models, fields, api, _
 from .xestionsat_common import NEW_INCIDENCE
 from .xestionsat_common import ORDER_MODEL, INVOICE_MODEL
 from .xestionsat_common import CREATE_ORDER, CREATE_INVOICE
-from .xestionsat_common import COLORS_KANBAN_STATE
+from .xestionsat_common import COLOR_KANBAN_STATE, STATE_DEVICE
+from .xestionsat_common import RELOAD_VIEW
 
 # 5: local imports
 
@@ -59,7 +60,7 @@ class Incidence(models.Model):
         """
         items = []
 
-        for key, value in COLORS_KANBAN_STATE.items():
+        for key, value in COLOR_KANBAN_STATE.items():
             items.append(
                 (key, _(value[0]))
             )
@@ -69,7 +70,7 @@ class Incidence(models.Model):
     def _get_default_kanban_state(self):
         """ Gives default kanban_stage.
         """
-        default = list(COLORS_KANBAN_STATE.keys())[0]
+        default = list(COLOR_KANBAN_STATE.keys())[0]
         return default
 
     ###########################################################################
@@ -169,28 +170,28 @@ class Incidence(models.Model):
 
     tax_amount = fields.Monetary(
         string='Tax amount',
-        compute='_compute_actions_total',
+        compute='_compute_incidence_action_ids',
         currency_field='company_currency',
         track_visibility='always',
         store=True,
     )
     total_discount = fields.Monetary(
         string='Total discount',
-        compute='_compute_actions_total',
+        compute='_compute_incidence_action_ids',
         currency_field='company_currency',
         track_visibility='always',
         store=True,
     )
     total = fields.Monetary(
         string='Untaxed Amount',
-        compute='_compute_actions_total',
+        compute='_compute_incidence_action_ids',
         currency_field='company_currency',
         track_visibility='always',
         store=True,
     )
     total_tax = fields.Monetary(
         string='Total',
-        compute='_compute_actions_total',
+        compute='_compute_incidence_action_ids',
         currency_field='company_currency',
         track_visibility='always',
         store=True,
@@ -200,17 +201,17 @@ class Incidence(models.Model):
     number_total_actions = fields.Integer(
         string='Actions',
         readonly=True,
-        compute='_compute_number_actions',
+        compute='_compute_incidence_action_ids',
     )
     number_open_actions = fields.Integer(
         string='Open Actions',
         readonly=True,
-        compute='_compute_number_actions',
+        compute='_compute_incidence_action_ids',
     )
     number_actions = fields.Char(
         string='Actions',
         readonly=True,
-        compute='_compute_number_actions',
+        compute='_compute_incidence_action_ids',
     )
 
     # Blocking flags
@@ -242,27 +243,14 @@ class Incidence(models.Model):
     # compute and search fields, in the same order that fields declaration
     ###########################################################################
     @api.depends('incidence_action_ids')
-    def _compute_number_actions(self):
-        """Method to obtain the total price of the action lines related to the
-        incidence.
+    def _compute_incidence_action_ids(self):
+        """Method to obtain the total price of the action lines and to obtain
+        the total number of actions related to the incidence.
         """
         for record in self:
             record.number_total_actions = len(record.incidence_action_ids)
             record.number_open_actions = 0
 
-            if record.number_total_actions > 0:
-                for action in record.incidence_action_ids:
-                    if not action.date_end:
-                        record.number_open_actions += 1
-            record.number_actions = "{0} ({1})".format(
-                record.number_total_actions, record.number_open_actions)
-
-    @api.depends('incidence_action_ids')
-    def _compute_actions_total(self):
-        """Method to obtain the total number of actions related to the
-        incidence.
-        """
-        for record in self:
             record.tax_amount = 0.0
             record.total_discount = 0.0
             record.total = 0.0
@@ -282,6 +270,13 @@ class Incidence(models.Model):
                     record.total += subtotal
                 if subtotal_tax is not None:
                     record.total_tax += subtotal_tax
+
+            if record.number_total_actions > 0:
+                for action in record.incidence_action_ids:
+                    if not action.date_end:
+                        record.number_open_actions += 1
+            record.number_actions = "{0} ({1})".format(
+                record.number_total_actions, record.number_open_actions)
 
     ###########################################################################
     # Constraints and onchanges
@@ -406,6 +401,9 @@ class Incidence(models.Model):
         date_now = False
         lock = False
 
+        # All devices should have the same status
+        devices_state = STATE_DEVICE[1][0]
+
         next_stage = self.stage_id \
             if self.stage_id != final_stage else wait_stage
 
@@ -413,10 +411,16 @@ class Incidence(models.Model):
             date_now = fields.Datetime.now()
             lock = True
             next_stage = final_stage
+            devices_state = STATE_DEVICE[0][0]
 
         self.date_end = date_now
         self.locked = lock
         self.stage_id = next_stage
+        for record in self.device_ids:
+            record.state = devices_state
+
+        # Reloaded to update the values of the incidence actions list
+        return RELOAD_VIEW
 
     def reload_page(self):
         model_obj = self.env['ir.model.data']
@@ -592,18 +596,28 @@ class Incidence(models.Model):
             view_id=view_id, view_type=view_type, **kwargs
         )
 
+        doc = etree.XML(result['arch'])
+
         if view_type == 'form':
             lock = False
+
+            try:
+                record = self.env['xestionsat.incidence'].browse(
+                    self._context.get('params').get('id'))
+
+                locked = record.locked
+            except Exception:
+                locked = False
 
             if 'lock_view' in context:
                 lock = context['lock_view']
 
-            if lock:
-                doc = etree.XML(result['arch'])
-
+            if lock or locked:
                 # Form
                 for node in doc.xpath("//form[@name='primary_form']"):
-                    node.set('create', 'false')
+                    if not locked:
+                        node.set('create', 'false')
+
                     node.set('edit', 'false')
 
                 # customer_id
@@ -615,13 +629,11 @@ class Incidence(models.Model):
                     node.set('modifiers', '{"invisible": true}')
 
                 # btn_close
-                for node in doc.xpath("//button[@name='btn_close']"):
-                    node.set('modifiers', '{}')
-
-                result['arch'] = etree.tostring(doc)
+                if not locked:
+                    for node in doc.xpath("//button[@name='btn_close']"):
+                        node.set('modifiers', '{}')
 
         if view_type == 'tree':
-            doc = etree.XML(result['arch'])
             stages = dict()
 
             # Prepare the conditions to change the colors of each row
@@ -642,20 +654,16 @@ class Incidence(models.Model):
 
                     node.set(decoration, condition)
 
-            result['arch'] = etree.tostring(doc)
-
         if view_type == 'kanban':
-            doc = etree.XML(result['arch'])
-
             # kanban
             for node in doc.xpath("//progressbar[@field='kanban_state']"):
                 colors = '{'
 
                 # A comma after the last dictionary element causes an error
                 # when creating the view
-                number_values = len(COLORS_KANBAN_STATE.values())
+                number_values = len(COLOR_KANBAN_STATE.values())
                 i = 1
-                for color, state in COLORS_KANBAN_STATE.items():
+                for color, state in COLOR_KANBAN_STATE.items():
                     if color != 'none':
                         colors += '"' + color + '": "' + state[1] + '"'
 
@@ -666,6 +674,6 @@ class Incidence(models.Model):
                 colors += '}'
                 node.set('colors', colors)
 
-            result['arch'] = etree.tostring(doc)
+        result['arch'] = etree.tostring(doc)
 
         return result
