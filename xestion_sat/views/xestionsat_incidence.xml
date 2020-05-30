@@ -58,10 +58,12 @@
                     </group>
                     <group>
                         <field name="device_ids"
+                            context="{'lock_view': True, 'default_owner_id': customer_id, }"
                             domain="[('owner_id', '=', customer_id)]">
                             <tree name="devices_tree">
-                                <field name="created_by_id"/>
                                 <field name="name"/>
+                                <field name="internal_id"/>
+                                <field name="state"/>
                                 <field name="description"/>
                                 <field name="headquarter_id"/>
                                 <field name="location"/>

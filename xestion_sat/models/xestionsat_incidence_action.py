@@ -10,6 +10,7 @@ from odoo import models, fields, api, _
 from .xestionsat_common import NEW_ACTION
 from .xestionsat_common import ORDER_MODEL, INVOICE_MODEL
 from .xestionsat_common import DECORATION_ACTION_OPEN
+from .xestionsat_common import RELOAD_VIEW
 
 # 5: local imports
 
@@ -248,18 +249,34 @@ class IncidenceAction(models.Model):
     def close_action(self):
         """Method to close or reopen the current Action.
         """
-        date_now = False
+        title_message = 'Operation not allowed'
+        message = 'You cannot reopen actions with the incidence closed. If you' \
+            'want to modify the action, please reopen the associated incident.'
+        result = {}
+        if not self.incidence_id.locked:
+            date_now = False
 
-        if not self.date_end:
-            date_now = fields.Datetime.now()
+            if not self.date_end:
+                date_now = fields.Datetime.now()
 
-        self.write({'date_end': date_now})
+            self.write({'date_end': date_now})
 
-        # Reloaded to update the values of the incidence actions list
-        return {
-            'type': 'ir.actions.client',
-            'tag': 'reload',
-        }
+            # Reloaded to update the values of the incidence actions list
+            result = RELOAD_VIEW
+        else:
+            message_id = self.env['xestionsat.message'].create(
+                {'message': _(message)})
+            result = {
+                'name': _(title_message),
+                'type': 'ir.actions.act_window',
+                'view_mode': 'form',
+                'res_model': 'xestionsat.message',
+                # pass the id
+                'res_id': message_id.id,
+                'target': 'new'
+            }
+
+        return result
 
     ###########################################################################
     # Business methods

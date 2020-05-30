@@ -8,6 +8,7 @@ from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
 from .xestionsat_common import NEW_DEVICE
+from .xestionsat_common import STATE_DEVICE
 
 # 5: local imports
 
@@ -28,6 +29,17 @@ class Device(models.Model):
     ###########################################################################
     # Default methods
     ###########################################################################
+    @api.model
+    def _get_state_items(self):
+        """ Get the values for state.
+        """
+        return STATE_DEVICE
+
+    @api.model
+    def _get_default_state(self):
+        """ Gives default state.
+        """
+        return STATE_DEVICE[0][0]
 
     ###########################################################################
     # Fields declaration
@@ -106,14 +118,9 @@ class Device(models.Model):
     )
 
     state = fields.Selection(
-        [
-            ('stored', 'Stored'),
-            ('operational', 'Operational'),
-            ('repairing', 'Repairing'),
-            ('unsubscribe', 'Unsubscribe'),
-        ],
+        selection=_get_state_items,
         string='State',
-        default="operational",
+        default=_get_default_state,
         required=True,
     )
 
