@@ -29,7 +29,7 @@
                             <field name="quantity"/>
                             <field name="list_price" widget="monetary"/>
                             <field name="discount"/>
-                            <field name="tax_ids" widget="many2many_tags"/>
+                            <field name="tax_ids" widget="many2many_tags" domain="[('type_tax_use','=','sale')]"/>
                             <field name="subtotal" widget="monetary"/>
                         </group>
                         <group>
@@ -68,7 +68,7 @@
                 <field name="quantity"/>
                 <field name="list_price" widget="monetary"/>
                 <field name="discount"/>
-                <field name="tax_ids" widget="many2many_tags"/>
+                <field name="tax_ids" widget="many2many_tags" domain="[('type_tax_use','=','sale')]"/>
                 <field name="subtotal" widget="monetary"/>
             </tree>
         </field>

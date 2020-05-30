@@ -212,12 +212,21 @@ class IncidenceAction(models.Model):
                 if record.date_end < record.date_start:
                     raise models.ValidationError(_(error_message))
 
+    # -------------------------------------------------------------------------
+    # Onchange
+    # -------------------------------------------------------------------------
     @api.onchange('tax_ids')
     def _check_tax_ids(self):
         """Execute the _compute_subtotal () method to calculate the price of the
         line.
         """
         self._compute_subtotal()
+
+    @api.onchange('product_id')
+    def _check_product_id(self):
+        """.
+        """
+        self.tax_ids = self.product_id.taxes_id
 
     ###########################################################################
     # CRUD methods
