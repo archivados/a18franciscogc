@@ -60,7 +60,7 @@
     <!-- INCIDENCES ACTIONS -->
     <record model="ir.actions.act_window" id="incidenceaction_action">
         <field name="name">Incidence Actions</field>
-        <field name="res_model">product.template</field>
+        <field name="res_model">product.product</field>
         <field name="view_mode">kanban,tree,form,activity</field>
         <field name="limit">80</field>
         <field name="context">{'default_type': 'xestionsat', 'search_default_filter_to_sell':1}</field>

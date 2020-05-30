@@ -19,13 +19,13 @@ class DeviceComponent(models.Model):
     # Private attributes
     _name = 'xestionsat.device.component'
     _description = _('Component that is part of a Device')
-    _inherits = {'product.template': 'template_id'}
+    _inherits = {'product.template': 'product_id'}
 
     # Default methods
 
     # Fields declaration
     # Relational Fields
-    template_id = fields.Many2one(
+    product_id = fields.Many2one(
         'product.template',
         string='Compponent',
         ondelete='cascade',

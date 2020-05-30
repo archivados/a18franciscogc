@@ -23,7 +23,7 @@
                             <field name="executed_by"
                                 domain="[('id', '=', uid)]"
                                 readonly="True"/>
-                            <field name="template_id"
+                            <field name="product_id"
                                 context="{'search_default_sat': 1}"/>
                             <field name="observation"/>
                             <field name="quantity"/>
@@ -61,7 +61,7 @@
                 <field name="executed_by"
                     domain="[('id', '=', uid)]"
                     readonly="True"/>
-                <field name="template_id"/>
+                <field name="product_id"/>
                 <field name="observation"/>
                 <field name="date_start"/>
                 <field name="date_end"/>

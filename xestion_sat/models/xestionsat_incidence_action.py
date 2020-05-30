@@ -25,7 +25,7 @@ class IncidenceAction(models.Model):
     ###########################################################################
     _name = 'xestionsat.incidence.action'
     _description = _('Action taken in an incidence')
-    _inherits = {'product.template': 'template_id'}
+    _inherits = {'product.product': 'product_id'}
     _order = 'date_start desc'
 
     ###########################################################################
@@ -51,8 +51,8 @@ class IncidenceAction(models.Model):
         ondelete='restrict',
     )
 
-    template_id = fields.Many2one(
-        'product.template',
+    product_id = fields.Many2one(
+        'product.product',
         string='Action',
         required=True,
         ondelete='restrict',
@@ -165,7 +165,7 @@ class IncidenceAction(models.Model):
         for line in self:
             action_line = {
                 'name': line.name,
-                'product_id': line.id,
+                'product_id': line.product_id.id,
                 'discount': line.discount,
                 'product_uom': line.uom_id.id,
                 'price_unit': line.list_price,
