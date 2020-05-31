@@ -51,9 +51,6 @@ RELOAD_VIEW = {
     'tag': 'reload',
 }
 
-###########################################################################
-# Constants to manage views
-###########################################################################
 # The first item defined is the default
 COLOR_KANBAN_BOX = {
     'none': 0,

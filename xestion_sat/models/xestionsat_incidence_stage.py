@@ -7,6 +7,7 @@ from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
 from .xestionsat_common import DECORATION_INCIDENCE_STAGE
+from .xestionsat_message import MESSAGE
 
 # 5: local imports
 
@@ -101,10 +102,9 @@ class IncidenceStage(models.Model):
         """Verify that the devices associated with the incidence belong to the
         customer.
         """
-        error_message = 'There can only be one stage per sequence number'
-
         for record in self:
             new_sequence = self.env['xestionsat.incidence.stage'].search(
                 [('sequence', '=', record.sequence)])
             if len(new_sequence) > 1:
-                raise models.ValidationError(_(error_message))
+                raise models.ValidationError(
+                        _(MESSAGE['stage_constraint']['sequence']))

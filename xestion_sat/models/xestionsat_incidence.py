@@ -11,6 +11,7 @@ from .xestionsat_common import NEW_INCIDENCE
 from .xestionsat_common import ORDER_MODEL, INVOICE_MODEL
 from .xestionsat_common import CREATE_ORDER, CREATE_INVOICE
 from .xestionsat_common import COLOR_KANBAN_STATE, STATE_DEVICE
+from .xestionsat_message import MESSAGE
 
 # 5: local imports
 
@@ -74,22 +75,18 @@ class Incidence(models.Model):
 
     @api.multi
     def write(self, vals):
-        message_locked = 'OPERATION NOT AVAILABLE: The status is locked' \
-            ' Incidences cannot be changed'
-        message_invoiced = 'OPERATION NOT AVAILABLE: The status is invoiced' \
-            ' Incidences cannot be changed'
-        message = 'OPERATION NOT AVAILABLE: To close an Incidence you must' \
-            ' do it using the "Close Incidence" button'
-
         if 'invoiced' not in vals:
             if self.invoiced:
-                raise models.ValidationError(_(message_invoiced))
+                raise models.ValidationError(
+                    _(MESSAGE['incidence_error']['invoiced']))
             if 'locked' not in vals:
                 if self.locked:
-                    raise models.ValidationError(_(message_locked))
+                    raise models.ValidationError(
+                        _(MESSAGE['incidence_error']['locked']))
             if 'stage_id' in vals:
                 if not vals['stage_id']:
-                    raise models.ValidationError(_(message))
+                    raise models.ValidationError(
+                        _(MESSAGE['incidence_error']['close']))
 
         return super(Incidence, self).write(vals)
 
@@ -317,56 +314,50 @@ class Incidence(models.Model):
     # Constraints and onchanges
     ###########################################################################
     @api.constrains('device_ids')
-    def _check_father(self):
+    def _check_parent(self):
         """Verify that the devices associated with the incidence belong to the
         customer.
         """
-        message_error = 'The Device must belong to the specified Customer'
-
         for record in self:
             for device in record.device_ids:
                 if device and device.owner_id != record.customer_id:
-                    raise models.ValidationError(_(message_error))
+                    raise models.ValidationError(
+                        _(MESSAGE['incidence_constraint']['parent']))
 
     @api.constrains('created_by_id')
     def _check_created_by_id(self):
         """Verify that incidence creation is not assigned to a different
         system user than the one running the application.
         """
-        message_error = 'One User cannot create Incidences in the name of' \
-            'another'
-
         for record in self:
             if record.created_by_id \
                     and record.created_by_id != self.env.user:
-                raise models.ValidationError(_(message_error))
+                raise models.ValidationError(
+                        _(MESSAGE['incidence_constraint']['created_by_id']))
 
     @api.constrains('date_start', 'date_end')
     def _check_date_end(self):
         """Check that the end date is not earlier than the start date.
         """
-        message_actions = 'There are {0} unclosed actions. All actions need' \
-            ' to be closed in order to close the Incidence.'
-
-        message_error = 'The end date cannot be earlier than the start date'
-
         for record in self:
             if record.date_end:
                 if record.date_end < record.date_start:
-                    raise models.ValidationError(_(message_error))
+                    raise models.ValidationError(
+                        _(MESSAGE['incidence_constraint']['date_end']))
                 if record.number_open_actions > 0:
                     raise models.ValidationError(
-                        _(message_actions.format(record.number_open_actions)))
+                        _(MESSAGE['incidence_error']['date_end']).format(
+                            record.number_open_actions))
 
     @api.constrains('invoiced')
     def _compute_invoice(self):
-        message = 'The incident is already on the invoicing circuit.'
         for record in self:
             if record.invoice_id and self.env['account.invoice'].search(
                 [('incidence_id', '=', self.id)]) \
                 or record.sale_order_id and self.env['sale.order'].search(
                     [('incidence_id', '=', self.id)]):
-                raise ValueError(_(message))
+                raise models.ValidationError(
+                        _(MESSAGE['incidence_constraint']['invoiced']))
 
     # -------------------------------------------------------------------------
     # Onchange
@@ -417,6 +408,9 @@ class Incidence(models.Model):
     def add_action(self):
         """Method to add a new action for the current incidence.
         """
+        if self.invoiced or self.locked:
+            raise models.UserError(
+                _(MESSAGE['incidence_methods']['add_action']))
         context = {
             'lock_view': True,
             'default_incidence_id': self.id,
@@ -570,11 +564,6 @@ class Incidence(models.Model):
         :param res_model: Model to generate.
         :param title_message: Reply message title.
         """
-        message_error = 'An error has occurred and the operation could not' \
-            ' be completed:\n\n'
-        message_ok = 'Automatic process completed, please check that the' \
-            ' result is correct.'
-
         lines_type = ''
         state = ''
 
@@ -600,7 +589,9 @@ class Incidence(models.Model):
                 model['confirmation_date'] = fields.Datetime.now()
 
             message_id = self.env['xestionsat.message'].create(
-                {'message': _(message_ok)})
+                {'message': _(
+                    MESSAGE['incidence_methods']['_get_invoice_order'])
+                 })
             return {
                 'name': _(title_message),
                 'type': 'ir.actions.act_window',
@@ -611,7 +602,8 @@ class Incidence(models.Model):
                 'target': 'new'
             }
         except Exception as e:
-            raise models.UserError(_(message_error + str(e)))
+            raise models.UserError(
+                _(MESSAGE['incidence_error']['operation']) + str(e))
 
     def _get_invoice_order_view(
         self, res_model, name, context=None, flags=None

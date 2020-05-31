@@ -7,6 +7,7 @@ from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
 from .xestionsat_common import NEW_COMPONENT
+from .xestionsat_message import MESSAGE
 
 # 5: local imports
 
@@ -61,13 +62,12 @@ class DeviceComponent(models.Model):
     def _check_date_end(self):
         """Check that the cancellation date is not earlier than the start registration.
         """
-        error_message = 'The cancellation date cannot be earlier than the' \
-            ' registration date'
-
         for record in self:
             if record.date_cancellation:
                 if record.date_cancellation < record.date_registration:
-                    raise models.ValidationError(_(error_message))
+                    raise models.ValidationError(
+                        _(MESSAGE['component_constraint']['date_cancellation'])
+                    )
 
     # CRUD methods
     @api.multi
