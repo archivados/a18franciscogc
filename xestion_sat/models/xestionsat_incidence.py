@@ -11,7 +11,6 @@ from .xestionsat_common import NEW_INCIDENCE
 from .xestionsat_common import ORDER_MODEL, INVOICE_MODEL
 from .xestionsat_common import CREATE_ORDER, CREATE_INVOICE
 from .xestionsat_common import COLOR_KANBAN_STATE, STATE_DEVICE
-from .xestionsat_common import RELOAD_VIEW
 
 # 5: local imports
 
@@ -470,9 +469,6 @@ class Incidence(models.Model):
 
         # It is the last value to change so as not to block the other changes
         self.locked = lock
-
-        # Reloaded to update the values of the incidence actions list
-        return RELOAD_VIEW
 
     def reload_page(self):
         model_obj = self.env['ir.model.data']
