@@ -73,6 +73,22 @@ class Incidence(models.Model):
         default = list(COLOR_KANBAN_STATE.keys())[0]
         return default
 
+    @api.multi
+    def write(self, vals):
+        message_locked = 'OPERATION NOT AVAILABLE: The status of blocked' \
+            ' Incidences cannot be changed'
+        message = 'OPERATION NOT AVAILABLE: To close an Incidence you must' \
+            ' do it using the "Close Incidence" button'
+
+        if 'locked' not in vals:
+            if self.locked:
+                raise models.ValidationError(_(message_locked))
+        if 'stage_id' in vals:
+            if not vals['stage_id']:
+                raise models.ValidationError(_(message))
+
+        return super(Incidence, self).write(vals)
+
     ###########################################################################
     # Fields declaration
     ###########################################################################
@@ -215,8 +231,12 @@ class Incidence(models.Model):
     )
 
     # Blocking flags
-    invoiced = fields.Boolean()
-    locked = fields.Boolean()
+    invoiced = fields.Boolean(
+        copy=False,
+    )
+    locked = fields.Boolean(
+        copy=False,
+    )
 
     # Kanban control
     color = fields.Integer(
@@ -336,10 +356,7 @@ class Incidence(models.Model):
             [('sequence', '=', 6)])
 
         if self.stage_id == final_stage:
-            self.close_incidence()
-        elif self.locked:
-            self.locked = False
-            self.date_end = False
+            self.stage_id = None
 
     ###########################################################################
     # CRUD methods
@@ -399,7 +416,6 @@ class Incidence(models.Model):
             [('sequence', '=', 3)])
 
         date_now = False
-        lock = False
 
         # All devices should have the same status
         devices_state = STATE_DEVICE[1][0]
@@ -407,17 +423,25 @@ class Incidence(models.Model):
         next_stage = self.stage_id \
             if self.stage_id != final_stage else wait_stage
 
+        # If the record is locked it unlocks it so you can write the changes
+        if self.locked:
+            self.locked = False
+            lock = False
+        else:
+            lock = True
+
         if not self.date_end:
             date_now = fields.Datetime.now()
-            lock = True
             next_stage = final_stage
             devices_state = STATE_DEVICE[0][0]
 
         self.date_end = date_now
-        self.locked = lock
         self.stage_id = next_stage
         for record in self.device_ids:
             record.state = devices_state
+
+        # It is the last value to change so as not to block the other changes
+        self.locked = lock
 
         # Reloaded to update the values of the incidence actions list
         return RELOAD_VIEW
@@ -522,8 +546,8 @@ class Incidence(models.Model):
         """
         message_error = 'An error has occurred and the operation could not' \
             ' be completed:\n\n'
-        message_ok = 'Automatic process completed, please check that the result' \
-            ' is correct.'
+        message_ok = 'Automatic process completed, please check that the' \
+            ' result is correct.'
 
         lines_type = ''
         state = ''

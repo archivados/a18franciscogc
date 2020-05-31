@@ -16,9 +16,9 @@
 
                 <header>
                     <button name="close_incidence" string="Close Incidence" type="object" class="oe_read_only btn-primary"
-                        attrs="{'invisible':[('date_end', '!=', False)]}"/>
+                        attrs="{'invisible':[('locked', '=', True)]}"/>
                     <button name="close_incidence" string="Reopen Incidence" type="object" class="oe_read_only btn-secondary"
-                        attrs="{'invisible':[('date_end', '=', False)]}"/>
+                        attrs="{'invisible':[('locked', '=', False)]}"/>
 
                     <!-- Order options -->
                     <button name="create_order" string="Create Order" type="object" class="oe_read_only btn-primary" confirm="Are you sure you want to continue?"

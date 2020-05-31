@@ -224,7 +224,7 @@ class IncidenceAction(models.Model):
 
     @api.onchange('product_id')
     def _check_product_id(self):
-        """.
+        """Assign the associated taxes to the associated product.
         """
         self.tax_ids = self.product_id.taxes_id
 
