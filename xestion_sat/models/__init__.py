@@ -8,6 +8,8 @@ from . import xestionsat_incidence_assistance_place
 from . import xestionsat_incidence_stage
 
 # Modified third-party models
+from . import account_invoice
+from . import sale_order
 from . import product_template
 from . import product_product
 from . import res_partner
