@@ -75,17 +75,22 @@ class Incidence(models.Model):
 
     @api.multi
     def write(self, vals):
-        message_locked = 'OPERATION NOT AVAILABLE: The status of blocked' \
+        message_locked = 'OPERATION NOT AVAILABLE: The status is locked' \
+            ' Incidences cannot be changed'
+        message_invoiced = 'OPERATION NOT AVAILABLE: The status is invoiced' \
             ' Incidences cannot be changed'
         message = 'OPERATION NOT AVAILABLE: To close an Incidence you must' \
             ' do it using the "Close Incidence" button'
 
-        if 'locked' not in vals:
-            if self.locked:
-                raise models.ValidationError(_(message_locked))
-        if 'stage_id' in vals:
-            if not vals['stage_id']:
-                raise models.ValidationError(_(message))
+        if 'invoiced' not in vals:
+            if self.invoiced:
+                raise models.ValidationError(_(message_invoiced))
+            if 'locked' not in vals:
+                if self.locked:
+                    raise models.ValidationError(_(message_locked))
+            if 'stage_id' in vals:
+                if not vals['stage_id']:
+                    raise models.ValidationError(_(message))
 
         return super(Incidence, self).write(vals)
 
@@ -95,6 +100,17 @@ class Incidence(models.Model):
     # -------------------------------------------------------------------------
     # Relational Fields
     # -------------------------------------------------------------------------
+    invoice_id = fields.One2many(
+        'account.invoice',
+        string='Incidence',
+        inverse_name='incidence_id',
+    )
+    sale_order_id = fields.One2many(
+        'sale.order',
+        string='Incidence',
+        inverse_name='incidence_id',
+    )
+
     customer_id = fields.Many2one(
         'res.partner',
         string='Customer',
@@ -343,6 +359,16 @@ class Incidence(models.Model):
                     raise models.ValidationError(
                         _(message_actions.format(record.number_open_actions)))
 
+    @api.constrains('invoiced')
+    def _compute_invoice(self):
+        message = 'The incident is already on the invoicing circuit.'
+        for record in self:
+            if record.invoice_id and self.env['account.invoice'].search(
+                [('incidence_id', '=', self.id)]) \
+                or record.sale_order_id and self.env['sale.order'].search(
+                    [('incidence_id', '=', self.id)]):
+                raise ValueError(_(message))
+
     # -------------------------------------------------------------------------
     # Onchange
     # -------------------------------------------------------------------------
@@ -415,6 +441,8 @@ class Incidence(models.Model):
         wait_stage = self.env['xestionsat.incidence.stage'].search(
             [('sequence', '=', 3)])
 
+        # Restrictions not to edit this field are assumed to work
+        self.invoiced = False
         date_now = False
 
         # All devices should have the same status
@@ -482,6 +510,7 @@ class Incidence(models.Model):
         # pricelist_id = self.env['product.pricelist'].search([], limit=1).id
 
         context = {
+            'default_incidence_id': self.id,
             'default_partner_id': self.customer_id.id,
             'default_order_line': self._get_actions_lines(ORDER_MODEL),
             # 'default_confirmation_date': fields.Datetime.now(),
@@ -513,6 +542,7 @@ class Incidence(models.Model):
             name = CREATE_INVOICE
 
         context = {
+            'default_incidence_id': self.id,
             'default_partner_id': self.customer_id.id,
             'default_invoice_line_ids': self._get_actions_lines(INVOICE_MODEL),
         }
@@ -552,6 +582,8 @@ class Incidence(models.Model):
         lines_type = ''
         state = ''
 
+        self.invoiced = True
+
         if return_model == ORDER_MODEL:
             lines_type = 'order_line'
             state = 'sale'
@@ -562,6 +594,7 @@ class Incidence(models.Model):
 
         try:
             model = self.env[return_model].create({
+                'incidence_id': self.id,
                 'partner_id': self.customer_id.id,
                 lines_type: self._get_actions_lines(return_model),
                 'state': state,
@@ -595,6 +628,8 @@ class Incidence(models.Model):
         :param context: Context to present the view data.
         :param flags: Flags to modify the view.
         """
+        self.invoiced = True
+
         return {
             'name': _(name),
             'type': 'ir.actions.act_window',
