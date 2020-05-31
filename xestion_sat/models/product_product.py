@@ -2,7 +2,7 @@
 # 2: import of known third party lib
 
 # 3:  imports of odoo
-from odoo import models, fields
+from odoo import models
 
 # 4:  imports from odoo modules
 
@@ -16,12 +16,5 @@ class ProductTemplate(models.Model):
     """
     ###########################################################################
     # Private attributes
-    _inherit = 'product.template'
-
-    ###########################################################################
-    # Fields declaration
-    ###########################################################################
-    type = fields.Selection(
-        # To use as a filter to include in incidences
-        selection_add=[('xestionsat', 'TAS Action')],
-    )
+    _inherit = 'product.product'
+    _order = 'type desc, name'

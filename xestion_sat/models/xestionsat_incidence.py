@@ -10,7 +10,8 @@ from odoo import models, fields, api, _
 from .xestionsat_common import NEW_INCIDENCE
 from .xestionsat_common import ORDER_MODEL, INVOICE_MODEL
 from .xestionsat_common import CREATE_ORDER, CREATE_INVOICE
-from .xestionsat_common import COLORS_KANBAN_STATE
+from .xestionsat_common import COLOR_KANBAN_STATE, STATE_DEVICE
+from .xestionsat_common import RELOAD_VIEW
 
 # 5: local imports
 
@@ -59,7 +60,7 @@ class Incidence(models.Model):
         """
         items = []
 
-        for key, value in COLORS_KANBAN_STATE.items():
+        for key, value in COLOR_KANBAN_STATE.items():
             items.append(
                 (key, _(value[0]))
             )
@@ -69,8 +70,24 @@ class Incidence(models.Model):
     def _get_default_kanban_state(self):
         """ Gives default kanban_stage.
         """
-        default = list(COLORS_KANBAN_STATE.keys())[0]
+        default = list(COLOR_KANBAN_STATE.keys())[0]
         return default
+
+    @api.multi
+    def write(self, vals):
+        message_locked = 'OPERATION NOT AVAILABLE: The status of blocked' \
+            ' Incidences cannot be changed'
+        message = 'OPERATION NOT AVAILABLE: To close an Incidence you must' \
+            ' do it using the "Close Incidence" button'
+
+        if 'locked' not in vals:
+            if self.locked:
+                raise models.ValidationError(_(message_locked))
+        if 'stage_id' in vals:
+            if not vals['stage_id']:
+                raise models.ValidationError(_(message))
+
+        return super(Incidence, self).write(vals)
 
     ###########################################################################
     # Fields declaration
@@ -169,28 +186,28 @@ class Incidence(models.Model):
 
     tax_amount = fields.Monetary(
         string='Tax amount',
-        compute='_compute_actions_total',
+        compute='_compute_incidence_action_ids',
         currency_field='company_currency',
         track_visibility='always',
         store=True,
     )
     total_discount = fields.Monetary(
         string='Total discount',
-        compute='_compute_actions_total',
+        compute='_compute_incidence_action_ids',
         currency_field='company_currency',
         track_visibility='always',
         store=True,
     )
     total = fields.Monetary(
         string='Untaxed Amount',
-        compute='_compute_actions_total',
+        compute='_compute_incidence_action_ids',
         currency_field='company_currency',
         track_visibility='always',
         store=True,
     )
     total_tax = fields.Monetary(
         string='Total',
-        compute='_compute_actions_total',
+        compute='_compute_incidence_action_ids',
         currency_field='company_currency',
         track_visibility='always',
         store=True,
@@ -200,22 +217,26 @@ class Incidence(models.Model):
     number_total_actions = fields.Integer(
         string='Actions',
         readonly=True,
-        compute='_compute_number_actions',
+        compute='_compute_incidence_action_ids',
     )
     number_open_actions = fields.Integer(
         string='Open Actions',
         readonly=True,
-        compute='_compute_number_actions',
+        compute='_compute_incidence_action_ids',
     )
     number_actions = fields.Char(
         string='Actions',
         readonly=True,
-        compute='_compute_number_actions',
+        compute='_compute_incidence_action_ids',
     )
 
     # Blocking flags
-    invoiced = fields.Boolean()
-    locked = fields.Boolean()
+    invoiced = fields.Boolean(
+        copy=False,
+    )
+    locked = fields.Boolean(
+        copy=False,
+    )
 
     # Kanban control
     color = fields.Integer(
@@ -242,27 +263,14 @@ class Incidence(models.Model):
     # compute and search fields, in the same order that fields declaration
     ###########################################################################
     @api.depends('incidence_action_ids')
-    def _compute_number_actions(self):
-        """Method to obtain the total price of the action lines related to the
-        incidence.
+    def _compute_incidence_action_ids(self):
+        """Method to obtain the total price of the action lines and to obtain
+        the total number of actions related to the incidence.
         """
         for record in self:
             record.number_total_actions = len(record.incidence_action_ids)
             record.number_open_actions = 0
 
-            if record.number_total_actions > 0:
-                for action in record.incidence_action_ids:
-                    if not action.date_end:
-                        record.number_open_actions += 1
-            record.number_actions = "{0} ({1})".format(
-                record.number_total_actions, record.number_open_actions)
-
-    @api.depends('incidence_action_ids')
-    def _compute_actions_total(self):
-        """Method to obtain the total number of actions related to the
-        incidence.
-        """
-        for record in self:
             record.tax_amount = 0.0
             record.total_discount = 0.0
             record.total = 0.0
@@ -283,6 +291,13 @@ class Incidence(models.Model):
                 if subtotal_tax is not None:
                     record.total_tax += subtotal_tax
 
+            if record.number_total_actions > 0:
+                for action in record.incidence_action_ids:
+                    if not action.date_end:
+                        record.number_open_actions += 1
+            record.number_actions = "{0} ({1})".format(
+                record.number_total_actions, record.number_open_actions)
+
     ###########################################################################
     # Constraints and onchanges
     ###########################################################################
@@ -291,42 +306,42 @@ class Incidence(models.Model):
         """Verify that the devices associated with the incidence belong to the
         customer.
         """
-        error_message = 'The Device must belong to the specified Customer'
+        message_error = 'The Device must belong to the specified Customer'
 
         for record in self:
             for device in record.device_ids:
                 if device and device.owner_id != record.customer_id:
-                    raise models.ValidationError(_(error_message))
+                    raise models.ValidationError(_(message_error))
 
     @api.constrains('created_by_id')
     def _check_created_by_id(self):
         """Verify that incidence creation is not assigned to a different
         system user than the one running the application.
         """
-        error_message = 'One User cannot create Incidences in the name of' \
+        message_error = 'One User cannot create Incidences in the name of' \
             'another'
 
         for record in self:
             if record.created_by_id \
                     and record.created_by_id != self.env.user:
-                raise models.ValidationError(_(error_message))
+                raise models.ValidationError(_(message_error))
 
     @api.constrains('date_start', 'date_end')
     def _check_date_end(self):
         """Check that the end date is not earlier than the start date.
         """
-        actions_message = 'There are {0} unclosed actions. All actions need' \
+        message_actions = 'There are {0} unclosed actions. All actions need' \
             ' to be closed in order to close the Incidence.'
 
-        error_message = 'The end date cannot be earlier than the start date'
+        message_error = 'The end date cannot be earlier than the start date'
 
         for record in self:
             if record.date_end:
                 if record.date_end < record.date_start:
-                    raise models.ValidationError(_(error_message))
+                    raise models.ValidationError(_(message_error))
                 if record.number_open_actions > 0:
                     raise models.ValidationError(
-                        _(actions_message.format(record.number_open_actions)))
+                        _(message_actions.format(record.number_open_actions)))
 
     # -------------------------------------------------------------------------
     # Onchange
@@ -341,10 +356,7 @@ class Incidence(models.Model):
             [('sequence', '=', 6)])
 
         if self.stage_id == final_stage:
-            self.close_incidence()
-        elif self.locked:
-            self.locked = False
-            self.date_end = False
+            self.stage_id = None
 
     ###########################################################################
     # CRUD methods
@@ -404,19 +416,35 @@ class Incidence(models.Model):
             [('sequence', '=', 3)])
 
         date_now = False
-        lock = False
+
+        # All devices should have the same status
+        devices_state = STATE_DEVICE[1][0]
 
         next_stage = self.stage_id \
             if self.stage_id != final_stage else wait_stage
 
+        # If the record is locked it unlocks it so you can write the changes
+        if self.locked:
+            self.locked = False
+            lock = False
+        else:
+            lock = True
+
         if not self.date_end:
             date_now = fields.Datetime.now()
-            lock = True
             next_stage = final_stage
+            devices_state = STATE_DEVICE[0][0]
 
         self.date_end = date_now
-        self.locked = lock
         self.stage_id = next_stage
+        for record in self.device_ids:
+            record.state = devices_state
+
+        # It is the last value to change so as not to block the other changes
+        self.locked = lock
+
+        # Reloaded to update the values of the incidence actions list
+        return RELOAD_VIEW
 
     def reload_page(self):
         model_obj = self.env['ir.model.data']
@@ -451,14 +479,13 @@ class Incidence(models.Model):
         if type(name) != str:
             name = CREATE_ORDER
 
-        # pricelist_id = self.env['product.pricelist'].search(
-        #    [], limit=1, order='id desc')
+        # pricelist_id = self.env['product.pricelist'].search([], limit=1).id
 
         context = {
             'default_partner_id': self.customer_id.id,
             'default_order_line': self._get_actions_lines(ORDER_MODEL),
-            # 'default_confirmation_date': datetime.today(),
-            # 'default_pricelist_id': pricelist_id.id,
+            # 'default_confirmation_date': fields.Datetime.now(),
+            # 'default_pricelist_id': pricelist_id,
             # 'default_state': 'sale',
         }
 
@@ -517,10 +544,10 @@ class Incidence(models.Model):
         :param res_model: Model to generate.
         :param title_message: Reply message title.
         """
-        error_message = 'An error has occurred and the operation could not' \
+        message_error = 'An error has occurred and the operation could not' \
             ' be completed:\n\n'
-        message = 'Automatic process completed, please check that the result' \
-            ' is correct.'
+        message_ok = 'Automatic process completed, please check that the' \
+            ' result is correct.'
 
         lines_type = ''
         state = ''
@@ -544,7 +571,7 @@ class Incidence(models.Model):
                 model['confirmation_date'] = fields.Datetime.now()
 
             message_id = self.env['xestionsat.message'].create(
-                {'message': _(message)})
+                {'message': _(message_ok)})
             return {
                 'name': _(title_message),
                 'type': 'ir.actions.act_window',
@@ -555,7 +582,7 @@ class Incidence(models.Model):
                 'target': 'new'
             }
         except Exception as e:
-            raise models.UserError(_(error_message + str(e)))
+            raise models.UserError(_(message_error + str(e)))
 
     def _get_invoice_order_view(
         self, res_model, name, context=None, flags=None
@@ -592,18 +619,28 @@ class Incidence(models.Model):
             view_id=view_id, view_type=view_type, **kwargs
         )
 
+        doc = etree.XML(result['arch'])
+
         if view_type == 'form':
             lock = False
+
+            try:
+                record = self.env['xestionsat.incidence'].browse(
+                    self._context.get('params').get('id'))
+
+                locked = record.locked
+            except Exception:
+                locked = False
 
             if 'lock_view' in context:
                 lock = context['lock_view']
 
-            if lock:
-                doc = etree.XML(result['arch'])
-
+            if lock or locked:
                 # Form
                 for node in doc.xpath("//form[@name='primary_form']"):
-                    node.set('create', 'false')
+                    if not locked:
+                        node.set('create', 'false')
+
                     node.set('edit', 'false')
 
                 # customer_id
@@ -615,13 +652,11 @@ class Incidence(models.Model):
                     node.set('modifiers', '{"invisible": true}')
 
                 # btn_close
-                for node in doc.xpath("//button[@name='btn_close']"):
-                    node.set('modifiers', '{}')
-
-                result['arch'] = etree.tostring(doc)
+                if not locked:
+                    for node in doc.xpath("//button[@name='btn_close']"):
+                        node.set('modifiers', '{}')
 
         if view_type == 'tree':
-            doc = etree.XML(result['arch'])
             stages = dict()
 
             # Prepare the conditions to change the colors of each row
@@ -642,20 +677,16 @@ class Incidence(models.Model):
 
                     node.set(decoration, condition)
 
-            result['arch'] = etree.tostring(doc)
-
         if view_type == 'kanban':
-            doc = etree.XML(result['arch'])
-
             # kanban
             for node in doc.xpath("//progressbar[@field='kanban_state']"):
                 colors = '{'
 
                 # A comma after the last dictionary element causes an error
                 # when creating the view
-                number_values = len(COLORS_KANBAN_STATE.values())
+                number_values = len(COLOR_KANBAN_STATE.values())
                 i = 1
-                for color, state in COLORS_KANBAN_STATE.items():
+                for color, state in COLOR_KANBAN_STATE.items():
                     if color != 'none':
                         colors += '"' + color + '": "' + state[1] + '"'
 
@@ -666,6 +697,6 @@ class Incidence(models.Model):
                 colors += '}'
                 node.set('colors', colors)
 
-            result['arch'] = etree.tostring(doc)
+        result['arch'] = etree.tostring(doc)
 
         return result

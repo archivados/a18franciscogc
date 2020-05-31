@@ -35,9 +35,27 @@ CREATE_ORDER = 'Create Order and modify it'
 CREATE_INVOICE = 'Create Invoice and modify it'
 
 ###########################################################################
+# Constants to manage models
+###########################################################################
+# The first item defined is the default
+# The second item defined is the default for the incidence model
+STATE_DEVICE = [
+    ('operational', 'Operational'),
+    ('repairing', 'Repairing'),
+    ('stored', 'Stored'),
+    ('unsubscribe', 'Unsubscribe'),
+]
+
+RELOAD_VIEW = {
+    'type': 'ir.actions.client',
+    'tag': 'reload',
+}
+
+###########################################################################
 # Constants to manage views
 ###########################################################################
-COLORS_KANBAN_BOX = {
+# The first item defined is the default
+COLOR_KANBAN_BOX = {
     'none': 0,
     'red': 1,
     'orange': 2,
@@ -52,24 +70,26 @@ COLORS_KANBAN_BOX = {
     'purple': 11,
 }
 
-COLORS_KANBAN_STATE = {
-    'none': ('None', 'none', COLORS_KANBAN_BOX['none']),
-    'red': ('Late', 'danger', COLORS_KANBAN_BOX['red']),
-    'yellow': ('In progress', 'warning', COLORS_KANBAN_BOX['yellow']),
-    'green': ('Done', 'success', COLORS_KANBAN_BOX['green']),
-    'blue': ('On hold', 'blue', COLORS_KANBAN_BOX['dark_blue']),
+# The first item defined is the default
+COLOR_KANBAN_STATE = {
+    'none': ('None', 'none', COLOR_KANBAN_BOX['none']),
+    'red': ('Late', 'danger', COLOR_KANBAN_BOX['red']),
+    'yellow': ('In progress', 'warning', COLOR_KANBAN_BOX['yellow']),
+    'green': ('Done', 'success', COLOR_KANBAN_BOX['green']),
+    'blue': ('On hold', 'blue', COLOR_KANBAN_BOX['dark_blue']),
 }
 
+# The first item defined is the default
 DECORATION_INCIDENCE_STAGE = {
-    'normal': ('Normal', COLORS_KANBAN_BOX['none']),
-    'decoration-bf': ('Bold', COLORS_KANBAN_BOX['dark_blue']),
-    'decoration-it': ('Italics', COLORS_KANBAN_BOX['salmon_pink']),
-    'decoration-danger': ('Light Red', COLORS_KANBAN_BOX['red']),
-    'decoration-info': ('Light Blue', COLORS_KANBAN_BOX['light_blue']),
-    'decoration-muted': ('Light Gray', COLORS_KANBAN_BOX['none']),
-    'decoration-primary': ('Light Purple', COLORS_KANBAN_BOX['purple']),
-    'decoration-success': ('Light Green', COLORS_KANBAN_BOX['green']),
-    'decoration-warning': ('Light Brown', COLORS_KANBAN_BOX['dark_purple']),
+    'normal': ('Normal', COLOR_KANBAN_BOX['none']),
+    'decoration-bf': ('Bold', COLOR_KANBAN_BOX['dark_blue']),
+    'decoration-it': ('Italics', COLOR_KANBAN_BOX['salmon_pink']),
+    'decoration-danger': ('Light Red', COLOR_KANBAN_BOX['red']),
+    'decoration-info': ('Light Blue', COLOR_KANBAN_BOX['light_blue']),
+    'decoration-muted': ('Light Gray', COLOR_KANBAN_BOX['none']),
+    'decoration-primary': ('Light Purple', COLOR_KANBAN_BOX['purple']),
+    'decoration-success': ('Light Green', COLOR_KANBAN_BOX['green']),
+    'decoration-warning': ('Light Brown', COLOR_KANBAN_BOX['dark_purple']),
 }
 
 DECORATION_ACTION_OPEN = 'decoration-info'

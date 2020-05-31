@@ -10,6 +10,7 @@ from odoo import models, fields, api, _
 from .xestionsat_common import NEW_ACTION
 from .xestionsat_common import ORDER_MODEL, INVOICE_MODEL
 from .xestionsat_common import DECORATION_ACTION_OPEN
+from .xestionsat_common import RELOAD_VIEW
 
 # 5: local imports
 
@@ -24,7 +25,7 @@ class IncidenceAction(models.Model):
     ###########################################################################
     _name = 'xestionsat.incidence.action'
     _description = _('Action taken in an incidence')
-    _inherits = {'product.template': 'template_id'}
+    _inherits = {'product.product': 'product_id'}
     _order = 'date_start desc'
 
     ###########################################################################
@@ -50,8 +51,8 @@ class IncidenceAction(models.Model):
         ondelete='restrict',
     )
 
-    template_id = fields.Many2one(
-        'product.template',
+    product_id = fields.Many2one(
+        'product.product',
         string='Action',
         required=True,
         ondelete='restrict',
@@ -164,7 +165,7 @@ class IncidenceAction(models.Model):
         for line in self:
             action_line = {
                 'name': line.name,
-                'product_id': line.id,
+                'product_id': line.product_id.id,
                 'discount': line.discount,
                 'product_uom': line.uom_id.id,
                 'price_unit': line.list_price,
@@ -211,12 +212,21 @@ class IncidenceAction(models.Model):
                 if record.date_end < record.date_start:
                     raise models.ValidationError(_(error_message))
 
+    # -------------------------------------------------------------------------
+    # Onchange
+    # -------------------------------------------------------------------------
     @api.onchange('tax_ids')
     def _check_tax_ids(self):
         """Execute the _compute_subtotal () method to calculate the price of the
         line.
         """
         self._compute_subtotal()
+
+    @api.onchange('product_id')
+    def _check_product_id(self):
+        """Assign the associated taxes to the associated product.
+        """
+        self.tax_ids = self.product_id.taxes_id
 
     ###########################################################################
     # CRUD methods
@@ -248,18 +258,35 @@ class IncidenceAction(models.Model):
     def close_action(self):
         """Method to close or reopen the current Action.
         """
-        date_now = False
+        title_message = 'Operation not allowed'
+        message = 'You cannot reopen actions with the incidence closed. If' \
+            ' you want to modify the action, please reopen the associated' \
+            ' incident.'
+        result = {}
+        if not self.incidence_id.locked:
+            date_now = False
 
-        if not self.date_end:
-            date_now = fields.Datetime.now()
+            if not self.date_end:
+                date_now = fields.Datetime.now()
 
-        self.write({'date_end': date_now})
+            self.write({'date_end': date_now})
 
-        # Reloaded to update the values of the incidence actions list
-        return {
-            'type': 'ir.actions.client',
-            'tag': 'reload',
-        }
+            # Reloaded to update the values of the incidence actions list
+            result = RELOAD_VIEW
+        else:
+            message_id = self.env['xestionsat.message'].create(
+                {'message': _(message)})
+            result = {
+                'name': _(title_message),
+                'type': 'ir.actions.act_window',
+                'view_mode': 'form',
+                'res_model': 'xestionsat.message',
+                # pass the id
+                'res_id': message_id.id,
+                'target': 'new'
+            }
+
+        return result
 
     ###########################################################################
     # Business methods

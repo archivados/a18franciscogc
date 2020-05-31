@@ -9,4 +9,5 @@ from . import xestionsat_incidence_stage
 
 # Modified third-party models
 from . import product_template
+from . import product_product
 from . import res_partner

@@ -23,13 +23,13 @@
                             <field name="executed_by"
                                 domain="[('id', '=', uid)]"
                                 readonly="True"/>
-                            <field name="template_id"
+                            <field name="product_id"
                                 context="{'search_default_sat': 1}"/>
                             <field name="observation"/>
                             <field name="quantity"/>
                             <field name="list_price" widget="monetary"/>
                             <field name="discount"/>
-                            <field name="tax_ids" widget="many2many_tags"/>
+                            <field name="tax_ids" widget="many2many_tags" domain="[('type_tax_use','=','sale')]"/>
                             <field name="subtotal" widget="monetary"/>
                         </group>
                         <group>
@@ -58,15 +58,17 @@
         <field name="model">xestionsat.incidence.action</field>
         <field name="arch" type="xml">
             <tree name="primary_tree" editable="bottom">
-                <field name="executed_by"/>
-                <field name="template_id"/>
+                <field name="executed_by"
+                    domain="[('id', '=', uid)]"
+                    readonly="True"/>
+                <field name="product_id"/>
                 <field name="observation"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="quantity"/>
                 <field name="list_price" widget="monetary"/>
                 <field name="discount"/>
-                <field name="tax_ids" widget="many2many_tags"/>
+                <field name="tax_ids" widget="many2many_tags" domain="[('type_tax_use','=','sale')]"/>
                 <field name="subtotal" widget="monetary"/>
             </tree>
         </field>
