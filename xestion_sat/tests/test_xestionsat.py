@@ -401,7 +401,7 @@ class XestionsatTest(TestCommonData):
         componet = self.DeviceComponent.create(
             {
                 # Required fields
-                'template_id': product.id,
+                'product_id': product.id,
                 'date_registration': datetime.now().strftime('%Y-%m-%d'),
 
                 # Optional fields

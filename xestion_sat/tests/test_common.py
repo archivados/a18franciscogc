@@ -21,7 +21,7 @@ class TestCommonData(TransactionCase):
 
         # Usefull models
         Partner = self.env['res.partner']
-        Product = self.env['product.template']
+        Product = self.env['product.product']
         User = self.env['res.users'].with_context(no_reset_password=True)
 
         # Create a Users
