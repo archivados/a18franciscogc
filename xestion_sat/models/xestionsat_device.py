@@ -346,11 +346,16 @@ class Device(models.Model):
         if view_type == 'form':
             lock = False
 
+            doc = etree.XML(result['arch'])
+
+            # incidence page
+            # for node in doc.xpath("//page[@name='incidences']"):
+            #    node.set('modifiers', '{"invisible": true}')
+
             if 'lock_view' in context:
                 lock = context['lock_view']
 
             if lock:
-                doc = etree.XML(result['arch'])
 
                 # Form
                 for node in doc.xpath("//form[@name='primary_form']"):
@@ -361,10 +366,10 @@ class Device(models.Model):
                 for node in doc.xpath("//field[@name='owner_id']"):
                     node.set('modifiers', '{"readonly": true}')
 
+
                 # btn_close
                 for node in doc.xpath("//button[@name='btn_close']"):
-                    # node.set('invisible', 'False')
                     node.set('modifiers', '{}')
 
-                result['arch'] = etree.tostring(doc)
+            result['arch'] = etree.tostring(doc)
         return result
