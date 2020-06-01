@@ -25,14 +25,19 @@ class TestCommonData(TransactionCase):
         User = self.env['res.users'].with_context(no_reset_password=True)
 
         # Create a Users
-        GroupUser = self.env.ref('xestion_sat.group_xestionsat_admin')
+        GroupUserXeSAT = self.env.ref('xestion_sat.group_xestionsat_admin')
+        GroupUserAccount = self.env.ref('account.group_account_manager')
+        Groups = [
+            GroupUserXeSAT.id,
+            GroupUserAccount.id,
+        ]
 
         self.test_admin_users = [
             # User 1
             User.create(
                 {
                     'login': 'testusuario1',
-                    'groups_id': [(6, 0, [GroupUser.id])],
+                    'groups_id': [(6, 0, Groups)],
                     'partner_id': self.env['res.partner'].create(
                         {
                             'name': 'María Técnica',
@@ -45,7 +50,7 @@ class TestCommonData(TransactionCase):
             User.create(
                 {
                     'login': 'testusuario2',
-                    'groups_id': [(6, 0, [GroupUser.id])],
+                    'groups_id': [(6, 0, Groups)],
                     'partner_id': self.env['res.partner'].create(
                         {
                             'name': 'Laura Técnica',
