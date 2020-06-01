@@ -427,6 +427,8 @@ class XestionsatTest(TestCommonData):
                     'created_by_id': user.id,
                     'customer_id': owner.id,
                     'title': title,
+                    'invoice_id': None,
+                    'sale_order_id': None,
                     'failure_description': description,
                     'stage_id': self.incidence_stages[0].id,
                     'date_start': datetime.now().strftime('%Y-%m-%d'),
