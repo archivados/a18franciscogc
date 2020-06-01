@@ -100,11 +100,13 @@ class Incidence(models.Model):
         'account.invoice',
         string='Incidence',
         inverse_name='incidence_id',
+        copy=False,
     )
     sale_order_id = fields.One2many(
         'sale.order',
         string='Incidence',
         inverse_name='incidence_id',
+        copy=False,
     )
 
     customer_id = fields.Many2one(
@@ -125,12 +127,14 @@ class Incidence(models.Model):
         ondelete='restrict',
         default=lambda self: self.env.user,
         required=True,
+        copy=False,
     )
 
     incidence_action_ids = fields.One2many(
         'xestionsat.incidence.action',
         string='Incidence Actions',
         inverse_name='incidence_id',
+        copy=False,
     )
 
     stage_id = fields.Many2one(
@@ -141,6 +145,7 @@ class Incidence(models.Model):
         index=True,
         default=_get_default_stage_id,
         group_expand='_get_all_stage_ids',
+        copy=False,
     )
 
     assistance_place = fields.Many2one(
@@ -174,12 +179,12 @@ class Incidence(models.Model):
     )
     date_end = fields.Datetime(
         string='Date ends',
+        copy=False,
     )
 
     stage_value = fields.Char(
         readonly=True,
         related='stage_id.stage',
-        translate=True,
     )
 
     # Economic Summary
@@ -202,12 +207,14 @@ class Incidence(models.Model):
         currency_field='company_currency',
         track_visibility='always',
         store=True,
+        copy=False,
     )
     total_discount = fields.Monetary(
         string='Total discount',
         compute='_compute_incidence_action_ids',
         currency_field='company_currency',
         track_visibility='always',
+        copy=False,
         store=True,
     )
     total = fields.Monetary(
@@ -216,6 +223,7 @@ class Incidence(models.Model):
         currency_field='company_currency',
         track_visibility='always',
         store=True,
+        copy=False,
     )
     total_tax = fields.Monetary(
         string='Total',
@@ -223,6 +231,7 @@ class Incidence(models.Model):
         currency_field='company_currency',
         track_visibility='always',
         store=True,
+        copy=False,
     )
 
     # Summary of actions
@@ -269,6 +278,7 @@ class Incidence(models.Model):
         selection=_get_kanban_stage_items,
         string='Kanban State',
         default=_get_default_kanban_state,
+        copy=False,
     )
 
     ###########################################################################
