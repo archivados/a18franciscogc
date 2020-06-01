@@ -9,6 +9,7 @@ from odoo import models, fields, api, _
 # 4:  imports from odoo modules
 from .xestionsat_common import NEW_DEVICE
 from .xestionsat_common import STATE_DEVICE
+from .xestionsat_message import MESSAGE
 
 # 5: local imports
 
@@ -140,21 +141,18 @@ class Device(models.Model):
                 and record.headquarter_id.parent_id != record.owner_id \
                     and record.headquarter_id != record.owner_id:
                 raise models.ValidationError(
-                    _('The Headquarters must belong to the specified Customer')
-                )
+                        _(MESSAGE['device_constraint']['headquarter_id']))
 
     @api.constrains('user_ids')
     def _check_users(self):
         """Verify that the users entered correspond to the current customer.
         """
-        error_message = 'The Device User must be a member  of the specified' \
-            ' Customer'
-
         for record in self:
             for user in record.user_ids:
                 if user.parent_id != record.owner_id \
                         and user != record.owner_id:
-                    raise models.ValidationError(_(error_message))
+                    raise models.ValidationError(
+                        _(MESSAGE['device_constraint']['user_ids']))
 
     @api.constrains('internal_id')
     def _check_internal_id(self):
@@ -164,30 +162,28 @@ class Device(models.Model):
             if record.internal_id and self.env['xestionsat.device'].search(
                 [('internal_id', '=', self.internal_id), ('id', '!=', self.id)]
             ):
-                raise ValueError(_('The code already exists'))
+                raise models.ValidationError(
+                        _(MESSAGE['device_constraint']['internal_id']))
 
     @api.constrains('created_by_id')
     def _check_created_by_id(self):
         """Verify that device creation is not assigned to a different system
         user than the one running the application.
         """
-        error_message = 'One User cannot create Devices in the name of another'
-
         for record in self:
             if record.created_by_id and record.created_by_id != self.env.user:
-                raise models.ValidationError(_(error_message))
+                raise models.ValidationError(
+                    _(MESSAGE['device_constraint']['created_by_id']))
 
     @api.constrains('date_registration', 'date_cancellation')
     def _check_date_end(self):
         """Check that the cancellation date is not earlier than the start registration.
         """
-        error_message = 'The cancellation date cannot be earlier than the' \
-            ' registration date'
-
         for record in self:
             if record.date_cancellation:
                 if record.date_cancellation < record.date_registration:
-                    raise models.ValidationError(_(error_message))
+                    raise models.ValidationError(
+                        _(MESSAGE['device_constraint']['date_cancellation']))
 
     ###########################################################################
     # CRUD methods
@@ -255,9 +251,10 @@ class Device(models.Model):
                 if device.is_allowed_transition(device.state, new_state):
                     device.state = new_state
                 else:
-                    error_message = _('Moving from %s to %s is not allowed') \
-                        % (device.state, new_state)
-                    raise models.UserError(error_message)
+                    raise models.UserError(
+                        _(MESSAGE['device_methods']['change_state']).format(
+                            (device.state, new_state))
+                    )
 
     def make_stored(self):
         """Invokes the change of state to stored.
@@ -365,7 +362,6 @@ class Device(models.Model):
                 # owner_id
                 for node in doc.xpath("//field[@name='owner_id']"):
                     node.set('modifiers', '{"readonly": true}')
-
 
                 # btn_close
                 for node in doc.xpath("//button[@name='btn_close']"):

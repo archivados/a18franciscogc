@@ -11,6 +11,8 @@ from .xestionsat_common import NEW_ACTION
 from .xestionsat_common import ORDER_MODEL, INVOICE_MODEL
 from .xestionsat_common import DECORATION_ACTION_OPEN
 from .xestionsat_common import RELOAD_VIEW
+from .xestionsat_message import MESSAGE
+
 
 # 5: local imports
 
@@ -194,23 +196,21 @@ class IncidenceAction(models.Model):
         """Verify that the creation of the action is not assigned to a
         different system user than the one running the application.
         """
-        error_message = 'One user cannot create Actions in the name of another'
-
         for line in self:
             if line.executed_by \
                     and line.executed_by != self.env.user:
-                raise models.ValidationError(_(error_message))
+                raise models.ValidationError(
+                    _(MESSAGE['action_constraint']['executed_by']))
 
     @api.constrains('date_start', 'date_end')
     def _check_date_end(self):
         """Check that the end date is not earlier than the start date.
         """
-        error_message = 'The end date cannot be earlier than the start date'
-
         for record in self:
             if record.date_end:
                 if record.date_end < record.date_start:
-                    raise models.ValidationError(_(error_message))
+                    raise models.ValidationError(
+                        _(MESSAGE['action_constraint']['date_end']))
 
     # -------------------------------------------------------------------------
     # Onchange
@@ -258,10 +258,6 @@ class IncidenceAction(models.Model):
     def close_action(self):
         """Method to close or reopen the current Action.
         """
-        title_message = 'Operation not allowed'
-        message = 'You cannot reopen actions with the incidence closed. If' \
-            ' you want to modify the action, please reopen the associated' \
-            ' incident.'
         result = {}
         if not self.incidence_id.locked:
             date_now = False
@@ -275,9 +271,9 @@ class IncidenceAction(models.Model):
             result = RELOAD_VIEW
         else:
             message_id = self.env['xestionsat.message'].create(
-                {'message': _(message)})
+                {'message': _(MESSAGE['action_methods']['close_action'])})
             result = {
-                'name': _(title_message),
+                'name': _(MESSAGE['action_methods']['close_action_tilte']),
                 'type': 'ir.actions.act_window',
                 'view_mode': 'form',
                 'res_model': 'xestionsat.message',

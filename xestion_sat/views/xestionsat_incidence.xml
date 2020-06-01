@@ -238,4 +238,37 @@
     <!--####################################-->
     <!--           Search Views             -->
     <!--####################################-->
+    <record id="xestionsat_incidence_search_view" model="ir.ui.view">
+        <field name="name">Incidence - Search</field>
+        <field name="model">xestionsat.incidence</field>
+        <field name="arch" type="xml">
+            <search string="Stage Search">
+                <field name="customer_id"/>
+                <field name="title"/>
+                <field name="assistance_place"/>
+                <field name="stage_id"/>
+                <field name="created_by_id"/>
+
+                <filter string="Open" name="open" domain="[('locked','=',False)]"/>
+                <filter string="Locked" name="locked" domain="[('locked','=',True)]"/>
+                <filter string="Invoiced" name="invoiced" domain="[('invoiced','=',True)]"/>
+                <filter string="Not Invoiced" name="not_invoiced" domain="[('invoiced','=',False)]"/>
+
+                <separator/>
+                <group expand="0" string="Dates">
+                    <filter name="today" string="Today"
+                        domain="[('date_start', '&gt;=', datetime.datetime.now().replace(hour=0, minute=0, second=0)),('date_start', '&lt;=', datetime.datetime.now().replace(hour=23, minute=59, second=59))]" />
+                    <filter string="Before today" name="before_today"
+                        domain="[('date_start', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+
+                    <filter string="Last Month" name="last_month"
+                        domain="['&amp;', ('date_start', '&gt;=', (context_today() - relativedelta(months=1)).strftime('%%Y-%%m-01')), ('date_start', '&lt;', context_today().strftime('%%Y-%%m-01'))]"/>
+                    <filter string="Current Month" name="current_month"
+                        domain="[('date_start', '&gt;=', context_today().strftime('%%Y-%%m-01'))]"/>
+                    <filter string="Future" name="future"
+                        domain="[('date_start', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+                </group>
+            </search>
+        </field>
+    </record>
 </odoo>
