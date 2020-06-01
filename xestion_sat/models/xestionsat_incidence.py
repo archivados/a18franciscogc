@@ -333,7 +333,7 @@ class Incidence(models.Model):
             if record.created_by_id \
                     and record.created_by_id != self.env.user:
                 raise models.ValidationError(
-                        _(MESSAGE['incidence_constraint']['created_by_id']))
+                    _(MESSAGE['incidence_constraint']['created_by_id']))
 
     @api.constrains('date_start', 'date_end')
     def _check_date_end(self):
@@ -357,7 +357,7 @@ class Incidence(models.Model):
                 or record.sale_order_id and self.env['sale.order'].search(
                     [('incidence_id', '=', self.id)]):
                 raise models.ValidationError(
-                        _(MESSAGE['incidence_constraint']['invoiced']))
+                    _(MESSAGE['incidence_constraint']['invoiced']))
 
     # -------------------------------------------------------------------------
     # Onchange

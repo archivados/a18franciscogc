@@ -107,4 +107,4 @@ class IncidenceStage(models.Model):
                 [('sequence', '=', record.sequence)])
             if len(new_sequence) > 1:
                 raise models.ValidationError(
-                        _(MESSAGE['stage_constraint']['sequence']))
+                    _(MESSAGE['stage_constraint']['sequence']))
