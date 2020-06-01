@@ -141,7 +141,7 @@ class Device(models.Model):
                 and record.headquarter_id.parent_id != record.owner_id \
                     and record.headquarter_id != record.owner_id:
                 raise models.ValidationError(
-                        _(MESSAGE['device_constraint']['headquarter_id']))
+                    _(MESSAGE['device_constraint']['headquarter_id']))
 
     @api.constrains('user_ids')
     def _check_users(self):
@@ -163,7 +163,7 @@ class Device(models.Model):
                 [('internal_id', '=', self.internal_id), ('id', '!=', self.id)]
             ):
                 raise models.ValidationError(
-                        _(MESSAGE['device_constraint']['internal_id']))
+                    _(MESSAGE['device_constraint']['internal_id']))
 
     @api.constrains('created_by_id')
     def _check_created_by_id(self):
