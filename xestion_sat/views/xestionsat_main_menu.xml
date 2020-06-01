@@ -96,6 +96,26 @@
             </p>
         </field>
     </record>
+
+    <!--************************************-->
+    <!--              INVOICES              -->
+    <!--************************************-->
+    <record model="ir.actions.act_window" id="xestionsat_incidence_invoice_action">
+        <field name="name">To Invoice</field>
+        <field name="res_model">xestionsat.incidence</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'create': False, 'search_default_not_invoiced':1}</field>
+        <field name="domain">[('locked','=',True)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                There are no incidences that can be invoiced.
+            </p>
+            <p>
+                Incidents can be invoiced one by one or by batch, use the filters to group them
+                as you wish.
+            </p>
+        </field>
+    </record>
     
     <!--************************************-->
     <!--             CUSTOMERS              -->
@@ -132,7 +152,7 @@
     <menuitem name="Assistance Places" 
         id="xestionsat_incidence_assistance_place_menu" 
         parent="xestionsat_incidence_menu" 
-        sequence="30" 
+        sequence="20" 
         action="xestionsat_incidence_assistance_place_action"/>
     
     <!-- INCIDENCES STAGES -->
@@ -159,6 +179,16 @@
         parent="xestionsat_base_menu"
         sequence="20"
         action="xestionsat_device_action" />
+
+    <!--************************************-->
+    <!--              INVOICES              -->
+    <!--************************************-->
+    <menuitem 
+        name="Invoices" 
+        id="xestionsat_to_invoice_menu" 
+        parent="xestionsat_base_menu" 
+        sequence="30" 
+        action="xestionsat_incidence_invoice_action"/>
 
     <!--************************************-->
     <!--             CUSTOMERS              -->
