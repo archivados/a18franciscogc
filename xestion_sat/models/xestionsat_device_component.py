@@ -19,7 +19,7 @@ class DeviceComponent(models.Model):
     """
     # Private attributes
     _name = 'xestionsat.device.component'
-    _description = _('Component that is part of a Device')
+    _description = _('Device - Component')
     _inherits = {'product.product': 'product_id'}
 
     # Default methods
