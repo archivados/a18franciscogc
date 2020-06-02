@@ -601,9 +601,11 @@ class Incidence(models.Model):
 
             if show_message:
                 message_id = self.env['xestionsat.message'].create(
-                    {'message': _(
-                        MESSAGE['incidence_methods']['_get_invoice_order'])
-                    })
+                    {
+                        'message': _(
+                            MESSAGE['incidence_methods']['_get_invoice_order'])
+                    }
+                )
                 return {
                     'name': _(title_message),
                     'type': 'ir.actions.act_window',
