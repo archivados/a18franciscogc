@@ -103,6 +103,8 @@
         <field name="model">xestionsat.incidence</field>
         <field name="arch" type="xml">
             <tree name="primary_tree" string="Incidences" class="o_sale_order">
+                <field name="invoiced" class="text-center"/>
+
                 <!-- Used to define the color of the row -->
                 <field name="stage_value" invisible="True"/>
                 <field name="stage_id"/>
@@ -238,19 +240,17 @@
     <!--####################################-->
     <!--           Search Views             -->
     <!--####################################-->
-    <record id="xestionsat_incidence_search_view" model="ir.ui.view">
+    <record id="xestionsat_incidence_search_view_basic" model="ir.ui.view">
         <field name="name">Incidence - Search</field>
         <field name="model">xestionsat.incidence</field>
         <field name="arch" type="xml">
-            <search string="Stage Search">
+            <search string="Incidence Search">
                 <field name="customer_id"/>
                 <field name="title"/>
                 <field name="assistance_place"/>
                 <field name="stage_id"/>
                 <field name="created_by_id"/>
 
-                <filter string="Open" name="open" domain="[('locked','=',False)]"/>
-                <filter string="Locked" name="locked" domain="[('locked','=',True)]"/>
                 <filter string="Invoiced" name="invoiced" domain="[('invoiced','=',True)]"/>
                 <filter string="Not Invoiced" name="not_invoiced" domain="[('invoiced','=',False)]"/>
 
@@ -269,6 +269,17 @@
                         domain="[('date_start', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
                 </group>
             </search>
+        </field>
+    </record>
+    <record id="xestionsat_incidence_search_view_default" model="ir.ui.view">
+        <field name="model">xestionsat.incidence</field>
+        <field name="name">Invoice - Search</field>
+        <field name="inherit_id" ref="xestionsat_incidence_search_view_basic" />
+        <field name="arch" type="xml">
+            <filter name="invoiced" position="before">
+                <filter string="Open" name="open" domain="[('locked','=',False)]"/>
+                <filter string="Locked" name="locked" domain="[('locked','=',True)]"/>
+            </filter>
         </field>
     </record>
 </odoo>

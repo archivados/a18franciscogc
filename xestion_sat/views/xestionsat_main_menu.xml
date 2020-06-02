@@ -7,11 +7,12 @@
     <!--************************************-->
     <!--             INCIDENCES             -->
     <!--************************************-->
-    <record model="ir.actions.act_window" id="xestionsat_incidence_action">
+    <record id="xestionsat_incidence_action" model="ir.actions.act_window">
         <field name="name">Incidences</field>
         <field name="res_model">xestionsat.incidence</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="context">{'search_default_open':1}</field>
+        <field name="search_view_id" ref="xestionsat_incidence_search_view_default"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new Incidence. Take control of your Technical Assistance Service now!
@@ -24,7 +25,7 @@
     </record>
 
     <!-- INCIDENCES ASSISTANCE PLACES -->
-    <record model="ir.actions.act_window" id="xestionsat_incidence_assistance_place_action">
+    <record id="xestionsat_incidence_assistance_place_action" model="ir.actions.act_window">
         <field name="name">Incidence Assistance Places</field>
         <field name="res_model">xestionsat.incidence.assistance_place</field>
         <field name="view_mode">tree,form</field>
@@ -42,7 +43,7 @@
     </record>
     
     <!-- INCIDENCES STAGES -->
-    <record model="ir.actions.act_window" id="xestionsat_incidence_stage_action">
+    <record id="xestionsat_incidence_stage_action" model="ir.actions.act_window">
         <field name="name">Incidence Stages</field>
         <field name="res_model">xestionsat.incidence.stage</field>
         <field name="view_mode">tree,form</field>
@@ -59,7 +60,7 @@
     </record>
 
     <!-- INCIDENCES ACTIONS -->
-    <record model="ir.actions.act_window" id="incidenceaction_action">
+    <record id="incidenceaction_action" model="ir.actions.act_window">
         <field name="name">Incidence Actions</field>
         <field name="res_model">product.product</field>
         <field name="view_mode">kanban,tree,form,activity</field>
@@ -80,7 +81,7 @@
     <!--************************************-->
     <!--              DEVICES               -->
     <!--************************************-->
-    <record model="ir.actions.act_window" id="xestionsat_device_action">
+    <record id="xestionsat_device_action" model="ir.actions.act_window">
         <field name="name">Devices</field>
         <field name="res_model">xestionsat.device</field>
         <field name="view_mode">tree,form</field>
@@ -100,12 +101,13 @@
     <!--************************************-->
     <!--              INVOICES              -->
     <!--************************************-->
-    <record model="ir.actions.act_window" id="xestionsat_incidence_invoice_action">
+    <record id="xestionsat_incidence_invoice_action" model="ir.actions.act_window">
         <field name="name">To Invoice</field>
         <field name="res_model">xestionsat.incidence</field>
         <field name="view_mode">tree,form</field>
         <field name="context">{'create': False, 'search_default_not_invoiced':1}</field>
         <field name="domain">[('locked','=',True)]</field>
+        <field name="search_view_id" ref="xestionsat_incidence_search_view_basic"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 There are no incidences that can be invoiced.
@@ -125,6 +127,8 @@
         <field name="res_model">res.partner</field>
         <field name="view_mode">kanban,tree,form,activity</field>
     </record>
+
+    <!--#################################################################################################-->
 
     <!--####################################-->
     <!--               MENUS                -->
