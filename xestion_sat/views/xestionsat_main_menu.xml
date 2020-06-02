@@ -60,7 +60,7 @@
     </record>
 
     <!-- INCIDENCES ACTIONS -->
-    <record id="incidenceaction_action" model="ir.actions.act_window">
+    <record id="incidence_action_action" model="ir.actions.act_window">
         <field name="name">Incidence Actions</field>
         <field name="res_model">product.product</field>
         <field name="view_mode">kanban,tree,form,activity</field>
@@ -172,7 +172,7 @@
         id="xestionsat_actions_menu" 
         parent="xestionsat_incidence_menu" 
         sequence="100" 
-            action="incidenceaction_action"/>
+            action="incidence_action_action"/>
 
     <!--************************************-->
     <!--              DEVICES               -->

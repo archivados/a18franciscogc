@@ -282,4 +282,41 @@
             </filter>
         </field>
     </record>
+
+    <!--####################################-->
+    <!--          SERVER ACTIONS            -->
+    <!--####################################-->
+    <record id="xestionsat_incidence_server_action_reopen" model="ir.actions.server">
+        <field name="name">Reopen Incidences</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_xestionsat_incidence" />
+        <field name="binding_model_id" ref="model_xestionsat_incidence" />
+        <field name="state">code</field>
+        <field name="code">
+            for item in records:
+                item.close_incidence()
+        </field>
+    </record>
+    <record id="xestionsat_incidence_server_action_order" model="ir.actions.server">
+        <field name="name">Create Orders</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_xestionsat_incidence" />
+        <field name="binding_model_id" ref="model_xestionsat_incidence" />
+        <field name="state">code</field>
+        <field name="code">
+            for item in records:
+                item.create_order(False)
+        </field>
+    </record>
+    <record id="xestionsat_incidence_server_action_invoice" model="ir.actions.server">
+        <field name="name">Create Invoices</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_xestionsat_incidence" />
+        <field name="binding_model_id" ref="model_xestionsat_incidence" />
+        <field name="state">code</field>
+        <field name="code">
+            for item in records:
+                item.create_invoice(False)
+        </field>
+    </record>
 </odoo>
