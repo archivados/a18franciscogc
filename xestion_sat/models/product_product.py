@@ -12,7 +12,7 @@ from odoo import models
 
 
 class ProductTemplate(models.Model):
-    """Modification of the product.template to adapt it to the needs of the module.
+    """Modification of the product.product to adapt it to the needs of the module.
     """
     ###########################################################################
     # Private attributes

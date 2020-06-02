@@ -25,7 +25,7 @@ class Incidence(models.Model):
     # Private attributes
     ###########################################################################
     _name = 'xestionsat.incidence'
-    _description = _('Incidence associated with a Customer')
+    _description = _('Incidence')
     _rec_name = 'title'
     _order = 'id desc, date_start desc'
 
@@ -495,6 +495,9 @@ class Incidence(models.Model):
     @api.multi
     def create_order(self, show_message=True):
         """Method to create a new order for the current incidence.
+
+        :param show_message: Indicates whether or not to display a message to
+        the user.
         """
         return self._get_invoice_order(ORDER_MODEL, CREATE_ORDER, show_message)
 
@@ -531,6 +534,9 @@ class Incidence(models.Model):
     @api.multi
     def create_invoice(self, show_message=True):
         """Method to create a new invoice for the current incidence.
+
+        :param show_message: Indicates whether or not to display a message to
+        the user.
         """
         return self._get_invoice_order(
             INVOICE_MODEL, CREATE_INVOICE, show_message)
@@ -538,6 +544,8 @@ class Incidence(models.Model):
     @api.multi
     def create_invoice_edit(self, name=CREATE_INVOICE):
         """Method to create a new invoice for the current incidence and modify it.
+
+        :param name: View title.
         """
         if type(name) != str:
             name = CREATE_INVOICE
@@ -574,6 +582,8 @@ class Incidence(models.Model):
 
         :param res_model: Model to generate.
         :param title_message: Reply message title.
+        :param show_message: Indicates whether or not to display a message to
+        the user.
         """
         lines_type = ''
         state = ''

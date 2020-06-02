@@ -21,7 +21,7 @@ class IncidenceStage(models.Model):
     # Private attributes
     ###########################################################################
     _name = 'xestionsat.incidence.stage'
-    _description = _('Stage in which an incidence is found')
+    _description = _('Incidence Stage')
     _rec_name = 'stage'
     _order = "sequence"
 

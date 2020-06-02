@@ -14,12 +14,12 @@ from .xestionsat_common import NEW_OTHER_DATA
 
 
 class DeviceOtherData(models.Model):
-    """Model to describe the components that make up each device.
+    """Model that describes other information about the device.
     """
     # Private attributes
     _name = 'xestionsat.device.other_data'
     _rec_name = 'data'
-    _description = _('Other data related to a Device')
+    _description = _('Device - Other Data')
 
     # Default methods
 

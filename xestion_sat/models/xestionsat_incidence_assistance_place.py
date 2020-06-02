@@ -20,7 +20,7 @@ class IncidenceAssistancePlace(models.Model):
     # Private attributes
     ###########################################################################
     _name = 'xestionsat.incidence.assistance_place'
-    _description = _('Place where an incidence is committed')
+    _description = _('Incidence Assistance Place')
     _rec_name = 'assistance_place'
 
     ###########################################################################
