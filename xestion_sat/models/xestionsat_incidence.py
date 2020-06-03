@@ -123,6 +123,7 @@ class Incidence(models.Model):
         string='Devices',
         required=True,
         ondelete='restrict',
+        copy=False,
         track_visibility=True,
     )
     created_by_id = fields.Many2one(
@@ -339,6 +340,10 @@ class Incidence(models.Model):
     ###########################################################################
     # Constraints and onchanges
     ###########################################################################
+
+    # -------------------------------------------------------------------------
+    # constrains
+    # -------------------------------------------------------------------------
     @api.constrains('device_ids')
     def _check_parent(self):
         """Verify that the devices associated with the incidence belong to the
@@ -408,6 +413,16 @@ class Incidence(models.Model):
 
         if self.stage_id == final_stage:
             self.stage_id = None
+
+    @api.onchange('device_ids')
+    def _check_device_ids(self):
+        """Check the status of the device_ids.
+        """
+        for device_id in self.device_ids:
+            if len(device_id.get_active_incidence()) > 0:
+                raise models.ValidationError(
+                    _(MESSAGE['device_constraint']['in_active_incidence']))
+            device_id.change_state(STATE_DEVICE[1][0])
 
     ###########################################################################
     # CRUD methods
@@ -494,7 +509,7 @@ class Incidence(models.Model):
         self.date_end = date_now
         self.stage_id = next_stage
         for record in self.device_ids:
-            record.state = devices_state
+            record.change_state(devices_state)
 
         # It is the last value to change so as not to block the other changes
         self.locked = lock

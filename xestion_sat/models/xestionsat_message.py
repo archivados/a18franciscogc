@@ -124,6 +124,9 @@ MESSAGE = {
 
         'unlink': 'OPERATION NOT ALLOWED: Cannot delete Device is associated'
         ' with another record',
+
+        'in_active_incidence': 'OPERATION NOT AVAILABLE: The device is in an'
+        ' active incidence',
     },
     # -------------------------------------------------------------------------
     # Methods

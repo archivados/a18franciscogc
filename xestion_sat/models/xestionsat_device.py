@@ -145,6 +145,10 @@ class Device(models.Model):
     ###########################################################################
     # Constraints and onchanges
     ###########################################################################
+
+    # -------------------------------------------------------------------------
+    # constrains
+    # -------------------------------------------------------------------------
     @api.constrains('headquarter_id')
     def _check_headquarter(self):
         """Check that the Headquarters entered correspond with the current customer.
@@ -197,6 +201,29 @@ class Device(models.Model):
                 if record.date_cancellation < record.date_registration:
                     raise models.ValidationError(
                         _(MESSAGE['device_constraint']['date_cancellation']))
+
+    # -------------------------------------------------------------------------
+    # Onchange
+    # -------------------------------------------------------------------------
+    @api.onchange('owner_id')
+    def _check_owner_id(self):
+        """Check the current owner_id.
+        """
+        child_ids = self.owner_id.child_ids
+
+        if not self.headquarter_id:
+            self.headquarter_id = self.owner_id
+        elif self.headquarter_id != self.owner_id \
+                and self.headquarter_id not in child_ids:
+            self.headquarter_id = self.owner_id
+
+    @api.onchange('state')
+    def _check_state(self):
+        """Check the current state.
+        """
+        if len(self.get_active_incidence()) > 0:
+            raise models.ValidationError(
+                _(MESSAGE['device_constraint']['in_active_incidence']))
 
     ###########################################################################
     # CRUD methods
@@ -273,6 +300,10 @@ class Device(models.Model):
             if device.state != new_state:
                 if device.is_allowed_transition(device.state, new_state):
                     device.state = new_state
+                    if new_state == 'unsubscribe':
+                        device.date_cancellation = fields.Datetime.now()
+                    else:
+                        device.date_cancellation = False
                 else:
                     raise models.UserError(
                         _(MESSAGE['device_methods']['change_state']).format(
@@ -353,6 +384,27 @@ class Device(models.Model):
     ###########################################################################
     # Business methods
     ###########################################################################
+    @api.model
+    def get_active_incidence(self):
+        """Get the active incidences in which the device is.
+        """
+        stages_locked = self.env['xestionsat.incidence.stage'].search(
+            [('lock_incidence', '=', True)])
+        stages_locked_ids = []
+        for stage in stages_locked:
+            stages_locked_ids.append(stage.id)
+
+        active_incidences = []
+
+        incidences = self.env['xestionsat.incidence'].search(
+            [('stage_id', 'not in', stages_locked_ids)])
+        for incidence in incidences:
+            for device_id in incidence.device_ids:
+                if self.id == device_id.id:
+                    active_incidences.append(incidence.id)
+                    break
+        return active_incidences
+
     @api.model
     def fields_view_get(self, view_id=None, view_type=None, **kwargs):
         """Modify the resulting view according to user preferences.
