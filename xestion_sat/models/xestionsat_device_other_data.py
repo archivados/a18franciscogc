@@ -30,7 +30,7 @@ class DeviceOtherData(models.Model):
     device_id = fields.Many2one(
         'xestionsat.device',
         string='ID device',
-        ondelete='cascade',
+        ondelete='restrict',
         track_visibility=True,
     )
 

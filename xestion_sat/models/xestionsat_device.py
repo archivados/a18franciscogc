@@ -79,12 +79,14 @@ class Device(models.Model):
         'xestionsat.device.component',
         string='Device Components',
         inverse_name='device_id',
+        ondelete='cascade',
         track_visibility=True,
     )
     othter_data_ids = fields.One2many(
         'xestionsat.device.other_data',
         string='Other data',
         inverse_name='device_id',
+        ondelete='cascade',
         track_visibility=True,
     )
     incidence_ids = fields.Many2many(
@@ -222,6 +224,16 @@ class Device(models.Model):
             'target': 'new',
             'flags': flags,
         }
+
+    @api.multi
+    def unlink(self):
+        incidence_obj = self.env['xestionsat.incidence']
+        incidence_devices = incidence_obj.search(
+            [('device_ids', 'in', self.ids)])
+        if incidence_devices:
+            raise models.ValidationError(
+                _(MESSAGE['device_constraint']['unlink']))
+        return super(Device, self).unlink()
 
     ###########################################################################
     # Action methods

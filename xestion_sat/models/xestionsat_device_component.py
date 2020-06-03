@@ -30,14 +30,14 @@ class DeviceComponent(models.Model):
     product_id = fields.Many2one(
         'product.product',
         string='Compponent',
-        ondelete='cascade',
+        ondelete='restrict',
         required=True,
         track_visibility=True,
     )
     device_id = fields.Many2one(
         'xestionsat.device',
         string='ID device',
-        ondelete='cascade',
+        ondelete='restrict',
         track_visibility=True,
     )
 

@@ -378,12 +378,21 @@ class Incidence(models.Model):
     @api.constrains('invoiced')
     def _compute_invoice(self):
         for record in self:
-            if record.invoice_id and self.env['account.invoice'].search(
-                [('incidence_id', '=', self.id)]) \
-                or record.sale_order_id and self.env['sale.order'].search(
-                    [('incidence_id', '=', self.id)]):
-                raise models.ValidationError(
-                    _(MESSAGE['incidence_constraint']['invoiced']))
+            context = record.env.context
+            model = False
+            if 'params' in context:
+                if 'model' in context['params']:
+                    model = context['params']['model']
+            elif 'type' in context:
+                model = context['type']
+
+            if model != 'sale.order' and model != 'out_invoice':
+                if self.env['account.invoice'].search(
+                    [('incidence_id', '=', self.id)]) \
+                    or record.sale_order_id and self.env['sale.order'].search(
+                        [('incidence_id', '=', self.id)]):
+                    raise models.ValidationError(
+                        _(MESSAGE['incidence_constraint']['invoiced']))
 
     # -------------------------------------------------------------------------
     # Onchange
