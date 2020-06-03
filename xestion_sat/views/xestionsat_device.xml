@@ -74,8 +74,8 @@
                             </field>
                             <button name="add_component"  string="Add component" type="object" class="btn_xest_primary oe_read_only"/>
                         </page>
-                        <page string="Othter Data" name="othterdata_ids">
-                            <field name="othterdata_ids">
+                        <page string="Othter Data" name="othter_data_ids">
+                            <field name="othter_data_ids">
                                 <tree name="components_tree" editable="bottom">
                                     <field name="data"/>
                                     <field name="value"/>
@@ -89,6 +89,10 @@
                     <!-- This button is made visible through Python in the <fields_view_get> method definition -->
                     <button name="btn_close" special="cancel" string="Close" class="pull-left btn_xest_primary oe_read_only" invisible="True"/>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>

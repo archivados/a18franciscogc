@@ -26,6 +26,7 @@ class Device(models.Model):
     _description = _('Device')
     _rec_name = 'name'
     _order = 'owner_id, internal_id, name'
+    _inherit = ['mail.thread']
 
     ###########################################################################
     # Default methods
@@ -54,6 +55,7 @@ class Device(models.Model):
         ondelete='restrict',
         default=lambda self: self.env.user,
         required=True,
+        track_visibility=True,
     )
     owner_id = fields.Many2one(
         'res.partner',
@@ -66,25 +68,30 @@ class Device(models.Model):
         string='Headquarters address',
         ondelete='restrict',
         required=True,
+        track_visibility=True,
     )
     user_ids = fields.Many2many(
         'res.partner',
         string='Users',
+        track_visibility=True,
     )
     devicecomponent_ids = fields.One2many(
         'xestionsat.device.component',
         string='Device Components',
         inverse_name='device_id',
+        track_visibility=True,
     )
-    othterdata_ids = fields.One2many(
+    othter_data_ids = fields.One2many(
         'xestionsat.device.other_data',
         string='Other data',
         inverse_name='device_id',
+        track_visibility=True,
     )
     incidence_ids = fields.Many2many(
         'xestionsat.incidence',
         string='Related Incidences',
         ondelete='restrict',
+        track_visibility=True,
     )
 
     # -------------------------------------------------------------------------
@@ -98,9 +105,11 @@ class Device(models.Model):
     internal_id = fields.Char(
         string='Internal ID',
         index=True,
+        track_visibility=True,
     )
     location = fields.Char(
         string='Location',
+        track_visibility=True,
     )
     description = fields.Text(
         string='Description',
@@ -115,7 +124,8 @@ class Device(models.Model):
         required=True,
     )
     date_cancellation = fields.Datetime(
-        string='Date of cancellation'
+        string='Date of cancellation',
+        track_visibility=True,
     )
 
     state = fields.Selection(
@@ -123,6 +133,7 @@ class Device(models.Model):
         string='State',
         default=_get_default_state,
         required=True,
+        track_visibility=True,
     )
 
     ###########################################################################

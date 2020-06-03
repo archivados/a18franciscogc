@@ -29,6 +29,7 @@ class IncidenceAction(models.Model):
     _description = _('Incidence Action')
     _inherits = {'product.product': 'product_id'}
     _order = 'date_start desc'
+    _inherit = ['mail.thread']
 
     ###########################################################################
     # Default methods
@@ -46,11 +47,13 @@ class IncidenceAction(models.Model):
         ondelete='restrict',
         default=lambda self: self.env.user,
         required=True,
+        track_visibility=True,
     )
 
     incidence_id = fields.Many2one(
         'xestionsat.incidence',
         ondelete='restrict',
+        track_visibility=True,
     )
 
     product_id = fields.Many2one(
@@ -58,6 +61,7 @@ class IncidenceAction(models.Model):
         string='Action',
         required=True,
         ondelete='restrict',
+        track_visibility=True,
     )
 
     tax_ids = fields.Many2many(
@@ -71,9 +75,11 @@ class IncidenceAction(models.Model):
         string='Date start',
         default=lambda *a: fields.Datetime.now(),
         required=True,
+        track_visibility=True,
     )
     date_end = fields.Datetime(
         string='Date ends',
+        track_visibility=True,
     )
     observation = fields.Text(
         string='Observations',

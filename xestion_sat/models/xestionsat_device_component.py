@@ -21,6 +21,7 @@ class DeviceComponent(models.Model):
     _name = 'xestionsat.device.component'
     _description = _('Device - Component')
     _inherits = {'product.product': 'product_id'}
+    _inherit = ['mail.thread']
 
     # Default methods
 
@@ -31,16 +32,19 @@ class DeviceComponent(models.Model):
         string='Compponent',
         ondelete='cascade',
         required=True,
+        track_visibility=True,
     )
     device_id = fields.Many2one(
         'xestionsat.device',
         string='ID device',
         ondelete='cascade',
+        track_visibility=True,
     )
 
     # Other Fields
     serial = fields.Char(
         string='Serial number',
+        track_visibility=True,
     )
     observation = fields.Text(
         string='Observations',
@@ -50,9 +54,11 @@ class DeviceComponent(models.Model):
         string='Date of registration',
         default=lambda *a: fields.Datetime.now(),
         required=True,
+        track_visibility=True,
     )
     date_cancellation = fields.Datetime(
-        string='Date of cancellation'
+        string='Date of cancellation',
+        track_visibility=True,
     )
 
     # compute and search fields, in the same order that fields declaration

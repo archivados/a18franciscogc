@@ -22,6 +22,7 @@ class IncidenceAssistancePlace(models.Model):
     _name = 'xestionsat.incidence.assistance_place'
     _description = _('Incidence Assistance Place')
     _rec_name = 'assistance_place'
+    _inherit = ['mail.thread']
 
     ###########################################################################
     # Fields declaration
@@ -33,6 +34,7 @@ class IncidenceAssistancePlace(models.Model):
         string='Place of assistance',
         translate=True,
         required=True,
+        track_visibility=True,
     )
     description = fields.Text(
         string='Description',

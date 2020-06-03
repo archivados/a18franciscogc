@@ -20,6 +20,7 @@ class DeviceOtherData(models.Model):
     _name = 'xestionsat.device.other_data'
     _rec_name = 'data'
     _description = _('Device - Other Data')
+    _inherit = ['mail.thread']
 
     # Default methods
 
@@ -30,22 +31,26 @@ class DeviceOtherData(models.Model):
         'xestionsat.device',
         string='ID device',
         ondelete='cascade',
+        track_visibility=True,
     )
 
     # Other Fields
     data = fields.Char(
         string='Data',
         required=True,
+        track_visibility=True,
     )
     value = fields.Char(
         string='Value',
         required=True,
+        track_visibility=True,
     )
 
     date_registration = fields.Datetime(
         string='Date of registration',
         default=lambda *a: fields.Datetime.now(),
         required=True,
+        track_visibility=True,
     )
 
     # compute and search fields, in the same order that fields declaration

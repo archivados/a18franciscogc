@@ -28,6 +28,7 @@ class Incidence(models.Model):
     _description = _('Incidence')
     _rec_name = 'title'
     _order = 'id desc, date_start desc'
+    _inherit = ['mail.thread']
 
     ###########################################################################
     # Default methods
@@ -101,12 +102,14 @@ class Incidence(models.Model):
         string='Incidence',
         inverse_name='incidence_id',
         copy=False,
+        track_visibility=True,
     )
     sale_order_id = fields.One2many(
         'sale.order',
         string='Incidence',
         inverse_name='incidence_id',
         copy=False,
+        track_visibility=True,
     )
 
     customer_id = fields.Many2one(
@@ -120,6 +123,7 @@ class Incidence(models.Model):
         string='Devices',
         required=True,
         ondelete='restrict',
+        track_visibility=True,
     )
     created_by_id = fields.Many2one(
         'res.users',
@@ -128,6 +132,7 @@ class Incidence(models.Model):
         default=lambda self: self.env.user,
         required=True,
         copy=False,
+        track_visibility=True,
     )
 
     incidence_action_ids = fields.One2many(
@@ -135,6 +140,7 @@ class Incidence(models.Model):
         string='Incidence Actions',
         inverse_name='incidence_id',
         copy=False,
+        track_visibility=True,
     )
 
     stage_id = fields.Many2one(
@@ -146,6 +152,7 @@ class Incidence(models.Model):
         default=_get_default_stage_id,
         group_expand='_get_all_stage_ids',
         copy=False,
+        track_visibility=True,
     )
 
     assistance_place = fields.Many2one(
@@ -163,6 +170,7 @@ class Incidence(models.Model):
         string='Title',
         required=True,
         index=True,
+        track_visibility=True,
     )
     failure_description = fields.Text(
         string='Description of the failure',
@@ -170,21 +178,25 @@ class Incidence(models.Model):
     )
     observation = fields.Text(
         string='Observations',
+        track_visibility=True,
     )
 
     date_start = fields.Datetime(
         string='Date start',
         default=lambda *a: fields.Datetime.now(),
         required=True,
+        track_visibility=True,
     )
     date_end = fields.Datetime(
         string='Date ends',
         copy=False,
+        track_visibility=True,
     )
 
     stage_value = fields.Char(
         readonly=True,
         related='stage_id.stage',
+        track_visibility=True,
     )
 
     # Economic Summary
@@ -254,9 +266,11 @@ class Incidence(models.Model):
     # Blocking flags
     invoiced = fields.Boolean(
         copy=False,
+        track_visibility=True,
     )
     locked = fields.Boolean(
         copy=False,
+        track_visibility=True,
     )
 
     # Kanban control
@@ -273,12 +287,14 @@ class Incidence(models.Model):
         ],
         string='Priority',
         default='1',
+        track_visibility=True,
     )
     kanban_state = fields.Selection(
         selection=_get_kanban_stage_items,
         string='Kanban State',
         default=_get_default_kanban_state,
         copy=False,
+        track_visibility=True,
     )
 
     ###########################################################################
