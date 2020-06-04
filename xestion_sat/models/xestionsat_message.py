@@ -37,8 +37,8 @@ MESSAGE = {
 
         'invoiced': 'The incidence is already on the invoicing circuit',
 
-        'unlink': 'OPERATION NOT ALLOWED: Cannot delete Incidence is associated'
-        ' with another record',
+        'unlink': 'OPERATION NOT ALLOWED: Cannot delete Incidence is'
+        'associated with another record',
     },
     # -------------------------------------------------------------------------
     # Methods

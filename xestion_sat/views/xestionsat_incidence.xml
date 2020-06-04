@@ -141,9 +141,7 @@
         <field name="name">xestionsat.incidence.kanban</field>
         <field name="model">xestionsat.incidence</field>
         <field name="arch" type="xml">
-            <kanban name="primary_kanban" default_group_by="stage_id" class="o_kanban_small_column">
-                <!-- Used to define the color of the row -->
-                <field name="stage_value"/>
+            <kanban name="primary_kanban" default_group_by="stage_id" class="o_kanban_small_column" quick_create="false">
                 <field name="stage_id"/>
 
                 <field name="customer_id"/>
