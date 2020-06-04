@@ -26,6 +26,7 @@ class Device(models.Model):
     _description = _('Device')
     _rec_name = 'name'
     _order = 'owner_id, internal_id, name'
+    _inherit = ['mail.thread']
 
     ###########################################################################
     # Default methods
@@ -54,6 +55,7 @@ class Device(models.Model):
         ondelete='restrict',
         default=lambda self: self.env.user,
         required=True,
+        track_visibility=True,
     )
     owner_id = fields.Many2one(
         'res.partner',
@@ -66,25 +68,32 @@ class Device(models.Model):
         string='Headquarters address',
         ondelete='restrict',
         required=True,
+        track_visibility=True,
     )
     user_ids = fields.Many2many(
         'res.partner',
         string='Users',
+        track_visibility=True,
     )
     devicecomponent_ids = fields.One2many(
         'xestionsat.device.component',
         string='Device Components',
         inverse_name='device_id',
+        ondelete='cascade',
+        track_visibility=True,
     )
-    othterdata_ids = fields.One2many(
+    othter_data_ids = fields.One2many(
         'xestionsat.device.other_data',
         string='Other data',
         inverse_name='device_id',
+        ondelete='cascade',
+        track_visibility=True,
     )
     incidence_ids = fields.Many2many(
         'xestionsat.incidence',
         string='Related Incidences',
         ondelete='restrict',
+        track_visibility=True,
     )
 
     # -------------------------------------------------------------------------
@@ -98,9 +107,11 @@ class Device(models.Model):
     internal_id = fields.Char(
         string='Internal ID',
         index=True,
+        track_visibility=True,
     )
     location = fields.Char(
         string='Location',
+        track_visibility=True,
     )
     description = fields.Text(
         string='Description',
@@ -115,7 +126,8 @@ class Device(models.Model):
         required=True,
     )
     date_cancellation = fields.Datetime(
-        string='Date of cancellation'
+        string='Date of cancellation',
+        track_visibility=True,
     )
 
     state = fields.Selection(
@@ -123,6 +135,7 @@ class Device(models.Model):
         string='State',
         default=_get_default_state,
         required=True,
+        track_visibility=True,
     )
 
     ###########################################################################
@@ -132,6 +145,10 @@ class Device(models.Model):
     ###########################################################################
     # Constraints and onchanges
     ###########################################################################
+
+    # -------------------------------------------------------------------------
+    # constrains
+    # -------------------------------------------------------------------------
     @api.constrains('headquarter_id')
     def _check_headquarter(self):
         """Check that the Headquarters entered correspond with the current customer.
@@ -185,6 +202,40 @@ class Device(models.Model):
                     raise models.ValidationError(
                         _(MESSAGE['device_constraint']['date_cancellation']))
 
+    # -------------------------------------------------------------------------
+    # Onchange
+    # -------------------------------------------------------------------------
+    @api.onchange('owner_id')
+    def _check_owner_id(self):
+        """Check the current owner_id.
+        """
+        child_ids = self.owner_id.child_ids
+
+        if not self.headquarter_id:
+            self.headquarter_id = self.owner_id
+        elif self.headquarter_id != self.owner_id \
+                and self.headquarter_id not in child_ids:
+            self.headquarter_id = self.owner_id
+
+    @api.onchange('state')
+    def _check_state(self):
+        """Check the current state.
+        """
+        if len(self.get_active_incidence()) > 0:
+            raise models.ValidationError(
+                _(MESSAGE['device_constraint']['in_active_incidence']))
+
+        # Repair state
+        if self.state == STATE_DEVICE[1][0]:
+            raise models.ValidationError(
+                _(MESSAGE['device_constraint']['repairing']))
+
+        # Unsubscribe state
+        if self.state == STATE_DEVICE[3][0]:
+            self.date_cancellation = fields.Datetime.now()
+        else:
+            self.date_cancellation = False
+
     ###########################################################################
     # CRUD methods
     ###########################################################################
@@ -212,78 +263,34 @@ class Device(models.Model):
             'flags': flags,
         }
 
+    @api.multi
+    def unlink(self):
+        incidence_obj = self.env['xestionsat.incidence']
+        incidence_devices = incidence_obj.search(
+            [('device_ids', 'in', self.ids)])
+        if incidence_devices:
+            raise models.ValidationError(
+                _(MESSAGE['device_constraint']['unlink']))
+        return super(Device, self).unlink()
+
     ###########################################################################
     # Action methods
     ###########################################################################
-    @api.model
-    def is_allowed_transition(self, actual_state, new_state):
-        """Handles allowed state changes.
-
-        :param actual_state: Currently assigned status.
-        :param new_state: New state to be assigned.
-        """
-        allowed = [
-            ('stored', 'operational'),
-            ('stored', 'repairing'),
-            ('stored', 'unsubscribe'),
-
-            ('operational', 'stored'),
-            ('operational', 'repairing'),
-            ('operational', 'unsubscribe'),
-
-            ('repairing', 'stored'),
-            ('repairing', 'operational'),
-            ('repairing', 'unsubscribe'),
-
-            ('unsubscribe', 'stored'),
-            ('unsubscribe', 'operational'),
-            ('unsubscribe', 'repairing')
-        ]
-        return (actual_state, new_state) in allowed
-
-    @api.multi
-    def change_state(self, new_state):
-        """Apply a change of status.
-        :param new_state: New state to be assigned.
-        """
-        for device in self:
-            if device.state != new_state:
-                if device.is_allowed_transition(device.state, new_state):
-                    device.state = new_state
-                else:
-                    raise models.UserError(
-                        _(MESSAGE['device_methods']['change_state']).format(
-                            (device.state, new_state))
-                    )
-
-    def make_stored(self):
-        """Invokes the change of state to stored.
-        """
-        self.change_state('stored')
-
-    def make_operational(self):
-        """Invokes the change of state to operational.
-        """
-        self.change_state('operational')
-
     @api.multi
     def create_incidence(self):
         """Invokes the change of state to repairing and launches the method to
         create a new incidence.
         """
-        self.change_state('repairing')
-
         return self.add_incidence()
-
-    def make_unsubscribe(self):
-        """Invokes the change of state to unsubscribe.
-        """
-        self.change_state('unsubscribe')
 
     @api.multi
     def add_incidence(self):
         """Method to create a new incidence with the data of the current device.
         """
+        if len(self.get_active_incidence()) > 0:
+            raise models.ValidationError(
+                _(MESSAGE['device_constraint']['in_active_incidence']))
+
         context = {
             'lock_view': True,
             'default_customer_id': self.owner_id.id,
@@ -302,6 +309,7 @@ class Device(models.Model):
         """Method to add a new component for the current device.
         """
         context = {
+            'device_view': True,
             'default_device_id': self.id,
         }
 
@@ -317,6 +325,7 @@ class Device(models.Model):
         """Method to add a new other data for the current device.
         """
         context = {
+            'device_view': True,
             'default_device_id': self.id,
         }
 
@@ -330,6 +339,27 @@ class Device(models.Model):
     ###########################################################################
     # Business methods
     ###########################################################################
+    @api.model
+    def get_active_incidence(self):
+        """Get the active incidences in which the device is.
+        """
+        stages_locked = self.env['xestionsat.incidence.stage'].search(
+            [('lock_incidence', '=', True)])
+        stages_locked_ids = []
+        for stage in stages_locked:
+            stages_locked_ids.append(stage.id)
+
+        active_incidences = []
+
+        incidences = self.env['xestionsat.incidence'].search(
+            [('stage_id', 'not in', stages_locked_ids)])
+        for incidence in incidences:
+            for device_id in incidence.device_ids:
+                if self.id == device_id.id:
+                    active_incidences.append(incidence.id)
+                    break
+        return active_incidences
+
     @api.model
     def fields_view_get(self, view_id=None, view_type=None, **kwargs):
         """Modify the resulting view according to user preferences.
@@ -363,9 +393,9 @@ class Device(models.Model):
                 for node in doc.xpath("//field[@name='owner_id']"):
                     node.set('modifiers', '{"readonly": true}')
 
-                # btn_close
-                for node in doc.xpath("//button[@name='btn_close']"):
-                    node.set('modifiers', '{}')
+                # create_incidence
+                for node in doc.xpath("//button[@name='create_incidence']"):
+                    node.set('modifiers', '{"invisible": true}')
 
             result['arch'] = etree.tostring(doc)
         return result

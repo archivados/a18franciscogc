@@ -2,7 +2,7 @@
 # 2: import of known third party lib
 
 # 3:  imports of odoo
-from odoo import models, fields
+from odoo import models, fields, api
 
 # 4:  imports from odoo modules
 
@@ -25,6 +25,7 @@ class SaleOrder(models.Model):
     incidence_id = fields.Many2one(
         'xestionsat.incidence',
         string='Order',
+        ondelete='restrict',
     )
 
     # Other Fields
@@ -34,6 +35,12 @@ class SaleOrder(models.Model):
     # Constraints and onchanges
 
     # CRUD methods
+    @api.multi
+    def unlink(self):
+        if self.incidence_id:
+            self.incidence_id.invoiced = False
+
+        return super(SaleOrder, self).unlink()
 
     # Action methods
 

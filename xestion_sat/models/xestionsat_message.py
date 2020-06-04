@@ -35,7 +35,10 @@ MESSAGE = {
 
         'date_end': 'The end date cannot be earlier than the start date',
 
-        'invoiced': 'The incident is already on the invoicing circuit',
+        'invoiced': 'The incidence is already on the invoicing circuit',
+
+        'unlink': 'OPERATION NOT ALLOWED: Cannot delete Incidence is'
+        'associated with another record',
     },
     # -------------------------------------------------------------------------
     # Methods
@@ -72,7 +75,7 @@ MESSAGE = {
         'close_action': 'You cannot reopen actions with the incidence closed.'
 
         ' If you want to modify the action, please reopen the associated'
-        ' incident',
+        ' incidence',
     },
 
     ###########################################################################
@@ -118,6 +121,16 @@ MESSAGE = {
 
         'created_by_id': 'One User cannot create Devices in the name of'
         ' another',
+
+        'unlink': 'OPERATION NOT ALLOWED: Cannot delete Device is associated'
+        ' with another record',
+
+        'in_active_incidence': 'OPERATION NOT AVAILABLE: The device is in an'
+        ' active incidence',
+
+        'repairing': 'OPERATION NOT AVAILABLE: To change the status to repair,'
+        ' you must create a new incidence or add the device to an existing'
+        ' one',
     },
     # -------------------------------------------------------------------------
     # Methods

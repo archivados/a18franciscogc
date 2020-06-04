@@ -24,6 +24,7 @@ class IncidenceStage(models.Model):
     _description = _('Incidence Stage')
     _rec_name = 'stage'
     _order = "sequence"
+    _inherit = ['mail.thread']
 
     ###########################################################################
     # Default methods
@@ -67,12 +68,14 @@ class IncidenceStage(models.Model):
         string='Stage',
         translate=True,
         required=True,
+        track_visibility=True,
     )
     sequence = fields.Integer(
         string='Sequence',
         default=_get_default_sequence,
         required=True,
-        index=True
+        index=True,
+        track_visibility=True,
     )
     description = fields.Text(
         string='Description',
@@ -85,13 +88,13 @@ class IncidenceStage(models.Model):
         required=True,
     )
     fold = fields.Boolean(
-        string='Folded in Pipeline'
+        string='Folded in Pipeline',
     )
     lock_incidence = fields.Boolean(
-        string='Lock the Incidence'
+        string='Lock the Incidence',
     )
     cancel_incidence = fields.Boolean(
-        string='Cancel the Incidence'
+        string='Cancel the Incidence',
     )
 
     ###########################################################################

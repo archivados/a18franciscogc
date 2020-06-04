@@ -28,6 +28,7 @@ class Incidence(models.Model):
     _description = _('Incidence')
     _rec_name = 'title'
     _order = 'id desc, date_start desc'
+    _inherit = ['mail.thread']
 
     ###########################################################################
     # Default methods
@@ -101,12 +102,14 @@ class Incidence(models.Model):
         string='Incidence',
         inverse_name='incidence_id',
         copy=False,
+        track_visibility=True,
     )
     sale_order_id = fields.One2many(
         'sale.order',
         string='Incidence',
         inverse_name='incidence_id',
         copy=False,
+        track_visibility=True,
     )
 
     customer_id = fields.Many2one(
@@ -115,12 +118,16 @@ class Incidence(models.Model):
         ondelete='restrict',
         required=True,
     )
+
     device_ids = fields.Many2many(
         'xestionsat.device',
         string='Devices',
         required=True,
         ondelete='restrict',
+        copy=False,
+        track_visibility=True,
     )
+
     created_by_id = fields.Many2one(
         'res.users',
         string='Created by',
@@ -128,6 +135,7 @@ class Incidence(models.Model):
         default=lambda self: self.env.user,
         required=True,
         copy=False,
+        track_visibility=True,
     )
 
     incidence_action_ids = fields.One2many(
@@ -135,6 +143,7 @@ class Incidence(models.Model):
         string='Incidence Actions',
         inverse_name='incidence_id',
         copy=False,
+        track_visibility=True,
     )
 
     stage_id = fields.Many2one(
@@ -146,6 +155,13 @@ class Incidence(models.Model):
         default=_get_default_stage_id,
         group_expand='_get_all_stage_ids',
         copy=False,
+        track_visibility=True,
+    )
+
+    stage_value = fields.Char(
+        readonly=True,
+        related='stage_id.stage',
+        track_visibility=True,
     )
 
     assistance_place = fields.Many2one(
@@ -163,6 +179,7 @@ class Incidence(models.Model):
         string='Title',
         required=True,
         index=True,
+        track_visibility=True,
     )
     failure_description = fields.Text(
         string='Description of the failure',
@@ -170,21 +187,19 @@ class Incidence(models.Model):
     )
     observation = fields.Text(
         string='Observations',
+        track_visibility=True,
     )
 
     date_start = fields.Datetime(
         string='Date start',
         default=lambda *a: fields.Datetime.now(),
         required=True,
+        track_visibility=True,
     )
     date_end = fields.Datetime(
         string='Date ends',
         copy=False,
-    )
-
-    stage_value = fields.Char(
-        readonly=True,
-        related='stage_id.stage',
+        track_visibility=True,
     )
 
     # Economic Summary
@@ -254,9 +269,11 @@ class Incidence(models.Model):
     # Blocking flags
     invoiced = fields.Boolean(
         copy=False,
+        track_visibility=True,
     )
     locked = fields.Boolean(
         copy=False,
+        track_visibility=True,
     )
 
     # Kanban control
@@ -273,12 +290,14 @@ class Incidence(models.Model):
         ],
         string='Priority',
         default='1',
+        track_visibility=True,
     )
     kanban_state = fields.Selection(
         selection=_get_kanban_stage_items,
         string='Kanban State',
         default=_get_default_kanban_state,
         copy=False,
+        track_visibility=True,
     )
 
     ###########################################################################
@@ -323,6 +342,10 @@ class Incidence(models.Model):
     ###########################################################################
     # Constraints and onchanges
     ###########################################################################
+
+    # -------------------------------------------------------------------------
+    # constrains
+    # -------------------------------------------------------------------------
     @api.constrains('device_ids')
     def _check_parent(self):
         """Verify that the devices associated with the incidence belong to the
@@ -362,12 +385,21 @@ class Incidence(models.Model):
     @api.constrains('invoiced')
     def _compute_invoice(self):
         for record in self:
-            if record.invoice_id and self.env['account.invoice'].search(
-                [('incidence_id', '=', self.id)]) \
-                or record.sale_order_id and self.env['sale.order'].search(
-                    [('incidence_id', '=', self.id)]):
-                raise models.ValidationError(
-                    _(MESSAGE['incidence_constraint']['invoiced']))
+            context = record.env.context
+            model = False
+            if 'params' in context:
+                if 'model' in context['params']:
+                    model = context['params']['model']
+            elif 'type' in context:
+                model = context['type']
+
+            if model != 'sale.order' and model != 'out_invoice':
+                if self.env['account.invoice'].search(
+                    [('incidence_id', '=', self.id)]) \
+                    or record.sale_order_id and self.env['sale.order'].search(
+                        [('incidence_id', '=', self.id)]):
+                    raise models.ValidationError(
+                        _(MESSAGE['incidence_constraint']['invoiced']))
 
     # -------------------------------------------------------------------------
     # Onchange
@@ -383,6 +415,18 @@ class Incidence(models.Model):
 
         if self.stage_id == final_stage:
             self.stage_id = None
+
+    @api.onchange('device_ids')
+    def _check_device_ids(self):
+        """Check the status of the device_ids.
+        """
+        for device_id in self.device_ids:
+            incidences = device_id.get_active_incidence()
+            if len(incidences) > 0:
+                if self._origin.id not in incidences:
+                    raise models.ValidationError(
+                        _(MESSAGE['device_constraint']['in_active_incidence']))
+            device_id.state = STATE_DEVICE[1][0]
 
     ###########################################################################
     # CRUD methods

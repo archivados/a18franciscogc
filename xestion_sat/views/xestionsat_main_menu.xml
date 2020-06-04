@@ -10,6 +10,7 @@
     <record id="xestionsat_incidence_action" model="ir.actions.act_window">
         <field name="name">Incidences</field>
         <field name="res_model">xestionsat.incidence</field>
+        <field name="view_type">form</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="context">{'search_default_open':1}</field>
         <field name="search_view_id" ref="xestionsat_incidence_search_view_default"/>
@@ -28,6 +29,7 @@
     <record id="xestionsat_incidence_assistance_place_action" model="ir.actions.act_window">
         <field name="name">Incidence Assistance Places</field>
         <field name="res_model">xestionsat.incidence.assistance_place</field>
+        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="limit">80</field>
         <field name="help" type="html">
@@ -46,6 +48,7 @@
     <record id="xestionsat_incidence_stage_action" model="ir.actions.act_window">
         <field name="name">Incidence Stages</field>
         <field name="res_model">xestionsat.incidence.stage</field>
+        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="limit">80</field>
         <field name="help" type="html">
@@ -63,6 +66,7 @@
     <record id="incidence_action_action" model="ir.actions.act_window">
         <field name="name">Incidence Actions</field>
         <field name="res_model">product.product</field>
+        <field name="view_type">form</field>
         <field name="view_mode">kanban,tree,form,activity</field>
         <field name="limit">80</field>
         <field name="context">{'default_type': 'xestionsat', 'search_default_filter_to_sell':1}</field>
@@ -84,8 +88,11 @@
     <record id="xestionsat_device_action" model="ir.actions.act_window">
         <field name="name">Devices</field>
         <field name="res_model">xestionsat.device</field>
+        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="limit">80</field>
+        <field name="context">{'search_default_operative':1}</field>
+        <field name="search_view_id" ref="xestionsat_device_search_view_basic"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Empty Device List, register the first device!
@@ -104,6 +111,7 @@
     <record id="xestionsat_incidence_invoice_action" model="ir.actions.act_window">
         <field name="name">To Invoice</field>
         <field name="res_model">xestionsat.incidence</field>
+        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="context">{'create': False, 'search_default_not_invoiced':1}</field>
         <field name="domain">[('locked','=',True)]</field>
@@ -125,6 +133,7 @@
     <record model="ir.actions.act_window" id="customers_action">
         <field name="name">Customers</field>
         <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
         <field name="view_mode">kanban,tree,form,activity</field>
     </record>
 
