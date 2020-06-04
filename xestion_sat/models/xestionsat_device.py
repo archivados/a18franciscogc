@@ -356,6 +356,7 @@ class Device(models.Model):
         """Method to add a new component for the current device.
         """
         context = {
+            'device_view': True,
             'default_device_id': self.id,
         }
 
@@ -371,6 +372,7 @@ class Device(models.Model):
         """Method to add a new other data for the current device.
         """
         context = {
+            'device_view': True,
             'default_device_id': self.id,
         }
 
@@ -438,9 +440,9 @@ class Device(models.Model):
                 for node in doc.xpath("//field[@name='owner_id']"):
                     node.set('modifiers', '{"readonly": true}')
 
-                # btn_close
-                for node in doc.xpath("//button[@name='btn_close']"):
-                    node.set('modifiers', '{}')
+                # create_incidence
+                for node in doc.xpath("//button[@name='create_incidence']"):
+                    node.set('modifiers', '{"invisible": true}')
 
             result['arch'] = etree.tostring(doc)
         return result

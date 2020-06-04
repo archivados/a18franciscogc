@@ -58,10 +58,6 @@
                         <field name="observation"/>
                     </group>
                     <notebook colspan="4">
-                        <page string="Incidences" name="incidences">
-                            <field name="incidence_ids" />
-                            <button name="create_incidence"  string="Create Inicidence" type="object" class="btn_xest_primary oe_read_only"/>
-                        </page>
                         <page string="Device Components" name="device_components">
                             <field name="devicecomponent_ids">
                                 <tree name="components_tree" editable="bottom">
@@ -72,7 +68,7 @@
                                     <field name="date_cancellation"/>
                                 </tree>
                             </field>
-                            <button name="add_component"  string="Add component" type="object" class="btn_xest_primary oe_read_only"/>
+                            <button name="add_component" string="Add component" type="object" class="btn_xest_primary oe_read_only"/>
                         </page>
                         <page string="Othter Data" name="othter_data_ids">
                             <field name="othter_data_ids">
@@ -82,12 +78,13 @@
                                     <field name="date_registration"/>
                                 </tree>
                             </field>
-                            <button name="add_other_data"  string="Add data" type="object" class="btn_xest_primary oe_read_only"/>
+                            <button name="add_other_data" string="Add data" type="object" class="btn_xest_primary oe_read_only"/>
+                        </page>
+                        <page string="Incidences" name="incidences">
+                            <field name="incidence_ids" />
+                            <button name="create_incidence" string="Create Inicidence" type="object" class="btn_xest_primary oe_read_only"/>
                         </page>
                     </notebook>
-                    
-                    <!-- This button is made visible through Python in the <fields_view_get> method definition -->
-                    <button name="btn_close" special="cancel" string="Close" class="pull-left btn_xest_primary oe_read_only" invisible="True"/>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>

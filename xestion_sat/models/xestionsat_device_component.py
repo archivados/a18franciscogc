@@ -1,4 +1,5 @@
 # 1: imports of python lib
+from lxml import etree
 
 # 2: import of known third party lib
 
@@ -17,16 +18,25 @@ from .xestionsat_message import MESSAGE
 class DeviceComponent(models.Model):
     """Model to describe the components that make up each device.
     """
+    ###########################################################################
     # Private attributes
+    ###########################################################################
     _name = 'xestionsat.device.component'
     _description = _('Device - Component')
     _inherits = {'product.product': 'product_id'}
     _inherit = ['mail.thread']
 
+    ###########################################################################
     # Default methods
+    ###########################################################################
 
+    ###########################################################################
     # Fields declaration
+    ###########################################################################
+
+    # -------------------------------------------------------------------------
     # Relational Fields
+    # -------------------------------------------------------------------------
     product_id = fields.Many2one(
         'product.product',
         string='Compponent',
@@ -41,7 +51,9 @@ class DeviceComponent(models.Model):
         track_visibility=True,
     )
 
+    # -------------------------------------------------------------------------
     # Other Fields
+    # -------------------------------------------------------------------------
     serial = fields.Char(
         string='Serial number',
         track_visibility=True,
@@ -61,9 +73,13 @@ class DeviceComponent(models.Model):
         track_visibility=True,
     )
 
+    ###########################################################################
     # compute and search fields, in the same order that fields declaration
+    ###########################################################################
 
+    ###########################################################################
     # Constraints and onchanges
+    ###########################################################################
     @api.constrains('date_registration', 'date_cancellation')
     def _check_date_end(self):
         """Check that the cancellation date is not earlier than the start registration.
@@ -75,7 +91,9 @@ class DeviceComponent(models.Model):
                         _(MESSAGE['component_constraint']['date_cancellation'])
                     )
 
+    ###########################################################################
     # CRUD methods
+    ###########################################################################
     @api.multi
     def create_new_component(
         self, name=NEW_COMPONENT, context=None, flags=None
@@ -100,6 +118,27 @@ class DeviceComponent(models.Model):
             'flags': flags,
         }
 
-    # Action methods
-
+    ###########################################################################
     # Business methods
+    ###########################################################################
+    @api.model
+    def fields_view_get(self, view_id=None, view_type=None, **kwargs):
+        """Modify the resulting view according to user preferences.
+        """
+        context = self.env.context
+
+        result = super(DeviceComponent, self).fields_view_get(
+            view_id=view_id, view_type=view_type, **kwargs
+        )
+
+        doc = etree.XML(result['arch'])
+
+        if view_type == 'form':
+            if 'device_view' in context:
+                # btn_close
+                for node in doc.xpath("//button[@name='btn_close']"):
+                    node.set('modifiers', '{}')
+
+        result['arch'] = etree.tostring(doc)
+
+        return result
