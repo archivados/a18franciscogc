@@ -419,9 +419,11 @@ class Incidence(models.Model):
         """Check the status of the device_ids.
         """
         for device_id in self.device_ids:
-            if len(device_id.get_active_incidence()) > 0:
-                raise models.ValidationError(
-                    _(MESSAGE['device_constraint']['in_active_incidence']))
+            incidences = device_id.get_active_incidence()
+            if len(incidences) > 0:
+                if self._origin.id not in incidences:
+                    raise models.ValidationError(
+                        _(MESSAGE['device_constraint']['in_active_incidence']))
             device_id.change_state(STATE_DEVICE[1][0])
 
     ###########################################################################

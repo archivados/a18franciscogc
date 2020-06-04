@@ -338,6 +338,10 @@ class Device(models.Model):
     def add_incidence(self):
         """Method to create a new incidence with the data of the current device.
         """
+        if len(self.get_active_incidence()) > 0:
+            raise models.ValidationError(
+                _(MESSAGE['device_constraint']['in_active_incidence']))
+
         context = {
             'lock_view': True,
             'default_customer_id': self.owner_id.id,
