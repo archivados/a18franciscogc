@@ -109,10 +109,52 @@
                 <field name="state" />
                 <field name="description"/>
                 <field name="date_registration"/>
+                <field name="date_cancellation"/>
                 <field name="headquarter_id"/>
                 <field name="location"/>
                 <field name="created_by_id"/>
             </tree>
+        </field>
+    </record>
+
+    <!--####################################-->
+    <!--           Search Views             -->
+    <!--####################################-->
+    <record id="xestionsat_device_search_view_basic" model="ir.ui.view">
+        <field name="name">xestionsat.device.search</field>
+        <field name="model">xestionsat.device</field>
+        <field name="arch" type="xml">
+            <search string="Device Search">
+                <filter string="Operative" name="operative" domain="[('date_cancellation','=',False)]"/>
+                <separator string="Registration Date"/>
+
+                <field name="internal_id"/>
+                <field name="owner_id"/>
+                <field name="name"/>
+                <field name="location"/>
+                <field name="created_by_id"/>
+
+                <filter string="Operational" name="state_operational" domain="[('state','=','operational')]"/>
+                <filter string="Repairing" name="state_repairingl" domain="[('state','=','repairing')]"/>
+                <filter string="Stored" name="state_stored" domain="[('state','=','stored')]"/>
+                <filter string="Unsubscribe" name="state_unsubscribe" domain="['|', ('state','=','unsubscribe'), ('date_cancellation','!=',False)]"/>
+
+                <separator string="Registration Date"/>
+                <separator/>
+                <group expand="0" string="Dates">
+                    <filter name="date_registration" string="Registration Date" date="date_registration"/>
+                    <filter name="date_cancellation" string="Cancellation Date" date="date_cancellation"/>
+                </group>
+
+                <group expand="0" string="Group By">
+                    <filter name="owner" string="Customer" context="{'group_by':'owner_id'}"/>
+                    <filter name="state" string="State" context="{'group_by':'state'}"/>
+                    
+                    <separator orientation="vertical" />
+                    <filter name="registration_month" string="Registration Date" context="{'group_by':'date_registration:month'}"/>
+                    <filter name="cancellation_month" string="Cancellation Date" context="{'group_by':'date_cancellation:month'}"/>
+                </group>
+            </search>
         </field>
     </record>
 </odoo>

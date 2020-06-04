@@ -91,6 +91,8 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="limit">80</field>
+        <field name="context">{'search_default_operative':1}</field>
+        <field name="search_view_id" ref="xestionsat_device_search_view_basic"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Empty Device List, register the first device!

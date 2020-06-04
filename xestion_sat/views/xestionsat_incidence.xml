@@ -58,7 +58,7 @@
                     </group>
                     <group>
                         <field name="device_ids"
-                            context="{'lock_view': True, 'default_owner_id': customer_id,}"
+                            context="{'lock_view': True, 'default_owner_id': customer_id,'search_default_operative':1}"
                             domain="[('owner_id', '=', customer_id)]">
                             <tree name="devices_tree">
                                 <field name="name"/>
@@ -243,7 +243,7 @@
     <!--           Search Views             -->
     <!--####################################-->
     <record id="xestionsat_incidence_search_view_basic" model="ir.ui.view">
-        <field name="name">Incidence - Search</field>
+        <field name="name">xestionsat.incidence.search_basic</field>
         <field name="model">xestionsat.incidence</field>
         <field name="arch" type="xml">
             <search string="Incidence Search">
@@ -253,34 +253,39 @@
                 <field name="stage_id"/>
                 <field name="created_by_id"/>
 
-                <filter string="Invoiced" name="invoiced" domain="[('invoiced','=',True)]"/>
-                <filter string="Not Invoiced" name="not_invoiced" domain="[('invoiced','=',False)]"/>
+                <filter name="invoiced" string="Invoiced" domain="[('invoiced','=',True)]"/>
+                <filter name="not_invoiced" string="Not Invoiced" domain="[('invoiced','=',False)]"/>
 
                 <separator/>
                 <group expand="0" string="Dates">
-                    <filter name="today" string="Today"
-                        domain="[('date_start', '&gt;=', datetime.datetime.now().replace(hour=0, minute=0, second=0)),('date_start', '&lt;=', datetime.datetime.now().replace(hour=23, minute=59, second=59))]" />
-                    <filter string="Before today" name="before_today"
-                        domain="[('date_start', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                    <filter name="date_start" string="Start Date" date="date_start"/>
+                    <filter name="start_soon" string="Start Date Soon" domain="[('date_start', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+                    
+                    <filter name="date_end" string="Ending Date" date="date_end"/>
+                </group>
 
-                    <filter string="Last Month" name="last_month"
-                        domain="['&amp;', ('date_start', '&gt;=', (context_today() - relativedelta(months=1)).strftime('%%Y-%%m-01')), ('date_start', '&lt;', context_today().strftime('%%Y-%%m-01'))]"/>
-                    <filter string="Current Month" name="current_month"
-                        domain="[('date_start', '&gt;=', context_today().strftime('%%Y-%%m-01'))]"/>
-                    <filter string="Future" name="future"
-                        domain="[('date_start', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter name="customer" string="Customer" context="{'group_by':'customer_id'}"/>
+                    <filter name="stage" string="Stage" context="{'group_by':'stage_id'}"/>
+                    
+                    <separator orientation="vertical" />
+                    <filter name="start_month" string="Start Date" context="{'group_by':'date_start:month'}"/>
+                    <filter name="end_month" string="Ending Date" context="{'group_by':'date_end:month'}"/>
                 </group>
             </search>
         </field>
     </record>
+
     <record id="xestionsat_incidence_search_view_default" model="ir.ui.view">
+        <field name="name">xestionsat.incidence.search_default</field>
         <field name="model">xestionsat.incidence</field>
-        <field name="name">Invoice - Search</field>
         <field name="inherit_id" ref="xestionsat_incidence_search_view_basic" />
+        <field name="mode">primary</field>
         <field name="arch" type="xml">
             <filter name="invoiced" position="before">
-                <filter string="Open" name="open" domain="[('locked','=',False)]"/>
-                <filter string="Locked" name="locked" domain="[('locked','=',True)]"/>
+                <filter name="open" string="Open" domain="[('locked','=',False)]"/>
+                <filter name="locked" string="Locked" domain="[('locked','=',True)]"/>
+                <separator/>
             </filter>
         </field>
     </record>

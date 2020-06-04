@@ -225,6 +225,17 @@ class Device(models.Model):
             raise models.ValidationError(
                 _(MESSAGE['device_constraint']['in_active_incidence']))
 
+        # Repair state
+        if self.state == STATE_DEVICE[1][0]:
+            raise models.ValidationError(
+                _(MESSAGE['device_constraint']['repairing']))
+
+        # Unsubscribe state
+        if self.state == STATE_DEVICE[3][0]:
+            self.date_cancellation = fields.Datetime.now()
+        else:
+            self.date_cancellation = False
+
     ###########################################################################
     # CRUD methods
     ###########################################################################
@@ -265,74 +276,12 @@ class Device(models.Model):
     ###########################################################################
     # Action methods
     ###########################################################################
-    @api.model
-    def is_allowed_transition(self, actual_state, new_state):
-        """Handles allowed state changes.
-
-        :param actual_state: Currently assigned status.
-        :param new_state: New state to be assigned.
-        """
-        allowed = [
-            ('stored', 'operational'),
-            ('stored', 'repairing'),
-            ('stored', 'unsubscribe'),
-
-            ('operational', 'stored'),
-            ('operational', 'repairing'),
-            ('operational', 'unsubscribe'),
-
-            ('repairing', 'stored'),
-            ('repairing', 'operational'),
-            ('repairing', 'unsubscribe'),
-
-            ('unsubscribe', 'stored'),
-            ('unsubscribe', 'operational'),
-            ('unsubscribe', 'repairing')
-        ]
-        return (actual_state, new_state) in allowed
-
-    @api.multi
-    def change_state(self, new_state):
-        """Apply a change of status.
-        :param new_state: New state to be assigned.
-        """
-        for device in self:
-            if device.state != new_state:
-                if device.is_allowed_transition(device.state, new_state):
-                    device.state = new_state
-                    if new_state == 'unsubscribe':
-                        device.date_cancellation = fields.Datetime.now()
-                    else:
-                        device.date_cancellation = False
-                else:
-                    raise models.UserError(
-                        _(MESSAGE['device_methods']['change_state']).format(
-                            (device.state, new_state))
-                    )
-
-    def make_stored(self):
-        """Invokes the change of state to stored.
-        """
-        self.change_state('stored')
-
-    def make_operational(self):
-        """Invokes the change of state to operational.
-        """
-        self.change_state('operational')
-
     @api.multi
     def create_incidence(self):
         """Invokes the change of state to repairing and launches the method to
         create a new incidence.
         """
-        self.change_state('repairing')
-
         return self.add_incidence()
-
-    def make_unsubscribe(self):
-        """Invokes the change of state to unsubscribe.
-        """
-        self.change_state('unsubscribe')
 
     @api.multi
     def add_incidence(self):

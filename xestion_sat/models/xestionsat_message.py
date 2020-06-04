@@ -127,6 +127,10 @@ MESSAGE = {
 
         'in_active_incidence': 'OPERATION NOT AVAILABLE: The device is in an'
         ' active incidence',
+
+        'repairing': 'OPERATION NOT AVAILABLE: To change the status to repair,'
+        ' you must create a new incidence or add the device to an existing'
+        ' one',
     },
     # -------------------------------------------------------------------------
     # Methods

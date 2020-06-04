@@ -118,6 +118,7 @@ class Incidence(models.Model):
         ondelete='restrict',
         required=True,
     )
+
     device_ids = fields.Many2many(
         'xestionsat.device',
         string='Devices',
@@ -126,6 +127,7 @@ class Incidence(models.Model):
         copy=False,
         track_visibility=True,
     )
+
     created_by_id = fields.Many2one(
         'res.users',
         string='Created by',
@@ -153,6 +155,12 @@ class Incidence(models.Model):
         default=_get_default_stage_id,
         group_expand='_get_all_stage_ids',
         copy=False,
+        track_visibility=True,
+    )
+
+    stage_value = fields.Char(
+        readonly=True,
+        related='stage_id.stage',
         track_visibility=True,
     )
 
@@ -191,12 +199,6 @@ class Incidence(models.Model):
     date_end = fields.Datetime(
         string='Date ends',
         copy=False,
-        track_visibility=True,
-    )
-
-    stage_value = fields.Char(
-        readonly=True,
-        related='stage_id.stage',
         track_visibility=True,
     )
 
@@ -424,7 +426,7 @@ class Incidence(models.Model):
                 if self._origin.id not in incidences:
                     raise models.ValidationError(
                         _(MESSAGE['device_constraint']['in_active_incidence']))
-            device_id.change_state(STATE_DEVICE[1][0])
+            device_id.state = STATE_DEVICE[1][0]
 
     ###########################################################################
     # CRUD methods
@@ -511,7 +513,7 @@ class Incidence(models.Model):
         self.date_end = date_now
         self.stage_id = next_stage
         for record in self.device_ids:
-            record.change_state(devices_state)
+            record.state = devices_state
 
         # It is the last value to change so as not to block the other changes
         self.locked = lock
