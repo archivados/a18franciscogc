@@ -34,7 +34,6 @@ class IncidenceAssistancePlace(models.Model):
         string='Place of assistance',
         translate=True,
         required=True,
-        track_visibility=True,
     )
     description = fields.Text(
         string='Description',

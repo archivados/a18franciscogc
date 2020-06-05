@@ -68,14 +68,12 @@ class IncidenceStage(models.Model):
         string='Stage',
         translate=True,
         required=True,
-        track_visibility=True,
     )
     sequence = fields.Integer(
         string='Sequence',
         default=_get_default_sequence,
         required=True,
         index=True,
-        track_visibility=True,
     )
     description = fields.Text(
         string='Description',

@@ -40,7 +40,6 @@ class DeviceOtherData(models.Model):
         'xestionsat.device',
         string='ID device',
         ondelete='restrict',
-        track_visibility=True,
     )
 
     # -------------------------------------------------------------------------
@@ -49,19 +48,16 @@ class DeviceOtherData(models.Model):
     data = fields.Char(
         string='Data',
         required=True,
-        track_visibility=True,
     )
     value = fields.Char(
         string='Value',
         required=True,
-        track_visibility=True,
     )
 
     date_registration = fields.Datetime(
         string='Date of registration',
         default=lambda *a: fields.Datetime.now(),
         required=True,
-        track_visibility=True,
     )
 
     ###########################################################################

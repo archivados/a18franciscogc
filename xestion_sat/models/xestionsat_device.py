@@ -26,7 +26,7 @@ class Device(models.Model):
     _description = _('Device')
     _rec_name = 'name'
     _order = 'owner_id, internal_id, name'
-    _inherit = ['mail.thread']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     ###########################################################################
     # Default methods
@@ -55,7 +55,7 @@ class Device(models.Model):
         ondelete='restrict',
         default=lambda self: self.env.user,
         required=True,
-        track_visibility=True,
+        track_visibility='onchange',
     )
     owner_id = fields.Many2one(
         'res.partner',
@@ -68,32 +68,32 @@ class Device(models.Model):
         string='Headquarters address',
         ondelete='restrict',
         required=True,
-        track_visibility=True,
+        track_visibility='onchange',
     )
     user_ids = fields.Many2many(
         'res.partner',
         string='Users',
-        track_visibility=True,
+        track_visibility='onchange',
     )
     devicecomponent_ids = fields.One2many(
         'xestionsat.device.component',
         string='Device Components',
         inverse_name='device_id',
         ondelete='cascade',
-        track_visibility=True,
+        track_visibility='onchange',
     )
     othter_data_ids = fields.One2many(
         'xestionsat.device.other_data',
         string='Other data',
         inverse_name='device_id',
         ondelete='cascade',
-        track_visibility=True,
+        track_visibility='onchange',
     )
     incidence_ids = fields.Many2many(
         'xestionsat.incidence',
         string='Related Incidences',
         ondelete='restrict',
-        track_visibility=True,
+        track_visibility='onchange',
     )
 
     # -------------------------------------------------------------------------
@@ -103,31 +103,35 @@ class Device(models.Model):
         string='Name',
         required=True,
         index=True,
+        track_visibility='onchange',
     )
     internal_id = fields.Char(
         string='Internal ID',
         index=True,
-        track_visibility=True,
+        track_visibility='onchange',
     )
     location = fields.Char(
         string='Location',
-        track_visibility=True,
+        track_visibility='onchange',
     )
     description = fields.Text(
         string='Description',
+        track_visibility='onchange',
     )
     observation = fields.Text(
         string='Observations',
+        track_visibility='onchange',
     )
 
     date_registration = fields.Datetime(
         string='Date of registration',
         default=lambda *a: fields.Datetime.now(),
         required=True,
+        track_visibility='onchange',
     )
     date_cancellation = fields.Datetime(
         string='Date of cancellation',
-        track_visibility=True,
+        track_visibility='onchange',
     )
 
     state = fields.Selection(
@@ -135,7 +139,7 @@ class Device(models.Model):
         string='State',
         default=_get_default_state,
         required=True,
-        track_visibility=True,
+        track_visibility='onchange',
     )
 
     ###########################################################################

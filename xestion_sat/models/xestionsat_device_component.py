@@ -42,13 +42,11 @@ class DeviceComponent(models.Model):
         string='Compponent',
         ondelete='restrict',
         required=True,
-        track_visibility=True,
     )
     device_id = fields.Many2one(
         'xestionsat.device',
         string='ID device',
         ondelete='restrict',
-        track_visibility=True,
     )
 
     # -------------------------------------------------------------------------
@@ -56,7 +54,6 @@ class DeviceComponent(models.Model):
     # -------------------------------------------------------------------------
     serial = fields.Char(
         string='Serial number',
-        track_visibility=True,
     )
     observation = fields.Text(
         string='Observations',
@@ -66,11 +63,9 @@ class DeviceComponent(models.Model):
         string='Date of registration',
         default=lambda *a: fields.Datetime.now(),
         required=True,
-        track_visibility=True,
     )
     date_cancellation = fields.Datetime(
         string='Date of cancellation',
-        track_visibility=True,
     )
 
     ###########################################################################

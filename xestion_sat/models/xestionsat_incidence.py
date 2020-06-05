@@ -28,7 +28,7 @@ class Incidence(models.Model):
     _description = _('Incidence')
     _rec_name = 'title'
     _order = 'id desc, date_start desc'
-    _inherit = ['mail.thread']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     ###########################################################################
     # Default methods
@@ -74,23 +74,6 @@ class Incidence(models.Model):
         default = list(COLOR_KANBAN_STATE.keys())[0]
         return default
 
-    @api.multi
-    def write(self, vals):
-        if 'invoiced' not in vals:
-            if self.invoiced:
-                raise models.ValidationError(
-                    _(MESSAGE['incidence_error']['invoiced']))
-            if 'locked' not in vals:
-                if self.locked:
-                    raise models.ValidationError(
-                        _(MESSAGE['incidence_error']['locked']))
-            if 'stage_id' in vals:
-                if not vals['stage_id']:
-                    raise models.ValidationError(
-                        _(MESSAGE['incidence_error']['close']))
-
-        return super(Incidence, self).write(vals)
-
     ###########################################################################
     # Fields declaration
     ###########################################################################
@@ -102,14 +85,12 @@ class Incidence(models.Model):
         string='Incidence',
         inverse_name='incidence_id',
         copy=False,
-        track_visibility=True,
     )
     sale_order_id = fields.One2many(
         'sale.order',
         string='Incidence',
         inverse_name='incidence_id',
         copy=False,
-        track_visibility=True,
     )
 
     customer_id = fields.Many2one(
@@ -125,7 +106,6 @@ class Incidence(models.Model):
         required=True,
         ondelete='restrict',
         copy=False,
-        track_visibility=True,
     )
 
     created_by_id = fields.Many2one(
@@ -161,7 +141,6 @@ class Incidence(models.Model):
     stage_value = fields.Char(
         readonly=True,
         related='stage_id.stage',
-        track_visibility=True,
     )
 
     assistance_place = fields.Many2one(
@@ -170,6 +149,7 @@ class Incidence(models.Model):
         ondelete='restrict',
         default=_get_default_place,
         required=True,
+        track_visibility=True,
     )
 
     # -------------------------------------------------------------------------
@@ -220,7 +200,6 @@ class Incidence(models.Model):
         string='Tax amount',
         compute='_compute_incidence_action_ids',
         currency_field='company_currency',
-        track_visibility='always',
         store=True,
         copy=False,
     )
@@ -228,7 +207,6 @@ class Incidence(models.Model):
         string='Total discount',
         compute='_compute_incidence_action_ids',
         currency_field='company_currency',
-        track_visibility='always',
         copy=False,
         store=True,
     )
@@ -236,7 +214,6 @@ class Incidence(models.Model):
         string='Untaxed Amount',
         compute='_compute_incidence_action_ids',
         currency_field='company_currency',
-        track_visibility='always',
         store=True,
         copy=False,
     )
@@ -244,7 +221,6 @@ class Incidence(models.Model):
         string='Total',
         compute='_compute_incidence_action_ids',
         currency_field='company_currency',
-        track_visibility='always',
         store=True,
         copy=False,
     )
@@ -269,11 +245,9 @@ class Incidence(models.Model):
     # Blocking flags
     invoiced = fields.Boolean(
         copy=False,
-        track_visibility=True,
     )
     locked = fields.Boolean(
         copy=False,
-        track_visibility=True,
     )
 
     # Kanban control
@@ -428,9 +402,107 @@ class Incidence(models.Model):
                         _(MESSAGE['device_constraint']['in_active_incidence']))
             device_id.state = STATE_DEVICE[1][0]
 
+            device_msg = '<li>Add to Incidence: {0} - {1}</li>'.format(
+                    self.id, self.title)
+
+            device_id.message_post(body='<ul>' + _(device_msg) + '</ul>')
+
     ###########################################################################
     # CRUD methods
     ###########################################################################
+    @api.multi
+    def write(self, vals):
+        if 'invoiced' not in vals:
+            if self.invoiced:
+                raise models.ValidationError(
+                    _(MESSAGE['incidence_error']['invoiced']))
+            if 'locked' not in vals:
+                if self.locked:
+                    raise models.ValidationError(
+                        _(MESSAGE['incidence_error']['locked']))
+            if 'stage_id' in vals:
+                if not vals['stage_id']:
+                    raise models.ValidationError(
+                        _(MESSAGE['incidence_error']['close']))
+
+        # Devices Tracking
+        old_devices = self.device_ids
+        devices_msg = ''
+
+        if 'device_ids' in vals:
+            if len(old_devices) > 0:
+                devices_msg += '<b>Old Devices</b><ul>'
+                for device in old_devices:
+                    devices_msg += self._message_post_list(
+                        {
+                            'ID:': device.internal_id,
+                            'Name:': device.name,
+                            'Location:': device.location,
+                            'Headquarter:': device.headquarter_id.display_name,
+                        }
+                    )
+
+        # Actions Tracking
+        old_actions = self.incidence_action_ids
+        actions_msg = ''
+
+        if 'incidence_action_ids' in vals:
+            if len(old_actions) > 0:
+                actions_msg += '<b>Old Actions</b><ul>'
+                for action in old_actions:
+                    actions_msg += self._message_post_list(
+                        {
+                            'Executed by:': action.executed_by.display_name,
+                            'Action:': action.product_id.display_name,
+                            'Start Date:': action.date_start,
+                            'End Date:': action.date_end,
+                        }
+                    )
+
+        super(Incidence, self).write(vals)
+
+        # Devices Tracking
+        if len(old_devices) != len(self.device_ids):
+            devices_msg += '</ul><b>New Devices</b><ul>'
+
+            for device in self.device_ids:
+                devices_msg += self._message_post_list(
+                    {
+                        'ID:': device.internal_id,
+                        'Name:': device.name,
+                        'Location:': device.location,
+                        'Headquarter:': device.headquarter_id.display_name,
+                    }
+                )
+
+            self.message_post(body=_(devices_msg) + '</ul>')
+
+        # Actions Tracking
+        if len(old_actions) != len(self.incidence_action_ids):
+            actions_msg += '</ul><b>New Actions</b><ul>'
+
+            for action in self.incidence_action_ids:
+                actions_msg += self._message_post_list(
+                    {
+                        'Executed by:': action.executed_by.display_name,
+                        'Action:': action.product_id.display_name,
+                        'Start Date:': action.date_start,
+                        'End Date:': action.date_end,
+                    }
+                )
+
+            self.message_post(body=_(actions_msg) + '</ul>')
+
+    def _message_post_list(self, dictionary):
+        """.
+        """
+        result = '<li>'
+        for key, value in dictionary.items():
+            result += ' <b>' + key + '</b> ' + str(value) if value else ''
+        result += '</li>'
+
+        return result
+
     @api.multi
     def create_new_incidence(
         self, name=NEW_INCIDENCE, context=None, flags=None
@@ -462,6 +534,7 @@ class Incidence(models.Model):
     def add_action(self):
         """Method to add a new action for the current incidence.
         """
+
         if self.invoiced or self.locked:
             raise models.UserError(
                 _(MESSAGE['incidence_methods']['add_action']))
@@ -473,7 +546,6 @@ class Incidence(models.Model):
         flags = {
             'action_buttons': True,
         }
-
         return self.env['xestionsat.incidence.action'].create_new_action(
             context=context, flags=flags)
 
@@ -481,6 +553,8 @@ class Incidence(models.Model):
     def close_incidence(self):
         """Method to close or reopen the current Incidence.
         """
+        message_post = ''
+
         # It will be changed to the one indicated in the settings
         # (coming soon)
         final_stage = self.env['xestionsat.incidence.stage'].search(
@@ -518,20 +592,12 @@ class Incidence(models.Model):
         # It is the last value to change so as not to block the other changes
         self.locked = lock
 
-    def reload_page(self):
-        model_obj = self.env['ir.model.data']
-        data_id = model_obj._get_id('xestionsat.incidence', 'view_id')
-        view_id = model_obj.browse(data_id).res_id
-        return {
-            'type': 'ir.actions.act_window',
-            'name': _('String'),
-            'res_model': 'xestionsat.incidence',
-            'view_type': 'tree',
-            'view_mode': 'form',
-            'view_id': view_id,
-            'target': 'current',
-            'nodestroy': True,
-        }
+        if self.locked:
+            message_post = 'Incidence closed'
+        else:
+            message_post = 'Open incidence'
+
+        self.message_post(body='<ul><li>' + _(message_post) + '</li></ul>')
 
     # -------------------------------------------------------------------------
     # Order actions
@@ -631,16 +697,19 @@ class Incidence(models.Model):
         """
         lines_type = ''
         state = ''
+        message_post = ''
 
         self.invoiced = True
 
         if return_model == ORDER_MODEL:
             lines_type = 'order_line'
             state = 'sale'
+            msg_type = 'Order'
 
         if return_model == INVOICE_MODEL:
             lines_type = 'invoice_line_ids'
             state = 'draft'
+            msg_type = 'Invoice'
 
         try:
             model = self.env[return_model].create({
@@ -660,6 +729,13 @@ class Incidence(models.Model):
                             MESSAGE['incidence_methods']['_get_invoice_order'])
                     }
                 )
+
+                if self.invoiced:
+                    message_post = msg_type + ' created'
+
+                self.message_post(
+                    body='<ul><li>' + _(message_post) + '</li></ul>')
+
                 return {
                     'name': _(title_message),
                     'type': 'ir.actions.act_window',
@@ -685,6 +761,18 @@ class Incidence(models.Model):
         :param flags: Flags to modify the view.
         """
         self.invoiced = True
+        message_post = ''
+
+        if res_model == ORDER_MODEL:
+            msg_type = 'Order'
+
+        if res_model == INVOICE_MODEL:
+            msg_type = 'Invoice'
+
+        if self.invoiced:
+            message_post = msg_type + ' windows open'
+
+        self.message_post(body='<ul><li>' + _(message_post) + '</li></ul>')
 
         return {
             'name': _(name),
