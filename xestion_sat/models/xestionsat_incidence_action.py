@@ -47,13 +47,13 @@ class IncidenceAction(models.Model):
         ondelete='restrict',
         default=lambda self: self.env.user,
         required=True,
-        track_visibility=True,
     )
 
     incidence_id = fields.Many2one(
         'xestionsat.incidence',
         ondelete='restrict',
-        track_visibility=True,
+        store=True,
+        compute='_check_incidence_id'
     )
 
     product_id = fields.Many2one(
@@ -61,7 +61,6 @@ class IncidenceAction(models.Model):
         string='Action',
         required=True,
         ondelete='restrict',
-        track_visibility=True,
     )
 
     tax_ids = fields.Many2many(
@@ -75,11 +74,9 @@ class IncidenceAction(models.Model):
         string='Date start',
         default=lambda *a: fields.Datetime.now(),
         required=True,
-        track_visibility=True,
     )
     date_end = fields.Datetime(
         string='Date ends',
-        track_visibility=True,
     )
     observation = fields.Text(
         string='Observations',

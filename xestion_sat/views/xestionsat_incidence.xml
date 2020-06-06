@@ -304,6 +304,7 @@
                 item.close_incidence()
         </field>
     </record>
+
     <record id="xestionsat_incidence_server_action_order" model="ir.actions.server">
         <field name="name">Create Orders</field>
         <field name="type">ir.actions.server</field>
@@ -315,6 +316,7 @@
                 item.create_order(False)
         </field>
     </record>
+    
     <record id="xestionsat_incidence_server_action_invoice" model="ir.actions.server">
         <field name="name">Create Invoices</field>
         <field name="type">ir.actions.server</field>

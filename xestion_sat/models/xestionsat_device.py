@@ -7,8 +7,11 @@ from lxml import etree
 from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
+from .xestionsat_common import compare_list, message_post_list
+
 from .xestionsat_common import NEW_DEVICE
 from .xestionsat_common import STATE_DEVICE
+
 from .xestionsat_message import MESSAGE
 
 # 5: local imports
@@ -26,7 +29,7 @@ class Device(models.Model):
     _description = _('Device')
     _rec_name = 'name'
     _order = 'owner_id, internal_id, name'
-    _inherit = ['mail.thread']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     ###########################################################################
     # Default methods
@@ -55,7 +58,7 @@ class Device(models.Model):
         ondelete='restrict',
         default=lambda self: self.env.user,
         required=True,
-        track_visibility=True,
+        track_visibility='onchange',
     )
     owner_id = fields.Many2one(
         'res.partner',
@@ -68,32 +71,32 @@ class Device(models.Model):
         string='Headquarters address',
         ondelete='restrict',
         required=True,
-        track_visibility=True,
+        track_visibility='onchange',
     )
     user_ids = fields.Many2many(
         'res.partner',
         string='Users',
-        track_visibility=True,
+        track_visibility='onchange',
     )
     devicecomponent_ids = fields.One2many(
         'xestionsat.device.component',
         string='Device Components',
         inverse_name='device_id',
         ondelete='cascade',
-        track_visibility=True,
+        track_visibility='onchange',
     )
     othter_data_ids = fields.One2many(
         'xestionsat.device.other_data',
         string='Other data',
         inverse_name='device_id',
         ondelete='cascade',
-        track_visibility=True,
+        track_visibility='onchange',
     )
     incidence_ids = fields.Many2many(
         'xestionsat.incidence',
         string='Related Incidences',
         ondelete='restrict',
-        track_visibility=True,
+        track_visibility='onchange',
     )
 
     # -------------------------------------------------------------------------
@@ -103,31 +106,35 @@ class Device(models.Model):
         string='Name',
         required=True,
         index=True,
+        track_visibility='onchange',
     )
     internal_id = fields.Char(
         string='Internal ID',
         index=True,
-        track_visibility=True,
+        track_visibility='onchange',
     )
     location = fields.Char(
         string='Location',
-        track_visibility=True,
+        track_visibility='onchange',
     )
     description = fields.Text(
         string='Description',
+        track_visibility='onchange',
     )
     observation = fields.Text(
         string='Observations',
+        track_visibility='onchange',
     )
 
     date_registration = fields.Datetime(
         string='Date of registration',
         default=lambda *a: fields.Datetime.now(),
         required=True,
+        track_visibility='onchange',
     )
     date_cancellation = fields.Datetime(
         string='Date of cancellation',
-        track_visibility=True,
+        track_visibility='onchange',
     )
 
     state = fields.Selection(
@@ -135,7 +142,7 @@ class Device(models.Model):
         string='State',
         default=_get_default_state,
         required=True,
-        track_visibility=True,
+        track_visibility='onchange',
     )
 
     ###########################################################################
@@ -239,6 +246,74 @@ class Device(models.Model):
     ###########################################################################
     # CRUD methods
     ###########################################################################
+    @api.multi
+    def write(self, vals):
+        # Components Tracking
+        old_components = self.devicecomponent_ids
+        components_msg = ''
+
+        if 'devicecomponent_ids' in vals:
+            if len(old_components) > 0:
+                components_msg += '<b>Old Components</b><ul>'
+                for componnet in old_components:
+                    components_msg += message_post_list(
+                        {
+                            'Componnet:': componnet.product_id.display_name,
+                            'serial:': componnet.serial,
+                            'Registration Date:': componnet.date_registration,
+                            'Cancellation Date:': componnet.date_cancellation,
+                        }
+                    )
+
+        # Other Data Tracking
+        old_data = self.othter_data_ids
+        data_msg = ''
+
+        if 'othter_data_ids' in vals:
+            if len(old_data) > 0:
+                data_msg += '<b>Old Data</b><ul>'
+                for data in old_data:
+                    data_msg += message_post_list(
+                        {
+                            'Data:': data.data,
+                            'Value:': data.value,
+                            'Registration Date:': data.date_registration,
+                        }
+                    )
+
+        super(Device, self).write(vals)
+
+        # Components Tracking
+        if not compare_list(old_components, self.devicecomponent_ids):
+            components_msg += '</ul><b>New Components</b><ul>'
+
+            for componnet in self.devicecomponent_ids:
+                components_msg += message_post_list(
+                    {
+                        'Componnet:': componnet.product_id.display_name,
+                        'serial:': componnet.serial,
+                        'Registration Date:': componnet.date_registration,
+                        'Cancellation Date:': componnet.date_cancellation,
+                    }
+                )
+
+            self.message_post(body=_(components_msg) + '</ul>')
+
+        # Other Data Tracking
+        if not compare_list(old_data, self.othter_data_ids):
+            data_msg += '</ul><b>New Data</b><ul>'
+
+            for data in self.othter_data_ids:
+                data_msg += message_post_list(
+                    {
+                        'Data:': data.data,
+                        'Value:': data.value,
+                        'Registration Date:': data.date_registration,
+                    }
+                )
+
+            self.message_post(body=_(data_msg) + '</ul>')
+
     @api.multi
     def create_new_device(
         self, name=NEW_DEVICE, context=None, flags=None
