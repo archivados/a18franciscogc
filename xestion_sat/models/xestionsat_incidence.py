@@ -462,7 +462,7 @@ class Incidence(models.Model):
         super(Incidence, self).write(vals)
 
         # Devices Tracking
-        if len(old_devices) != len(self.device_ids):
+        if not self.compare_list(old_devices, self.device_ids):
             devices_msg += '</ul><b>New Devices</b><ul>'
 
             for device in self.device_ids:
@@ -478,7 +478,7 @@ class Incidence(models.Model):
             self.message_post(body=_(devices_msg) + '</ul>')
 
         # Actions Tracking
-        if len(old_actions) != len(self.incidence_action_ids):
+        if not self.compare_list(old_actions, self.incidence_action_ids):
             actions_msg += '</ul><b>New Actions</b><ul>'
 
             for action in self.incidence_action_ids:
@@ -493,8 +493,31 @@ class Incidence(models.Model):
 
             self.message_post(body=_(actions_msg) + '</ul>')
 
+    def compare_list(self, list1, list2):
+        """Check if two record lists are the same.
+
+        :param list1: First list to compare.
+        :param list2: Second list to compare.
+        """
+        equals = True
+
+        if len(list1) == len(list2):
+            list1_ids = []
+            for item1 in list1:
+                list1_ids.append(item1.id)
+
+            for item2 in list2:
+                if item2.id not in list1_ids:
+                    equals = False
+        else:
+            equals = False
+
+        return equals
+
     def _message_post_list(self, dictionary):
-        """.
+        """Build a list compatible with message_post ().
+
+        :param dictionary: Dictionary with which to build the list.
         """
         result = '<li>'
         for key, value in dictionary.items():
