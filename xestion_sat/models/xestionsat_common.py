@@ -38,6 +38,13 @@ CREATE_INVOICE = 'Create Invoice and modify it'
 # Constants to manage models
 ###########################################################################
 # The first item defined is the default
+INICENDE_TYPE_INVOICE = [
+    ('none', 'None'),
+    ('by_month', 'Group by month'),
+    ('pending', 'Group the pending'),
+]
+
+# The first item defined is the default
 # The second item defined is the default for the incidence model
 STATE_DEVICE = [
     ('operational', 'Operational'),

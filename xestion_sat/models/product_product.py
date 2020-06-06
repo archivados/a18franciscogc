@@ -16,5 +16,6 @@ class ProductTemplate(models.Model):
     """
     ###########################################################################
     # Private attributes
+    ###########################################################################
     _inherit = 'product.product'
     _order = 'type desc, name'

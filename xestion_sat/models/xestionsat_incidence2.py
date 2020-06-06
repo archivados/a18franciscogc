@@ -83,14 +83,16 @@ class Incidence(models.Model):
     # -------------------------------------------------------------------------
     # Relational Fields
     # -------------------------------------------------------------------------
-    invoice_id = fields.Many2many(
+    invoice_id = fields.One2many(
         'account.invoice',
         string='Incidence',
+        inverse_name='incidence_id',
         copy=False,
     )
-    sale_order_id = fields.Many2many(
+    sale_order_id = fields.One2many(
         'sale.order',
         string='Incidence',
+        inverse_name='incidence_id',
         copy=False,
     )
 
@@ -360,9 +362,21 @@ class Incidence(models.Model):
     @api.constrains('invoiced')
     def _compute_invoice(self):
         for record in self:
-            if record.sale_order_id or record.invoice_id:
-                raise models.ValidationError(
-                    _(MESSAGE['incidence_constraint']['invoiced']))
+            context = record.env.context
+            model = False
+            if 'params' in context:
+                if 'model' in context['params']:
+                    model = context['params']['model']
+            elif 'type' in context:
+                model = context['type']
+
+            if model != 'sale.order' and model != 'out_invoice':
+                if self.env['account.invoice'].search(
+                    [('incidence_id', '=', self.id)]) \
+                    or record.sale_order_id and self.env['sale.order'].search(
+                        [('incidence_id', '=', self.id)]):
+                    raise models.ValidationError(
+                        _(MESSAGE['incidence_constraint']['invoiced']))
 
     # -------------------------------------------------------------------------
     # Onchange
@@ -402,6 +416,9 @@ class Incidence(models.Model):
     @api.multi
     def write(self, vals):
         if 'invoiced' not in vals:
+            if self.invoiced:
+                raise models.ValidationError(
+                    _(MESSAGE['incidence_error']['invoiced']))
             if 'locked' not in vals:
                 if self.locked:
                     raise models.ValidationError(
@@ -411,8 +428,8 @@ class Incidence(models.Model):
                     raise models.ValidationError(
                         _(MESSAGE['incidence_error']['close']))
 
+        # Devices Tracking
         if 'device_ids' in vals:
-            # Devices Tracking
             old_devices = self.device_ids
             devices_msg = ''
 
@@ -428,8 +445,8 @@ class Incidence(models.Model):
                         }
                     )
 
+        # Actions Tracking
         if 'incidence_action_ids' in vals:
-            # Actions Tracking
             old_actions = self.incidence_action_ids
             actions_msg = ''
 
@@ -479,7 +496,7 @@ class Incidence(models.Model):
                         }
                     )
 
-                self.message_post(body=_(actions_msg) + '</ul>')
+            self.message_post(body=_(actions_msg) + '</ul>')
 
     @api.multi
     def create_new_incidence(
@@ -585,18 +602,55 @@ class Incidence(models.Model):
 
         :param records: Records to work on.
         """
-        return self._get_invoice_order(
-            ORDER_MODEL, CREATE_ORDER, records, False)
+        orders = dict()
+
+        for item in records:
+            if item.invoiced:
+                continue
+
+            if item.customer_id.id not in orders:
+                orders[item.customer_id.id] = ([], [])
+
+            items = item._get_actions_lines(ORDER_MODEL, item)
+            # Incidence Actions
+            orders[item.customer_id.id][0].extend(items)
+            # Incidences (to mark as invoiced)
+            orders[item.customer_id.id][1].extend(item)
+
+        if len(orders) > 0:
+            try:
+                lines_type = 'order_line'
+                state = 'sale'
+
+                for customer, items in orders.items():
+                    model = self.env[ORDER_MODEL].create({
+                        'incidence_id': items[1],
+                        'partner_id': customer,
+                        lines_type: items[0],
+                        'state': state,
+                    })
+
+                    model['confirmation_date'] = fields.Datetime.now()
+
+                    # Mark Incidences as invoiced
+                    for incidence in items[1]:
+                        incidence.invoiced = True
+
+            except Exception as e:
+                raise models.UserError(
+                    _(MESSAGE['incidence_error']['operation']) + str(e))
 
     @api.multi
-    def create_order(self):
+    def create_order(self, show_message=True):
         """Method to create a new order for the current incidence.
 
         :param show_message: Indicates whether or not to display a message to
         the user.
         """
-        return self._get_invoice_order(
-            ORDER_MODEL, CREATE_ORDER, self, True)
+        if type(show_message) != bool:
+            show_message = True
+
+        return self._get_invoice_order(ORDER_MODEL, CREATE_ORDER, show_message)
 
     @api.multi
     def create_order_edit(self, name=CREATE_ORDER):
@@ -610,7 +664,7 @@ class Incidence(models.Model):
         # pricelist_id = self.env['product.pricelist'].search([], limit=1).id
 
         context = {
-            'default_incidence_ids': [self.id],
+            'default_incidence_id': self.id,
             'default_partner_id': self.customer_id.id,
             'default_order_line': self._get_actions_lines(ORDER_MODEL, self),
             # 'default_confirmation_date': fields.Datetime.now(),
@@ -629,22 +683,24 @@ class Incidence(models.Model):
     # Invoice actions
     # -------------------------------------------------------------------------
     def create_batch_invoice(self, records):
-        """Method to create a new order for a set of incidences.
+        """Method to create a new invoice for a set of incidences.
 
         :param records: Records to work on.
         """
-        return self._get_invoice_order(
-            INVOICE_MODEL, CREATE_INVOICE, records, False)
+        pass
 
     @api.multi
-    def create_invoice(self):
+    def create_invoice(self, show_message=True):
         """Method to create a new invoice for the current incidence.
 
         :param show_message: Indicates whether or not to display a message to
         the user.
         """
+        if type(show_message) != bool:
+            show_message = True
+
         return self._get_invoice_order(
-            INVOICE_MODEL, CREATE_INVOICE, self, True)
+            INVOICE_MODEL, CREATE_INVOICE, show_message)
 
     @api.multi
     def create_invoice_edit(self, name=CREATE_INVOICE):
@@ -656,7 +712,7 @@ class Incidence(models.Model):
             name = CREATE_INVOICE
 
         context = {
-            'default_incidence_ids': [self.id],
+            'default_incidence_id': self.id,
             'default_partner_id': self.customer_id.id,
             'default_invoice_line_ids': self._get_actions_lines(
                 INVOICE_MODEL, self),
@@ -672,28 +728,6 @@ class Incidence(models.Model):
     # -------------------------------------------------------------------------
     # Common actions for Orders and Invoices
     # -------------------------------------------------------------------------
-    def _prepare_batch_records(self, return_model, records):
-        """Method to create a new order for a set of incidences.
-
-        :param records: Records to work on.
-        """
-        orders = dict()
-
-        for item in records:
-            if item.invoiced:
-                continue
-
-            if item.customer_id.id not in orders:
-                orders[item.customer_id.id] = ([], [])
-
-            items = item._get_actions_lines(return_model, item)
-            # Incidence Actions
-            orders[item.customer_id.id][0].extend(items)
-            # Incidences (to mark as invoiced)
-            orders[item.customer_id.id][1].extend(item)
-
-        return orders
-
     def _get_actions_lines(self, res_model, record):
         """Method to obtain the lines of action related to the incidence.
 
@@ -716,9 +750,18 @@ class Incidence(models.Model):
 
         return lines
 
-    def _get_invoice_order(
-        self, return_model, title_message, records, show_message
-    ):
+    def _get_actions_lines2(self, res_model):
+        """Method to obtain the lines of action related to the incidence.
+
+        :param res_model: Model for which it is generated.
+        """
+        lines = []
+        for line in self.incidence_action_ids:
+            lines.append(line.prepare_action_line(res_model))
+
+        return lines
+
+    def _get_invoice_order(self, return_model, title_message, show_message):
         """Method that generates an order or an invoice without user intervention.
 
         :param res_model: Model to generate.
@@ -730,7 +773,7 @@ class Incidence(models.Model):
         state = ''
         message_post = ''
 
-        orders = self._prepare_batch_records(return_model, records)
+        self.invoiced = True
 
         if return_model == ORDER_MODEL:
             lines_type = 'order_line'
@@ -742,54 +785,43 @@ class Incidence(models.Model):
             state = 'draft'
             msg_type = 'Invoice'
 
-        if len(orders) > 0:
-            try:
-                for customer, items in orders.items():
-                    # Mark Incidences as invoiced and past ids for the model
-                    incidences = []
+        try:
+            model = self.env[return_model].create({
+                'incidence_id': self.id,
+                'partner_id': self.customer_id.id,
+                lines_type: self._get_actions_lines2(return_model),
+                'state': state,
+            })
 
-                    for incidence in items[1]:
-                        incidence.invoiced = True
-                        incidences.append(incidence.id)
+            if return_model == ORDER_MODEL:
+                model['confirmation_date'] = fields.Datetime.now()
 
-                    model = self.env[return_model].create({
-                        'partner_id': customer,
-                        lines_type: items[0],
-                        'state': state,
-                    })
+            if show_message:
+                message_id = self.env['xestionsat.message'].create(
+                    {
+                        'message': _(
+                            MESSAGE['incidence_methods']['_get_invoice_order'])
+                    }
+                )
 
-                    if return_model == ORDER_MODEL:
-                        model['confirmation_date'] = fields.Datetime.now()
+                if self.invoiced:
+                    message_post = msg_type + ' created'
 
-                    model['incidence_ids'] = incidences
+                self.message_post(
+                    body='<ul><li>' + _(message_post) + '</li></ul>')
 
-                    if show_message:
-                        message_id = self.env['xestionsat.message'].create(
-                            {
-                                'message': _(
-                                    MESSAGE['incidence_methods']
-                                    ['_get_invoice_order'])
-                            }
-                        )
-
-                        if self.invoiced:
-                            message_post = msg_type + ' created'
-
-                        self.message_post(
-                            body='<ul><li>' + _(message_post) + '</li></ul>')
-
-                        return {
-                            'name': _(title_message),
-                            'type': 'ir.actions.act_window',
-                            'view_mode': 'form',
-                            'res_model': 'xestionsat.message',
-                            # pass the id
-                            'res_id': message_id.id,
-                            'target': 'new'
-                        }
-            except Exception as e:
-                raise models.UserError(
-                    _(MESSAGE['incidence_error']['operation']) + str(e))
+                return {
+                    'name': _(title_message),
+                    'type': 'ir.actions.act_window',
+                    'view_mode': 'form',
+                    'res_model': 'xestionsat.message',
+                    # pass the id
+                    'res_id': message_id.id,
+                    'target': 'new'
+                }
+        except Exception as e:
+            raise models.UserError(
+                _(MESSAGE['incidence_error']['operation']) + str(e))
 
     def _get_invoice_order_view(
         self, res_model, name, context=None, flags=None

@@ -15,13 +15,17 @@ class ResPartner(models.Model):
     """Modification of the res.partner to adapt it to the needs of the module.
     """
 
+    ###########################################################################
     # Private attributes
+    ###########################################################################
     _inherit = 'res.partner'
 
-    # Default methods
-
+    ###########################################################################
     # Fields declaration
+    ###########################################################################
+    # -------------------------------------------------------------------------
     # Relational Fields
+    # -------------------------------------------------------------------------
     device_ids = fields.One2many(
         'xestionsat.device',
         string='Devices',
@@ -32,15 +36,10 @@ class ResPartner(models.Model):
         string='Incidences',
         inverse_name='customer_id',
     )
-    # Other Fields
 
-    # compute and search fields, in the same order that fields declaration
-
-    # Constraints and onchanges
-
-    # CRUD methods
-
+    ###########################################################################
     # Action methods
+    ###########################################################################
     @api.multi
     def add_incidence(self):
         """Method to create a new incidence with the data of the current partner.
@@ -73,5 +72,3 @@ class ResPartner(models.Model):
 
         return self.env['xestionsat.device'].create_new_device(
             context=context, flags=flags)
-
-    # Business methods
