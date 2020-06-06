@@ -90,3 +90,41 @@ DECORATION_INCIDENCE_STAGE = {
 }
 
 DECORATION_ACTION_OPEN = 'decoration-info'
+
+
+###########################################################################
+# Common methods
+###########################################################################
+def compare_list(list1, list2):
+    """Check if two record lists are the same.
+
+    :param list1: First list to compare.
+    :param list2: Second list to compare.
+    """
+    equals = True
+
+    if len(list1) == len(list2):
+        list1_ids = []
+        for item1 in list1:
+            list1_ids.append(item1.id)
+
+        for item2 in list2:
+            if item2.id not in list1_ids:
+                equals = False
+    else:
+        equals = False
+
+    return equals
+
+
+def message_post_list(dictionary):
+    """Build a list compatible with message_post ().
+
+    :param dictionary: Dictionary with which to build the list.
+    """
+    result = '<li>'
+    for key, value in dictionary.items():
+        result += ' <b>' + key + '</b> ' + str(value) if value else ''
+    result += '</li>'
+
+    return result

@@ -7,6 +7,7 @@ from lxml import etree
 from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
+from .xestionsat_common import compare_list, message_post_list
 from .xestionsat_common import NEW_INCIDENCE
 from .xestionsat_common import ORDER_MODEL, INVOICE_MODEL
 from .xestionsat_common import CREATE_ORDER, CREATE_INVOICE
@@ -433,7 +434,7 @@ class Incidence(models.Model):
             if len(old_devices) > 0:
                 devices_msg += '<b>Old Devices</b><ul>'
                 for device in old_devices:
-                    devices_msg += self._message_post_list(
+                    devices_msg += message_post_list(
                         {
                             'ID:': device.internal_id,
                             'Name:': device.name,
@@ -450,7 +451,7 @@ class Incidence(models.Model):
             if len(old_actions) > 0:
                 actions_msg += '<b>Old Actions</b><ul>'
                 for action in old_actions:
-                    actions_msg += self._message_post_list(
+                    actions_msg += message_post_list(
                         {
                             'Executed by:': action.executed_by.display_name,
                             'Action:': action.product_id.display_name,
@@ -462,11 +463,11 @@ class Incidence(models.Model):
         super(Incidence, self).write(vals)
 
         # Devices Tracking
-        if not self.compare_list(old_devices, self.device_ids):
+        if not compare_list(old_devices, self.device_ids):
             devices_msg += '</ul><b>New Devices</b><ul>'
 
             for device in self.device_ids:
-                devices_msg += self._message_post_list(
+                devices_msg += message_post_list(
                     {
                         'ID:': device.internal_id,
                         'Name:': device.name,
@@ -478,11 +479,11 @@ class Incidence(models.Model):
             self.message_post(body=_(devices_msg) + '</ul>')
 
         # Actions Tracking
-        if not self.compare_list(old_actions, self.incidence_action_ids):
+        if not compare_list(old_actions, self.incidence_action_ids):
             actions_msg += '</ul><b>New Actions</b><ul>'
 
             for action in self.incidence_action_ids:
-                actions_msg += self._message_post_list(
+                actions_msg += message_post_list(
                     {
                         'Executed by:': action.executed_by.display_name,
                         'Action:': action.product_id.display_name,
@@ -492,39 +493,6 @@ class Incidence(models.Model):
                 )
 
             self.message_post(body=_(actions_msg) + '</ul>')
-
-    def compare_list(self, list1, list2):
-        """Check if two record lists are the same.
-
-        :param list1: First list to compare.
-        :param list2: Second list to compare.
-        """
-        equals = True
-
-        if len(list1) == len(list2):
-            list1_ids = []
-            for item1 in list1:
-                list1_ids.append(item1.id)
-
-            for item2 in list2:
-                if item2.id not in list1_ids:
-                    equals = False
-        else:
-            equals = False
-
-        return equals
-
-    def _message_post_list(self, dictionary):
-        """Build a list compatible with message_post ().
-
-        :param dictionary: Dictionary with which to build the list.
-        """
-        result = '<li>'
-        for key, value in dictionary.items():
-            result += ' <b>' + key + '</b> ' + str(value) if value else ''
-        result += '</li>'
-
-        return result
 
     @api.multi
     def create_new_incidence(
