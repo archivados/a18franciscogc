@@ -392,7 +392,7 @@ class Incidence(models.Model):
             device_id.state = STATE_DEVICE[1][0]
 
             device_msg = '<li>Add to Incidence: {0} - {1}</li>'.format(
-                    self.id, self.title)
+                self.id, self.title)
 
             device_id.message_post(body='<ul>' + _(device_msg) + '</ul>')
 
