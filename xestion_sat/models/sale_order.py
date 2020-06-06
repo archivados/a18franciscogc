@@ -14,34 +14,29 @@ from odoo import models, fields, api
 class SaleOrder(models.Model):
     """Modification of the res.partner to adapt it to the needs of the module.
     """
-
+    ###########################################################################
     # Private attributes
+    ###########################################################################
     _inherit = 'sale.order'
 
-    # Default methods
-
+    ###########################################################################
     # Fields declaration
+    ###########################################################################
+    # -------------------------------------------------------------------------
     # Relational Fields
-    incidence_id = fields.Many2one(
+    # -------------------------------------------------------------------------
+    incidence_ids = fields.Many2many(
         'xestionsat.incidence',
         string='Order',
         ondelete='restrict',
     )
 
-    # Other Fields
-
-    # compute and search fields, in the same order that fields declaration
-
-    # Constraints and onchanges
-
+    ###########################################################################
     # CRUD methods
+    ###########################################################################
     @api.multi
     def unlink(self):
-        if self.incidence_id:
-            self.incidence_id.invoiced = False
-
         return super(SaleOrder, self).unlink()
 
-    # Action methods
-
-    # Business methods
+        for incidence in self.incidence_ids:
+            incidence.sale_order_id = False

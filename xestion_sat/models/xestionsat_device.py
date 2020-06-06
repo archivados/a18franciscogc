@@ -138,8 +138,8 @@ class Device(models.Model):
     )
 
     state = fields.Selection(
-        selection=_get_state_items,
         string='State',
+        selection=_get_state_items,
         default=_get_default_state,
         required=True,
         track_visibility='onchange',

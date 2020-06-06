@@ -312,8 +312,7 @@
         <field name="binding_model_id" ref="model_xestionsat_incidence" />
         <field name="state">code</field>
         <field name="code">
-            for item in records:
-                item.create_order(False)
+            env['xestionsat.incidence'].create_batch_order(records)
         </field>
     </record>
     
@@ -324,8 +323,7 @@
         <field name="binding_model_id" ref="model_xestionsat_incidence" />
         <field name="state">code</field>
         <field name="code">
-            for item in records:
-                item.create_invoice(False)
+            env['xestionsat.incidence'].create_batch_invoice(records)
         </field>
     </record>
 </odoo>
