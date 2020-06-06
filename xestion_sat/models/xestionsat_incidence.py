@@ -8,10 +8,12 @@ from odoo import models, fields, api, _
 
 # 4:  imports from odoo modules
 from .xestionsat_common import compare_list, message_post_list
+
 from .xestionsat_common import NEW_INCIDENCE
 from .xestionsat_common import ORDER_MODEL, INVOICE_MODEL
 from .xestionsat_common import CREATE_ORDER, CREATE_INVOICE
 from .xestionsat_common import COLOR_KANBAN_STATE, STATE_DEVICE
+
 from .xestionsat_message import MESSAGE
 
 # 5: local imports
