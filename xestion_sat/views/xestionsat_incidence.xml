@@ -291,6 +291,52 @@
     </record>
 
     <!--####################################-->
+    <!--            Other Views             -->
+    <!--####################################-->
+    <record id="xestionsat_incidence_graph" model="ir.ui.view">
+        <field name="name">xestionsat.incidence.bar</field>
+        <field name="model">xestionsat.incidence</field>
+        <field name="arch" type="xml">
+            <graph type="bar">
+                <!-- Rows -->
+                <field name="customer_id" type="row"/>
+                <field name="created_by_id" type="row"/>
+
+                <!-- Measures -->
+                <field name="stage_id" type="measure"/>
+                <field name="assistance_place" type="measure"/>
+                <field name="number_total_actions" type="measure"/>
+                <field name="number_open_actions" type="measure"/>
+                <field name="total_discount" type="measure"/>
+                <field name="total_tax" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="xestionsat_incidence_pivot" model="ir.ui.view">
+        <field name="name">xestionsat.incidence.pivot</field>
+        <field name="model">xestionsat.incidence</field>
+        <field name="arch" type="xml">
+            <pivot string="Economic data" display_quantity="True">
+                <!-- Rows -->
+                <field name="customer_id" type="row"/>
+                <field name="assistance_place" type="row"/>
+
+                <!-- Columns -->
+                <field name="created_by_id" type="col"/>
+                <field name="stage_id" type="col"/>
+
+                <!-- Measures -->
+                <field name="number_total_actions" type="measure"/>
+                <field name="number_open_actions" type="measure"/>
+                
+                <field name="total_discount" type="measure"/>
+                <field name="total_tax" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    
+    <!--####################################-->
     <!--          SERVER ACTIONS            -->
     <!--####################################-->
     <record id="xestionsat_incidence_server_action_reopen" model="ir.actions.server">
