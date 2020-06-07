@@ -49,7 +49,6 @@ class IncidenceAction(models.Model):
         'xestionsat.incidence',
         ondelete='restrict',
         store=True,
-        compute='_check_incidence_id'
     )
 
     product_id = fields.Many2one(
