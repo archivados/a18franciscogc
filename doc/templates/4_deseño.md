@@ -6,6 +6,10 @@
 
 ## Deseño de interface de usuarios [mockups ou diagramas...]
 
+O seguinte Diagrama de Usos pode axudar a comprender o emprego da utilidade:
+
+![Diagrama_uso]
+
 ## Diagrama de Base de Datos
 
 O seguinte Diagrama de ER consta das táboas propias (completas) e das táboas de Odoo coas que se interactúa directemente (simplificadas):
@@ -18,5 +22,7 @@ O seguinte Diagrama de ER consta das táboas propias (completas) e das táboas d
 [//]: # (Listado dos links empregados)
 
    <!-- Enlaces proxecto -->
+
+   [Diagrama_uso]: <doc/img/4_desenho/Diagrama_usos.png>
 
    [ER_Diagram]: <doc/img/4_desenho/ER_Diagram.png>
