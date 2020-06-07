@@ -2,7 +2,7 @@
 # 2: import of known third party lib
 
 # 3:  imports of odoo
-from odoo import models, fields, api
+from odoo import models, fields
 
 # 4:  imports from odoo modules
 
@@ -30,13 +30,3 @@ class AccountInvoice(models.Model):
         string='Invoice',
         ondelete='restrict',
     )
-
-    ###########################################################################
-    # CRUD methods
-    ###########################################################################
-    @api.multi
-    def unlink(self):
-        return super(AccountInvoice, self).unlink()
-
-        for incidence in self.incidence_ids:
-            incidence.invoice_id = False
