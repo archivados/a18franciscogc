@@ -80,6 +80,7 @@ Se atopaches un erro por favor acude á sección [Notificando unha incidencia][N
 6. [Implantación]
 7. [Estratexia de versionado]
 8. [Changelog]
+8. [Melloras]
 
 ## Guía de contribución
 
@@ -143,6 +144,8 @@ Antes de nada quero agradecerche se estás interesado en contribuír a este pequ
    [Estratexia de versionado]: <doc/templates/7_versionado.md>
 
    [changelog]: <CHANGELOG.md>
+
+   [Melloras]: <doc/templates/9_melloras.md>
 
    <!-- Enlaces proxecto -->
 
