@@ -70,8 +70,8 @@
                             </field>
                             <button name="add_component" string="Add component" type="object" class="btn_xest_primary oe_read_only"/>
                         </page>
-                        <page string="Othter Data" name="othter_data_ids">
-                            <field name="othter_data_ids">
+                        <page string="Other Data" name="Other_data_ids">
+                            <field name="Other_data_ids">
                                 <tree name="components_tree" editable="bottom">
                                     <field name="data"/>
                                     <field name="value"/>
@@ -134,7 +134,7 @@
                 <field name="location"/>
                 <field name="created_by_id"/>
 
-                <filter string="Operational" name="state_operational" domain="[('state','=','operational')]"/>
+                <filter string="Operative" name="state_operative" domain="[('state','=','operative')]"/>
                 <filter string="Repairing" name="state_repairingl" domain="[('state','=','repairing')]"/>
                 <filter string="Stored" name="state_stored" domain="[('state','=','stored')]"/>
                 <filter string="Unsubscribe" name="state_unsubscribe" domain="['|', ('state','=','unsubscribe'), ('date_cancellation','!=',False)]"/>

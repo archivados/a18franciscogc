@@ -47,7 +47,7 @@ INICENDE_TYPE_INVOICE = [
 # The first item defined is the default
 # The second item defined is the default for the incidence model
 STATE_DEVICE = [
-    ('operational', 'Operational'),
+    ('operative', 'Operative'),
     ('repairing', 'Repairing'),
     ('stored', 'Stored'),
     ('unsubscribe', 'Unsubscribe'),

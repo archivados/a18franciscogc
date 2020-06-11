@@ -6,27 +6,30 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-16 16:19+0000\n"
-"PO-Revision-Date: 2020-04-16 19:58+0200\n"
+"POT-Creation-Date: 2020-06-11 07:39+0000\n"
+"PO-Revision-Date: 2020-06-11 10:14+0200\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.6\n"
-"Last-Translator: Fco. Javier González Campos <efja.gc@gmail.com>\n"
+"Plural-Forms: \n"
 "Language: gl\n"
+"X-Generator: Poedit 2.3.1\n"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_xestion_sat
-msgid "\n"
+msgid ""
+"\n"
 "        Module to handle the management of a Technical Assistance Service"
-msgstr "\n"
+msgstr ""
+"\n"
 "        Módulo para manexar a xestión dun Servizo de Asistencia Técnica"
 
 #. module: base
 #: model:ir.module.module,description:base.module_xestion_sat
-msgid "\n"
+msgid ""
+"\n"
 "        It is intended to formalize a module that facilitates the registration\n"
 "        of interventions techniques on one or more Equipment related to\n"
 "        customers (Partners) and the consultation of the history of the same.\n"
@@ -36,12 +39,12 @@ msgid "\n"
 "            - Record an Action on a given Incidence\n"
 "            - Create new Actions to be able to assign to a Performance\n"
 "            - Create Actions without being a registered Action\n"
-"            - Register a Team\n"
-"            - Register / Edit / Delete a Team Component\n"
-"    "
-msgstr  "\n"
+"            - Register a Device\n"
+"            - Register / Edit / Delete a Device Component\n"
+msgstr ""
+"\n"
 "        Preténdese formalizar un módulo que facilite o rexistro das intervencións\n"
-"        técnicas sobre un ou varios Equipos relacionados cuns clientes\n"
+"        técnicas sobre un ou varios Dispositivos relacionados cuns clientes\n"
 "        (Partners) e a consulta do histórico das mesmas.\n"
 "\n"
 "        Funcionalidades\n"
@@ -49,57 +52,94 @@ msgstr  "\n"
 "           - Rexistrar unha Actuación sobre unha Incidencia dada\n"
 "           - Crear novas Accións para poder asignar a unha Actuación\n"
 "           - Crear Actuacións sen ser unha Acción rexistrada\n"
-"           - Dar de alta un Equipo\n"
-"           - Rexistrar/Editar/Borrar un Compoñente dun Equipo"\n"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_xestion_sat
-msgid "xestionSAT"
-msgstr "xestionSAT"
+"           - Dar de alta un Dispositivo\n"
+"           - Rexistrar/Editar/Borrar un Compoñente dun Dispositivo\"\n"
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__description
-msgid "Description"
-msgstr "Descrición"
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_kanban
+msgid "<i class=\"fa fa-gears\" role=\"img\" aria-label=\"Open actions\"/>"
+msgstr ""
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__description
-msgid "Component that is part of a Device"
-msgstr "Compoñente que forma parte dun Dispositivo"
-
-#. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__description
-msgid "Incidence associated with a Customer"
-msgstr "Incidencia asociada a un Cliente"
-
-#. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__description
-msgid "Action taken in an incidence"
-msgstr "Acción realizada nunha incidencia"
-
-#. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_assistance_place__description
-msgid "Place where an incidence is committed"
-msgstr "Lugar onde se acomete unha incidencia"
-
-#. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_stage__description
-msgid "Stage in which an incidence is found"
-msgstr "Estado no que se atopa unha incidencia"
-
-#. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__template_id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__product_id
 msgid "Action"
 msgstr "Acción"
 
 #. module: xestion_sat
-#: model:ir.actions.act_window,name:xestion_sat.incidence_action_action
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__number_actions
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__number_total_actions
 #: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_form
 msgid "Actions"
 msgstr "Accións"
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__template_id
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_form
+msgid "Actions (open)"
+msgstr "Accións (abertas)"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__active
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_form
+msgid "Add Action"
+msgstr "Engadir Acción"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_view_form
+msgid "Add component"
+msgstr "Engadir compoñente"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_view_form
+msgid "Add data"
+msgstr "Engadir dato"
+
+#. module: xestion_sat
+#: model_terms:ir.actions.act_window,help:xestion_sat.xestionsat_incidence_action
+msgid ""
+"After creating your Incidences you can add Actions, Products, Services, relate it\n"
+"                to your Customers Devices and include them in the billing cycle."
+msgstr "Despois de crear as súas Incidencias, poderá engadir Accións, Produtos, Servizos, relacionalos \n"
+"cos Dispositivos dos seus  Clientes e incluílos no ciclo de facturación."
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_form
+msgid "Are you sure you want to continue?"
+msgstr "Está seguro de que queres continuar?"
+
+#. module: xestion_sat
+#: model:ir.ui.menu,name:xestion_sat.xestionsat_incidence_assistance_place_menu
+msgid "Assistance Places"
+msgstr "Lugares de Asistencia"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_stage__cancel_incidence
+msgid "Cancel the Incidence"
+msgstr "Cancelar a Incidencia"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_search_view_basic
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__date_cancellation
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__date_cancellation
+msgid "Cancellation Date"
+msgstr "Data de baixa"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_action_view_form
+msgid "Close Action"
+msgstr "Pechar Acción"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_form
+msgid "Close Incidence"
+msgstr "Pechar Incidencia"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__product_id
 msgid "Compponent"
 msgstr "Compoñente"
 
@@ -109,20 +149,51 @@ msgid "Create Inicidence"
 msgstr "Crear Incidencia"
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__create_uid
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_form
+msgid "Create Invoice"
+msgstr "Crear Factura"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_form
+msgid "Create Invoice and Edit"
+msgstr "Crear Factura e Editala"
+
+#. module: xestion_sat
+#: model:ir.actions.server,name:xestion_sat.xestionsat_incidence_server_action_invoice
+msgid "Create Invoices"
+msgstr "Crear Facturas"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_form
+msgid "Create Order"
+msgstr "Crear Pedido"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_form
+msgid "Create Order and Edit"
+msgstr "Crear Pedido e Editalo"
+
+#. module: xestion_sat
+#: model:ir.actions.server,name:xestion_sat.xestionsat_incidence_server_action_order
+msgid "Create Orders"
+msgstr "Crear Pedidos"
+
+#. module: xestion_sat
+#: model_terms:ir.actions.act_window,help:xestion_sat.xestionsat_incidence_action
+msgid "Create a new Incidence. Take control of your Technical Assistance Service now!"
+msgstr "Cree unha nova Incidencia. Tome o control do seu Servizo de Asistencia Técnica agora!"
+
+#. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__created_by_id
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__create_uid
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__create_uid
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__created_by_id
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__create_uid
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_assistance_place__create_uid
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_stage__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__owner_id
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__customer_id
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_search_view_basic
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_search_view_basic
 msgid "Customer"
 msgstr "Cliente"
 
@@ -133,22 +204,15 @@ msgid "Customers"
 msgstr "Clientes"
 
 #. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_other_data__data
+msgid "Data"
+msgstr "Dato"
+
+#. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__date_end
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__date_end
 msgid "Date ends"
 msgstr "Data de fin"
-
-#. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__date_cancellation
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__date_cancellation
-msgid "Date of cancellation"
-msgstr "Data de baixa"
-
-#. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__date_registration
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__date_registration
-msgid "Date of registration"
-msgstr "Data de alta"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__date_start
@@ -163,7 +227,7 @@ msgstr "Data de inicio"
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_assistance_place__description
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_stage__description
 msgid "Description"
-msgstr "Descrición"
+msgstr "Descripción"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__failure_description
@@ -171,19 +235,81 @@ msgid "Description of the failure"
 msgstr "Descrición da falla"
 
 #. module: xestion_sat
-#: model:ir.actions.act_window,name:xestion_sat.xestionsat_device_component_action
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__device_components_ids
+#: code:addons/xestion_sat/models/xestionsat_device.py:29
+#: model:ir.model,name:xestion_sat.model_xestionsat_device
+#, python-format
+msgid "Device"
+msgstr "Dispositivo"
+
+#. module: xestion_sat
+#: code:addons/xestion_sat/models/xestionsat_device_component.py:25
+#: model:ir.model,name:xestion_sat.model_xestionsat_device_component
+#, python-format
+msgid "Device - Component"
+msgstr "Dispositivo - Compoñente"
+
+#. module: xestion_sat
+#: code:addons/xestion_sat/models/xestionsat_device_other_data.py:25
+#: model:ir.model,name:xestion_sat.model_xestionsat_device_other_data
+#, python-format
+msgid "Device - Other Data"
+msgstr "Dispositivo _ Outra informaicón"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__devicecomponent_ids
 #: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_view_form
 msgid "Device Components"
-msgstr "Compoñentes do Equipo"
+msgstr "Compoñentes do Dispositivo"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_search_view_basic
+msgid "Device Search"
+msgstr "Búsqueda de Dispositivo"
 
 #. module: xestion_sat
 #: model:ir.actions.act_window,name:xestion_sat.xestionsat_device_action
+#: model:ir.model.fields,field_description:xestion_sat.field_res_partner__device_ids
+#: model:ir.model.fields,field_description:xestion_sat.field_res_users__device_ids
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__device_ids
 #: model:ir.ui.menu,name:xestion_sat.xestionsat_device_menu
-#: model:ir.ui.menu,name:xestion_sat.xestionsat_device_sub_menu
+#: model_terms:ir.ui.view,arch_db:xestion_sat.view_partner_form
 msgid "Devices"
-msgstr "Equipos"
+msgstr "Dispositivos"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_pivot
+msgid "Economic data"
+msgstr "Información económica"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_kanban
+msgid "Edit"
+msgstr "Editar"
+
+#. module: xestion_sat
+#: model_terms:ir.actions.act_window,help:xestion_sat.xestionsat_device_action
+msgid "Empty Device List, register the first device!"
+msgstr "Lista de Dispositivos baleira, rexistre o primeiro dispositivo!"
+
+#. module: xestion_sat
+#: model_terms:ir.actions.act_window,help:xestion_sat.incidence_action_action
+msgid "Empty Incidence Actions List, register the first Action!"
+msgstr "Lista de Accións de Incidencia baleira, rexistre a primeira Acción!"
+
+#. module: xestion_sat
+#: model_terms:ir.actions.act_window,help:xestion_sat.xestionsat_incidence_assistance_place_action
+msgid "Empty Incidence Assistance Places List, register the first one!"
+msgstr "Lista de Lugares de Asistencia de Incidencia baleira, rexístre o primeiro!"
+
+#. module: xestion_sat
+#: model_terms:ir.actions.act_window,help:xestion_sat.xestionsat_incidence_stage_action
+msgid "Empty Incidence Stages List, register the first one!"
+msgstr "Lista de Etapas de Incidencia baleira, rexistra a primeira!"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_search_view_basic
+msgid "Ending Date"
+msgstr "Data de finalización"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__executed_by
@@ -191,56 +317,130 @@ msgid "Executed_by"
 msgstr "Executado por"
 
 #. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_stage__fold
+msgid "Folded in Pipeline"
+msgstr "Plegado no fluxo de etapas"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_search_view_basic
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_search_view_basic
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__headquarter_id
 msgid "Headquarters address"
 msgstr "Dirección da sede"
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__device_id
-msgid "ID device"
-msgstr "Código de Equipo"
+#: code:addons/xestion_sat/models/xestionsat_incidence.py:264
+#: selection:xestionsat.incidence,priority:0
+#, python-format
+msgid "High"
+msgstr "Alta"
 
 #. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_stage__highlight
+msgid "Highlight"
+msgstr "Resaltado"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_other_data__id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_assistance_place__id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_stage__id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_message__id
+msgid "ID"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__device_id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_other_data__device_id
+msgid "ID device"
+msgstr "Código de Dispositivo"
+
+#. module: xestion_sat
+#: code:addons/xestion_sat/models/xestionsat_incidence.py:31
+#: model:ir.model,name:xestion_sat.model_xestionsat_incidence
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__invoice_id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__sale_order_id
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__incidence_id
+#, python-format
 msgid "Incidence"
 msgstr "Incidencia"
 
 #. module: xestion_sat
-#: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidence_action_action
+#: code:addons/xestion_sat/models/xestionsat_incidence_action.py:29
+#: model:ir.model,name:xestion_sat.model_xestionsat_incidence_action
+#, python-format
+msgid "Incidence Action"
+msgstr "Acción de Incidencia"
+
+#. module: xestion_sat
+#: model:ir.actions.act_window,name:xestion_sat.incidence_action_action
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__incidence_action_ids
-msgid "Actions"
-msgstr "Accións"
+msgid "Incidence Actions"
+msgstr "Accións de Incidencia"
+
+#. module: xestion_sat
+#: code:addons/xestion_sat/models/xestionsat_incidence_assistance_place.py:23
+#: model:ir.model,name:xestion_sat.model_xestionsat_incidence_assistance_place
+#, python-format
+msgid "Incidence Assistance Place"
+msgstr "Lugar de Asistencia de Incidencia"
 
 #. module: xestion_sat
 #: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidence_assistance_place_action
-#: model:ir.ui.menu,name:xestion_sat.xestionsat_incidence_assistance_place_menu
-msgid "Assistance Places"
-msgstr "Lugares de Asistencia"
+msgid "Incidence Assistance Places"
+msgstr "Lugares de Asistencia de Incidencia"
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__sequence
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__sequence
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_stage__sequence
-msgid "Sequence"
-msgstr "Secuencia"
+#: model_terms:ir.actions.act_window,help:xestion_sat.xestionsat_incidence_assistance_place_action
+msgid ""
+"Incidence Assistance Places are the places where you serve your Customers:\n"
+"                for example, your workshop, your Customer's headquarters, a place in transit ... \n"
+"                you decide!!"
+msgstr "Lugares Asistencia de Incidencia son os lugars onde atende aos seus clientes: por exemplo, o noso \n"
+"                taller, a sede do seu cliente, un lugar en tránsito ... vostede decide !!"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_search_view_basic
+msgid "Incidence Search"
+msgstr "Búsqueda de Incidencia"
+
+#. module: xestion_sat
+#: code:addons/xestion_sat/models/xestionsat_incidence_stage.py:24
+#: model:ir.model,name:xestion_sat.model_xestionsat_incidence_stage
+#, python-format
+msgid "Incidence Stage"
+msgstr "Etapa de Inicidencia"
 
 #. module: xestion_sat
 #: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidence_stage_action
-msgid "States"
-msgstr "Estados"
-
-
-#. module: xestion_sat
-#: model:ir.ui.menu,name:xestion_sat.xestionsat_incidence_stage_menu
-msgid "Stages"
-msgstr "Etapas"
+msgid "Incidence Stages"
+msgstr "Etapas de Inicidencia"
 
 #. module: xestion_sat
 #: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidence_action
+#: model:ir.model.fields,field_description:xestion_sat.field_res_partner__incidence_ids
+#: model:ir.model.fields,field_description:xestion_sat.field_res_users__incidence_ids
 #: model:ir.ui.menu,name:xestion_sat.xestionsat_incidence_menu
 #: model:ir.ui.menu,name:xestion_sat.xestionsat_incidence_sub_menu
+#: model_terms:ir.ui.view,arch_db:xestion_sat.view_partner_form
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_view_form
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_tree
 msgid "Incidences"
 msgstr "Incidencias"
+
+#. module: xestion_sat
+#: model_terms:ir.actions.act_window,help:xestion_sat.xestionsat_incidence_invoice_action
+msgid ""
+"Incidents can be invoiced one by one or by batch, use the filters to group them\n"
+"                as you wish."
+msgstr "Pódense facturar unha por unha ou ber por lotes. Use os filtros para agrupalas como desexe."
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__internal_id
@@ -248,20 +448,49 @@ msgid "Internal ID"
 msgstr "ID interno"
 
 #. module: xestion_sat
+#: model:ir.model,name:xestion_sat.model_account_invoice
+#: model:ir.model.fields,field_description:xestion_sat.field_account_invoice__incidence_ids
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__invoiced
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_search_view_basic
+msgid "Invoiced"
+msgstr "Facturado"
+
+#. module: xestion_sat
+#: model:ir.ui.menu,name:xestion_sat.xestionsat_to_invoice_menu
+msgid "Invoices"
+msgstr "Facturas"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__kanban_state
+msgid "Kanban State"
+msgstr "Estado de kanban"
+
+#. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__location
 msgid "Location"
 msgstr "Ubicación"
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__lock
-msgid "Lock"
-msgstr "Bloquear"
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_stage__lock_incidence
+msgid "Lock the Incidence"
+msgstr "Bloquear a incidencia"
 
 #. module: xestion_sat
-#: code:addons/xestion_sat/models/device.py:120
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__locked
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_search_view_default
+msgid "Locked"
+msgstr "Bloqueada"
+
+#. module: xestion_sat
+#: code:addons/xestion_sat/models/xestionsat_incidence.py:262
+#: selection:xestionsat.incidence,priority:0
 #, python-format
-msgid "Moving from %s to %s is not allowed"
-msgstr "Non se permite pasar de %s a %s"
+msgid "Low"
+msgstr "Baixa"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__name
@@ -271,10 +500,26 @@ msgid "Name"
 msgstr "Nome"
 
 #. module: xestion_sat
-#: code:addons/xestion_sat/models/device.py:169
+#: model_terms:ir.ui.view,arch_db:xestion_sat.view_partner_form
+msgid "New Device"
+msgstr "Novo Dispositivo"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.view_partner_form
+msgid "New Inicidence"
+msgstr "Nova Incidencia"
+
+#. module: xestion_sat
+#: code:addons/xestion_sat/models/xestionsat_incidence.py:263
+#: selection:xestionsat.incidence,priority:0
 #, python-format
-msgid "New incidence"
-msgstr "Nova incidencia"
+msgid "Normal"
+msgstr ""
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_search_view_basic
+msgid "Not Invoiced"
+msgstr "Non Facturado"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__observation
@@ -285,28 +530,32 @@ msgid "Observations"
 msgstr "Observacións"
 
 #. module: xestion_sat
-#: code:addons/xestion_sat/models/incidence.py:209
-#, python-format
-msgid "One user cannot create Actions in the name of another"
-msgstr "Un usuario non pode crear Acccións no nome de outro"
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_search_view_default
+msgid "Open"
+msgstr "Aberto"
 
 #. module: xestion_sat
-#: code:addons/xestion_sat/models/incidence.py:100
-#, python-format
-msgid "One user cannot create Incidences in the name of another"
-msgstr "Un usuario non pode crear Incidencias no nome de outro"
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__number_open_actions
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_kanban
+msgid "Open Actions"
+msgstr "Accións Abertas"
 
 #. module: xestion_sat
-#: code:addons/xestion_sat/models/device.py:203
-#, python-format
-msgid "One user cannot create Devices in the name of another"
-msgstr "Un usuario non pode crear Equipos no nome de outro"
-
-#. module: xestion_sat
-#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_view_form
-#: selection:xestionsat.device,state:0
-msgid "Operational"
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_search_view_basic
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_search_view_basic
+msgid "Operative"
 msgstr "Operativo"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_sale_order__incidence_ids
+msgid "Order"
+msgstr "Pedido"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__othter_data_ids
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_view_form
+msgid "Other data"
+msgstr "Outra información"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__assistance_place
@@ -315,9 +564,49 @@ msgid "Place of assistance"
 msgstr "Lugar de asistencia"
 
 #. module: xestion_sat
-#: selection:xestionsat.device,state:0
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__priority
+msgid "Priority"
+msgstr "Prioridade"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_search_view_basic
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__date_registration
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__date_registration
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_other_data__date_registration
+msgid "Registration Date"
+msgstr "Data de alta"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__incidence_ids
+msgid "Related Incidences"
+msgstr "Incidencias relacionadas"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_action_view_form
+msgid "Reopen Action"
+msgstr "Reabrir Acción"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_form
+msgid "Reopen Incidence"
+msgstr "Reabrir Inicidencia"
+
+#. module: xestion_sat
+#: model:ir.actions.server,name:xestion_sat.xestionsat_incidence_server_action_reopen
+msgid "Reopen Incidences"
+msgstr "Reabrir Inicidencias"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_search_view_basic
 msgid "Repairing"
 msgstr "Reparandose"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__sequence
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__sequence
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_stage__sequence
+msgid "Sequence"
+msgstr "Secuencia"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_component__serial
@@ -325,23 +614,56 @@ msgid "Serial number"
 msgstr "Número de serie"
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__state
-msgid "State"
-msgstr "Estado"
+#: selection:product.template,type:0
+msgid "Service"
+msgstr "Servizo"
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__stage
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__stage_id
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__stage_value
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_stage__stage
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_search_view_basic
 msgid "Stage"
 msgstr "Etapa"
 
 #. module: xestion_sat
-#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_view_form
-#: selection:xestionsat.device,state:0
+#: model:ir.ui.menu,name:xestion_sat.xestionsat_incidence_stage_menu
+msgid "Stages"
+msgstr "Etapas"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_search_view_basic
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_kanban
+msgid "Start Date"
+msgstr "Date de comezo"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_search_view_basic
+msgid "Start Date Soon"
+msgstr "Date de comezo próxima"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_search_view_basic
 msgid "Stored"
 msgstr "Almacenado"
 
 #. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__subtotal
+msgid "Subtotal"
+msgstr ""
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__subtotal_discount
+msgid "Subtotal discount"
+msgstr "Desconto subtotal"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__subtotal_tax
+msgid "Subtotal with taxes"
+msgstr "Subtotal con impostos"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.product_template_search_view
 #: selection:product.template,type:0
 msgid "TAS Action"
 msgstr "Acción de SAT"
@@ -352,29 +674,28 @@ msgid "TAS Actions (products)"
 msgstr "Accións de SAT (produtos)"
 
 #. module: xestion_sat
-#: code:addons/xestion_sat/models/device.py:197
-#, python-format
-msgid "The code already exists"
-msgstr "O código xa existe"
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__tax_amount
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__tax_amount_line
+msgid "Tax amount"
+msgstr "Importe do imposto"
 
 #. module: xestion_sat
-#: code:addons/xestion_sat/models/incidence.py:94
-#, python-format
-msgid "The Device must belong to the specified Customer"
-msgstr "O Equipo debe pertencer ó Cliente especificado"
-
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_action__tax_ids
+msgid "Taxes"
+msgstr "Impostos"
 
 #. module: xestion_sat
-#: code:addons/xestion_sat/models/device.py:189
-#, python-format
-msgid "The Device User must be a member of the specified Customer"
-msgstr "O Usuario do Equipo debe ser membro do Cliente especificado"
+#: model_terms:ir.actions.act_window,help:xestion_sat.xestionsat_incidence_stage_action
+msgid ""
+"The Incidence Stages are necessary to keep your work flow orderly and to be able\n"
+"                to keep track of the status of your work."
+msgstr "As Etapas de Incidencia son necesarias para manter o seu fluxo de traballo\n"
+"                ordenado e así poder controlar o estado do seus traballos."
 
 #. module: xestion_sat
-#: code:addons/xestion_sat/models/device.py:191
-#, python-format
-msgid "The Headquarters must belong to the specified Customer"
-msgstr "A Sede debe pertencer ó Cliente especificado"
+#: model_terms:ir.actions.act_window,help:xestion_sat.xestionsat_incidence_invoice_action
+msgid "There are no incidences that can be invoiced."
+msgstr "Non hai incidencias que se poidea facturar."
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__title
@@ -382,133 +703,77 @@ msgid "Title"
 msgstr "Título"
 
 #. module: xestion_sat
-#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_view_form
-#: selection:xestionsat.device,state:0
+#: model:ir.actions.act_window,name:xestion_sat.xestionsat_incidence_invoice_action
+msgid "To Invoice"
+msgstr "Para Facturar"
+
+#. module: xestion_sat
+#: model_terms:ir.actions.act_window,help:xestion_sat.xestionsat_device_action
+msgid ""
+"To be able to link the Devices of your Customers with their Incidences you need to\n"
+"                register them first. After creating a Device you can save its components and any\n"
+"                other relevant information."
+msgstr "Para poder asociar os Dispositivos dos seus Clientes coas súas Incidencias, primeiro\n"
+"                debe rexistralos. Despois de crear un dispositivo, poderá gardar os seus compoñentes\n"
+"                e calquera outra información relevante."
+
+#. module: xestion_sat
+#: selection:xestionsat.device,activity_state:0
+#: selection:xestionsat.incidence,activity_state:0
+msgid "Today"
+msgstr "Hoxe"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__total_tax
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_kanban
+msgid "Total"
+msgstr ""
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_tree
+msgid "Total Discounted"
+msgstr "Total Descontado"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_tree
+msgid "Total Taxes"
+msgstr "Total con impostos"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_tree
+msgid "Total Untaxed Amount"
+msgstr "Total sen impostos"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__total_discount
+msgid "Total discount"
+msgstr "Desconto total"
+
+#. module: xestion_sat
+#: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_search_view_basic
 msgid "Unsubscribe"
 msgstr "De baixa"
 
 #. module: xestion_sat
-#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__user_ids
-msgid "Users"
-msgstr "Usuarios"
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device_other_data__value
+msgid "Value"
+msgstr "Valor"
 
 #. module: xestion_sat
-#: model:res.groups,name:xestion_sat.group_xestsat_admin
-msgid "xestionSAT technicians"
-msgstr "xestiónSAT persoal técnico"
+#: model_terms:ir.actions.act_window,help:xestion_sat.incidence_action_action
+msgid ""
+"You can create a specific type of Product called TAS Action, this type of Product\n"
+"                can be used to record specific Actions of your Technical Assistance Service."
+msgstr "Pode crear un tipo específico de produto chamado TAS Action, este tipo de produto\n"
+"                pódese usar para gradar accións específicas do seu Servizo de Asistencia Técnica."
 
 #. module: xestion_sat
 #: model:ir.ui.menu,name:xestion_sat.xestionsat_base_menu
+#: model_terms:ir.ui.view,arch_db:xestion_sat.view_partner_form
 msgid "xestionSAT"
 msgstr "xestiónSAT"
 
 #. module: xestion_sat
-#: model:xestionsat.incidence.assistance_place,assistance_place:xestion_sat.assistance_place1
-msgid "In workshop"
-msgstr "No taller"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.assistance_place,description:xestion_sat.assistance_place1
-msgid "In our workshop"
-msgstr "No noso taller"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.assistance_place,assistance_place:xestion_sat.assistance_place2
-msgid "On-site"
-msgstr "In situ"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.assistance_place,description:xestion_sat.assistance_place2
-msgid "At the Customer's workplace"
-msgstr "No lugar de traballo do Cliente"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.assistance_place,assistance_place:xestion_sat.assistance_place3
-msgid "On-site displaced"
-msgstr "In situ desprazado"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.assistance_place,description:xestion_sat.assistance_place3
-msgid "Outside the Customer's workplace, at a location of his choice"
-msgstr "Fora do lugar de traballo do Cliente, nunha localización escollida por el"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.stage,stage:xestion_sat.stage1
-msgid "Pending"
-msgstr "Pendente"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.stage,description:xestion_sat.stage1
-msgid "Work without starting"
-msgstr "Taballo pendente de iniciar"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.stage,stage:xestion_sat.stage2
-msgid "Started"
-msgstr "Iniciada"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.stage,description:xestion_sat.stage2
-msgid "Work in progress"
-msgstr "Traballo en proceso"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.stage,stage:xestion_sat.stage3
-msgid "On hold"
-msgstr "En espera"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.stage,description:xestion_sat.stage3
-msgid "Work on hold for some other reason"
-msgstr "Traballo en espera por razóns alleas a nos"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.stage,stage:xestion_sat.stage4
-msgid "Sent to external TAS"
-msgstr "Enviado a SAT externo"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.stage,description:xestion_sat.stage4
-msgid "Sent to an external Technical Assistance Service"
-msgstr "Enviado a un Servizo de Asistencia Técnica externo"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.stage,stage:xestion_sat.stage5
-msgid "Returned"
-msgstr "Retornado"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.stage,description:xestion_sat.stage5
-msgid "Returned from an external Technical Assistance Service and waiting to continue the work"
-msgstr "Retornado dun servizo externo de asistencia técnica e á espera de continuar co traballo"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.stage,stage:xestion_sat.stage6
-msgid "Finished"
-msgstr "Finalizada"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.stage,description:xestion_sat.stage6
-msgid "Completed work"
-msgstr "Traballo completado"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.stage,stage:xestion_sat.stage7
-msgid "Cancelled"
-msgstr "Cancelada"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.stage,description:xestion_sat.stage7
-msgid "Work canceled by Customer"
-msgstr "Traballo cancelado polo Cliente"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.stage,stage:xestion_sat.stage8
-msgid "Irresolvable"
-msgstr "Irresoluble"
-
-#. module: xestion_sat
-#: model:xestionsat.incidence.stage,description:xestion_sat.stage8
-msgid "Impossible to repair with the means at our disposal"
-msgstr "Imposible reparar cos medios ó noso alcance"
-
+#: model:res.groups,name:xestion_sat.group_xestionsat_admin
+msgid "xestionSAT technicians"
+msgstr "xestiónSAT persoal técnico"

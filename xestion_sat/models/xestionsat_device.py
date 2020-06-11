@@ -127,13 +127,13 @@ class Device(models.Model):
     )
 
     date_registration = fields.Datetime(
-        string='Date of registration',
+        string='Registration date',
         default=lambda *a: fields.Datetime.now(),
         required=True,
         track_visibility='onchange',
     )
     date_cancellation = fields.Datetime(
-        string='Date of cancellation',
+        string='Cancellation Date',
         track_visibility='onchange',
     )
 
