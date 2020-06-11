@@ -104,12 +104,12 @@ msgid ""
 "After creating your Incidences you can add Actions, Products, Services, relate it\n"
 "                to your Customers Devices and include them in the billing cycle."
 msgstr "Despois de crear as súas Incidencias, poderá engadir Accións, Produtos, Servizos, relacionalos \n"
-"cos Dispositivos dos seus  Clientes e incluílos no ciclo de facturación."
+"cos Dispositivos dos seus  Clientes e incluílas no ciclo de facturación."
 
 #. module: xestion_sat
 #: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_form
 msgid "Are you sure you want to continue?"
-msgstr "Está seguro de que queres continuar?"
+msgstr "Está seguro de que quere continuar?"
 
 #. module: xestion_sat
 #: model:ir.ui.menu,name:xestion_sat.xestionsat_incidence_assistance_place_menu
@@ -227,7 +227,7 @@ msgstr "Data de inicio"
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_assistance_place__description
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence_stage__description
 msgid "Description"
-msgstr "Descripción"
+msgstr "Descrición"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__failure_description
@@ -253,7 +253,7 @@ msgstr "Dispositivo - Compoñente"
 #: model:ir.model,name:xestion_sat.model_xestionsat_device_other_data
 #, python-format
 msgid "Device - Other Data"
-msgstr "Dispositivo _ Outra informaicón"
+msgstr "Dispositivo - Outra información"
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__devicecomponent_ids
@@ -304,7 +304,7 @@ msgstr "Lista de Lugares de Asistencia de Incidencia baleira, rexístre o primei
 #. module: xestion_sat
 #: model_terms:ir.actions.act_window,help:xestion_sat.xestionsat_incidence_stage_action
 msgid "Empty Incidence Stages List, register the first one!"
-msgstr "Lista de Etapas de Incidencia baleira, rexistra a primeira!"
+msgstr "Lista de Etapas de Incidencia baleira, rexistre a primeira!"
 
 #. module: xestion_sat
 #: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_search_view_basic
@@ -403,8 +403,8 @@ msgid ""
 "Incidence Assistance Places are the places where you serve your Customers:\n"
 "                for example, your workshop, your Customer's headquarters, a place in transit ... \n"
 "                you decide!!"
-msgstr "Lugares Asistencia de Incidencia son os lugars onde atende aos seus clientes: por exemplo, o noso \n"
-"                taller, a sede do seu cliente, un lugar en tránsito ... vostede decide !!"
+msgstr "Lugares Asistencia de Incidencias son os lugars onde atende aos seus clientes: por exemplo, nas nosas \n"
+"                instalacións, a sede do seu cliente, un lugar en tránsito ... vostede decide !!"
 
 #. module: xestion_sat
 #: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_search_view_basic
@@ -440,7 +440,7 @@ msgstr "Incidencias"
 msgid ""
 "Incidents can be invoiced one by one or by batch, use the filters to group them\n"
 "                as you wish."
-msgstr "Pódense facturar unha por unha ou ber por lotes. Use os filtros para agrupalas como desexe."
+msgstr "Pódense facturar unha por unha ou ben por lotes. Empregue os filtros para agrupalas como desexe."
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__internal_id
@@ -635,12 +635,12 @@ msgstr "Etapas"
 #: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_search_view_basic
 #: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_view_kanban
 msgid "Start Date"
-msgstr "Date de comezo"
+msgstr "Data de comezo"
 
 #. module: xestion_sat
 #: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_incidence_search_view_basic
 msgid "Start Date Soon"
-msgstr "Date de comezo próxima"
+msgstr "Data de comezo próxima"
 
 #. module: xestion_sat
 #: model_terms:ir.ui.view,arch_db:xestion_sat.xestionsat_device_search_view_basic
@@ -690,12 +690,12 @@ msgid ""
 "The Incidence Stages are necessary to keep your work flow orderly and to be able\n"
 "                to keep track of the status of your work."
 msgstr "As Etapas de Incidencia son necesarias para manter o seu fluxo de traballo\n"
-"                ordenado e así poder controlar o estado do seus traballos."
+"                ordenado e así poder controlar o estado do mesmo."
 
 #. module: xestion_sat
 #: model_terms:ir.actions.act_window,help:xestion_sat.xestionsat_incidence_invoice_action
 msgid "There are no incidences that can be invoiced."
-msgstr "Non hai incidencias que se poidea facturar."
+msgstr "Non hai incidencias que se poidan facturar."
 
 #. module: xestion_sat
 #: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_incidence__title
@@ -764,7 +764,7 @@ msgstr "Valor"
 msgid ""
 "You can create a specific type of Product called TAS Action, this type of Product\n"
 "                can be used to record specific Actions of your Technical Assistance Service."
-msgstr "Pode crear un tipo específico de produto chamado TAS Action, este tipo de produto\n"
+msgstr "Pode crear un tipo específico de produto chamado cción SAT, este tipo de produto\n"
 "                pódese usar para gradar accións específicas do seu Servizo de Asistencia Técnica."
 
 #. module: xestion_sat
@@ -777,3 +777,118 @@ msgstr "xestiónSAT"
 #: model:res.groups,name:xestion_sat.group_xestionsat_admin
 msgid "xestionSAT technicians"
 msgstr "xestiónSAT persoal técnico"
+
+#. module: xestion_sat
+#: model:ir.model.fields,field_description:xestion_sat.field_xestionsat_device__user_ids
+msgid "Users"
+msgstr "Usuarios"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.assistance_place,assistance_place:xestion_sat.assistance_place1
+msgid "In workshop"
+msgstr "No taller"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.assistance_place,description:xestion_sat.assistance_place1
+msgid "In our workshop"
+msgstr "Nas nosas instalacións"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.assistance_place,assistance_place:xestion_sat.assistance_place2
+msgid "On-site"
+msgstr "In situ"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.assistance_place,description:xestion_sat.assistance_place2
+msgid "At the Customer's workplace"
+msgstr "No lugar de traballo do Cliente"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.assistance_place,assistance_place:xestion_sat.assistance_place3
+msgid "On-site displaced"
+msgstr "In situ desprazado"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.assistance_place,description:xestion_sat.assistance_place3
+msgid "Outside the Customer's workplace, at a location of his choice"
+msgstr "Fora do lugar de traballo do Cliente, nunha localización da súa elección"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.stage,stage:xestion_sat.stage1
+msgid "Pending"
+msgstr "Pendente"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.stage,description:xestion_sat.stage1
+msgid "Work without starting"
+msgstr "Taballo pendente de iniciar"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.stage,stage:xestion_sat.stage2
+msgid "Started"
+msgstr "Iniciada"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.stage,description:xestion_sat.stage2
+msgid "Work in progress"
+msgstr "Traballo en proceso"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.stage,stage:xestion_sat.stage3
+msgid "On hold"
+msgstr "En espera"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.stage,description:xestion_sat.stage3
+msgid "Work on hold for some other reason"
+msgstr "Traballo en espera por razóns alleas a nos"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.stage,stage:xestion_sat.stage4
+msgid "Sent to external TAS"
+msgstr "Enviado a SAT externo"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.stage,description:xestion_sat.stage4
+msgid "Sent to an external Technical Assistance Service"
+msgstr "Enviado a un Servizo de Asistencia Técnica externo"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.stage,stage:xestion_sat.stage5
+msgid "Returned"
+msgstr "Retornado"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.stage,description:xestion_sat.stage5
+msgid "Returned from an external Technical Assistance Service and waiting to continue the work"
+msgstr "Retornado dun SAT externo e á espera de continuar co traballo"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.stage,stage:xestion_sat.stage6
+msgid "Finished"
+msgstr "Finalizada"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.stage,description:xestion_sat.stage6
+msgid "Completed work"
+msgstr "Traballo completado"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.stage,stage:xestion_sat.stage7
+msgid "Cancelled"
+msgstr "Cancelada"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.stage,description:xestion_sat.stage7
+msgid "Work canceled by Customer"
+msgstr "Traballo cancelado polo Cliente"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.stage,stage:xestion_sat.stage8
+msgid "Irresolvable"
+msgstr "Irresoluble"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.stage,description:xestion_sat.stage8
+msgid "Impossible to repair with the means at our disposal"
+msgstr "Imposible reparar cos medios ó noso alcance"
