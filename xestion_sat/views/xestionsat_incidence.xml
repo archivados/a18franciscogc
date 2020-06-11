@@ -198,7 +198,7 @@
                                     </div>
                                 -->
                                 </div>
-                                <div title="Start date" class="container-fluid" style="margin-bottom: 0.5em;">
+                                <div title="Start Date" class="container-fluid" style="margin-bottom: 0.5em;">
                                     <div class="row">
                                         <div class="col text-muted" style="padding: 2px;">
                                             <field name="created_by_id"/>
@@ -215,15 +215,15 @@
                                     <strong>
                                         <field name="number_total_actions" widget="statinfo"/>
                                         <t t-if="record.number_open_actions.raw_value">
-                                            <span role="alert" class="oe_kanban_mail_new text-info" title="Open actions">
-                                                <i class="fa fa-gears" role="img" aria-label="Open actions"/>
+                                            <span role="alert" class="oe_kanban_mail_new text-info" title="Open Actions">
+                                                <i class="fa fa-gears" role="img" aria-label="Open Actions"/>
                                                 <t t-raw="record.number_open_actions.raw_value"/>
                                             </span>
                                         </t>
                                     </strong>
                                 </div>
                                 <div class="oe_kanban_bottom_right align-bottom">
-                                    <strong role="alert" class="text-muted" title="Total money">
+                                    <strong role="alert" class="text-muted" title="Total">
                                         <field name="total_tax" widget="monetary" options="{'currency_field': 'company_currency'}"/>
                                     </strong>
                                     <span style="margin-left: 0.3em;">

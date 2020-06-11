@@ -55,7 +55,7 @@ class DeviceComponent(models.Model):
     )
 
     date_registration = fields.Datetime(
-        string='Date of registration',
+        string='Registration date',
         default=lambda *a: fields.Datetime.now(),
         required=True,
     )

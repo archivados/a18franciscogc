@@ -15,8 +15,8 @@
             - Record an Action on a given Incidence
             - Create new Actions to be able to assign to a Performance
             - Create Actions without being a registered Action
-            - Register a Team
-            - Register / Edit / Delete a Team Component
+            - Register a Device
+            - Register / Edit / Delete a Device Component
     """,
 
     'author': "Fco. Javier Gonzalez Campos",
