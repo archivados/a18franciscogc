@@ -67,6 +67,7 @@ class IncidenceStage(models.Model):
     stage = fields.Char(
         string='Stage',
         required=True,
+        translate=True,
     )
     sequence = fields.Integer(
         string='Sequence',
@@ -76,6 +77,7 @@ class IncidenceStage(models.Model):
     )
     description = fields.Text(
         string='Description',
+        translate=True,
     )
     highlight = fields.Selection(
         selection=_get_highlight_items,

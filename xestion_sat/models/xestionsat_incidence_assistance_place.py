@@ -33,7 +33,9 @@ class IncidenceAssistancePlace(models.Model):
     assistance_place = fields.Char(
         string='Place of assistance',
         required=True,
+        translate=True,
     )
     description = fields.Text(
         string='Description',
+        translate=True,
     )
