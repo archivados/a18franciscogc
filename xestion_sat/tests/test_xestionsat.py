@@ -8,6 +8,7 @@ from odoo.exceptions import ValidationError
 
 # 4:  imports from odoo modules
 from .test_common import TestCommonData
+from ..models.xestionsat_common import STATE_DEVICE
 
 # 5: local imports
 
@@ -386,7 +387,7 @@ class XestionsatTest(TestCommonData):
                 'owner_id': owner.id,
                 'headquarter_id': headquarter.id,
                 'name': name,
-                'state': 'operational',
+                'state': STATE_DEVICE[0][0],
                 'date_registration': datetime.now().strftime('%Y-%m-%d'),
             }
         )
