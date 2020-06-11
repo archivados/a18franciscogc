@@ -85,7 +85,7 @@ class Device(models.Model):
         ondelete='cascade',
         track_visibility='onchange',
     )
-    othter_data_ids = fields.One2many(
+    other_data_ids = fields.One2many(
         'xestionsat.device.other_data',
         string='Other data',
         inverse_name='device_id',
@@ -266,10 +266,10 @@ class Device(models.Model):
                     )
 
         # Other Data Tracking
-        old_data = self.othter_data_ids
+        old_data = self.other_data_ids
         data_msg = ''
 
-        if 'othter_data_ids' in vals:
+        if 'other_data_ids' in vals:
             if len(old_data) > 0:
                 data_msg += '<b>Old Data</b><ul>'
                 for data in old_data:
@@ -300,10 +300,10 @@ class Device(models.Model):
             self.message_post(body=_(components_msg) + '</ul>')
 
         # Other Data Tracking
-        if not compare_list(old_data, self.othter_data_ids):
+        if not compare_list(old_data, self.other_data_ids):
             data_msg += '</ul><b>New Data</b><ul>'
 
-            for data in self.othter_data_ids:
+            for data in self.other_data_ids:
                 data_msg += message_post_list(
                     {
                         'Data:': data.data,

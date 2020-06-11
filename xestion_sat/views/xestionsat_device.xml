@@ -70,8 +70,8 @@
                             </field>
                             <button name="add_component" string="Add component" type="object" class="btn_xest_primary oe_read_only"/>
                         </page>
-                        <page string="Other Data" name="Other_data_ids">
-                            <field name="Other_data_ids">
+                        <page string="Other Data" name="other_data_ids">
+                            <field name="other_data_ids">
                                 <tree name="components_tree" editable="bottom">
                                     <field name="data"/>
                                     <field name="value"/>
