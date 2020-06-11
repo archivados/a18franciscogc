@@ -814,6 +814,16 @@ msgid "Outside the Customer's workplace, at a location of his choice"
 msgstr "Fora do lugar de traballo do Cliente, nunha localización da súa elección"
 
 #. module: xestion_sat
+#: model:xestionsat.incidence.assistance_place,assistance_place:xestion_sat.assistance_place4
+msgid "Remote"
+msgstr "Remoto"
+
+#. module: xestion_sat
+#: model:xestionsat.incidence.assistance_place,description:xestion_sat.assistance_place4
+msgid "Remote connection"
+msgstr "Conexión remota"
+
+#. module: xestion_sat
 #: model:xestionsat.incidence.stage,stage:xestion_sat.stage1
 msgid "Pending"
 msgstr "Pendente"
