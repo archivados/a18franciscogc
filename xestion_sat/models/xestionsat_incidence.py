@@ -347,6 +347,7 @@ class Incidence(models.Model):
     def _check_date_end(self):
         """Check that the end date is not earlier than the start date.
         """
+        self._check_number_actions
         for record in self:
             if record.date_end:
                 if record.date_end < record.date_start:
@@ -542,6 +543,7 @@ class Incidence(models.Model):
 
         # Restrictions not to edit this field are assumed to work
         self.invoiced = False
+        self._compute_incidence_action_ids()
         date_now = False
 
         # All devices should have the same status

@@ -266,6 +266,7 @@ class IncidenceAction(models.Model):
             self.write({'date_end': date_now})
 
             # Reloaded to update the values of the incidence actions list
+            self.incidence_id._compute_incidence_action_ids()
             result = RELOAD_VIEW
         else:
             message_id = self.env['xestionsat.message'].create(
