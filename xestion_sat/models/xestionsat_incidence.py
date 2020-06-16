@@ -542,7 +542,6 @@ class Incidence(models.Model):
 
         # Restrictions not to edit this field are assumed to work
         self.invoiced = False
-        self._compute_incidence_action_ids()
         date_now = False
 
         # All devices should have the same status
