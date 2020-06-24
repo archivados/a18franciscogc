@@ -73,14 +73,11 @@ Se atopaches un erro por favor acude á sección [Notificando unha incidencia][N
 ## Índice
 
 1. [Idea]
-2. [Necesidades]
-3. [Análise]
-4. [Deseño]
-5. [Planificación]
-6. [Implantación]
-7. [Estratexia de versionado]
-8. [Changelog]
-8. [Melloras]
+2. [Deseño]
+3. [Planificación]
+4. [Estratexia de versionado]
+5. [Changelog]
+6. [Melloras]
 
 ## Guía de contribución
 
@@ -151,7 +148,7 @@ Antes de nada quero agradecerche se estás interesado en contribuír a este pequ
 
    [logo]: <doc/img/logo/xestionSAT_200x200.png>
 
-   [repoProxecto]: <https://gitlab.iessanclemente.net/damo/a18franciscogc.git>
+   [repoProxecto]: <https://github.com/efja/xestionSAT>
 
    [repoOdoo]: <https://gitlab.iessanclemente.net/a18franciscogc/odoo.git>
 
