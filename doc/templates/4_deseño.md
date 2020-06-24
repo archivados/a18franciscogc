@@ -23,6 +23,6 @@ O seguinte Diagrama de ER consta das táboas propias (completas) e das táboas d
 
    <!-- Enlaces proxecto -->
 
-   [Diagrama_uso]: <doc/img/4_desenho/Diagrama_usos.png>
+   [Diagrama_uso]: </doc/img/4_desenho/Diagrama_usos.png>
 
-   [ER_Diagram]: <doc/img/4_desenho/ER_Diagram.png>
+   [ER_Diagram]: </doc/img/4_desenho/ER_Diagram.png>
