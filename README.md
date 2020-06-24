@@ -74,10 +74,9 @@ Se atopaches un erro por favor acude á sección [Notificando unha incidencia][N
 
 1. [Idea]
 2. [Deseño]
-3. [Planificación]
-4. [Estratexia de versionado]
-5. [Changelog]
-6. [Melloras]
+3. [Estratexia de versionado]
+4. [Changelog]
+5. [Melloras]
 
 ## Guía de contribución
 
